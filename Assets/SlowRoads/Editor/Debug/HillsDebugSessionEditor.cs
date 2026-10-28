@@ -8,8 +8,12 @@ public sealed class HillsDebugSessionEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        EditorGUILayout.HelpBox("Legacy route adapter: debug framework only; Hills algorithm parity is pending.", MessageType.Info);
         var session = (HillsDebugSession)target;
+        EditorGUILayout.HelpBox(session.IsFinitePreview?"P4 finite road + material preview. Stops at the end; P5 streaming is pending.":"Legacy route adapter: approximate preview.",MessageType.Info);
+        using(new EditorGUI.DisabledScope(Application.isPlaying))
+        {
+            if(GUILayout.Button("Bake two P4 road segments"))Debug.Log(HillsRoadMaterialAuthoring.Bake());
+        }
         using (new EditorGUI.DisabledScope(!Application.isPlaying))
         {
             if (GUILayout.Button("Pause / Resume")) session.TogglePause();

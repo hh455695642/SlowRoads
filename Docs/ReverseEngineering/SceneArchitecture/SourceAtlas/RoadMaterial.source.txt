@@ -1,0 +1,401 @@
+# Raw material excerpts. L labels are THIS excerpt sequence, not historical prettier line numbers.
+# surface module=Hills rawUtf16Offset=103822
+L00001 ue={pars_vert:`
+L00002         attribute float bridge;
+L00003         attribute float paintSolid;
+L00004         attribute float paintSolidLeft;
+L00005         attribute float paintSolidRight;
+L00006         attribute float paintMergeLeft;
+L00007         attribute float paintMergeRight;
+L00008 
+L00009         uniform float textureStretch;
+L00010 
+L00011         varying float vBridge;
+L00012         varying float vSolid;
+L00013         varying float vSolidLeft;
+L00014         varying float vSolidRight;
+L00015         varying float vMergeLeft;
+L00016         varying float vMergeRight;
+L00017         varying float vOverlayFactor;
+L00018 
+L00019         varying vec2 vRoadUv;
+L00020 
+L00021     `,vert:`
+L00022         vBridge = bridge;
+L00023         vSolid = paintSolid;
+L00024         vSolidLeft = paintSolidLeft;
+L00025         vSolidRight = paintSolidRight;
+L00026         vMergeLeft = paintMergeLeft;
+L00027         vMergeRight = paintMergeRight;
+L00028 
+L00029         // Use shadow to inform overlay
+L00030         vOverlayFactor = saturate(vShadow * 3.0);
+L00031         
+L00032         vRoadUv = vMapUv;
+L00033         vRoadUv.y /= textureStretch;
+L00034 
+L00035     `,pars_frag:`
+L00036         uniform sampler2D overlayMap;
+L00037         uniform bool hasOverlay;
+L00038 
+L00039         uniform bool hasPaint;
+L00040 
+L00041         uniform sampler2D dashedMap;
+L00042         // uniform sampler2D dashedLongMap;
+L00043         uniform sampler2D solidMap;
+L00044         uniform sampler2D solidLeftMap;
+L00045         uniform sampler2D solidRightMap;
+L00046         uniform sampler2D mergeLeftMap;
+L00047         uniform sampler2D mergeRightMap;
+L00048 
+L00049         varying float vBridge;
+L00050         varying float vSolid;
+L00051         varying float vSolidLeft;
+L00052         varying float vSolidRight;
+L00053         varying float vMergeLeft;
+L00054         varying float vMergeRight;
+L00055         varying float vOverlayFactor;
+L00056 
+L00057         varying vec2 vRoadUv;
+L00058     `,frag:`
+L00059         #ifdef USE_MAP
+L00060 
+L00061             //// BASE            
+L00062 
+L00063             vec4 texelColor = texture2D( map, vRoadUv );
+L00064 
+L00065             // Bridge has solid alpha
+L00066             texelColor.a = max(vBridge, texelColor.a);
+L00067 
+L00068             // TODO do we even want radiance here? seems strange for the road specifically
+L00069             // Especially if it's done on paint lines
+L00070             totalEmissiveRadiance = texelColor.rgb * radiance;
+L00071 
+L00072             //// PAINT
+L00073 
+L00074             if(hasPaint) {
+L00075 
+L00076                 vec4 paintCol = texture( dashedMap, vMapUv, -0.3 );
+L00077 
+L00078                 float wSolid = smoothstep(0.49, 0.51, vSolid);
+L00079 
+L00080                 float wSolidLeft = smoothstep(0.49, 0.51, vSolidLeft);
+L00081                 float wSolidRight = smoothstep(0.49, 0.51, vSolidRight);
+L00082             
+L00083                 float wMergeLeft = smoothstep(0.49, 0.51, vMergeLeft)  * (1.0 - ceil(max(wSolidLeft, wSolidRight)));
+L00084                 float wMergeRight = smoothstep(0.49, 0.51, vMergeRight)  * (1.0 - ceil(max(wSolidLeft, wSolidRight)));
+L00085                 
+L00086                 if(wMergeLeft + wMergeRight > 0.0) {
+L00087                     paintCol = mix(paintCol, texture( mergeLeftMap, vMapUv, -0.3 ), wMergeLeft);
+L00088                     paintCol = mix(paintCol, texture( mergeRightMap, vMapUv, -0.3 ), wMergeRight);
+L00089                 }
+L00090                 if(wSolidRight + wSolidLeft > 0.0) {
+L00091                     paintCol = mix(paintCol, texture( solidRightMap, vMapUv, -0.3 ), wSolidRight);
+L00092                     paintCol = mix(paintCol, texture( solidLeftMap, vMapUv, -0.3 ), wSolidLeft);
+L00093                     paintCol = mix(paintCol, texture( solidMap, vMapUv, -0.3 ), wSolid);
+L00094                 }
+L00095 
+L00096                 texelColor.rgb = mix(texelColor.rgb, paintCol.rgb, paintCol.a);
+L00097                 
+L00098                 // if(vSolid > 0.499) {
+L00099                 //     vec4 paintCol = texture2D( solidMap, vMapUv );
+L00100                 //     texelColor.rgb = mix(texelColor.rgb, paintCol.rgb, paintCol.a);
+L00101                 // } else if(vSolidLeft > 0.499) {
+L00102                 //     vec4 paintCol = texture2D( solidLeftMap, vMapUv );
+L00103                 //     texelColor.rgb = mix(texelColor.rgb, paintCol.rgb, paintCol.a);
+L00104                 // } else if(vSolidRight > 0.499) {
+L00105                 //     vec4 paintCol = texture2D( solidRightMap, vMapUv );
+L00106                 //     texelColor.rgb = mix(texelColor.rgb, paintCol.rgb, paintCol.a);
+L00107                 // } else if(vMergeLeft > 0.499) {
+L00108                 //     vec4 paintCol = texture2D( mergeLeftMap, vMapUv );
+L00109                 //     texelColor.rgb = mix(texelColor.rgb, paintCol.rgb, paintCol.a);                
+L00110                 // } else if(vMergeRight > 0.499) {
+L00111                 //     vec4 paintCol = texture2D( mergeRightMap, vMapUv );
+L00112                 //     texelColor.rgb = mix(texelColor.rgb, paintCol.rgb, paintCol.a);                
+L00113                 // } else {
+L00114                 //     // Dash
+L00115                 //     vec4 dashColor = texture2D( dashedMap, vMapUv );
+L00116                 //     texelColor.rgb = mix(texelColor.rgb, dashColor.rgb, dashColor.a);
+L00117                 // }
+L00118                 
+L00119             }
+L00120 
+L00121             //// OVERLAY
+L00122 
+L00123             if(hasOverlay && vOverlayFactor > 0.0) {
+L00124                 vec4 overlayCol = texture2D(overlayMap, vRoadUv);
+L00125                 texelColor.rgb = mix(texelColor.rgb, overlayCol.rgb, vOverlayFactor * overlayCol.a);
+L00126             }
+L00127 
+L00128             diffuseColor *= texelColor;
+L00129 
+L00130         #endif
+L00131     `}
+# binding module=Hills rawUtf16Offset=129640
+L00132 let r;Oe?r=He?a.maps.roadSingle:a.maps.roadSingleWide:r=a.maps.road;let o=!!r.paintDashed;c.userData.hasPaint.value=o,c.map=s(r.base,o?4:16),t=="winter"?c.color.setHex(16777215):c.color.setHex(14540253),c.userData.dashedMap.value=o?s(r.paintDashed,16):void 0,c.userData.mergeLeftMap.value=o?s(r.paintMergeLeft,16):void 0,c.userData.mergeRightMap.value=o?s(r.paintMergeRight,16):void 0,c.userData.solidMap.value=o?s(r.paintSolid,16):void 0,c.userData.solidLeftMap.value=o?s(r.paintSolidLeft,16):void 0,c.userData.solidRightMap.value=o?s(r.paintSolidRight,16):void 0;let l=!!r.overlay;c.userData.hasOverlay.value=l,c.userData.overlayMap.value=l?s(r.overlay,4):void 0,c.userData.textureStretch.value=r.stretch??1
+# material module=Hills rawUtf16Offset=135659
+L00133 const c=new M({map:s(Z),alphaTest:.75,color:14540253,customProgramCacheKey:()=>"hills_road"});c.needsCameraPosition=!0;c.userData.hasPaint={value:!0};c.userData.dashedMap={value:S};c.userData.solidMap={value:S};c.userData.solidLeftMap={value:S};c.userData.solidRightMap={value:S};c.userData.mergeLeftMap={value:S};c.userData.mergeRightMap={value:S};c.userData.textureStretch={value:1};c.userData.overlayMap={value:S};c.userData.hasOverlay={value:!1};c.onBeforeCompile=t=>(t.uniforms.fresnelIntensity=i.userData.fresnelIntensity,t.uniforms.overlayMap=c.userData.overlayMap,t.uniforms.hasOverlay=c.userData.hasOverlay,t.uniforms.textureStretch=c.userData.textureStretch,t.uniforms.hasPaint=c.userData.hasPaint,t.uniforms.dashedMap=c.userData.dashedMap,t.uniforms.mergeLeftMap=c.userData.mergeLeftMap,t.uniforms.mergeRightMap=c.userData.mergeRightMap,t.uniforms.solidMap=c.userData.solidMap,t.uniforms.solidLeftMap=c.userData.solidLeftMap,t.uniforms.solidRightMap=c.userData.solidRightMap,t.uniforms.shadowFactor=X,t.vertexShader=t.vertexShader.replace("#include <displacementmap_pars_vertex>",`#include <displacementmap_pars_vertex>
+L00134 `+ue.pars_vert+Sr+St),t.vertexShader=t.vertexShader.replace("#include <displacementmap_vertex>",`#include <displacementmap_vertex>
+L00135 `+Dr+ue.vert+$o),t.fragmentShader=t.fragmentShader.replace("#include <map_pars_fragment>",`#include <map_pars_fragment>
+L00136 uniform float radiance;
+L00137 `+ue.pars_frag+wr+Dt),t.fragmentShader=t.fragmentShader.replace("#include <map_fragment>",ue.frag+es),t.fragmentShader=t.fragmentShader.replace("#include <lights_fragment_begin>","#include <lights_fragment_begin_shadow>"),t.fragmentShader=t.fragmentShader.replace("vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;","vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directDiffuse * totalEmissiveRadiance;"),t)
+# fresnel module=Hills rawUtf16Offset=103309
+L00138 es=`
+L00139 
+L00140     float fresnel = 1.0 - max( 0.0, dot( normalize(cameraPosition - vFresnelPos), vFresnelNorm ) );
+L00141     
+L00142     float lightFresnel = max(0.0, (fresnel - 0.75)) * 4.0;
+L00143     lightFresnel *= lightFresnel;
+L00144     lightFresnel *= (1.0 - vShadow);
+L00145     lightFresnel *= fresnelIntensity;
+L00146     
+L00147     float darkFresnel = 1.0 - min(1.0, fresnel * 1.3333);
+L00148     darkFresnel *= fresnelIntensity;
+L00149     darkFresnel = 0.25 + min(0.25, max(0.0, darkFresnel - 0.25) * 0.5);
+L00150 
+L00151     diffuseColor.rgb *= 1.0 + lightFresnel - darkFresnel;
+L00152 
+L00153 
+# shadow module=Normals rawUtf16Offset=597880
+L00154 lx=`
+L00155     attribute float shadow;
+L00156     varying float vShadow;
+L00157 	uniform float shadowFactor;
+L00158 `,cx=`
+L00159     vShadow = shadow * shadowFactor;
+L00160 `,dx=`
+L00161     varying float vShadow;
+L00162 `,hx={value:.5};function $E(a){return e=>{e.uniforms.shadowFactor=hx,e.vertexShader=e.vertexShader.replace("#include <displacementmap_pars_vertex>",`#include <displacementmap_pars_vertex>
+L00163 `+lx),e.vertexShader=e.vertexShader.replace("#include <displacementmap_vertex>",`#include <displacementmap_vertex>
+L00164 `+cx),e.fragmentShader=e.fragmentShader.replace("#include <map_pars_fragment>",`#include <map_pars_fragment>
+L00165 `+dx),e.fragmentShader=e.fragmentShader.replace("#include <lights_fragment_begin>","#include <lights_fragment_begin_shadow>")}}const ux=`
+L00166 
+L00167 GeometricContext geometry;
+L00168 
+L00169 geometry.position = - vViewPosition;
+L00170 geometry.normal = normal;
+L00171 geometry.viewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( vViewPosition );
+L00172 
+L00173 #ifdef USE_CLEARCOAT
+L00174 
+L00175 	geometry.clearcoatNormal = clearcoatNormal;
+L00176 
+L00177 #endif
+L00178 
+L00179 #ifdef USE_IRIDESCENCE
+L00180 
+L00181 	float dotNVi = saturate( dot( normal, geometry.viewDir ) );
+L00182 
+L00183 	if ( material.iridescenceThickness == 0.0 ) {
+L00184 
+L00185 		material.iridescence = 0.0;
+L00186 
+L00187 	} else {
+L00188 
+L00189 		material.iridescence = saturate( material.iridescence );
+L00190 
+L00191 	}
+L00192 
+L00193 	if ( material.iridescence > 0.0 ) {
+L00194 
+L00195 		material.iridescenceFresnel = evalIridescence( 1.0, material.iridescenceIOR, dotNVi, material.iridescenceThickness, material.specularColor );
+L00196 
+L00197 		// Iridescence F0 approximation
+L00198 		material.iridescenceF0 = Schlick_to_F0( material.iridescenceFresnel, 1.0, dotNVi );
+L00199 
+L00200 	}
+L00201 
+L00202 #endif
+L00203 
+L00204 IncidentLight directLight;
+L00205 
+L00206 #if ( NUM_POINT_LIGHTS > 0 ) && defined( RE_Direct )
+L00207 
+L00208 	PointLight pointLight;
+L00209 	#if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 0
+L00210 	PointLightShadow pointLightShadow;
+L00211 	#endif
+L00212 
+L00213 	#pragma unroll_loop_start
+L00214 	for ( int i = 0; i < NUM_POINT_LIGHTS; i ++ ) {
+L00215 
+L00216 		pointLight = pointLights[ i ];
+L00217 
+L00218 		getPointLightInfo( pointLight, geometry, directLight );
+L00219 
+L00220 		#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_POINT_LIGHT_SHADOWS )
+L00221 		pointLightShadow = pointLightShadows[ i ];
+L00222 		directLight.color *= ( directLight.visible && receiveShadow ) ? getPointShadow( pointShadowMap[ i ], pointLightShadow.shadowMapSize, pointLightShadow.shadowBias, pointLightShadow.shadowRadius, vPointShadowCoord[ i ], pointLightShadow.shadowCameraNear, pointLightShadow.shadowCameraFar ) : 1.0;
+L00223 		#endif
+L00224 
+L00225 		RE_Direct( directLight, geometry, material, reflectedLight );
+L00226 
+L00227 	}
+L00228 	#pragma unroll_loop_end
+L00229 
+L00230 #endif
+L00231 
+L00232 #ifndef SKIP_SPOTS
+L00233 #if ( NUM_SPOT_LIGHTS > 0 ) && defined( RE_Direct )
+L00234 
+L00235 	SpotLight spotLight;
+L00236 	vec4 spotColor;
+L00237 	vec3 spotLightCoord;
+L00238 	bool inSpotLightMap;
+L00239 
+L00240 	//// SR ROTATE OVERRIDE
+L00241 	// vec2 p;
+L00242     // float c;
+L00243     // float s;
+L00244 	////
+L00245 
+L00246 	#if defined( USE_SHADOWMAP ) && NUM_SPOT_LIGHT_SHADOWS > 0
+L00247 	SpotLightShadow spotLightShadow;
+L00248 	#endif
+L00249 
+L00250 	#pragma unroll_loop_start
+L00251 	for ( int i = 0; i < NUM_SPOT_LIGHTS; i ++ ) {
+L00252 
+L00253 		spotLight = spotLights[ i ];
+L00254 
+L00255         // TODO Could have some fun here to improve the night lighting?
+L00256 		getSpotLightInfo( spotLight, geometry, directLight );
+L00257 
+L00258 		// spot lights are ordered [shadows with maps, shadows without maps, maps without shadows, none]
+L00259 		#if ( UNROLLED_LOOP_INDEX < NUM_SPOT_LIGHT_SHADOWS_WITH_MAPS )
+L00260 		#define SPOT_LIGHT_MAP_INDEX UNROLLED_LOOP_INDEX
+L00261 		#elif ( UNROLLED_LOOP_INDEX < NUM_SPOT_LIGHT_SHADOWS )
+L00262 		#define SPOT_LIGHT_MAP_INDEX NUM_SPOT_LIGHT_MAPS
+L00263 		#else
+L00264 		#define SPOT_LIGHT_MAP_INDEX ( UNROLLED_LOOP_INDEX - NUM_SPOT_LIGHT_SHADOWS + NUM_SPOT_LIGHT_SHADOWS_WITH_MAPS )
+L00265 		#endif
+L00266 
+L00267 		#if ( SPOT_LIGHT_MAP_INDEX < NUM_SPOT_LIGHT_MAPS )
+L00268 			spotLightCoord = vSpotLightCoord[ i ].xyz / vSpotLightCoord[ i ].w;
+L00269 
+L00270 			//// SR OVERRIDE TO ROTATE MAP MAYBE
+L00271 			//// TODO this needs the rotation injected in a global uniform oof..
+L00272 			//// Could consider doing this if I map the traffic headlights but ...
+L00273 
+L00274             // p = spotLightCoord.xy - 0.5;
+L00275 
+L00276             // c = cos(-0.4);
+L00277             // s = sin(-0.4);
+L00278 
+L00279             // p = mat2(
+L00280             //     c, -s,
+L00281             //     s,  c
+L00282             // ) * p;
+L00283 
+L00284             // spotLightCoord.xy = p + 0.5;
+L00285                 
+L00286             ////
+L00287 
+L00288 			inSpotLightMap = all( lessThan( abs( spotLightCoord * 2. - 1. ), vec3( 1.0 ) ) );
+L00289 			spotColor = texture2D( spotLightMap[ SPOT_LIGHT_MAP_INDEX ], spotLightCoord.xy );
+L00290 			directLight.color = inSpotLightMap ? directLight.color * spotColor.rgb : directLight.color;
+L00291 		#endif
+L00292 
+L00293 		#undef SPOT_LIGHT_MAP_INDEX
+L00294 
+L00295 		#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_SPOT_LIGHT_SHADOWS )
+L00296 		spotLightShadow = spotLightShadows[ i ];
+L00297 		directLight.color *= ( directLight.visible && receiveShadow ) ? getShadow( spotShadowMap[ i ], spotLightShadow.shadowMapSize, spotLightShadow.shadowBias, spotLightShadow.shadowRadius, vSpotLightCoord[ i ] ) : 1.0;
+L00298 		#endif
+L00299 
+L00300 		RE_Direct( directLight, geometry, material, reflectedLight );
+L00301 
+L00302 	}
+L00303 	#pragma unroll_loop_end
+L00304 
+L00305 #endif
+L00306 #endif
+L00307 
+L00308 #if ( NUM_DIR_LIGHTS > 0 ) && defined( RE_Direct )
+L00309 
+L00310 	DirectionalLight directionalLight;
+L00311 	#if defined( USE_SHADOWMAP ) && NUM_DIR_LIGHT_SHADOWS > 0
+L00312 	DirectionalLightShadow directionalLightShadow;
+L00313 	#endif
+L00314 
+L00315 	#pragma unroll_loop_start
+L00316 	for ( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {
+L00317 
+L00318 		directionalLight = directionalLights[ i ];
+L00319 
+L00320 		// DIRECTIONAL OVERRIDE? needs the normal matrix transformation...
+L00321 		// directionalLight.direction = normalize(vec3(1.0,1.0,0.0));
+L00322 
+L00323 		getDirectionalLightInfo( directionalLight, geometry, directLight );
+L00324 
+L00325 
+L00326 		//// MAGIC LINE TO OVERRIDE DIRECTIONAL LIGHT SHADOW ////
+L00327 
+L00328         // TODO - might be best to change the underlying fragment for the scene?
+L00329 
+L00330         directLight.color *= 1.0 - min(1.0, vShadow);
+L00331 
+L00332         /////////////////////////////////////////////////////////
+L00333 
+L00334 		#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_DIR_LIGHT_SHADOWS )
+L00335 		directionalLightShadow = directionalLightShadows[ i ];
+L00336 		directLight.color *= ( directLight.visible && receiveShadow ) ? getShadow( directionalShadowMap[ i ], directionalLightShadow.shadowMapSize, directionalLightShadow.shadowBias, directionalLightShadow.shadowRadius, vDirectionalShadowCoord[ i ] ) : 1.0;
+L00337 		#endif
+L00338 
+L00339 		RE_Direct( directLight, geometry, material, reflectedLight );
+L00340 
+L00341 	}
+L00342 	#pragma unroll_loop_end
+L00343 
+L00344 #endif
+L00345 
+L00346 #if ( NUM_RECT_AREA_LIGHTS > 0 ) && defined( RE_Direct_RectArea )
+L00347 
+L00348 	RectAreaLight rectAreaLight;
+L00349 
+L00350 	#pragma unroll_loop_start
+L00351 	for ( int i = 0; i < NUM_RECT_AREA_LIGHTS; i ++ ) {
+L00352 
+L00353 		rectAreaLight = rectAreaLights[ i ];
+L00354 		RE_Direct_RectArea( rectAreaLight, geometry, material, reflectedLight );
+L00355 
+L00356 	}
+L00357 	#pragma unroll_loop_end
+L00358 
+L00359 #endif
+L00360 
+L00361 #if defined( RE_IndirectDiffuse )
+L00362 
+L00363 	vec3 iblIrradiance = vec3( 0.0 );
+L00364 
+L00365 	vec3 irradiance = getAmbientLightIrradiance( ambientLightColor );
+L00366 
+L00367 	irradiance += getLightProbeIrradiance( lightProbe, geometry.normal );
+L00368 
+L00369 	#if ( NUM_HEMI_LIGHTS > 0 )
+L00370 
+L00371 		#pragma unroll_loop_start
+L00372 		for ( int i = 0; i < NUM_HEMI_LIGHTS; i ++ ) {
+L00373 
+L00374 			irradiance += getHemisphereLightIrradiance( hemisphereLights[ i ], geometry.normal );
+L00375 
+L00376 		}
+L00377 		#pragma unroll_loop_end
+L00378 
+L00379 	#endif
+L00380 
+L00381 	//// SHADOW EFFECT ON AMBIENT
+L00382 	
+L00383 	irradiance *= 1.75 - min(1.0, max(0.75, vShadow));
+L00384 
+L00385 	////
+L00386 
+L00387 #endif
+L00388 
+L00389 #if defined( RE_IndirectSpecular )
+L00390 
+L00391 	vec3 radiance = vec3( 0.0 );
+L00392 	vec3 clearcoatRadiance = vec3( 0.0 );
+L00393 
+L00394 #endif
+L00395 

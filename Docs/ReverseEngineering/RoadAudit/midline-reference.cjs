@@ -448,6 +448,7 @@ function createReference(style='style3',seed='a',observe=true,scenario='archive-
       layerEvents:layerEvents.slice(beforeLayers),scratch:scratch(generator),
       state:snapshot(generator,ctx.shared,layerEvents,queryEvents),...(transition?{transition}:{})});
   }
+  if(options.consumeRuntime)return options.consumeRuntime({ctx,generator,input,profile,sourceHashes,pieces});
   return {schema:1,version:input.version,style,seed,scenario,sourceHashes,
     sections:Object.fromEntries(Object.entries(pieces).map(([key,value])=>[key,value.sha256])),
     profile:{midline:profile.midline,heightmap:profile.heightmap,treemap:profile.treemap,
@@ -470,6 +471,9 @@ function createReference(style='style3',seed='a',observe=true,scenario='archive-
 }
 
 function main(){
+  if(process.argv.includes('--road-mesh')){
+    require('./road-mesh-reference.cjs').run(createReference);return;
+  }
   if(process.argv.includes('--post-fine-restart')){
     const r=createReference('style3','a',true,'archive-heightfield',{
       updates:3833,full:true,fault:'post-fine-restart',faultOrdinal:3800});
@@ -764,5 +768,5 @@ function main(){
       result.restart?.state.queryCount??result.initial.queryCount,
     selfTest:process.argv.includes('--self-test')}));
 }
+module.exports={createReference,classSection,checkedSection};
 if(require.main===module)main();
-module.exports={createReference};

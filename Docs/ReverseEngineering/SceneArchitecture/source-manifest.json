@@ -29,6 +29,74 @@
         5740,
         6988
       ]
+    ],
+    "additionalExcerpts": [
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsRoad.source.txt",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "6a9d766e0461fcc5950ec83da513bf9e1700588d0b289f6a0e8596e13a361aa4",
+        "rawSectionSHA256": "112d0b3f584ddcf6ef878315087d7934cfb7e001f2ea609aeb0ddbccc79cbea2",
+        "rawUtf16Offset": 108858,
+        "ranges": [
+          [
+            4910,
+            5145
+          ]
+        ],
+        "symbol": "Nl"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+        "symbol": "surface",
+        "rawSectionSHA256": "b706019047937fe763c935ed5d1accc8e594b778d9ac60f5c08f8aaf8a47bcef",
+        "rawUtf16Offset": 103822,
+        "ranges": [
+          [
+            1,
+            131
+          ]
+        ],
+        "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+        "symbol": "binding",
+        "rawSectionSHA256": "4175e6af8484d7ef2f4ac4038817e261f9a07a20abb73585a4d1e4c2a524bfd8",
+        "rawUtf16Offset": 129640,
+        "ranges": [
+          [
+            132,
+            132
+          ]
+        ],
+        "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+        "symbol": "material",
+        "rawSectionSHA256": "f0e812004e75eea307e5c5e79ee75755f86a44e9b0b94258245921bf81ae6e1b",
+        "rawUtf16Offset": 135659,
+        "ranges": [
+          [
+            133,
+            137
+          ]
+        ],
+        "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+        "symbol": "fresnel",
+        "rawSectionSHA256": "637f8c484351645dd94f2b2793238aa2a5010d5616daefdb6f1bd3b44c9c3cfd",
+        "rawUtf16Offset": 103309,
+        "ranges": [
+          [
+            138,
+            153
+          ]
+        ],
+        "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      }
     ]
   },
   {
@@ -96,7 +164,35 @@
     "rawSHA256": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc",
     "formattedSHA256": "f04643d894898983238f49370368e61f9b75ad3f6e10445b82cce54e79a11399",
     "astEquivalent": true,
-    "ranges": [[134, 265], [834, 1259], [10970, 11028]]
+    "ranges": [
+      [
+        134,
+        265
+      ],
+      [
+        834,
+        1259
+      ],
+      [
+        10970,
+        11028
+      ]
+    ],
+    "additionalExcerpts": [
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+        "symbol": "shadow",
+        "rawSectionSHA256": "1e5bf0d21b0dfd0057e1d2effa0c3f095d6b25f2545d4586a175ff3fd1cf4591",
+        "rawUtf16Offset": 597880,
+        "ranges": [
+          [
+            154,
+            395
+          ]
+        ],
+        "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      }
+    ]
   },
   {
     "key": "Rand",

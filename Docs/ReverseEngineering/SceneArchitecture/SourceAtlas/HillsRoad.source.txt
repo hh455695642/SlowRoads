@@ -1,0 +1,237 @@
+// app.asar HillsHeightmap.2938f21e.js; {"path":"Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsRoad.source.txt","formatter":"prettier@3.6.2 parser=babel default options LF","formattedSHA256":"6a9d766e0461fcc5950ec83da513bf9e1700588d0b289f6a0e8596e13a361aa4","rawSectionSHA256":"112d0b3f584ddcf6ef878315087d7934cfb7e001f2ea609aeb0ddbccc79cbea2","rawUtf16Offset":108858,"ranges":[[4910,5145]],"symbol":"Nl"}
+L04910 class Nl extends Ut {
+L04911   constructor(...r) {
+L04912     super(...r);
+L04913     T(this, "bridgeIndex");
+L04914     T(this, "bridgeArr");
+L04915     T(this, "shadowIndex");
+L04916     T(this, "shadowArr");
+L04917     T(this, "skipRender", !1);
+L04918     T(this, "lerpConstraints", {
+L04919       paintSolid: null,
+L04920       paintSolidLeft: null,
+L04921       paintSolidRight: null,
+L04922       paintMergeLeft: null,
+L04923       paintMergeRight: null,
+L04924     });
+L04925     T(this, "nextSolidLerp", null);
+L04926     (this.geo.setAttribute(
+L04927       "bridge",
+L04928       new K(new Float32Array(this.vertCount), 1),
+L04929     ),
+L04930       this.geo.attributes.bridge.setUsage(q),
+L04931       (this.bridgeArr = this.geo.attributes.bridge.array),
+L04932       this.geo.setAttribute(
+L04933         "shadow",
+L04934         new K(new Float32Array(this.vertCount), 1),
+L04935       ),
+L04936       this.geo.attributes.shadow.setUsage(q),
+L04937       (this.shadowArr = this.geo.attributes.shadow.array),
+L04938       this.geo.setAttribute(
+L04939         "paintSolid",
+L04940         new K(new Float32Array(this.vertCount), 1),
+L04941       ),
+L04942       this.geo.attributes.paintSolid.setUsage(q),
+L04943       (this.solidArr = this.geo.attributes.paintSolid.array),
+L04944       this.geo.setAttribute(
+L04945         "paintSolidLeft",
+L04946         new K(new Float32Array(this.vertCount), 1),
+L04947       ),
+L04948       this.geo.attributes.paintSolidLeft.setUsage(q),
+L04949       (this.solidLeftArr = this.geo.attributes.paintSolidLeft.array),
+L04950       this.geo.setAttribute(
+L04951         "paintSolidRight",
+L04952         new K(new Float32Array(this.vertCount), 1),
+L04953       ),
+L04954       this.geo.attributes.paintSolidRight.setUsage(q),
+L04955       (this.solidRightArr = this.geo.attributes.paintSolidRight.array),
+L04956       this.geo.setAttribute(
+L04957         "paintMergeLeft",
+L04958         new K(new Float32Array(this.vertCount), 1),
+L04959       ),
+L04960       this.geo.attributes.paintMergeLeft.setUsage(q),
+L04961       (this.mergeLeftArr = this.geo.attributes.paintMergeLeft.array),
+L04962       this.geo.setAttribute(
+L04963         "paintMergeRight",
+L04964         new K(new Float32Array(this.vertCount), 1),
+L04965       ),
+L04966       this.geo.attributes.paintMergeRight.setUsage(q),
+L04967       (this.mergeRightArr = this.geo.attributes.paintMergeRight.array));
+L04968   }
+L04969   getMaterial() {
+L04970     return c;
+L04971   }
+L04972   getRoadWidth() {
+L04973     return O;
+L04974   }
+L04975   initGeneration(...r) {
+L04976     var n;
+L04977     (super.initGeneration(...r),
+L04978       (this.bridgeIndex = 0),
+L04979       (this.bridgeArr[this.bridgeIndex++] = this.node.bridge ? 1 : 0),
+L04980       (this.bridgeArr[this.bridgeIndex++] = this.node.bridge ? 1 : 0),
+L04981       (this.shadowIndex = 0),
+L04982       (this.shadowArr[this.shadowIndex++] = this.node.shadowLeft ?? 0),
+L04983       (this.shadowArr[this.shadowIndex++] = this.node.shadowRight ?? 0),
+L04984       (this.solidIndex = 0),
+L04985       (this.solidLeftIndex = 0),
+L04986       (this.solidRightIndex = 0),
+L04987       (this.mergeLeftIndex = 0),
+L04988       (this.mergeRightIndex = 0),
+L04989       (this.skipRender = !1),
+L04990       N &&
+L04991         (!this.node.next.bridge &&
+L04992           !((n = this.node.prev) != null && n.bridge) &&
+L04993           ((this.posArr[this.genIndex - 2] -= 1),
+L04994           (this.posArr[this.genIndex - 5] -= 1)),
+L04995         (this.skipRender = !0)));
+L04996     let o = this.headNode;
+L04997     for (; o.i < this.tailIndex; ) o = o.next;
+L04998     ((o.paintMergeLeft = 0), (o.paintMergeRight = 0));
+L04999     let l = o.next;
+L05000     ((o.paintSolidLeftWeight = l.paintSolidLeftWeight),
+L05001       (o.paintSolidRightWeight = l.paintSolidRightWeight));
+L05002   }
+L05003   customGenNext(r) {
+L05004     var o;
+L05005     (N &&
+L05006       (!r.next.bridge && !r.prev.bridge
+L05007         ? r.next.next.bridge || ((o = r.prev.prev) != null && o.bridge)
+L05008           ? ((this.posArr[this.genIndex - 2] -= 0.25),
+L05009             (this.posArr[this.genIndex - 5] -= 0.25))
+L05010           : ((this.posArr[this.genIndex - 2] -= 1),
+L05011             (this.posArr[this.genIndex - 5] -= 1))
+L05012         : (this.skipRender = !1)),
+L05013       (this.shadowArr[this.shadowIndex++] = r.shadowLeft ?? 0),
+L05014       (this.shadowArr[this.shadowIndex++] = r.shadowRight ?? 0));
+L05015   }
+L05016   getPaintWeight(r, o, l, n, d, f, m, C = !1) {
+L05017     let L = this.lerpConstraints[r],
+L05018       h;
+L05019     if (o == l)
+L05020       L !== null
+L05021         ? ((h = L), (this.lerpConstraints[r] = null))
+L05022         : (h = o ? 1 : 0);
+L05023     else {
+L05024       let I = Math.ceil(n),
+L05025         Y = Math.ceil(d);
+L05026       if (I == Y) h = o ? 1 : 0;
+L05027       else {
+L05028         let Nt = d - n,
+L05029           se = (I - n) / Nt;
+L05030         if (
+L05031           (C && l && Y - I >= 2 && (se += (Y - I - 1) / Nt),
+L05032           (h = L),
+L05033           (this.lerpConstraints[r] = null),
+L05034           h == null && (h = f < se ? (o ? 1 : 0) : l ? 1 : 0),
+L05035           f < se && m > se)
+L05036         ) {
+L05037           let hr = (se - f) / (m - f);
+L05038           this.lerpConstraints[r] = h + (0.5 - h) / hr;
+L05039         }
+L05040       }
+L05041     }
+L05042     return h;
+L05043   }
+L05044   customGenFine(r, o, l, n, d, f) {
+L05045     let m = o.bridge ? 1 : 0,
+L05046       C = o.bridge ? 1 : 0;
+L05047     ((this.bridgeArr[this.bridgeIndex++] = m * (1 - d) + C * d),
+L05048       (this.bridgeArr[this.bridgeIndex++] = m * (1 - d) + C * d),
+L05049       (r.paintSolid =
+L05050         r.paintSolidLeftWeight > 0.5 && r.paintSolidRightWeight > 0.5),
+L05051       (o.paintSolid =
+L05052         o.paintSolidLeftWeight > 0.5 && o.paintSolidRightWeight > 0.5));
+L05053     let L = this.getPaintWeight(
+L05054       "paintSolid",
+L05055       r.paintSolid,
+L05056       o.paintSolid,
+L05057       l,
+L05058       n,
+L05059       d,
+L05060       f,
+L05061     );
+L05062     ((this.solidArr[this.solidIndex++] = L),
+L05063       (this.solidArr[this.solidIndex++] = L),
+L05064       (r.paintSolidLeft = r.paintSolidLeftWeight > 0.5),
+L05065       (o.paintSolidLeft = o.paintSolidLeftWeight > 0.5));
+L05066     let h = this.getPaintWeight(
+L05067       "paintSolidLeft",
+L05068       r.paintSolidLeft,
+L05069       o.paintSolidLeft,
+L05070       l,
+L05071       n,
+L05072       d,
+L05073       f,
+L05074     );
+L05075     ((this.solidLeftArr[this.solidLeftIndex++] = h),
+L05076       (this.solidLeftArr[this.solidLeftIndex++] = h),
+L05077       (r.paintSolidRight = r.paintSolidRightWeight > 0.5),
+L05078       (o.paintSolidRight = o.paintSolidRightWeight > 0.5),
+L05079       (h = this.getPaintWeight(
+L05080         "paintSolidRight",
+L05081         r.paintSolidRight,
+L05082         o.paintSolidRight,
+L05083         l,
+L05084         n,
+L05085         d,
+L05086         f,
+L05087       )),
+L05088       (this.solidRightArr[this.solidRightIndex++] = h),
+L05089       (this.solidRightArr[this.solidRightIndex++] = h),
+L05090       (h = this.getPaintWeight(
+L05091         "paintMergeLeft",
+L05092         !!r.paintMergeLeft,
+L05093         !!o.paintMergeLeft,
+L05094         l,
+L05095         n,
+L05096         d,
+L05097         f,
+L05098         !0,
+L05099       )),
+L05100       (this.mergeLeftArr[this.mergeLeftIndex++] = h),
+L05101       (this.mergeLeftArr[this.mergeLeftIndex++] = h),
+L05102       (h = this.getPaintWeight(
+L05103         "paintMergeRight",
+L05104         !!r.paintMergeRight,
+L05105         !!o.paintMergeRight,
+L05106         l,
+L05107         n,
+L05108         d,
+L05109         f,
+L05110         !0,
+L05111       )),
+L05112       (this.mergeRightArr[this.mergeRightIndex++] = h),
+L05113       (this.mergeRightArr[this.mergeRightIndex++] = h));
+L05114   }
+L05115   finalise() {
+L05116     (super.finalise(),
+L05117       this.customGenFine(
+L05118         this.node,
+L05119         this.node.next,
+L05120         this.curUV,
+L05121         this.curUV + Ut.uvStep,
+L05122         0,
+L05123         1,
+L05124       ),
+L05125       (this.geo.attributes.bridge.needsUpdate = !0),
+L05126       (this.geo.attributes.shadow.needsUpdate = !0),
+L05127       (this.geo.attributes.paintSolid.needsUpdate = !0),
+L05128       (this.geo.attributes.paintSolidLeft.needsUpdate = !0),
+L05129       (this.geo.attributes.paintSolidRight.needsUpdate = !0),
+L05130       (this.geo.attributes.paintMergeLeft.needsUpdate = !0),
+L05131       (this.geo.attributes.paintMergeRight.needsUpdate = !0),
+L05132       (this.mesh.visible = !this.skipRender));
+L05133   }
+L05134   regenerateShadows() {
+L05135     for (
+L05136       this.shadowIndex = 0, this.node = this.headNode;
+L05137       this.node.next.prev.i <= this.tailIndex;
+L05138 
+L05139     )
+L05140       ((this.shadowArr[this.shadowIndex++] = this.node.shadowLeft ?? 0),
+L05141         (this.shadowArr[this.shadowIndex++] = this.node.shadowRight ?? 0),
+L05142         (this.node = this.node.nextFine));
+L05143     this.geo.attributes.shadow.needsUpdate = !0;
+L05144   }
+L05145 }

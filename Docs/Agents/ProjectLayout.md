@@ -13,20 +13,26 @@ Assets/
       Generation/Random/              Alea 随机数
       Generation/Heightfield/         Hills Pl 高度场与 tile 缓存
       Generation/Midline/             Se/B7、精链/属性、发布快照、米制索引与重放
+      Generation/Road/                D/Nl 纯网格、版本/ready 消费、属性 overlay 与有限段构建
+      Scene/Road/                     Unity Mesh 上传/LOD/释放、材质 SO 与有限预览数据，独立 RoadPresentation 程序集
       Legacy/Road/                    旧高度场/中线/路面预览、旧道路适配器
     Editor/Debug/                     调试 Inspector，无顶层菜单
     Settings/Debug/                    调试 ScriptableObject 实例
-    Settings/Hills/                    Hills 高度场配置实例
+    Settings/Hills/                    Hills 高度场及道路材质配置实例
     Tests/EditMode/                    原版数值对照测试
     Art/Debug/Materials/               Cube/道路占位材质
     Art/Reference/SlowRoads/           临时参考素材，按原分类保存
       Models/ Textures/ Materials/ Prefabs/
     Rendering/Shaders/Legacy/          已有参考树 Shader（材质仍依赖）
+    Rendering/Shaders/Road/            Hills 路面表面合成与 alpha clip
+    Art/Debug/RoadPreview/             P4 生成的有限两段 Mesh 与路线资产（非新场景）
 Docs/
   Agents/                             开发契约、阶段状态、整理与验证记录
   Assets/                             资产审计报告、统一清单、只读复查脚本
   ReverseEngineering/                 原版证据与历史差异审计
     RoadAudit/Fixtures/Heightfield/    从本地 app.asar 校验后生成的确定性样本
+    RoadAudit/Fixtures/RoadMesh/       原 D/Nl 冻结输入/全数组/续状态及 schema
+                                      路面材质来源身份与独立表面算术样本
 ```
 
 SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移除。原 SampleSceneProfile 被 PC/Mobile 管线引用，故保留并更名 SceneVolumeProfile，GUID 不变；已失效的输入配置注册已清除。参考模型/场景贴图以 Docs/Assets/HillsAssetManifest.json 为准。禁止重新导入车辆或其他场景资源。非运行资料放 Docs，不放 Assets 或 Resources。
@@ -38,6 +44,8 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 - Settings/Debug 的配置和 Art/Debug 的两个材质由主场景/装配器直接引用。
 - Legacy/Road 的四个文件仍是现有路线提供者，正式生成算法替换并验收后才能移除。
 - Generation 的 Alea、Hills Pl 已通过 P0/P1 限定范围对照，独立程序集和 12 项 EditMode 测试保持隔离，尚未挂接主场景；`Settings/Hills` 的 SO 资产使用修正后的 style3/detail2 示例参数，验收记录统一见 HillsAgents.md，不能替代 `roadStyle` 判定。
+- Generation/Road 的 D/Nl 通过 P4 数据验收；P4.1–P4.7 的 Scene/Road 只提供调用式上传器。Tests/EditMode/Road 与 RoadUnity 分别验证纯算法和真实 Unity 边界；后者是引用 Generation、RoadPresentation 与共用 fixture 读取器的实际测试程序集。
+- P4 材质补充后，Scene/Road 还保存 HillsRoadMaterialSettings / HillsRoadFinitePreview 类型；Settings/Hills 保存实例，Materials/Road 保存 12 套临时参考材质。Editor/Debug 的 HillsRoadMaterialAuthoring 显式调用 P4 Builder/Uploader 生成 Art/Debug/RoadPreview 资产；运行时不引用 Docs。有限模式复用原 Debug 装配，不实现 P5 调度。
 - 逆向摘录包含用于对照的其他场景片段，属于原始证据，不能按运行资产清理规则裁剪。仅保留当前权威资产清单、报告与复查脚本，旧截图和一次性验证快照不长期堆积。
 - Library、Unity 自身 Temp 文件、Logs、UserSettings、Packages 是工具缓存/配置或依赖，不能在编辑器运行时当作无用业务代码清空。IDE 的 sln/csproj 为自动生成产物，清理后需要时由 Unity 重建。
 
@@ -75,7 +83,7 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 - Legacy 仅维持调试可运行，不添加生产功能、不宣称算法等价。正式替代实现验证通过后，替换适配器并删除失去引用的 Legacy 文件。
 - 配置/材质使用序列化引用，不依赖硬编码 Resources.Load、全局 Find 或动态路径查找。新资源不要直接散落在 Assets/SlowRoads 根目录。
 - ScriptableObject 类型与实例职责分离；Debug 专用类型允许留在 Runtime/Debug。字段改名用 FormerlySerializedAs，类型/程序集改名明确迁移策略。
-- 当前保持默认程序集；需要测试或隔离依赖时再添加 asmdef，并验证序列化及 Editor 引用，禁止为目录形式拆出大量空程序集。
+- Legacy/Debug/Configuration 仍在默认程序集；Generation 保持 noEngineReferences 隔离，Scene/Road 单独使用 SlowRoads.RoadPresentation。只为已使用的边界添加 asmdef，禁止为目录形式拆出大量空程序集。
 
 ## agent 工作闭环
 

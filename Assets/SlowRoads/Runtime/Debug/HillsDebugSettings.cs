@@ -21,5 +21,8 @@ namespace SlowRoads.Debugging
         [Min(0)] public float cameraDamping = 6f;
         public Material roadMaterial;
         public Material cubeMaterial;
+        [Header("P4 finite material preview (no streaming)")]
+        public bool useFiniteRoadPreview;
+        public SlowRoads.Scene.Road.HillsRoadFinitePreview finiteRoadPreview;
     }
 }

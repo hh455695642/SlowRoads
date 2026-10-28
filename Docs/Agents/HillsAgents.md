@@ -30,9 +30,10 @@
 
 ## 阶段
 
-- S0：调试基础设施已具备；主场景仍接旧道路，提供暂停/单步/重置、Cube 与相机跟随。
+- S0：调试基础设施已具备；主场景支持 Legacy 与 P4 有限预览，提供暂停/单步/重置、Cube 与相机跟随。
 - S1a：P0/P1 已通过下述限定范围的原版对照与 Editor 回归；未接入中线。移动设备性能与 getXZLayer 不在本次已验收范围。
 - S1b：P2/P3的R01–R09已通过style0/style3及限定自然/合成用例，包含粗精线、桥/回退、属性、版本化快照、米制查询与边界重放；空间索引/正式streaming仍待P5。实际范围与93/93结果统一见 `Docs/ReverseEngineering/RoadAudit/P2P3_开发实施计划.md` 文首记录。
+- P4 道路网格：D/Nl 纯内核与 Unity 上传边界已通过 20/20 测试，P2/P3 回归 93/93。20 组原版输入、60 次构建在预算 1/7/64 下逐位匹配；真实 P3 的 style0/2000 步、style3/4100 步到 Nl 联合通过。主场景临时 URP 剔除/两段接缝验证后已清理，常驻数据源继续 Legacy；正式切换与段调度待 P5。完整范围、CPU 基线和限制见 `Docs/ReverseEngineering/RoadAudit/P4_道路网格开发实施计划.md` 文首。
 - S1c：地形、路基、道路、树群、农田、墙/桥/路边物件完整复刻；临时参考资产绑定。
 - S1d：固定观察点图像、生成计数、生命周期、Android/iOS GPU 帧耗时与带宽验收；通过后才能进入 S2。
 - S2：自有美术替换与材质/LOD 验证，检查所有临时素材引用已经清除。
@@ -66,7 +67,19 @@ fixture 仅在审查原版来源与配置差异后显式加 --write 更新；普
 
 `Runtime/Generation/Midline` 已接通原Se/B7完整逻辑update与预算让出。私有密度源随head层变化；`MidlineReadView`只在完成边界按需复制，P4消费者检查generation/revision及独立ready界。B7可回写旧标线属性，必须处理AttributeDirtyFrom，不能假设所有已读属性永久冻结。`MidlineDistanceIndex`是米制折线查询扩展，不是原道路UV算法；checkpoint只保证完成update边界的确定性重放。
 
-本次93/93是纯数据验收，没有把新路径源接入主场景。唯一场景继续Legacy/Cube/相机，后续P4/P5再做几何与接入验证；P6仍需Android/iOS实测。原版Math由Node/V8参考执行器验证，不外推原Electron和全部GPU/CPU平台逐位一致。
+该轮93/93是P2/P3纯数据验收，没有把新路径源接入主场景。唯一场景继续Legacy/Cube/相机；本轮P4几何与上传验证见下文，正式接入待P5，P6仍需Android/iOS实测。原版Math由Node/V8参考执行器验证，不外推原Electron和全部GPU/CPU平台逐位一致。
+
+## P4 交接状态（2026-10-28）
+
+`Generation/Road` 保持无 Unity 引用，显式配置、generation/revision、ready 界、phase 和段对象 paint 续状态。一个 Advance 单位为一个粗区间，最多十个精步。Nl 的尾点标线及派生 bool 回写隔离在 P4 overlay，不修改 P3；相邻段必须按原顺序共享 overlay 并传递 phase。需要重建时恢复段前 paint/overlay 状态；dirty−1 是最早保守影响区间，本轮重建整个有限段。Cancel 停止旧任务，新 generation 清旧 paint 约束。
+
+`Scene/Road` 的 `SlowRoads.RoadPresentation` 仅依赖 Generation 和 Unity。上传器检查生产者当前代际，冻结发布元数据，复用 GPU/CPU 容量，支持 enabled/visible、有效索引 LOD 与幂等 Dispose。七通道位于 TEXCOORD1/2。P4.1–P4.7 当时使用 URP/Unlit；2026-10-29 的 P4.8–P4.13 已加入专用路面 Shader 和 12 套参考材质，详见下段，不能继续声称当前新增 Shader/variant 为 0。
+
+P4 材质补充：`road-material-reference.cjs` 校验当前 archive 五模块并抽取 ue/绑定/Fresnel/shadow 证据，独立表面算术样本 12 个；RoadMaterialP4 8/8、RoadMeshP4 20/20 通过。Shader 消费七通道，alphaTest=.75，保留标线顺序与季节覆盖；Forward/DepthOnly 两 Pass、Instancing、无自定义 keyword，SRP Batcher code=0。17 张已有纹理使用 BC7/ASTC 6×6；桌面全部贴图 Editor 留存约 59.4 MB（原未压缩约 235.6 MB）。URP 主光/SH 为适配，全场景光照/雾与移动设备性能未验收。
+
+主场景当前 Debug SO 的 `useFiniteRoadPreview=true`：两段 natural-style3/seed=a 样本经实际 P4 Builder/Uploader 烘焙成资产 Mesh，53 个路线样本，约 80.33223 m 后自动暂停。运行时不加载 Docs、fixture 或测试程序集。`HillsRoadMaterialSettings` 控制季节、surface、显式灰模；`HillsRoadMaterialAuthoring.Bake` 在现有 Inspector 中提供有限段重建，没有平行场景或生成菜单。这是 P4 材质观察入口，不代表 P5 streaming 已接入；关闭该开关可使用原 Legacy 调试路线。
+
+P5 接管空间索引、三段轮转、窗口化快照/邻域保留、相位失效传播、场景数据源切换和长距离浮动原点。当前完整快照复制会分配，不得每帧调用；热构建/上传不分配的测量不能代替整个 streaming 的性能结论。P6 继续负责移动设备 GPU/带宽验收；地形、路基、桥结构与内容生成仍未完成。
 
 ## 使用调试框架
 
@@ -74,6 +87,6 @@ fixture 仅在审查原版来源与配置差异后显式加 --write 更新；普
 
 进入 Play，选择 `Hills Scene`：Pause / Resume、Step Forward、Reset Fixed Seed；Inspector 展示里程和保留节点数。SO 控制移动、相机、道路可见性、Gizmos、速度与镜头参数。seed、道路参数、道路可见性、Gizmos 与窗口大小在 Reset 时生效；移动/相机开关和速度实时生效。
 
-当前只显示灰色道路和橙色 Cube，背景纯色；没有地形、植被、车辆、音频、物理控制。相机在 LateUpdate 运行，指数阻尼，不依赖输入系统。
+当前默认显示有限 P4 路面材质和橙色 Cube，背景纯色；没有地形、植被、车辆、音频、物理控制。相机在 LateUpdate 运行，指数阻尼，不依赖输入系统。
 
-性能边界：单个观察者的 CPU 路径采样与相机更新规模很小；旧道路在节点变化时重建有限窗口网格，仍有 CPU 分配和线性查询，不可用于正式大规模场景。当前无 GPU Compute、额外 Pass、RT 或全屏 Blit；预览材质使用 URP Unlit 且 enableInstancing，没有新增 Shader keyword。正式 S1 移植必须替换旧道路重建和调度路径，不能把该预览的性能当作最终移动端表现。
+性能边界：单个观察者的 CPU 路径采样与相机更新规模很小；Legacy 道路仍有 CPU 分配和线性查询，不可用于正式大规模场景。有限 P4 模式复用资产 Mesh 和共享材质，没有每帧生成/上传。当前无 GPU Compute、额外管线 Pass、RT 或全屏 Blit；专用路面 Shader 有 Forward/DepthOnly，支持 Instancing，无自定义 keyword。不能把该预览的性能当作最终移动端表现。

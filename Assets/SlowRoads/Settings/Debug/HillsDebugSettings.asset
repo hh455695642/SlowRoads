@@ -40,3 +40,5 @@ MonoBehaviour:
   cameraDamping: 6
   roadMaterial: {fileID: 2100000, guid: 46dc5642ad1880a429c00080199ae6c7, type: 2}
   cubeMaterial: {fileID: 2100000, guid: 9b04238898d65cc44bcdfc7757827866, type: 2}
+  useFiniteRoadPreview: 1
+  finiteRoadPreview: {fileID: 11400000, guid: cb1740a8ba0f2e14bb490e79e393fd64, type: 2}

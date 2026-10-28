@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8c882118a5e524eac95289f9a91596, type: 3}
+  m_Name: HillsRoadMaterialSettings
+  m_EditorClassIdentifier: SlowRoads.RoadPresentation::SlowRoads.Scene.Road.HillsRoadMaterialSettings
+  surfaceEnabled: 1
+  grayPreview: 0
+  season: 0
+  surface: 0
+  grayMaterial: {fileID: 2100000, guid: 46dc5642ad1880a429c00080199ae6c7, type: 2}
+  entries:
+  - season: 0
+    surface: 0
+    material: {fileID: 2100000, guid: db6d738683987a5429f653f4c80a6c83, type: 2}
+  - season: 0
+    surface: 1
+    material: {fileID: 2100000, guid: 32124647dedc22047b886d1dc77da5a4, type: 2}
+  - season: 0
+    surface: 2
+    material: {fileID: 2100000, guid: a1317c72235029944a27c40f8c0ccebd, type: 2}
+  - season: 1
+    surface: 0
+    material: {fileID: 2100000, guid: 2756648005033ef47ae78ad492fb1cfd, type: 2}
+  - season: 1
+    surface: 1
+    material: {fileID: 2100000, guid: 43370b571c56ed14595f4100fa789bb4, type: 2}
+  - season: 1
+    surface: 2
+    material: {fileID: 2100000, guid: 503f2e0ec27695f43954c4f0c0621dea, type: 2}
+  - season: 2
+    surface: 0
+    material: {fileID: 2100000, guid: be479a4d26cb39440b82899e3e886ce0, type: 2}
+  - season: 2
+    surface: 1
+    material: {fileID: 2100000, guid: b6f0c8820d9d7a64aa14a9e129d29033, type: 2}
+  - season: 2
+    surface: 2
+    material: {fileID: 2100000, guid: 7e41eca4b8ed937408004779ac79b078, type: 2}
+  - season: 3
+    surface: 0
+    material: {fileID: 2100000, guid: 6cd8e0f8b9818fe498f8d4f16ed727a0, type: 2}
+  - season: 3
+    surface: 1
+    material: {fileID: 2100000, guid: ffdd016e6a4618e4ebdb0511e6ee455c, type: 2}
+  - season: 3
+    surface: 2
+    material: {fileID: 2100000, guid: ceed435c1960126429e0e1d6d4c2d94e, type: 2}

@@ -1663,5 +1663,50 @@
     "nodes": 152,
     "cameras": 1,
     "scene": "Assets/Scenes/SlowRoadsRoadDemo.unity"
+  },
+  "roadMaterialP4": {
+    "date": "2026-10-29",
+    "sourceArchive": "Slow Roads/resources/app.asar",
+    "sourceEvidence": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+    "reference": "Docs/ReverseEngineering/RoadAudit/Fixtures/RoadMesh/hills-road-material.json",
+    "shader": "SlowRoads/Hills/Road",
+    "settings": "Assets/SlowRoads/Settings/Hills/HillsRoadMaterialSettings.asset",
+    "materialDirectory": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Road",
+    "materials": 12,
+    "texturePixelsChanged": false,
+    "import": {
+      "rgb": "sRGB (original Et default)",
+      "alpha": "linear source alpha, not transparency dilation",
+      "wrap": "Repeat",
+      "mipmap": true,
+      "filter": "Trilinear",
+      "readable": false,
+      "desktop": "BC7 quality100",
+      "Android": "ASTC_6x6",
+      "iOS": "ASTC_6x6",
+      "fallback": "Unity ASTC unsupported-device software RGBA32 fallback; resident-memory cost requires device verification"
+    },
+    "unusedByRoadSurface": [
+      "road_paint_dashed_long.png",
+      "bridge.png",
+      "offroad_mask.png",
+      "offroad_mask_winter.png"
+    ],
+    "scope": "Surface mix and cutout; URP main sun/SH lighting adapter. Full scene lighting/fog and device compression verification remain pending.",
+    "verification": {
+      "materialTests": "8/8",
+      "meshRegression": "20/20",
+      "surfaceOracleCases": 12,
+      "uvCycleMaterialCount": 12,
+      "textureBytesUncompressedEditor": 235551604,
+      "textureBytesBC7Editor": 59391344,
+      "missingScripts": 0,
+      "invalidSerializedReferences": 0,
+      "shaderErrors": 0,
+      "sceneGUID": "c323176c3ca002848be289a8e08ab141",
+      "finiteEndMetres": 80.33223,
+      "fullSceneLightingFog": "pending",
+      "mobileGPUAndASTC": "unverified"
+    }
   }
 }

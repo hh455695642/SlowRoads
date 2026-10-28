@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Slow Roads v1.0.2 original D/Nl frozen execution",
+  "type": "object",
+  "required": ["schema", "version", "archive", "adapterVersion", "numericEncoding", "cases"],
+  "properties": {
+    "schema": {"const": 1},
+    "version": {"const": "1.0.2"},
+    "archive": {"const": "Slow Roads/resources/app.asar"},
+    "adapterVersion": {"const": 1},
+    "numericEncoding": {"type": "string"},
+    "cases": {"type": "array", "minItems": 20, "items": {"$ref": "#/$defs/case"}}
+  },
+  "$defs": {
+    "doubleBits": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+    "floatBits": {"type": "array", "items": {"type": "integer", "minimum": -2147483648, "maximum": 2147483647}},
+    "vector": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/doubleBits"}},
+    "node": {
+      "type": "object", "required": ["p", "side", "bridge", "hasLeft", "hasRight", "left", "right", "hasMergeLeft", "hasMergeRight"],
+      "properties": {"p": {"$ref": "#/$defs/vector"}, "side": {"$ref": "#/$defs/vector"}, "left": {"$ref": "#/$defs/doubleBits"}, "right": {"$ref": "#/$defs/doubleBits"}}
+    },
+    "cursor": {
+      "type": "object", "required": ["phase", "constraints"],
+      "properties": {"phase": {"$ref": "#/$defs/doubleBits"}, "constraints": {"type": "array", "items": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/doubleBits"}]}}}
+    },
+    "draw": {"type": "object", "required": ["start", "count"], "properties": {"start": {"type": "integer", "minimum": 0}, "count": {"type": "integer", "minimum": 0}}},
+    "build": {
+      "type": "object", "required": ["object", "startIndex", "before", "output", "fineDraw", "coarseDraw", "shadowRefresh"],
+      "properties": {
+        "before": {"$ref": "#/$defs/cursor"}, "fineDraw": {"$ref": "#/$defs/draw"}, "coarseDraw": {"$ref": "#/$defs/draw"},
+        "output": {
+          "type": "object", "required": ["vertexCount", "coarseCount", "fineStart", "fineCount", "attributes", "indices", "origin", "visible", "draw", "lod", "end", "sphere", "paint"],
+          "properties": {
+            "origin": {"$ref": "#/$defs/vector"}, "draw": {"$ref": "#/$defs/draw"}, "end": {"$ref": "#/$defs/cursor"},
+            "attributes": {"type": "object", "required": ["position", "normal", "uv"], "additionalProperties": {"$ref": "#/$defs/floatBits"}},
+            "indices": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 65535}}
+          }
+        }
+      }
+    },
+    "case": {
+      "type": "object", "required": ["id", "kind", "seed", "style", "profile", "effectiveMidlineConfig", "graphics", "effectiveHeightfieldConfig", "observerIndex", "unityBinding", "configuration", "input", "generations", "sourceHashes", "sections", "laneEnum", "laneCounts"],
+      "properties": {
+        "id": {"type": "string"}, "kind": {"enum": ["archive-B7-chain", "synthetic-frozen-chain"]},
+        "input": {"type": "object", "required": ["coarse", "points"], "properties": {"coarse": {"type": "array", "items": {"$ref": "#/$defs/node"}}, "points": {"type": "array", "items": {"$ref": "#/$defs/node"}}}},
+        "generations": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/build"}},
+        "sourceHashes": {"type": "object", "required": ["Dev", "Hills", "Settings", "Rand", "Normals"], "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+      }
+    }
+  }
+}

@@ -25,6 +25,8 @@ namespace SlowRoads.Debugging
         {
             if (route == null) return;
             Distance += Mathf.Max(0f, metres);
+            if(route is IBoundedRouteSource finite && Distance>=finite.MaximumDistance)
+            {Distance=finite.MaximumDistance;paused=true;}
             route.EnsureAhead(Distance + 1f);
             route.Sample(Distance, out var position, out var forward);
             transform.SetPositionAndRotation(position + Vector3.up * 0.65f,
