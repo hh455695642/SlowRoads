@@ -9,9 +9,14 @@ Assets/
   SlowRoads/
     Runtime/
       Debug/                          场景调试装配、观察者、相机、IRouteSource
+      Configuration/                  Hills 生成配置类型
+      Generation/Random/              Alea 随机数
+      Generation/Heightfield/         Hills Pl 高度场与 tile 缓存
       Legacy/Road/                    旧高度场/中线/路面预览、旧道路适配器
     Editor/Debug/                     调试 Inspector，无顶层菜单
     Settings/Debug/                    调试 ScriptableObject 实例
+    Settings/Hills/                    Hills 高度场配置实例
+    Tests/EditMode/                    原版数值对照测试
     Art/Debug/Materials/               Cube/道路占位材质
     Art/Reference/SlowRoads/           临时参考素材，按原分类保存
       Models/ Textures/ Materials/ Prefabs/
@@ -20,6 +25,7 @@ Docs/
   Agents/                             开发契约、阶段状态、整理与验证记录
   Assets/                             资产审计报告、统一清单、只读复查脚本
   ReverseEngineering/                 原版证据与历史差异审计
+    RoadAudit/Fixtures/Heightfield/    从本地 app.asar 校验后生成的确定性样本
 ```
 
 SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移除。原 SampleSceneProfile 被 PC/Mobile 管线引用，故保留并更名 SceneVolumeProfile，GUID 不变；已失效的输入配置注册已清除。参考模型/场景贴图以 Docs/Assets/HillsAssetManifest.json 为准。禁止重新导入车辆或其他场景资源。非运行资料放 Docs，不放 Assets 或 Resources。
@@ -30,6 +36,7 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 - Editor/Debug/HillsDebugSessionEditor 提供仍在使用的暂停、单步、重置与状态显示。
 - Settings/Debug 的配置和 Art/Debug 的两个材质由主场景/装配器直接引用。
 - Legacy/Road 的四个文件仍是现有路线提供者，正式生成算法替换并验收后才能移除。
+- Generation 的 Alea、Hills Pl 已通过 P0/P1 限定范围对照，独立程序集和 12 项 EditMode 测试保持隔离，尚未挂接主场景；`Settings/Hills` 的 SO 资产使用修正后的 style3/detail2 示例参数，验收记录统一见 HillsAgents.md，不能替代 `roadStyle` 判定。
 - 逆向摘录包含用于对照的其他场景片段，属于原始证据，不能按运行资产清理规则裁剪。仅保留当前权威资产清单、报告与复查脚本，旧截图和一次性验证快照不长期堆积。
 - Library、Unity 自身 Temp 文件、Logs、UserSettings、Packages 是工具缓存/配置或依赖，不能在编辑器运行时当作无用业务代码清空。IDE 的 sln/csproj 为自动生成产物，清理后需要时由 Unity 重建。
 
@@ -39,6 +46,7 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 - 已删除旧根目录算法总结、全量资产清单、两份旧验证文档、重复 JSON、一次性文本迁移脚本及可重新生成的 IDE 项目文件。有效资产来源与验证信息已合并到 HillsAssetManifest.json。
 - 清理后验证：主场景帧 9728 → 14126，里程 295.2654 → 423.2325 米，路径窗口 152 节点，保持一台摄像机；资产序列化引用检查无缺失项，compilationFailed=false。已退出播放并恢复后台运行设置。
 - 剩余待清理：`.workbuddy`、`Docs/Agents/Artifacts/HillsDebugPreview.png`、`Temp/BeforeHillsAssetAudit`、`Temp/BeforeHillsCleanup`、`Temp/HillsAssetAudit`。内容是旧截图和重复备份/暂存文件，约 416 MiB，不属于运行依赖。两次文件系统删除（批量递归、路径核验后的逐文件删除）均被自动审批策略拦截，未执行，不能视为已清理。不要误删 Unity 其余 Temp 文件。
+- P1 Play 验证产生的 `Temp/HillsP1Verification.png` 已由 `.gitignore` 排除；单文件删除也被自动审批策略拦截，待清理。不要为清理它改动 Unity 其他 Temp 文件。
 
 ## 后续模块落点（实现时再建，禁止空类占位）
 

@@ -1,4 +1,4 @@
-// Read-only probes against the supplied game archive and the original road segment class.
+// Read-only probes against the local game archive and the original road segment class.
 // Run: node verify-road-audit.cjs [original game directory]
 // No Unity Editor or game code is started. Geometry containers below are data-only stubs.
 const fs = require('node:fs');
@@ -6,10 +6,12 @@ const path = require('node:path');
 const vm = require('node:vm');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
-const { spawnSync } = require('node:child_process');
 
-const root = process.argv[2] || 'C:/Users/ruze/OneDrive/Desktop/Slow Roads';
+const projectRoot = path.resolve(__dirname, '../../..');
+const root = process.argv[2] || path.join(projectRoot, 'Slow Roads');
 const chunks = 'build/_app/immutable/chunks';
+const manifest = JSON.parse(fs.readFileSync(path.join(projectRoot,
+  'Docs/ReverseEngineering/SceneArchitecture/source-manifest.json'), 'utf8'));
 const originals = [
   'DevMidlineGenerator.6316d1a7.js', 'SettingsManager.9657445f.js',
   'HillsHeightmap.2938f21e.js', 'CaliMidlineGenerator.98e60041.js',
@@ -22,6 +24,7 @@ const headerLength = size.readUInt32LE(4);
 const headerBytes = Buffer.alloc(headerLength);
 fs.readSync(archive, headerBytes, 0, headerLength, 8);
 const header = JSON.parse(headerBytes.subarray(8, 8 + headerBytes.readUInt32LE(4)));
+const sourceBytes = new Map();
 const provenance = originals.map(name => {
   const relative = `${chunks}/${name}`;
   let entry = header;
@@ -34,24 +37,13 @@ const provenance = originals.map(name => {
     assert(count > 0, 'Unexpected archive EOF');
     read += count;
   }
-  const correctMatchesAsar = bytes.equals(fs.readFileSync(path.join(root, 'extracted_correct', relative)));
-  const oldMatchesAsar = bytes.equals(fs.readFileSync(path.join(root, 'extracted', relative)));
-  assert(correctMatchesAsar, `${name}: extracted_correct is inconsistent with archive`);
-  return { name, size: entry.size, correctMatchesAsar, oldMatchesAsar,
-    sha256: crypto.createHash('sha256').update(bytes).digest('hex') };
+  sourceBytes.set(name, bytes);
+  const sha256 = crypto.createHash('sha256').update(bytes).digest('hex');
+  const listed = manifest.find(item => `${item.module}.js` === name);
+  if (listed) assert.equal(sha256, listed.rawSHA256, `${name}: manifest hash mismatch`);
+  return { name, size: entry.size, sha256, manifestVerified: Boolean(listed) };
 });
 fs.closeSync(archive);
-
-const formattedSources = [originals[0], originals[2], originals[3], originals[5]].map(name => {
-  const rawPath = path.join(root, 'extracted_correct', chunks, name);
-  const prettyPath = rawPath.replace(/\.js$/, '.pretty.js');
-  const sameIgnoringWhitespace = fs.readFileSync(rawPath, 'utf8').replace(/\s/g, '') ===
-    fs.readFileSync(prettyPath, 'utf8').replace(/\s/g, '');
-  assert(sameIgnoringWhitespace, `${name}: formatted copy changed`);
-  const check = spawnSync(process.execPath, ['--check', prettyPath], { encoding: 'utf8' });
-  assert.equal(check.status, 0, check.stderr);
-  return { name, sameIgnoringWhitespace, syntaxCheckPassed: true };
-});
 
 class Vec {
   constructor(x = 0, y = 0, z = 0) { Object.assign(this, { x, y, z }); }
@@ -79,7 +71,7 @@ class Mesh {
 }
 class Sphere { constructor() { this.center = new Vec; } }
 
-const source = fs.readFileSync(path.join(root, 'extracted_correct', chunks, originals[0]), 'utf8');
+const source = sourceBytes.get(originals[0]).toString('utf8');
 const begin = source.indexOf('let fe=0,');
 const end = source.indexOf('let U=D;', begin);
 assert(begin >= 0 && end > begin, 'Original segment markers changed');
@@ -165,7 +157,7 @@ const adaptiveSegments = dot => Math.max(1, Math.min(10,
   Math.floor(10 * Math.sqrt((1 - Math.max(Math.min(dot, 1), .99)) * 100))));
 const adaptive = [1, .9999, .999, .995, .99, .98].map(dot => ({ dot, segments: adaptiveSegments(dot) }));
 const unitySource = fs.readFileSync(path.resolve(__dirname,
-  '../../../Assets/SlowRoads/Scripts/Road/RoadMidline.cs'), 'utf8');
+  '../../../Assets/SlowRoads/Runtime/Legacy/Road/RoadMidline.cs'), 'utf8');
 const step = unitySource.slice(unitySource.indexOf('public RoadNode Step()'),
   unitySource.indexOf('static float ClampAngleDelta'));
 const withoutComments = step.replace(/\/\/[^\r\n]*/g, '');
@@ -173,6 +165,6 @@ assert.equal((withoutComments.match(/\bgradLon\b/g) || []).length, 1);
 assert.equal((withoutComments.match(/\bgradLat\b/g) || []).length, 1);
 
 console.log(JSON.stringify({ scope: 'Archive identity, original segment data construction, and static road-control checks; no Unity runtime or visual verification.',
-  provenance, formattedSources, geometry, segmentSeam: { worldPositionsMatch: true, uvMatches: true,
+  provenance, geometry, segmentSeam: { worldPositionsMatch: true, uvMatches: true,
     previousEndV: segmentA.curUV, nextStartV: segmentB.uvArr[1] },
   adaptive, unityGradLonAndGradLatHaveNoConsumers: true }, null, 2));

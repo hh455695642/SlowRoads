@@ -1,0 +1,14 @@
+{
+  "name": "SlowRoads.Generation",
+  "rootNamespace": "SlowRoads.Generation",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}

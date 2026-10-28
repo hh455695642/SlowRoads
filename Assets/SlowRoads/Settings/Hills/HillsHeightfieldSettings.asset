@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b153b5b9198ac488bb1062ffc1116c, type: 3}
+  m_Name: HillsHeightfieldSettings
+  m_EditorClassIdentifier: Assembly-CSharp::SlowRoads.Configuration.HillsHeightfieldSettings
+  seed: a
+  scale: 60
+  offset: 100
+  resolution: 5
+  upresFactor: 2
+  depth: 5
+  layerResolutions: 03000000090000000d0000001b0000001f000000
+  depthHeightFactor: 1.25
+  squared: 1
+  temper: 1
+  temperBase: 50
+  temperBelow: 500
+  temperMin: 0.5
+  spiralise: 1
+  maxCached: 20
+  tileScaleRandom: 0.25
+  repeated: 0

@@ -112,6 +112,9 @@ InitTestScene*.unity*
 /.workbuddy/
 /Docs/Agents/Artifacts/HillsDebugPreview.png
 
+# Local Slow Roads v1.0.2 reference application and extracted sources
+/Slow Roads/
+
 # Local editor configuration and credentials
 /.idea/
 .env
