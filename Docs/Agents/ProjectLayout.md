@@ -12,6 +12,7 @@ Assets/
       Configuration/                  Hills 生成配置类型
       Generation/Random/              Alea 随机数
       Generation/Heightfield/         Hills Pl 高度场与 tile 缓存
+      Generation/Midline/             Se/B7、精链/属性、发布快照、米制索引与重放
       Legacy/Road/                    旧高度场/中线/路面预览、旧道路适配器
     Editor/Debug/                     调试 Inspector，无顶层菜单
     Settings/Debug/                    调试 ScriptableObject 实例

@@ -1,0 +1,218 @@
+{
+  "schema": 1,
+  "version": "1.0.2",
+  "style": "style3",
+  "seed": "a",
+  "profile": {
+    "midline": {
+      "isStraight": false,
+      "smoothWindow": 7,
+      "maxGrad": 0.12,
+      "roadSink": 0.4,
+      "smoothFactor": 0.75,
+      "maxTurnDelta": 0.2,
+      "solidLineThreshold": 0.18,
+      "solidLineCrestThreshold": -0.5,
+      "markingsMargin": 5
+    },
+    "heightmap": {
+      "scale": 60,
+      "offset": 100,
+      "layerResolutions": [
+        3,
+        9,
+        13,
+        27,
+        31
+      ],
+      "squared": true,
+      "depthHeightFactor": 1.25,
+      "temper": true,
+      "temperBase": 50,
+      "temperBelow": 500,
+      "temperMin": 0.5,
+      "tileScaleRandom": 0.25
+    },
+    "treemap": {
+      "scale": 0.75,
+      "offset": 2.75,
+      "layerResolutions": [
+        3,
+        9,
+        11,
+        29
+      ],
+      "squared": false,
+      "depthHeightFactor": 1.8,
+      "temper": false,
+      "tileScaleRandom": 0.25
+    },
+    "graphicsDetail": 2,
+    "treeDensity": "Auto",
+    "laneStyle": "Standard",
+    "startNode": 0
+  },
+  "effectiveMidlineConfig": {
+    "seed": 1,
+    "feelDist": 10,
+    "feelAng": 0.463,
+    "maxTurnDelta": 0.2,
+    "nodeSpacing": 10,
+    "panicDist": 10,
+    "distRange": 0,
+    "testDist": 20,
+    "minElev": 2,
+    "maxGrad": 0.12,
+    "isStraight": false,
+    "minBridgeElev": 0,
+    "maxBridgeElev": 4,
+    "maxBridgeNodes": 35,
+    "minBridgeNodes": 3,
+    "minStartElev": 10,
+    "maxStartElev": 180000,
+    "genRadius": 12000,
+    "genMinRadius": 6000,
+    "genDeviation": 0,
+    "curvatureHeightFactor": 3,
+    "minFineSegs": 1,
+    "roadSink": 0.4,
+    "squared": false,
+    "smoothWindow": 7,
+    "smoothFactor": 0.75,
+    "fineHorizon": 400,
+    "restartMargin": 200,
+    "direction": null,
+    "hasSmoothing": true,
+    "smoothingStrength": 1,
+    "maxGradLon": 5,
+    "testBridgeLateral": true,
+    "overflowRevertBase": 25,
+    "canEmergencyBridge": true,
+    "maxTargetOverflow": 3,
+    "solidLineThreshold": 0.18,
+    "solidLineCrestThreshold": -0.5,
+    "markingsMargin": 5,
+    "spiralise": true
+  },
+  "sourceHashes": {
+    "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+    "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+    "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+    "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+    "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+  },
+  "sections": {
+    "vector2": "33a9255c8b5bad0cd7c325073456102eda36ef613e14114d5caf0dfba7517fbc",
+    "vector3": "79052ce1b1060fe43f96756dd2a03389f16a44a0b092c5433cec938b0d88a910",
+    "curve": "294084122cd0fe5f030b7e4490a4728a929cdd527dd018f05debdc9984355ac4",
+    "gradient": "6fc3a7a74bd2bfcd5012d6ffe47391761854bd2af0af02d0d240a30440a23a95",
+    "midline": "a3fa76706c14cff2ef98d92faf10329e967d7b55950fbe3ef55a026556a454bf",
+    "hillsMidline": "637b5cf8d9acc3ab29af4065a852ff6dc376d38e4421e03d047fc35b7d9044de"
+  },
+  "cases": [
+    {
+      "x": 1,
+      "z": 1,
+      "previousSide": 1,
+      "currentSide": 0,
+      "nextSwitch": -1,
+      "layers": [
+        0,
+        0
+      ],
+      "events": 2,
+      "shadowMap": 4.801602152793518
+    },
+    {
+      "x": 1,
+      "z": -1,
+      "previousSide": 1,
+      "currentSide": 0,
+      "nextSwitch": -1,
+      "layers": [
+        0,
+        0
+      ],
+      "events": 2,
+      "shadowMap": 4.801602152793518
+    },
+    {
+      "x": -1,
+      "z": -1,
+      "previousSide": -1,
+      "currentSide": 1,
+      "nextSwitch": 1,
+      "layers": [
+        0,
+        1
+      ],
+      "events": 3,
+      "shadowMap": 4.810301306220708
+    },
+    {
+      "x": -1,
+      "z": 1,
+      "previousSide": -1,
+      "currentSide": 1,
+      "nextSwitch": 1,
+      "layers": [
+        0,
+        1
+      ],
+      "events": 3,
+      "shadowMap": 4.810301306220708
+    },
+    {
+      "x": 1,
+      "z": 1,
+      "previousSide": 1,
+      "currentSide": 0,
+      "nextSwitch": -1,
+      "layers": [
+        1,
+        1
+      ],
+      "events": 4,
+      "shadowMap": 3.164824973874258
+    },
+    {
+      "x": 1,
+      "z": -1,
+      "previousSide": 1,
+      "currentSide": 0,
+      "nextSwitch": -1,
+      "layers": [
+        1,
+        1
+      ],
+      "events": 4,
+      "shadowMap": 3.164824973874258
+    },
+    {
+      "x": -1,
+      "z": -1,
+      "previousSide": -1,
+      "currentSide": 1,
+      "nextSwitch": 1,
+      "layers": [
+        1,
+        2
+      ],
+      "events": 5,
+      "shadowMap": 3.0910685235009354
+    },
+    {
+      "x": -1,
+      "z": 1,
+      "previousSide": -1,
+      "currentSide": 1,
+      "nextSwitch": 1,
+      "layers": [
+        1,
+        2
+      ],
+      "events": 5,
+      "shadowMap": 3.0910685235009354
+    }
+  ]
+}

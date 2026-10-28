@@ -90,6 +90,15 @@
     ]
   },
   {
+    "key": "Normals",
+    "module": "normals.d4d92770",
+    "rawPath": "Slow Roads/resources/app.asar:build/_app/immutable/chunks/normals.d4d92770.js",
+    "rawSHA256": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc",
+    "formattedSHA256": "f04643d894898983238f49370368e61f9b75ad3f6e10445b82cce54e79a11399",
+    "astEquivalent": true,
+    "ranges": [[134, 265], [834, 1259], [10970, 11028]]
+  },
+  {
     "key": "Rand",
     "module": "QuickRandInt.76880ff2",
     "rawPath": "C:\\Users\\ruze\\OneDrive\\Desktop\\Slow Roads\\extracted_correct\\build\\_app\\immutable\\chunks\\QuickRandInt.76880ff2.js",

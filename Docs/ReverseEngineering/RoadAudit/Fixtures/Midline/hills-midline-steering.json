@@ -1,0 +1,2357 @@
+{
+  "schema": 1,
+  "version": "1.0.2",
+  "cases": [
+    {
+      "scenario": "steering-flat",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "initial": {
+        "generation": 2,
+        "head": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "tail": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "fineTail": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "smoothWindowHead": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "startNode": 0,
+        "restartCount": 0,
+        "generationCount": 0,
+        "prevT": 0,
+        "byWater": false,
+        "waterFactor": 0,
+        "targetDir": [
+          -1,
+          0,
+          0
+        ],
+        "prevTargetSide": 0,
+        "targetOverflow": 0,
+        "accumulatedOverflow": 0,
+        "antiTarget": [
+          0,
+          0,
+          0
+        ],
+        "antiTargetRange": 0,
+        "antiTargetTriggerCount": 0,
+        "bridge": {
+          "active": false,
+          "approach": false,
+          "dismount": false,
+          "spawnIndex": null,
+          "quality": 0,
+          "landing": [
+            0,
+            0,
+            0
+          ],
+          "distance": 0,
+          "height": null
+        },
+        "tailLayers": [
+          0,
+          0
+        ],
+        "headLayers": [
+          0,
+          0
+        ],
+        "trackers": [
+          {
+            "i": 0,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 1,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 2,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 3,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          }
+        ],
+        "aleaState": [
+          0.8672755148727447,
+          0.008185631828382611,
+          0.4245572602376342,
+          1372974
+        ],
+        "randState": [
+          0.6564107977319509,
+          0.8672755148727447,
+          0.008185631828382611,
+          1
+        ],
+        "layerEventCount": 2,
+        "queryCount": 4
+      },
+      "initialQueryEvents": [
+        {
+          "x": 0,
+          "z": 100,
+          "depth": null,
+          "value": 20
+        },
+        {
+          "x": 0,
+          "z": 90,
+          "depth": null,
+          "value": 20
+        },
+        {
+          "x": 10,
+          "z": 100,
+          "depth": null,
+          "value": 20
+        },
+        {
+          "x": 0,
+          "z": 110,
+          "depth": null,
+          "value": 20
+        }
+      ],
+      "step": {
+        "ordinal": 0,
+        "didExtend": true,
+        "queryEvents": [
+          {
+            "x": 8.947166229691796,
+            "z": 95.53365737339121,
+            "depth": null,
+            "value": 20
+          },
+          {
+            "x": 8.947166229691796,
+            "z": 104.46634262660879,
+            "depth": null,
+            "value": 20
+          },
+          {
+            "x": 0,
+            "z": 100,
+            "depth": null,
+            "value": 20
+          },
+          {
+            "x": 10,
+            "z": 100,
+            "depth": null,
+            "value": 20
+          }
+        ],
+        "layerEvents": [],
+        "scratch": {
+          "T": {
+            "feelDist": 10,
+            "feelL": 20,
+            "feelR": 20,
+            "feelA": 20,
+            "feelAvg": 20,
+            "feelDif": 0,
+            "gradLat": 0,
+            "gradLon": 0,
+            "bT": 0,
+            "gradLeft": 0,
+            "gradRight": 0,
+            "gradAvg": 0,
+            "maxT": 0.2,
+            "minT": -0.2,
+            "maxDif": 0.2,
+            "gradLon2": 0,
+            "bDir": 0
+          },
+          "E": {
+            "targetDot": -1,
+            "targetSide": 0,
+            "targetAng": 3.141592653589793,
+            "targetAdjust": 1,
+            "targetRedirect": 0,
+            "violatedOverflow": false,
+            "violatedTurnback": false,
+            "shouldBridge": false,
+            "bridgeViolation": false,
+            "roadSinkFactor": 0.4,
+            "x": 10,
+            "z": 100,
+            "nx": 10,
+            "nz": 0,
+            "nxz": 10,
+            "rad": 102.39218720195403
+          }
+        },
+        "state": {
+          "generation": 2,
+          "head": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "tail": {
+            "i": -16,
+            "p": [
+              10,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0.5840810120424219,
+            "o": null,
+            "fs": null
+          },
+          "fineTail": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "smoothWindowHead": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "startNode": 0,
+          "restartCount": 0,
+          "generationCount": 0,
+          "prevT": 0,
+          "byWater": false,
+          "waterFactor": 0,
+          "targetDir": [
+            0.09766370143335656,
+            0.19142085480937904,
+            0.9766370143335664
+          ],
+          "prevTargetSide": 0,
+          "targetOverflow": 0,
+          "accumulatedOverflow": 0,
+          "antiTarget": [
+            0,
+            0,
+            0
+          ],
+          "antiTargetRange": 0,
+          "antiTargetTriggerCount": 0,
+          "bridge": {
+            "active": false,
+            "approach": false,
+            "dismount": false,
+            "spawnIndex": null,
+            "quality": 0,
+            "landing": [
+              0,
+              0,
+              0
+            ],
+            "distance": 0,
+            "height": null
+          },
+          "tailLayers": [
+            0,
+            0
+          ],
+          "headLayers": [
+            0,
+            0
+          ],
+          "trackers": [
+            {
+              "i": 0,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 1,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 2,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.4
+            },
+            {
+              "i": 3,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.6
+            }
+          ],
+          "aleaState": [
+            0.8672755148727447,
+            0.008185631828382611,
+            0.4245572602376342,
+            1372974
+          ],
+          "randState": [
+            0.6564107977319509,
+            0.8672755148727447,
+            0.008185631828382611,
+            1
+          ],
+          "layerEventCount": 2,
+          "queryCount": 8
+        }
+      }
+    },
+    {
+      "scenario": "steering-ramp-x",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "initial": {
+        "generation": 2,
+        "head": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "tail": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "fineTail": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "smoothWindowHead": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "startNode": 0,
+        "restartCount": 0,
+        "generationCount": 0,
+        "prevT": 0,
+        "byWater": false,
+        "waterFactor": 0,
+        "targetDir": [
+          -1,
+          0,
+          0
+        ],
+        "prevTargetSide": 0,
+        "targetOverflow": 0,
+        "accumulatedOverflow": 0,
+        "antiTarget": [
+          0,
+          0,
+          0
+        ],
+        "antiTargetRange": 0,
+        "antiTargetTriggerCount": 0,
+        "bridge": {
+          "active": false,
+          "approach": false,
+          "dismount": false,
+          "spawnIndex": null,
+          "quality": 0,
+          "landing": [
+            0,
+            0,
+            0
+          ],
+          "distance": 0,
+          "height": null
+        },
+        "tailLayers": [
+          0,
+          0
+        ],
+        "headLayers": [
+          0,
+          0
+        ],
+        "trackers": [
+          {
+            "i": 0,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 1,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 2,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 3,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          }
+        ],
+        "aleaState": [
+          0.8672755148727447,
+          0.008185631828382611,
+          0.4245572602376342,
+          1372974
+        ],
+        "randState": [
+          0.6564107977319509,
+          0.8672755148727447,
+          0.008185631828382611,
+          1
+        ],
+        "layerEventCount": 2,
+        "queryCount": 4
+      },
+      "initialQueryEvents": [
+        {
+          "x": 0,
+          "z": 100,
+          "depth": null,
+          "value": 20
+        },
+        {
+          "x": 0,
+          "z": 90,
+          "depth": null,
+          "value": 20
+        },
+        {
+          "x": 10,
+          "z": 100,
+          "depth": null,
+          "value": 20.1
+        },
+        {
+          "x": 0,
+          "z": 110,
+          "depth": null,
+          "value": 20
+        }
+      ],
+      "step": {
+        "ordinal": 0,
+        "didExtend": true,
+        "queryEvents": [
+          {
+            "x": 8.947166229691796,
+            "z": 95.53365737339121,
+            "depth": null,
+            "value": 20.08947166229692
+          },
+          {
+            "x": 8.947166229691796,
+            "z": 104.46634262660879,
+            "depth": null,
+            "value": 20.08947166229692
+          },
+          {
+            "x": 0,
+            "z": 100,
+            "depth": null,
+            "value": 20
+          },
+          {
+            "x": 10,
+            "z": 100,
+            "depth": null,
+            "value": 20.1
+          }
+        ],
+        "layerEvents": [],
+        "scratch": {
+          "T": {
+            "feelDist": 10,
+            "feelL": 20.08947166229692,
+            "feelR": 20.08947166229692,
+            "feelA": 20,
+            "feelAvg": 20.08947166229692,
+            "feelDif": 0,
+            "gradLat": 0,
+            "gradLon": 0.07455971858076597,
+            "bT": 0,
+            "gradLeft": 0.07455971858076597,
+            "gradRight": 0.07455971858076597,
+            "gradAvg": 0.03727985929038299,
+            "maxT": 0.2186399296451915,
+            "minT": -0.2186399296451915,
+            "maxDif": 0.2186399296451915,
+            "gradLon2": 0.0055591516348430185,
+            "bDir": 0
+          },
+          "E": {
+            "targetDot": -1,
+            "targetSide": 0,
+            "targetAng": 3.141592653589793,
+            "targetAdjust": 1,
+            "targetRedirect": 0,
+            "violatedOverflow": false,
+            "violatedTurnback": false,
+            "shouldBridge": false,
+            "bridgeViolation": false,
+            "roadSinkFactor": 0.4,
+            "x": 10,
+            "z": 100,
+            "nx": 10,
+            "nz": 0,
+            "nxz": 10,
+            "rad": 102.41137632118807
+          }
+        },
+        "state": {
+          "generation": 2,
+          "head": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "tail": {
+            "i": -16,
+            "p": [
+              10,
+              19.700000000000003,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0.07455971858076597,
+            "gfa": 0.07455971858076597,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0.5840810120424219,
+            "o": null,
+            "fs": null
+          },
+          "fineTail": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "smoothWindowHead": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "startNode": 0,
+          "restartCount": 0,
+          "generationCount": 0,
+          "prevT": 0,
+          "byWater": false,
+          "waterFactor": 0,
+          "targetDir": [
+            0.09764540189985796,
+            0.19236144174272013,
+            0.9764540189985791
+          ],
+          "prevTargetSide": 0,
+          "targetOverflow": 0,
+          "accumulatedOverflow": 0,
+          "antiTarget": [
+            0,
+            0,
+            0
+          ],
+          "antiTargetRange": 0,
+          "antiTargetTriggerCount": 0,
+          "bridge": {
+            "active": false,
+            "approach": false,
+            "dismount": false,
+            "spawnIndex": null,
+            "quality": 0,
+            "landing": [
+              0,
+              0,
+              0
+            ],
+            "distance": 0,
+            "height": null
+          },
+          "tailLayers": [
+            0,
+            0
+          ],
+          "headLayers": [
+            0,
+            0
+          ],
+          "trackers": [
+            {
+              "i": 0,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 1,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 2,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.4
+            },
+            {
+              "i": 3,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.6
+            }
+          ],
+          "aleaState": [
+            0.8672755148727447,
+            0.008185631828382611,
+            0.4245572602376342,
+            1372974
+          ],
+          "randState": [
+            0.6564107977319509,
+            0.8672755148727447,
+            0.008185631828382611,
+            1
+          ],
+          "layerEventCount": 2,
+          "queryCount": 8
+        }
+      }
+    },
+    {
+      "scenario": "steering-ramp-z",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "initial": {
+        "generation": 2,
+        "head": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "tail": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "fineTail": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "smoothWindowHead": {
+          "i": -17,
+          "p": [
+            0,
+            19.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "startNode": 0,
+        "restartCount": 0,
+        "generationCount": 0,
+        "prevT": 0,
+        "byWater": false,
+        "waterFactor": 0,
+        "targetDir": [
+          -1,
+          0,
+          0
+        ],
+        "prevTargetSide": 0,
+        "targetOverflow": 0,
+        "accumulatedOverflow": 0,
+        "antiTarget": [
+          0,
+          0,
+          0
+        ],
+        "antiTargetRange": 0,
+        "antiTargetTriggerCount": 0,
+        "bridge": {
+          "active": false,
+          "approach": false,
+          "dismount": false,
+          "spawnIndex": null,
+          "quality": 0,
+          "landing": [
+            0,
+            0,
+            0
+          ],
+          "distance": 0,
+          "height": null
+        },
+        "tailLayers": [
+          0,
+          0
+        ],
+        "headLayers": [
+          0,
+          0
+        ],
+        "trackers": [
+          {
+            "i": 0,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 1,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 2,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 3,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          }
+        ],
+        "aleaState": [
+          0.8672755148727447,
+          0.008185631828382611,
+          0.4245572602376342,
+          1372974
+        ],
+        "randState": [
+          0.6564107977319509,
+          0.8672755148727447,
+          0.008185631828382611,
+          1
+        ],
+        "layerEventCount": 2,
+        "queryCount": 4
+      },
+      "initialQueryEvents": [
+        {
+          "x": 0,
+          "z": 100,
+          "depth": null,
+          "value": 20
+        },
+        {
+          "x": 0,
+          "z": 90,
+          "depth": null,
+          "value": 17
+        },
+        {
+          "x": 10,
+          "z": 100,
+          "depth": null,
+          "value": 20
+        },
+        {
+          "x": 0,
+          "z": 110,
+          "depth": null,
+          "value": 23
+        }
+      ],
+      "step": {
+        "ordinal": 0,
+        "didExtend": true,
+        "queryEvents": [
+          {
+            "x": 8.947166229691796,
+            "z": 95.53365737339121,
+            "depth": null,
+            "value": 18.660097212017362
+          },
+          {
+            "x": 8.947166229691796,
+            "z": 104.46634262660879,
+            "depth": null,
+            "value": 21.339902787982638
+          },
+          {
+            "x": 0,
+            "z": 100,
+            "depth": null,
+            "value": 20
+          },
+          {
+            "x": 10,
+            "z": 100,
+            "depth": null,
+            "value": 20
+          }
+        ],
+        "layerEvents": [],
+        "scratch": {
+          "T": {
+            "feelDist": 10,
+            "feelL": 18.660097212017362,
+            "feelR": 21.339902787982638,
+            "feelA": 20,
+            "feelAvg": 20,
+            "feelDif": 1.3399027879826377,
+            "gradLat": -2.233171313304396,
+            "gradLon": 0,
+            "bT": 0,
+            "gradLeft": -1.116585656652198,
+            "gradRight": 1.116585656652198,
+            "gradAvg": 1.116585656652198,
+            "maxT": 0.758292828326099,
+            "minT": -0.758292828326099,
+            "maxDif": 0.758292828326099,
+            "gradLon2": 0,
+            "bDir": 0
+          },
+          "E": {
+            "targetDot": -1,
+            "targetSide": 0,
+            "targetAng": 3.141592653589793,
+            "targetAdjust": 1,
+            "targetRedirect": 0,
+            "violatedOverflow": false,
+            "violatedTurnback": false,
+            "shouldBridge": false,
+            "bridgeViolation": false,
+            "roadSinkFactor": 0.4,
+            "x": 10,
+            "z": 100,
+            "nx": 10,
+            "nz": 0,
+            "nxz": 10,
+            "rad": 102.39218720195403
+          }
+        },
+        "state": {
+          "generation": 2,
+          "head": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "tail": {
+            "i": -16,
+            "p": [
+              10,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": -2.233171313304396,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0.5840810120424219,
+            "o": null,
+            "fs": null
+          },
+          "fineTail": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "smoothWindowHead": {
+            "i": -17,
+            "p": [
+              0,
+              19.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "startNode": 0,
+          "restartCount": 0,
+          "generationCount": 0,
+          "prevT": 0,
+          "byWater": false,
+          "waterFactor": 0,
+          "targetDir": [
+            0.09766370143335656,
+            0.19142085480937904,
+            0.9766370143335664
+          ],
+          "prevTargetSide": 0,
+          "targetOverflow": 0,
+          "accumulatedOverflow": 0,
+          "antiTarget": [
+            0,
+            0,
+            0
+          ],
+          "antiTargetRange": 0,
+          "antiTargetTriggerCount": 0,
+          "bridge": {
+            "active": false,
+            "approach": false,
+            "dismount": false,
+            "spawnIndex": null,
+            "quality": 0,
+            "landing": [
+              0,
+              0,
+              0
+            ],
+            "distance": 0,
+            "height": null
+          },
+          "tailLayers": [
+            0,
+            0
+          ],
+          "headLayers": [
+            0,
+            0
+          ],
+          "trackers": [
+            {
+              "i": 0,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 1,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 2,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.4
+            },
+            {
+              "i": 3,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.6
+            }
+          ],
+          "aleaState": [
+            0.8672755148727447,
+            0.008185631828382611,
+            0.4245572602376342,
+            1372974
+          ],
+          "randState": [
+            0.6564107977319509,
+            0.8672755148727447,
+            0.008185631828382611,
+            1
+          ],
+          "layerEventCount": 2,
+          "queryCount": 8
+        }
+      }
+    },
+    {
+      "scenario": "steering-water",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "initial": {
+        "generation": 2,
+        "head": {
+          "i": -17,
+          "p": [
+            0,
+            2.1,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "tail": {
+          "i": -17,
+          "p": [
+            0,
+            2.1,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "fineTail": {
+          "i": -17,
+          "p": [
+            0,
+            2.1,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "smoothWindowHead": {
+          "i": -17,
+          "p": [
+            0,
+            2.1,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "startNode": 0,
+        "restartCount": 0,
+        "generationCount": 0,
+        "prevT": 0,
+        "byWater": false,
+        "waterFactor": 0,
+        "targetDir": [
+          -1,
+          0,
+          0
+        ],
+        "prevTargetSide": 0,
+        "targetOverflow": 0,
+        "accumulatedOverflow": 0,
+        "antiTarget": [
+          0,
+          0,
+          0
+        ],
+        "antiTargetRange": 0,
+        "antiTargetTriggerCount": 0,
+        "bridge": {
+          "active": false,
+          "approach": false,
+          "dismount": false,
+          "spawnIndex": null,
+          "quality": 0,
+          "landing": [
+            0,
+            0,
+            0
+          ],
+          "distance": 0,
+          "height": null
+        },
+        "tailLayers": [
+          0,
+          0
+        ],
+        "headLayers": [
+          0,
+          0
+        ],
+        "trackers": [
+          {
+            "i": 0,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 1,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 2,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 3,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          }
+        ],
+        "aleaState": [
+          0.8672755148727447,
+          0.008185631828382611,
+          0.4245572602376342,
+          1372974
+        ],
+        "randState": [
+          0.6564107977319509,
+          0.8672755148727447,
+          0.008185631828382611,
+          1
+        ],
+        "layerEventCount": 2,
+        "queryCount": 4
+      },
+      "initialQueryEvents": [
+        {
+          "x": 0,
+          "z": 100,
+          "depth": null,
+          "value": 2.5
+        },
+        {
+          "x": 0,
+          "z": 90,
+          "depth": null,
+          "value": 2.5
+        },
+        {
+          "x": 10,
+          "z": 100,
+          "depth": null,
+          "value": 2.5
+        },
+        {
+          "x": 0,
+          "z": 110,
+          "depth": null,
+          "value": 2.5
+        }
+      ],
+      "step": {
+        "ordinal": 0,
+        "didExtend": true,
+        "queryEvents": [
+          {
+            "x": 8.947166229691796,
+            "z": 95.53365737339121,
+            "depth": null,
+            "value": 2.5
+          },
+          {
+            "x": 8.947166229691796,
+            "z": 104.46634262660879,
+            "depth": null,
+            "value": 2.5
+          },
+          {
+            "x": 0,
+            "z": 100,
+            "depth": null,
+            "value": 2.5
+          },
+          {
+            "x": 10,
+            "z": 100,
+            "depth": null,
+            "value": 2.5
+          }
+        ],
+        "layerEvents": [],
+        "scratch": {
+          "T": {
+            "feelDist": 10,
+            "feelL": 2.5,
+            "feelR": 2.5,
+            "feelA": 2.5,
+            "feelAvg": 2.5,
+            "feelDif": 0,
+            "gradLat": 0,
+            "gradLon": 0,
+            "bT": 0,
+            "gradLeft": 0,
+            "gradRight": 0,
+            "gradAvg": 0,
+            "maxT": 0.2,
+            "minT": -0.025,
+            "maxDif": 0.2,
+            "gradLon2": 0,
+            "bDir": 0
+          },
+          "E": {
+            "targetDot": -1,
+            "targetSide": 0,
+            "targetAng": 3.141592653589793,
+            "targetAdjust": 0.234375,
+            "targetRedirect": 0,
+            "violatedOverflow": false,
+            "violatedTurnback": false,
+            "shouldBridge": false,
+            "bridgeViolation": false,
+            "roadSinkFactor": 0,
+            "x": 10,
+            "z": 100,
+            "nx": 10,
+            "nz": 0,
+            "nxz": 10,
+            "rad": 100.52984631441551
+          }
+        },
+        "state": {
+          "generation": 2,
+          "head": {
+            "i": -17,
+            "p": [
+              0,
+              2.1,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "tail": {
+            "i": -16,
+            "p": [
+              10,
+              2.5,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0.5840810120424219,
+            "o": null,
+            "fs": null
+          },
+          "fineTail": {
+            "i": -17,
+            "p": [
+              0,
+              2.1,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "smoothWindowHead": {
+            "i": -17,
+            "p": [
+              0,
+              2.1,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "startNode": 0,
+          "restartCount": 0,
+          "generationCount": 0,
+          "prevT": 0,
+          "byWater": true,
+          "waterFactor": 0.875,
+          "targetDir": [
+            0.09947294626039885,
+            0.024868236565099695,
+            0.9947294626039878
+          ],
+          "prevTargetSide": 0,
+          "targetOverflow": 0,
+          "accumulatedOverflow": 0,
+          "antiTarget": [
+            0,
+            0,
+            0
+          ],
+          "antiTargetRange": 0,
+          "antiTargetTriggerCount": 0,
+          "bridge": {
+            "active": false,
+            "approach": false,
+            "dismount": false,
+            "spawnIndex": null,
+            "quality": 0,
+            "landing": [
+              0,
+              0,
+              0
+            ],
+            "distance": 0,
+            "height": null
+          },
+          "tailLayers": [
+            0,
+            0
+          ],
+          "headLayers": [
+            0,
+            0
+          ],
+          "trackers": [
+            {
+              "i": 0,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 1,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 2,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.4
+            },
+            {
+              "i": 3,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.6
+            }
+          ],
+          "aleaState": [
+            0.8672755148727447,
+            0.008185631828382611,
+            0.4245572602376342,
+            1372974
+          ],
+          "randState": [
+            0.6564107977319509,
+            0.8672755148727447,
+            0.008185631828382611,
+            1
+          ],
+          "layerEventCount": 2,
+          "queryCount": 8
+        }
+      }
+    },
+    {
+      "scenario": "steering-transition",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "initial": {
+        "generation": 2,
+        "head": {
+          "i": -17,
+          "p": [
+            0,
+            14.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "tail": {
+          "i": -17,
+          "p": [
+            0,
+            14.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "fineTail": {
+          "i": -17,
+          "p": [
+            0,
+            14.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "smoothWindowHead": {
+          "i": -17,
+          "p": [
+            0,
+            14.6,
+            100
+          ],
+          "a": 0,
+          "da": 0,
+          "t": 0,
+          "g": 0,
+          "gf": 0,
+          "gfa": 0,
+          "h": 0,
+          "n": [
+            0,
+            0,
+            1
+          ],
+          "bridge": false,
+          "blend": 0,
+          "o": null,
+          "fs": null
+        },
+        "startNode": 0,
+        "restartCount": 0,
+        "generationCount": 0,
+        "prevT": 0,
+        "byWater": false,
+        "waterFactor": 0,
+        "targetDir": [
+          -1,
+          0,
+          0
+        ],
+        "prevTargetSide": 0,
+        "targetOverflow": 0,
+        "accumulatedOverflow": 0,
+        "antiTarget": [
+          0,
+          0,
+          0
+        ],
+        "antiTargetRange": 0,
+        "antiTargetTriggerCount": 0,
+        "bridge": {
+          "active": false,
+          "approach": false,
+          "dismount": false,
+          "spawnIndex": null,
+          "quality": 0,
+          "landing": [
+            0,
+            0,
+            0
+          ],
+          "distance": 0,
+          "height": null
+        },
+        "tailLayers": [
+          0,
+          0
+        ],
+        "headLayers": [
+          0,
+          0
+        ],
+        "trackers": [
+          {
+            "i": 0,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 1,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 2,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          },
+          {
+            "i": 3,
+            "n": -17,
+            "da": 0,
+            "threshold": 3.3
+          }
+        ],
+        "aleaState": [
+          0.8672755148727447,
+          0.008185631828382611,
+          0.4245572602376342,
+          1372974
+        ],
+        "randState": [
+          0.6564107977319509,
+          0.8672755148727447,
+          0.008185631828382611,
+          1
+        ],
+        "layerEventCount": 2,
+        "queryCount": 4
+      },
+      "initialQueryEvents": [
+        {
+          "x": 0,
+          "z": 100,
+          "depth": null,
+          "value": 15
+        },
+        {
+          "x": 0,
+          "z": 90,
+          "depth": null,
+          "value": 15
+        },
+        {
+          "x": 10,
+          "z": 100,
+          "depth": null,
+          "value": 15
+        },
+        {
+          "x": 0,
+          "z": 110,
+          "depth": null,
+          "value": 15
+        }
+      ],
+      "step": {
+        "ordinal": 0,
+        "didExtend": true,
+        "queryEvents": [
+          {
+            "x": 8.947166229691796,
+            "z": 95.53365737339121,
+            "depth": null,
+            "value": 15
+          },
+          {
+            "x": 8.947166229691796,
+            "z": 104.46634262660879,
+            "depth": null,
+            "value": 15
+          },
+          {
+            "x": 0,
+            "z": 100,
+            "depth": null,
+            "value": 15
+          },
+          {
+            "x": 10,
+            "z": 100,
+            "depth": null,
+            "value": 15
+          }
+        ],
+        "layerEvents": [],
+        "scratch": {
+          "T": {
+            "feelDist": 10,
+            "feelL": 15,
+            "feelR": 15,
+            "feelA": 15,
+            "feelAvg": 15,
+            "feelDif": 0,
+            "gradLat": 0,
+            "gradLon": 0,
+            "bT": 0,
+            "gradLeft": 0,
+            "gradRight": 0,
+            "gradAvg": 0,
+            "maxT": 0.2,
+            "minT": -0.2,
+            "maxDif": 0.2,
+            "gradLon2": 0,
+            "bDir": 0
+          },
+          "E": {
+            "targetDot": -1,
+            "targetSide": 0,
+            "targetAng": 3.141592653589793,
+            "targetAdjust": 1,
+            "targetRedirect": 0,
+            "violatedOverflow": false,
+            "violatedTurnback": false,
+            "shouldBridge": false,
+            "bridgeViolation": false,
+            "roadSinkFactor": 0.4,
+            "roadSinkFacotr": null,
+            "x": 10,
+            "z": 100,
+            "nx": 10,
+            "nz": 0,
+            "nxz": 10,
+            "rad": 101.55372962131918
+          }
+        },
+        "state": {
+          "generation": 2,
+          "head": {
+            "i": -17,
+            "p": [
+              0,
+              14.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "tail": {
+            "i": -16,
+            "p": [
+              10,
+              14.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0.5840810120424219,
+            "o": null,
+            "fs": null
+          },
+          "fineTail": {
+            "i": -17,
+            "p": [
+              0,
+              14.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "smoothWindowHead": {
+            "i": -17,
+            "p": [
+              0,
+              14.6,
+              100
+            ],
+            "a": 0,
+            "da": 0,
+            "t": 0,
+            "g": 0,
+            "gf": 0,
+            "gfa": 0,
+            "h": 0,
+            "n": [
+              0,
+              0,
+              1
+            ],
+            "bridge": false,
+            "blend": 0,
+            "o": null,
+            "fs": null
+          },
+          "startNode": 0,
+          "restartCount": 0,
+          "generationCount": 0,
+          "prevT": 0,
+          "byWater": false,
+          "waterFactor": 0,
+          "targetDir": [
+            0.09847004179254384,
+            0.14376626101711407,
+            0.9847004179254388
+          ],
+          "prevTargetSide": 0,
+          "targetOverflow": 0,
+          "accumulatedOverflow": 0,
+          "antiTarget": [
+            0,
+            0,
+            0
+          ],
+          "antiTargetRange": 0,
+          "antiTargetTriggerCount": 0,
+          "bridge": {
+            "active": false,
+            "approach": false,
+            "dismount": false,
+            "spawnIndex": null,
+            "quality": 0,
+            "landing": [
+              0,
+              0,
+              0
+            ],
+            "distance": 0,
+            "height": null
+          },
+          "tailLayers": [
+            0,
+            0
+          ],
+          "headLayers": [
+            0,
+            0
+          ],
+          "trackers": [
+            {
+              "i": 0,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 1,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.3
+            },
+            {
+              "i": 2,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.4
+            },
+            {
+              "i": 3,
+              "n": -17,
+              "da": 0,
+              "threshold": 3.6
+            }
+          ],
+          "aleaState": [
+            0.8672755148727447,
+            0.008185631828382611,
+            0.4245572602376342,
+            1372974
+          ],
+          "randState": [
+            0.6564107977319509,
+            0.8672755148727447,
+            0.008185631828382611,
+            1
+          ],
+          "layerEventCount": 2,
+          "queryCount": 8
+        }
+      }
+    }
+  ]
+}

@@ -7,7 +7,7 @@ const manifest=JSON.parse(fs.readFileSync(path.join(root,'Docs/ReverseEngineerin
 const out=path.join(__dirname,'Fixtures/Heightfield/hills-heightfield.json');
 const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 
-function readArchive(){
+function readArchive(extraKeys=[]){
   const fd=fs.openSync(path.join(root,'Slow Roads/resources/app.asar'),'r');
   const read=(offset,length)=>{
     const bytes=Buffer.alloc(length);let done=0;
@@ -30,8 +30,10 @@ function readArchive(){
       return read(8+headerLength+Number(entry.offset),entry.size);
     };
     const sources={};
-    for(const item of manifest.filter(x=>['Dev','Hills','Settings','Rand'].includes(x.key)))
+    const required=new Set(['Dev','Hills','Settings','Rand',...extraKeys]);
+    for(const item of manifest.filter(x=>required.has(x.key)))
       sources[item.key]=file('build/_app/immutable/chunks/'+item.module+'.js');
+    for(const key of required)assert(sources[key],'Missing manifest module '+key);
     const calls=[];
     const chunks=header.files.build.files._app.files.immutable.files.chunks.files;
     for(const name of Object.keys(chunks).filter(x=>x.endsWith('.js')))
@@ -39,9 +41,9 @@ function readArchive(){
     return {sources,version:JSON.parse(file('package.json')).version,calls};
   }finally{fs.closeSync(fd);}
 }
-function verifyHashes(sources){
+function verifyHashes(sources,keys=['Dev','Hills','Settings','Rand']){
   const hashes={};
-  for(const key of ['Dev','Hills','Settings','Rand']){
+  for(const key of keys){
     const listed=manifest.find(x=>x.key===key);
     assert(listed&&sources[key],'Missing reference module '+key);
     hashes[key]=sha(sources[key]);
@@ -204,4 +206,4 @@ function main(){
     cacheSteps:result.cacheCases.reduce((n,x)=>n+x.steps.length,0),selfTest:process.argv.includes('--self-test')}));
 }
 if(require.main===module)main();
-module.exports={readArchive,oracle,buildReference,verifyHashes,section};
+module.exports={readArchive,oracle,buildReference,verifyHashes,section,literal};

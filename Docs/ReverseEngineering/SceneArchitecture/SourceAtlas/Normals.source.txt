@@ -1,0 +1,626 @@
+Source: Slow Roads/resources/app.asar:build/_app/immutable/chunks/normals.d4d92770.js
+Raw SHA-256: 3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc
+Formatted SHA-256: f04643d894898983238f49370368e61f9b75ad3f6e10445b82cce54e79a11399
+Source labels are historical formatted-file line numbers; raw module hash must match archive.
+===== normals.d4d92770: 10970-11028 =====
+L10970 }function yd(){
+L10971   let a=0,e=0,t=0,i=0;
+L10972   function n(s,r,o,l){
+L10973     a=s,e=o,t=-3*s+3*r-2*o-l,i=2*s-2*r+o+l
+L10974   }return{
+L10975     initCatmullRom:function(s,r,o,l,c){
+L10976       n(r,o,c*(o-s),c*(l-r))
+L10977     },initNonuniformCatmullRom:function(s,r,o,l,c,h,u){
+L10978       let p=(r-s)/c-(o-s)/(c+h)+(o-r)/h,m=(o-r)/h-(l-r)/(h+u)+(l-o)/u;
+L10979       p*=h,m*=h,n(r,o,p,m)
+L10980     },calc:function(s){
+L10981       const r=s*s,o=r*s;
+L10982       return a+e*s+t*r+i*o
+L10983     }
+L10984   }
+L10985 }const ao=new w,ic=new yd,nc=new yd,sc=new yd;
+L10986 class OE extends fM{
+L10987   constructor(e=[],t=!1,i="centripetal",n=.5){
+L10988     super(),this.isCatmullRomCurve3=!0,this.type="CatmullRomCurve3",this.points=e,this.closed=t,this.curveType=i,this.tension=n
+L10989   }getPoint(e,t=new w){
+L10990     const i=t,n=this.points,s=n.length,r=(s-(this.closed?0:1))*e;
+L10991     let o=Math.floor(r),l=r-o;
+L10992     this.closed?o+=o>0?0:(Math.floor(Math.abs(o)/s)+1)*s:l===0&&o===s-1&&(o=s-2,l=1);
+L10993     let c,h;
+L10994     this.closed||o>0?c=n[(o-1)%s]:(ao.subVectors(n[0],n[1]).add(n[0]),c=ao);
+L10995     const u=n[o%s],p=n[(o+1)%s];
+L10996     if(this.closed||o+2<s?h=n[(o+2)%s]:(ao.subVectors(n[s-1],n[s-2]).add(n[s-1]),h=ao),this.curveType==="centripetal"||this.curveType==="chordal"){
+L10997       const m=this.curveType==="chordal"?.5:.25;
+L10998       let v=Math.pow(c.distanceToSquared(u),m),S=Math.pow(u.distanceToSquared(p),m),A=Math.pow(p.distanceToSquared(h),m);
+L10999       S<1e-4&&(S=1),v<1e-4&&(v=S),A<1e-4&&(A=S),ic.initNonuniformCatmullRom(c.x,u.x,p.x,h.x,v,S,A),nc.initNonuniformCatmullRom(c.y,u.y,p.y,h.y,v,S,A),sc.initNonuniformCatmullRom(c.z,u.z,p.z,h.z,v,S,A)
+L11000     }else this.curveType==="catmullrom"&&(ic.initCatmullRom(c.x,u.x,p.x,h.x,this.tension),nc.initCatmullRom(c.y,u.y,p.y,h.y,this.tension),sc.initCatmullRom(c.z,u.z,p.z,h.z,this.tension));
+L11001     return i.set(ic.calc(l),nc.calc(l),sc.calc(l)),i
+L11002   }copy(e){
+L11003     super.copy(e),this.points=[];
+L11004     for(let t=0,i=e.points.length;
+L11005     t<i;
+L11006     t++){
+L11007       const n=e.points[t];
+L11008       this.points.push(n.clone())
+L11009     }return this.closed=e.closed,this.curveType=e.curveType,this.tension=e.tension,this
+L11010   }toJSON(){
+L11011     const e=super.toJSON();
+L11012     e.points=[];
+L11013     for(let t=0,i=this.points.length;
+L11014     t<i;
+L11015     t++){
+L11016       const n=this.points[t];
+L11017       e.points.push(n.toArray())
+L11018     }return e.closed=this.closed,e.curveType=this.curveType,e.tension=this.tension,e
+L11019   }fromJSON(e){
+L11020     super.fromJSON(e),this.points=[];
+L11021     for(let t=0,i=e.points.length;
+L11022     t<i;
+L11023     t++){
+L11024       const n=e.points[t];
+L11025       this.points.push(new w().fromArray(n))
+L11026     }return this.closed=e.closed,this.curveType=e.curveType,this.tension=e.tension,this
+L11027   }
+L11028 }class $o extends wt{
+
+===== normals.d4d92770: 134-265 =====
+L00134 class je{
+L00135   constructor(e=0,t=0){
+L00136     je.prototype.isVector2=!0,this.x=e,this.y=t
+L00137   }get width(){
+L00138     return this.x
+L00139   }set width(e){
+L00140     this.x=e
+L00141   }get height(){
+L00142     return this.y
+L00143   }set height(e){
+L00144     this.y=e
+L00145   }set(e,t){
+L00146     return this.x=e,this.y=t,this
+L00147   }setScalar(e){
+L00148     return this.x=e,this.y=e,this
+L00149   }setX(e){
+L00150     return this.x=e,this
+L00151   }setY(e){
+L00152     return this.y=e,this
+L00153   }setComponent(e,t){
+L00154     switch(e){
+L00155       case 0:this.x=t;
+L00156       break;
+L00157       case 1:this.y=t;
+L00158       break;
+L00159       default:throw new Error("index is out of range: "+e)
+L00160     }return this
+L00161   }getComponent(e){
+L00162     switch(e){
+L00163       case 0:return this.x;
+L00164       case 1:return this.y;
+L00165       default:throw new Error("index is out of range: "+e)
+L00166     }
+L00167   }clone(){
+L00168     return new this.constructor(this.x,this.y)
+L00169   }copy(e){
+L00170     return this.x=e.x,this.y=e.y,this
+L00171   }add(e){
+L00172     return this.x+=e.x,this.y+=e.y,this
+L00173   }addScalar(e){
+L00174     return this.x+=e,this.y+=e,this
+L00175   }addVectors(e,t){
+L00176     return this.x=e.x+t.x,this.y=e.y+t.y,this
+L00177   }addScaledVector(e,t){
+L00178     return this.x+=e.x*t,this.y+=e.y*t,this
+L00179   }sub(e){
+L00180     return this.x-=e.x,this.y-=e.y,this
+L00181   }subScalar(e){
+L00182     return this.x-=e,this.y-=e,this
+L00183   }subVectors(e,t){
+L00184     return this.x=e.x-t.x,this.y=e.y-t.y,this
+L00185   }multiply(e){
+L00186     return this.x*=e.x,this.y*=e.y,this
+L00187   }multiplyScalar(e){
+L00188     return this.x*=e,this.y*=e,this
+L00189   }divide(e){
+L00190     return this.x/=e.x,this.y/=e.y,this
+L00191   }divideScalar(e){
+L00192     return this.multiplyScalar(1/e)
+L00193   }applyMatrix3(e){
+L00194     const t=this.x,i=this.y,n=e.elements;
+L00195     return this.x=n[0]*t+n[3]*i+n[6],this.y=n[1]*t+n[4]*i+n[7],this
+L00196   }min(e){
+L00197     return this.x=Math.min(this.x,e.x),this.y=Math.min(this.y,e.y),this
+L00198   }max(e){
+L00199     return this.x=Math.max(this.x,e.x),this.y=Math.max(this.y,e.y),this
+L00200   }clamp(e,t){
+L00201     return this.x=Math.max(e.x,Math.min(t.x,this.x)),this.y=Math.max(e.y,Math.min(t.y,this.y)),this
+L00202   }clampScalar(e,t){
+L00203     return this.x=Math.max(e,Math.min(t,this.x)),this.y=Math.max(e,Math.min(t,this.y)),this
+L00204   }clampLength(e,t){
+L00205     const i=this.length();
+L00206     return this.divideScalar(i||1).multiplyScalar(Math.max(e,Math.min(t,i)))
+L00207   }floor(){
+L00208     return this.x=Math.floor(this.x),this.y=Math.floor(this.y),this
+L00209   }ceil(){
+L00210     return this.x=Math.ceil(this.x),this.y=Math.ceil(this.y),this
+L00211   }round(){
+L00212     return this.x=Math.round(this.x),this.y=Math.round(this.y),this
+L00213   }roundToZero(){
+L00214     return this.x=this.x<0?Math.ceil(this.x):Math.floor(this.x),this.y=this.y<0?Math.ceil(this.y):Math.floor(this.y),this
+L00215   }negate(){
+L00216     return this.x=-this.x,this.y=-this.y,this
+L00217   }dot(e){
+L00218     return this.x*e.x+this.y*e.y
+L00219   }cross(e){
+L00220     return this.x*e.y-this.y*e.x
+L00221   }lengthSq(){
+L00222     return this.x*this.x+this.y*this.y
+L00223   }length(){
+L00224     return Math.sqrt(this.x*this.x+this.y*this.y)
+L00225   }manhattanLength(){
+L00226     return Math.abs(this.x)+Math.abs(this.y)
+L00227   }normalize(){
+L00228     return this.divideScalar(this.length()||1)
+L00229   }angle(){
+L00230     return Math.atan2(-this.y,-this.x)+Math.PI
+L00231   }angleTo(e){
+L00232     const t=Math.sqrt(this.lengthSq()*e.lengthSq());
+L00233     if(t===0)return Math.PI/2;
+L00234     const i=this.dot(e)/t;
+L00235     return Math.acos(ti(i,-1,1))
+L00236   }distanceTo(e){
+L00237     return Math.sqrt(this.distanceToSquared(e))
+L00238   }distanceToSquared(e){
+L00239     const t=this.x-e.x,i=this.y-e.y;
+L00240     return t*t+i*i
+L00241   }manhattanDistanceTo(e){
+L00242     return Math.abs(this.x-e.x)+Math.abs(this.y-e.y)
+L00243   }setLength(e){
+L00244     return this.normalize().multiplyScalar(e)
+L00245   }lerp(e,t){
+L00246     return this.x+=(e.x-this.x)*t,this.y+=(e.y-this.y)*t,this
+L00247   }lerpVectors(e,t,i){
+L00248     return this.x=e.x+(t.x-e.x)*i,this.y=e.y+(t.y-e.y)*i,this
+L00249   }equals(e){
+L00250     return e.x===this.x&&e.y===this.y
+L00251   }fromArray(e,t=0){
+L00252     return this.x=e[t],this.y=e[t+1],this
+L00253   }toArray(e=[],t=0){
+L00254     return e[t]=this.x,e[t+1]=this.y,e
+L00255   }fromBufferAttribute(e,t){
+L00256     return this.x=e.getX(t),this.y=e.getY(t),this
+L00257   }rotateAround(e,t){
+L00258     const i=Math.cos(t),n=Math.sin(t),s=this.x-e.x,r=this.y-e.y;
+L00259     return this.x=s*i-r*n+e.x,this.y=s*n+r*i+e.y,this
+L00260   }random(){
+L00261     return this.x=Math.random(),this.y=Math.random(),this
+L00262   }*[Symbol.iterator](){
+L00263     yield this.x,yield this.y
+L00264   }
+L00265 }class Je{
+
+===== normals.d4d92770: 834-1259 =====
+L00834 }class w{
+L00835   constructor(e=0,t=0,i=0){
+L00836     w.prototype.isVector3=!0,this.x=e,this.y=t,this.z=i
+L00837   }set(e,t,i){
+L00838     return i===void 0&&(i=this.z),this.x=e,this.y=t,this.z=i,this
+L00839   }setScalar(e){
+L00840     return this.x=e,this.y=e,this.z=e,this
+L00841   }setX(e){
+L00842     return this.x=e,this
+L00843   }setY(e){
+L00844     return this.y=e,this
+L00845   }setZ(e){
+L00846     return this.z=e,this
+L00847   }setComponent(e,t){
+L00848     switch(e){
+L00849       case 0:this.x=t;
+L00850       break;
+L00851       case 1:this.y=t;
+L00852       break;
+L00853       case 2:this.z=t;
+L00854       break;
+L00855       default:throw new Error("index is out of range: "+e)
+L00856     }return this
+L00857   }getComponent(e){
+L00858     switch(e){
+L00859       case 0:return this.x;
+L00860       case 1:return this.y;
+L00861       case 2:return this.z;
+L00862       default:throw new Error("index is out of range: "+e)
+L00863     }
+L00864   }clone(){
+L00865     return new this.constructor(this.x,this.y,this.z)
+L00866   }copy(e){
+L00867     return this.x=e.x,this.y=e.y,this.z=e.z,this
+L00868   }add(e){
+L00869     return this.x+=e.x,this.y+=e.y,this.z+=e.z,this
+L00870   }addScalar(e){
+L00871     return this.x+=e,this.y+=e,this.z+=e,this
+L00872   }addVectors(e,t){
+L00873     return this.x=e.x+t.x,this.y=e.y+t.y,this.z=e.z+t.z,this
+L00874   }addScaledVector(e,t){
+L00875     return this.x+=e.x*t,this.y+=e.y*t,this.z+=e.z*t,this
+L00876   }sub(e){
+L00877     return this.x-=e.x,this.y-=e.y,this.z-=e.z,this
+L00878   }subScalar(e){
+L00879     return this.x-=e,this.y-=e,this.z-=e,this
+L00880   }subVectors(e,t){
+L00881     return this.x=e.x-t.x,this.y=e.y-t.y,this.z=e.z-t.z,this
+L00882   }multiply(e){
+L00883     return this.x*=e.x,this.y*=e.y,this.z*=e.z,this
+L00884   }multiplyScalar(e){
+L00885     return this.x*=e,this.y*=e,this.z*=e,this
+L00886   }multiplyVectors(e,t){
+L00887     return this.x=e.x*t.x,this.y=e.y*t.y,this.z=e.z*t.z,this
+L00888   }applyEuler(e){
+L00889     return this.applyQuaternion(Dh.setFromEuler(e))
+L00890   }applyAxisAngle(e,t){
+L00891     return this.applyQuaternion(Dh.setFromAxisAngle(e,t))
+L00892   }applyMatrix3(e){
+L00893     const t=this.x,i=this.y,n=this.z,s=e.elements;
+L00894     return this.x=s[0]*t+s[3]*i+s[6]*n,this.y=s[1]*t+s[4]*i+s[7]*n,this.z=s[2]*t+s[5]*i+s[8]*n,this
+L00895   }applyNormalMatrix(e){
+L00896     return this.applyMatrix3(e).normalize()
+L00897   }applyMatrix4(e){
+L00898     const t=this.x,i=this.y,n=this.z,s=e.elements,r=1/(s[3]*t+s[7]*i+s[11]*n+s[15]);
+L00899     return this.x=(s[0]*t+s[4]*i+s[8]*n+s[12])*r,this.y=(s[1]*t+s[5]*i+s[9]*n+s[13])*r,this.z=(s[2]*t+s[6]*i+s[10]*n+s[14])*r,this
+L00900   }applyQuaternion(e){
+L00901     const t=this.x,i=this.y,n=this.z,s=e.x,r=e.y,o=e.z,l=e.w,c=l*t+r*n-o*i,h=l*i+o*t-s*n,u=l*n+s*i-r*t,p=-s*t-r*i-o*n;
+L00902     return this.x=c*l+p*-s+h*-o-u*-r,this.y=h*l+p*-r+u*-s-c*-o,this.z=u*l+p*-o+c*-r-h*-s,this
+L00903   }project(e){
+L00904     return this.applyMatrix4(e.matrixWorldInverse).applyMatrix4(e.projectionMatrix)
+L00905   }unproject(e){
+L00906     return this.applyMatrix4(e.projectionMatrixInverse).applyMatrix4(e.matrixWorld)
+L00907   }transformDirection(e){
+L00908     const t=this.x,i=this.y,n=this.z,s=e.elements;
+L00909     return this.x=s[0]*t+s[4]*i+s[8]*n,this.y=s[1]*t+s[5]*i+s[9]*n,this.z=s[2]*t+s[6]*i+s[10]*n,this.normalize()
+L00910   }divide(e){
+L00911     return this.x/=e.x,this.y/=e.y,this.z/=e.z,this
+L00912   }divideScalar(e){
+L00913     return this.multiplyScalar(1/e)
+L00914   }min(e){
+L00915     return this.x=Math.min(this.x,e.x),this.y=Math.min(this.y,e.y),this.z=Math.min(this.z,e.z),this
+L00916   }max(e){
+L00917     return this.x=Math.max(this.x,e.x),this.y=Math.max(this.y,e.y),this.z=Math.max(this.z,e.z),this
+L00918   }clamp(e,t){
+L00919     return this.x=Math.max(e.x,Math.min(t.x,this.x)),this.y=Math.max(e.y,Math.min(t.y,this.y)),this.z=Math.max(e.z,Math.min(t.z,this.z)),this
+L00920   }clampScalar(e,t){
+L00921     return this.x=Math.max(e,Math.min(t,this.x)),this.y=Math.max(e,Math.min(t,this.y)),this.z=Math.max(e,Math.min(t,this.z)),this
+L00922   }clampLength(e,t){
+L00923     const i=this.length();
+L00924     return this.divideScalar(i||1).multiplyScalar(Math.max(e,Math.min(t,i)))
+L00925   }floor(){
+L00926     return this.x=Math.floor(this.x),this.y=Math.floor(this.y),this.z=Math.floor(this.z),this
+L00927   }ceil(){
+L00928     return this.x=Math.ceil(this.x),this.y=Math.ceil(this.y),this.z=Math.ceil(this.z),this
+L00929   }round(){
+L00930     return this.x=Math.round(this.x),this.y=Math.round(this.y),this.z=Math.round(this.z),this
+L00931   }roundToZero(){
+L00932     return this.x=this.x<0?Math.ceil(this.x):Math.floor(this.x),this.y=this.y<0?Math.ceil(this.y):Math.floor(this.y),this.z=this.z<0?Math.ceil(this.z):Math.floor(this.z),this
+L00933   }negate(){
+L00934     return this.x=-this.x,this.y=-this.y,this.z=-this.z,this
+L00935   }dot(e){
+L00936     return this.x*e.x+this.y*e.y+this.z*e.z
+L00937   }lengthSq(){
+L00938     return this.x*this.x+this.y*this.y+this.z*this.z
+L00939   }length(){
+L00940     return Math.sqrt(this.x*this.x+this.y*this.y+this.z*this.z)
+L00941   }manhattanLength(){
+L00942     return Math.abs(this.x)+Math.abs(this.y)+Math.abs(this.z)
+L00943   }normalize(){
+L00944     return this.divideScalar(this.length()||1)
+L00945   }setLength(e){
+L00946     return this.normalize().multiplyScalar(e)
+L00947   }lerp(e,t){
+L00948     return this.x+=(e.x-this.x)*t,this.y+=(e.y-this.y)*t,this.z+=(e.z-this.z)*t,this
+L00949   }lerpVectors(e,t,i){
+L00950     return this.x=e.x+(t.x-e.x)*i,this.y=e.y+(t.y-e.y)*i,this.z=e.z+(t.z-e.z)*i,this
+L00951   }cross(e){
+L00952     return this.crossVectors(this,e)
+L00953   }crossVectors(e,t){
+L00954     const i=e.x,n=e.y,s=e.z,r=t.x,o=t.y,l=t.z;
+L00955     return this.x=n*l-s*o,this.y=s*r-i*l,this.z=i*o-n*r,this
+L00956   }projectOnVector(e){
+L00957     const t=e.lengthSq();
+L00958     if(t===0)return this.set(0,0,0);
+L00959     const i=e.dot(this)/t;
+L00960     return this.copy(e).multiplyScalar(i)
+L00961   }projectOnPlane(e){
+L00962     return Fl.copy(this).projectOnVector(e),this.sub(Fl)
+L00963   }reflect(e){
+L00964     return this.sub(Fl.copy(e).multiplyScalar(2*this.dot(e)))
+L00965   }angleTo(e){
+L00966     const t=Math.sqrt(this.lengthSq()*e.lengthSq());
+L00967     if(t===0)return Math.PI/2;
+L00968     const i=this.dot(e)/t;
+L00969     return Math.acos(ti(i,-1,1))
+L00970   }distanceTo(e){
+L00971     return Math.sqrt(this.distanceToSquared(e))
+L00972   }distanceToSquared(e){
+L00973     const t=this.x-e.x,i=this.y-e.y,n=this.z-e.z;
+L00974     return t*t+i*i+n*n
+L00975   }manhattanDistanceTo(e){
+L00976     return Math.abs(this.x-e.x)+Math.abs(this.y-e.y)+Math.abs(this.z-e.z)
+L00977   }setFromSpherical(e){
+L00978     return this.setFromSphericalCoords(e.radius,e.phi,e.theta)
+L00979   }setFromSphericalCoords(e,t,i){
+L00980     const n=Math.sin(t)*e;
+L00981     return this.x=n*Math.sin(i),this.y=Math.cos(t)*e,this.z=n*Math.cos(i),this
+L00982   }setFromCylindrical(e){
+L00983     return this.setFromCylindricalCoords(e.radius,e.theta,e.y)
+L00984   }setFromCylindricalCoords(e,t,i){
+L00985     return this.x=e*Math.sin(t),this.y=i,this.z=e*Math.cos(t),this
+L00986   }setFromMatrixPosition(e){
+L00987     const t=e.elements;
+L00988     return this.x=t[12],this.y=t[13],this.z=t[14],this
+L00989   }setFromMatrixScale(e){
+L00990     const t=this.setFromMatrixColumn(e,0).length(),i=this.setFromMatrixColumn(e,1).length(),n=this.setFromMatrixColumn(e,2).length();
+L00991     return this.x=t,this.y=i,this.z=n,this
+L00992   }setFromMatrixColumn(e,t){
+L00993     return this.fromArray(e.elements,t*4)
+L00994   }setFromMatrix3Column(e,t){
+L00995     return this.fromArray(e.elements,t*3)
+L00996   }setFromEuler(e){
+L00997     return this.x=e._x,this.y=e._y,this.z=e._z,this
+L00998   }setFromColor(e){
+L00999     return this.x=e.r,this.y=e.g,this.z=e.b,this
+L01000   }equals(e){
+L01001     return e.x===this.x&&e.y===this.y&&e.z===this.z
+L01002   }fromArray(e,t=0){
+L01003     return this.x=e[t],this.y=e[t+1],this.z=e[t+2],this
+L01004   }toArray(e=[],t=0){
+L01005     return e[t]=this.x,e[t+1]=this.y,e[t+2]=this.z,e
+L01006   }fromBufferAttribute(e,t){
+L01007     return this.x=e.getX(t),this.y=e.getY(t),this.z=e.getZ(t),this
+L01008   }random(){
+L01009     return this.x=Math.random(),this.y=Math.random(),this.z=Math.random(),this
+L01010   }randomDirection(){
+L01011     const e=(Math.random()-.5)*2,t=Math.random()*Math.PI*2,i=Math.sqrt(1-e**2);
+L01012     return this.x=i*Math.cos(t),this.y=i*Math.sin(t),this.z=e,this
+L01013   }*[Symbol.iterator](){
+L01014     yield this.x,yield this.y,yield this.z
+L01015   }
+L01016 }const Fl=new w,Dh=new en;
+L01017 class Wn{
+L01018   constructor(e=new w(1/0,1/0,1/0),t=new w(-1/0,-1/0,-1/0)){
+L01019     this.isBox3=!0,this.min=e,this.max=t
+L01020   }set(e,t){
+L01021     return this.min.copy(e),this.max.copy(t),this
+L01022   }setFromArray(e){
+L01023     this.makeEmpty();
+L01024     for(let t=0,i=e.length;
+L01025     t<i;
+L01026     t+=3)this.expandByPoint(En.fromArray(e,t));
+L01027     return this
+L01028   }setFromBufferAttribute(e){
+L01029     this.makeEmpty();
+L01030     for(let t=0,i=e.count;
+L01031     t<i;
+L01032     t++)this.expandByPoint(En.fromBufferAttribute(e,t));
+L01033     return this
+L01034   }setFromPoints(e){
+L01035     this.makeEmpty();
+L01036     for(let t=0,i=e.length;
+L01037     t<i;
+L01038     t++)this.expandByPoint(e[t]);
+L01039     return this
+L01040   }setFromCenterAndSize(e,t){
+L01041     const i=En.copy(t).multiplyScalar(.5);
+L01042     return this.min.copy(e).sub(i),this.max.copy(e).add(i),this
+L01043   }setFromObject(e,t=!1){
+L01044     return this.makeEmpty(),this.expandByObject(e,t)
+L01045   }clone(){
+L01046     return new this.constructor().copy(this)
+L01047   }copy(e){
+L01048     return this.min.copy(e.min),this.max.copy(e.max),this
+L01049   }makeEmpty(){
+L01050     return this.min.x=this.min.y=this.min.z=1/0,this.max.x=this.max.y=this.max.z=-1/0,this
+L01051   }isEmpty(){
+L01052     return this.max.x<this.min.x||this.max.y<this.min.y||this.max.z<this.min.z
+L01053   }getCenter(e){
+L01054     return this.isEmpty()?e.set(0,0,0):e.addVectors(this.min,this.max).multiplyScalar(.5)
+L01055   }getSize(e){
+L01056     return this.isEmpty()?e.set(0,0,0):e.subVectors(this.max,this.min)
+L01057   }expandByPoint(e){
+L01058     return this.min.min(e),this.max.max(e),this
+L01059   }expandByVector(e){
+L01060     return this.min.sub(e),this.max.add(e),this
+L01061   }expandByScalar(e){
+L01062     return this.min.addScalar(-e),this.max.addScalar(e),this
+L01063   }expandByObject(e,t=!1){
+L01064     if(e.updateWorldMatrix(!1,!1),e.boundingBox!==void 0)e.boundingBox===null&&e.computeBoundingBox(),Zs.copy(e.boundingBox),Zs.applyMatrix4(e.matrixWorld),this.union(Zs);
+L01065     else{
+L01066       const n=e.geometry;
+L01067       if(n!==void 0)if(t&&n.attributes!==void 0&&n.attributes.position!==void 0){
+L01068         const s=n.attributes.position;
+L01069         for(let r=0,o=s.count;
+L01070         r<o;
+L01071         r++)En.fromBufferAttribute(s,r).applyMatrix4(e.matrixWorld),this.expandByPoint(En)
+L01072       }else n.boundingBox===null&&n.computeBoundingBox(),Zs.copy(n.boundingBox),Zs.applyMatrix4(e.matrixWorld),this.union(Zs)
+L01073     }const i=e.children;
+L01074     for(let n=0,s=i.length;
+L01075     n<s;
+L01076     n++)this.expandByObject(i[n],t);
+L01077     return this
+L01078   }containsPoint(e){
+L01079     return!(e.x<this.min.x||e.x>this.max.x||e.y<this.min.y||e.y>this.max.y||e.z<this.min.z||e.z>this.max.z)
+L01080   }containsBox(e){
+L01081     return this.min.x<=e.min.x&&e.max.x<=this.max.x&&this.min.y<=e.min.y&&e.max.y<=this.max.y&&this.min.z<=e.min.z&&e.max.z<=this.max.z
+L01082   }getParameter(e,t){
+L01083     return t.set((e.x-this.min.x)/(this.max.x-this.min.x),(e.y-this.min.y)/(this.max.y-this.min.y),(e.z-this.min.z)/(this.max.z-this.min.z))
+L01084   }intersectsBox(e){
+L01085     return!(e.max.x<this.min.x||e.min.x>this.max.x||e.max.y<this.min.y||e.min.y>this.max.y||e.max.z<this.min.z||e.min.z>this.max.z)
+L01086   }intersectsSphere(e){
+L01087     return this.clampPoint(e.center,En),En.distanceToSquared(e.center)<=e.radius*e.radius
+L01088   }intersectsPlane(e){
+L01089     let t,i;
+L01090     return e.normal.x>0?(t=e.normal.x*this.min.x,i=e.normal.x*this.max.x):(t=e.normal.x*this.max.x,i=e.normal.x*this.min.x),e.normal.y>0?(t+=e.normal.y*this.min.y,i+=e.normal.y*this.max.y):(t+=e.normal.y*this.max.y,i+=e.normal.y*this.min.y),e.normal.z>0?(t+=e.normal.z*this.min.z,i+=e.normal.z*this.max.z):(t+=e.normal.z*this.max.z,i+=e.normal.z*this.min.z),t<=-e.constant&&i>=-e.constant
+L01091   }intersectsTriangle(e){
+L01092     if(this.isEmpty())return!1;
+L01093     this.getCenter(Ja),Fr.subVectors(this.max,Ja),qs.subVectors(e.a,Ja),Ys.subVectors(e.b,Ja),Js.subVectors(e.c,Ja),Kn.subVectors(Ys,qs),Xn.subVectors(Js,Ys),fs.subVectors(qs,Js);
+L01094     let t=[0,-Kn.z,Kn.y,0,-Xn.z,Xn.y,0,-fs.z,fs.y,Kn.z,0,-Kn.x,Xn.z,0,-Xn.x,fs.z,0,-fs.x,-Kn.y,Kn.x,0,-Xn.y,Xn.x,0,-fs.y,fs.x,0];
+L01095     return!Bl(t,qs,Ys,Js,Fr)||(t=[1,0,0,0,1,0,0,0,1],!Bl(t,qs,Ys,Js,Fr))?!1:(Br.crossVectors(Kn,Xn),t=[Br.x,Br.y,Br.z],Bl(t,qs,Ys,Js,Fr))
+L01096   }clampPoint(e,t){
+L01097     return t.copy(e).clamp(this.min,this.max)
+L01098   }distanceToPoint(e){
+L01099     return this.clampPoint(e,En).distanceTo(e)
+L01100   }getBoundingSphere(e){
+L01101     return this.isEmpty()?e.makeEmpty():(this.getCenter(e.center),e.radius=this.getSize(En).length()*.5),e
+L01102   }intersect(e){
+L01103     return this.min.max(e.min),this.max.min(e.max),this.isEmpty()&&this.makeEmpty(),this
+L01104   }union(e){
+L01105     return this.min.min(e.min),this.max.max(e.max),this
+L01106   }applyMatrix4(e){
+L01107     return this.isEmpty()?this:(Rn[0].set(this.min.x,this.min.y,this.min.z).applyMatrix4(e),Rn[1].set(this.min.x,this.min.y,this.max.z).applyMatrix4(e),Rn[2].set(this.min.x,this.max.y,this.min.z).applyMatrix4(e),Rn[3].set(this.min.x,this.max.y,this.max.z).applyMatrix4(e),Rn[4].set(this.max.x,this.min.y,this.min.z).applyMatrix4(e),Rn[5].set(this.max.x,this.min.y,this.max.z).applyMatrix4(e),Rn[6].set(this.max.x,this.max.y,this.min.z).applyMatrix4(e),Rn[7].set(this.max.x,this.max.y,this.max.z).applyMatrix4(e),this.setFromPoints(Rn),this)
+L01108   }translate(e){
+L01109     return this.min.add(e),this.max.add(e),this
+L01110   }equals(e){
+L01111     return e.min.equals(this.min)&&e.max.equals(this.max)
+L01112   }
+L01113 }const Rn=[new w,new w,new w,new w,new w,new w,new w,new w],En=new w,Zs=new Wn,qs=new w,Ys=new w,Js=new w,Kn=new w,Xn=new w,fs=new w,Ja=new w,Fr=new w,Br=new w,gs=new w;
+L01114 function Bl(a,e,t,i,n){
+L01115   for(let s=0,r=a.length-3;
+L01116   s<=r;
+L01117   s+=3){
+L01118     gs.fromArray(a,s);
+L01119     const o=n.x*Math.abs(gs.x)+n.y*Math.abs(gs.y)+n.z*Math.abs(gs.z),l=e.dot(gs),c=t.dot(gs),h=i.dot(gs);
+L01120     if(Math.max(-Math.max(l,c,h),Math.min(l,c,h))>o)return!1
+L01121   }return!0
+L01122 }const dA=new Wn,$a=new w,Ul=new w;
+L01123 class xn{
+L01124   constructor(e=new w,t=-1){
+L01125     this.center=e,this.radius=t
+L01126   }set(e,t){
+L01127     return this.center.copy(e),this.radius=t,this
+L01128   }setFromPoints(e,t){
+L01129     const i=this.center;
+L01130     t!==void 0?i.copy(t):dA.setFromPoints(e).getCenter(i);
+L01131     let n=0;
+L01132     for(let s=0,r=e.length;
+L01133     s<r;
+L01134     s++)n=Math.max(n,i.distanceToSquared(e[s]));
+L01135     return this.radius=Math.sqrt(n),this
+L01136   }copy(e){
+L01137     return this.center.copy(e.center),this.radius=e.radius,this
+L01138   }isEmpty(){
+L01139     return this.radius<0
+L01140   }makeEmpty(){
+L01141     return this.center.set(0,0,0),this.radius=-1,this
+L01142   }containsPoint(e){
+L01143     return e.distanceToSquared(this.center)<=this.radius*this.radius
+L01144   }distanceToPoint(e){
+L01145     return e.distanceTo(this.center)-this.radius
+L01146   }intersectsSphere(e){
+L01147     const t=this.radius+e.radius;
+L01148     return e.center.distanceToSquared(this.center)<=t*t
+L01149   }intersectsBox(e){
+L01150     return e.intersectsSphere(this)
+L01151   }intersectsPlane(e){
+L01152     return Math.abs(e.distanceToPoint(this.center))<=this.radius
+L01153   }clampPoint(e,t){
+L01154     const i=this.center.distanceToSquared(e);
+L01155     return t.copy(e),i>this.radius*this.radius&&(t.sub(this.center).normalize(),t.multiplyScalar(this.radius).add(this.center)),t
+L01156   }getBoundingBox(e){
+L01157     return this.isEmpty()?(e.makeEmpty(),e):(e.set(this.center,this.center),e.expandByScalar(this.radius),e)
+L01158   }applyMatrix4(e){
+L01159     return this.center.applyMatrix4(e),this.radius=this.radius*e.getMaxScaleOnAxis(),this
+L01160   }translate(e){
+L01161     return this.center.add(e),this
+L01162   }expandByPoint(e){
+L01163     if(this.isEmpty())return this.center.copy(e),this.radius=0,this;
+L01164     $a.subVectors(e,this.center);
+L01165     const t=$a.lengthSq();
+L01166     if(t>this.radius*this.radius){
+L01167       const i=Math.sqrt(t),n=(i-this.radius)*.5;
+L01168       this.center.addScaledVector($a,n/i),this.radius+=n
+L01169     }return this
+L01170   }union(e){
+L01171     return e.isEmpty()?this:this.isEmpty()?(this.copy(e),this):(this.center.equals(e.center)===!0?this.radius=Math.max(this.radius,e.radius):(Ul.subVectors(e.center,this.center).setLength(e.radius),this.expandByPoint($a.copy(e.center).add(Ul)),this.expandByPoint($a.copy(e.center).sub(Ul))),this)
+L01172   }equals(e){
+L01173     return e.center.equals(this.center)&&e.radius===this.radius
+L01174   }clone(){
+L01175     return new this.constructor().copy(this)
+L01176   }
+L01177 }const _n=new w,Nl=new w,Ur=new w,Qn=new w,zl=new w,Nr=new w,Ol=new w;
+L01178 class cl{
+L01179   constructor(e=new w,t=new w(0,0,-1)){
+L01180     this.origin=e,this.direction=t
+L01181   }set(e,t){
+L01182     return this.origin.copy(e),this.direction.copy(t),this
+L01183   }copy(e){
+L01184     return this.origin.copy(e.origin),this.direction.copy(e.direction),this
+L01185   }at(e,t){
+L01186     return t.copy(this.origin).addScaledVector(this.direction,e)
+L01187   }lookAt(e){
+L01188     return this.direction.copy(e).sub(this.origin).normalize(),this
+L01189   }recast(e){
+L01190     return this.origin.copy(this.at(e,_n)),this
+L01191   }closestPointToPoint(e,t){
+L01192     t.subVectors(e,this.origin);
+L01193     const i=t.dot(this.direction);
+L01194     return i<0?t.copy(this.origin):t.copy(this.origin).addScaledVector(this.direction,i)
+L01195   }distanceToPoint(e){
+L01196     return Math.sqrt(this.distanceSqToPoint(e))
+L01197   }distanceSqToPoint(e){
+L01198     const t=_n.subVectors(e,this.origin).dot(this.direction);
+L01199     return t<0?this.origin.distanceToSquared(e):(_n.copy(this.origin).addScaledVector(this.direction,t),_n.distanceToSquared(e))
+L01200   }distanceSqToSegment(e,t,i,n){
+L01201     Nl.copy(e).add(t).multiplyScalar(.5),Ur.copy(t).sub(e).normalize(),Qn.copy(this.origin).sub(Nl);
+L01202     const s=e.distanceTo(t)*.5,r=-this.direction.dot(Ur),o=Qn.dot(this.direction),l=-Qn.dot(Ur),c=Qn.lengthSq(),h=Math.abs(1-r*r);
+L01203     let u,p,m,v;
+L01204     if(h>0)if(u=r*l-o,p=r*o-l,v=s*h,u>=0)if(p>=-v)if(p<=v){
+L01205       const S=1/h;
+L01206       u*=S,p*=S,m=u*(u+r*p+2*o)+p*(r*u+p+2*l)+c
+L01207     }else p=s,u=Math.max(0,-(r*p+o)),m=-u*u+p*(p+2*l)+c;
+L01208     else p=-s,u=Math.max(0,-(r*p+o)),m=-u*u+p*(p+2*l)+c;
+L01209     else p<=-v?(u=Math.max(0,-(-r*s+o)),p=u>0?-s:Math.min(Math.max(-s,-l),s),m=-u*u+p*(p+2*l)+c):p<=v?(u=0,p=Math.min(Math.max(-s,-l),s),m=p*(p+2*l)+c):(u=Math.max(0,-(r*s+o)),p=u>0?s:Math.min(Math.max(-s,-l),s),m=-u*u+p*(p+2*l)+c);
+L01210     else p=r>0?-s:s,u=Math.max(0,-(r*p+o)),m=-u*u+p*(p+2*l)+c;
+L01211     return i&&i.copy(this.origin).addScaledVector(this.direction,u),n&&n.copy(Nl).addScaledVector(Ur,p),m
+L01212   }intersectSphere(e,t){
+L01213     _n.subVectors(e.center,this.origin);
+L01214     const i=_n.dot(this.direction),n=_n.dot(_n)-i*i,s=e.radius*e.radius;
+L01215     if(n>s)return null;
+L01216     const r=Math.sqrt(s-n),o=i-r,l=i+r;
+L01217     return l<0?null:o<0?this.at(l,t):this.at(o,t)
+L01218   }intersectsSphere(e){
+L01219     return this.distanceSqToPoint(e.center)<=e.radius*e.radius
+L01220   }distanceToPlane(e){
+L01221     const t=e.normal.dot(this.direction);
+L01222     if(t===0)return e.distanceToPoint(this.origin)===0?0:null;
+L01223     const i=-(this.origin.dot(e.normal)+e.constant)/t;
+L01224     return i>=0?i:null
+L01225   }intersectPlane(e,t){
+L01226     const i=this.distanceToPlane(e);
+L01227     return i===null?null:this.at(i,t)
+L01228   }intersectsPlane(e){
+L01229     const t=e.distanceToPoint(this.origin);
+L01230     return t===0||e.normal.dot(this.direction)*t<0
+L01231   }intersectBox(e,t){
+L01232     let i,n,s,r,o,l;
+L01233     const c=1/this.direction.x,h=1/this.direction.y,u=1/this.direction.z,p=this.origin;
+L01234     return c>=0?(i=(e.min.x-p.x)*c,n=(e.max.x-p.x)*c):(i=(e.max.x-p.x)*c,n=(e.min.x-p.x)*c),h>=0?(s=(e.min.y-p.y)*h,r=(e.max.y-p.y)*h):(s=(e.max.y-p.y)*h,r=(e.min.y-p.y)*h),i>r||s>n||((s>i||isNaN(i))&&(i=s),(r<n||isNaN(n))&&(n=r),u>=0?(o=(e.min.z-p.z)*u,l=(e.max.z-p.z)*u):(o=(e.max.z-p.z)*u,l=(e.min.z-p.z)*u),i>l||o>n)||((o>i||i!==i)&&(i=o),(l<n||n!==n)&&(n=l),n<0)?null:this.at(i>=0?i:n,t)
+L01235   }intersectsBox(e){
+L01236     return this.intersectBox(e,_n)!==null
+L01237   }intersectTriangle(e,t,i,n,s){
+L01238     zl.subVectors(t,e),Nr.subVectors(i,e),Ol.crossVectors(zl,Nr);
+L01239     let r=this.direction.dot(Ol),o;
+L01240     if(r>0){
+L01241       if(n)return null;
+L01242       o=1
+L01243     }else if(r<0)o=-1,r=-r;
+L01244     else return null;
+L01245     Qn.subVectors(this.origin,e);
+L01246     const l=o*this.direction.dot(Nr.crossVectors(Qn,Nr));
+L01247     if(l<0)return null;
+L01248     const c=o*this.direction.dot(zl.cross(Qn));
+L01249     if(c<0||l+c>r)return null;
+L01250     const h=-o*Qn.dot(Ol);
+L01251     return h<0?null:this.at(h/r,s)
+L01252   }applyMatrix4(e){
+L01253     return this.origin.applyMatrix4(e),this.direction.transformDirection(e),this
+L01254   }equals(e){
+L01255     return e.origin.equals(this.origin)&&e.direction.equals(this.direction)
+L01256   }clone(){
+L01257     return new this.constructor().copy(this)
+L01258   }
+L01259 }class Ke{

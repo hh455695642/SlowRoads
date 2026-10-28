@@ -1,0 +1,684 @@
+{
+  "schema": 1,
+  "version": "1.0.2",
+  "cases": [
+    {
+      "scenario": "bridge-good",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "sections": {
+        "vector2": "33a9255c8b5bad0cd7c325073456102eda36ef613e14114d5caf0dfba7517fbc",
+        "vector3": "79052ce1b1060fe43f96756dd2a03389f16a44a0b092c5433cec938b0d88a910",
+        "curve": "294084122cd0fe5f030b7e4490a4728a929cdd527dd018f05debdc9984355ac4",
+        "gradient": "6fc3a7a74bd2bfcd5012d6ffe47391761854bd2af0af02d0d240a30440a23a95",
+        "midline": "a3fa76706c14cff2ef98d92faf10329e967d7b55950fbe3ef55a026556a454bf",
+        "hillsMidline": "637b5cf8d9acc3ab29af4065a852ff6dc376d38e4421e03d047fc35b7d9044de"
+      },
+      "spawnInputIndex": 10,
+      "spawnPosition": [
+        0,
+        3,
+        0
+      ],
+      "tailIndex": 20,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "targetDirection": [
+        1,
+        0,
+        0
+      ],
+      "targetDot": 0.5,
+      "allowEmergency": false,
+      "antiBridgePoint": [
+        0,
+        0,
+        0
+      ],
+      "quality": 0.901517857142857,
+      "spawnIndex": 10,
+      "distance": 202.34375,
+      "landing": [
+        207.8125,
+        3,
+        0
+      ],
+      "scratchLanding": [
+        207.8125,
+        3,
+        0
+      ],
+      "queryEvents": [
+        {
+          "x": 350,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 175,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 262.5,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 218.75,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 196.875,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 207.8125,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 103.90625,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 103.90625,
+          "z": 202.34375,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 103.90625,
+          "z": -202.34375,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 103.90625,
+          "z": 101.171875,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 103.90625,
+          "z": -101.171875,
+          "depth": null,
+          "value": -5
+        }
+      ]
+    },
+    {
+      "scenario": "bridge-mid-high",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "sections": {
+        "vector2": "33a9255c8b5bad0cd7c325073456102eda36ef613e14114d5caf0dfba7517fbc",
+        "vector3": "79052ce1b1060fe43f96756dd2a03389f16a44a0b092c5433cec938b0d88a910",
+        "curve": "294084122cd0fe5f030b7e4490a4728a929cdd527dd018f05debdc9984355ac4",
+        "gradient": "6fc3a7a74bd2bfcd5012d6ffe47391761854bd2af0af02d0d240a30440a23a95",
+        "midline": "a3fa76706c14cff2ef98d92faf10329e967d7b55950fbe3ef55a026556a454bf",
+        "hillsMidline": "637b5cf8d9acc3ab29af4065a852ff6dc376d38e4421e03d047fc35b7d9044de"
+      },
+      "spawnInputIndex": 10,
+      "spawnPosition": [
+        0,
+        3,
+        0
+      ],
+      "tailIndex": 20,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "targetDirection": [
+        1,
+        0,
+        0
+      ],
+      "targetDot": 0.5,
+      "allowEmergency": false,
+      "antiBridgePoint": [
+        0,
+        0,
+        0
+      ],
+      "quality": 0,
+      "spawnIndex": null,
+      "distance": 0,
+      "landing": [
+        0,
+        0,
+        0
+      ],
+      "scratchLanding": [
+        207.8125,
+        3,
+        0
+      ],
+      "queryEvents": [
+        {
+          "x": 350,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 175,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 262.5,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 218.75,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 196.875,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 207.8125,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 103.90625,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        }
+      ]
+    },
+    {
+      "scenario": "bridge-side-high",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "sections": {
+        "vector2": "33a9255c8b5bad0cd7c325073456102eda36ef613e14114d5caf0dfba7517fbc",
+        "vector3": "79052ce1b1060fe43f96756dd2a03389f16a44a0b092c5433cec938b0d88a910",
+        "curve": "294084122cd0fe5f030b7e4490a4728a929cdd527dd018f05debdc9984355ac4",
+        "gradient": "6fc3a7a74bd2bfcd5012d6ffe47391761854bd2af0af02d0d240a30440a23a95",
+        "midline": "a3fa76706c14cff2ef98d92faf10329e967d7b55950fbe3ef55a026556a454bf",
+        "hillsMidline": "637b5cf8d9acc3ab29af4065a852ff6dc376d38e4421e03d047fc35b7d9044de"
+      },
+      "spawnInputIndex": 10,
+      "spawnPosition": [
+        0,
+        3,
+        0
+      ],
+      "tailIndex": 20,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "targetDirection": [
+        1,
+        0,
+        0
+      ],
+      "targetDot": 0.5,
+      "allowEmergency": false,
+      "antiBridgePoint": [
+        0,
+        0,
+        0
+      ],
+      "quality": 0,
+      "spawnIndex": null,
+      "distance": 0,
+      "landing": [
+        0,
+        0,
+        0
+      ],
+      "scratchLanding": [
+        207.8125,
+        3,
+        0
+      ],
+      "queryEvents": [
+        {
+          "x": 350,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 175,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 262.5,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 218.75,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 196.875,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 207.8125,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 103.90625,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 103.90625,
+          "z": 202.34375,
+          "depth": null,
+          "value": 3
+        }
+      ]
+    },
+    {
+      "scenario": "bridge-short",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "sections": {
+        "vector2": "33a9255c8b5bad0cd7c325073456102eda36ef613e14114d5caf0dfba7517fbc",
+        "vector3": "79052ce1b1060fe43f96756dd2a03389f16a44a0b092c5433cec938b0d88a910",
+        "curve": "294084122cd0fe5f030b7e4490a4728a929cdd527dd018f05debdc9984355ac4",
+        "gradient": "6fc3a7a74bd2bfcd5012d6ffe47391761854bd2af0af02d0d240a30440a23a95",
+        "midline": "a3fa76706c14cff2ef98d92faf10329e967d7b55950fbe3ef55a026556a454bf",
+        "hillsMidline": "637b5cf8d9acc3ab29af4065a852ff6dc376d38e4421e03d047fc35b7d9044de"
+      },
+      "spawnInputIndex": 10,
+      "spawnPosition": [
+        0,
+        3,
+        0
+      ],
+      "tailIndex": 20,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "targetDirection": [
+        1,
+        0,
+        0
+      ],
+      "targetDot": 0.5,
+      "allowEmergency": false,
+      "antiBridgePoint": [
+        0,
+        0,
+        0
+      ],
+      "quality": 0,
+      "spawnIndex": null,
+      "distance": 0,
+      "landing": [
+        0,
+        0,
+        0
+      ],
+      "scratchLanding": [
+        10.9375,
+        -5,
+        0
+      ],
+      "queryEvents": [
+        {
+          "x": 350,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 175,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 87.5,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 43.75,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 21.875,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 10.9375,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        }
+      ]
+    },
+    {
+      "scenario": "bridge-anti-near",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "sections": {
+        "vector2": "33a9255c8b5bad0cd7c325073456102eda36ef613e14114d5caf0dfba7517fbc",
+        "vector3": "79052ce1b1060fe43f96756dd2a03389f16a44a0b092c5433cec938b0d88a910",
+        "curve": "294084122cd0fe5f030b7e4490a4728a929cdd527dd018f05debdc9984355ac4",
+        "gradient": "6fc3a7a74bd2bfcd5012d6ffe47391761854bd2af0af02d0d240a30440a23a95",
+        "midline": "a3fa76706c14cff2ef98d92faf10329e967d7b55950fbe3ef55a026556a454bf",
+        "hillsMidline": "637b5cf8d9acc3ab29af4065a852ff6dc376d38e4421e03d047fc35b7d9044de"
+      },
+      "spawnInputIndex": 10,
+      "spawnPosition": [
+        0,
+        3,
+        0
+      ],
+      "tailIndex": 20,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "targetDirection": [
+        1,
+        0,
+        0
+      ],
+      "targetDot": 0.5,
+      "allowEmergency": false,
+      "antiBridgePoint": [
+        210,
+        3,
+        0
+      ],
+      "quality": 0,
+      "spawnIndex": null,
+      "distance": 0,
+      "landing": [
+        0,
+        0,
+        0
+      ],
+      "scratchLanding": [
+        207.8125,
+        3,
+        0
+      ],
+      "queryEvents": [
+        {
+          "x": 350,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 175,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 262.5,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 218.75,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 196.875,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 207.8125,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        }
+      ]
+    },
+    {
+      "scenario": "bridge-emergency",
+      "sourceHashes": {
+        "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+        "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+        "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+        "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+        "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+      },
+      "sections": {
+        "vector2": "33a9255c8b5bad0cd7c325073456102eda36ef613e14114d5caf0dfba7517fbc",
+        "vector3": "79052ce1b1060fe43f96756dd2a03389f16a44a0b092c5433cec938b0d88a910",
+        "curve": "294084122cd0fe5f030b7e4490a4728a929cdd527dd018f05debdc9984355ac4",
+        "gradient": "6fc3a7a74bd2bfcd5012d6ffe47391761854bd2af0af02d0d240a30440a23a95",
+        "midline": "a3fa76706c14cff2ef98d92faf10329e967d7b55950fbe3ef55a026556a454bf",
+        "hillsMidline": "637b5cf8d9acc3ab29af4065a852ff6dc376d38e4421e03d047fc35b7d9044de"
+      },
+      "spawnInputIndex": 10,
+      "spawnPosition": [
+        0,
+        3,
+        0
+      ],
+      "tailIndex": 20,
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "targetDirection": [
+        1,
+        0,
+        0
+      ],
+      "targetDot": -0.5,
+      "allowEmergency": true,
+      "antiBridgePoint": [
+        0,
+        0,
+        0
+      ],
+      "quality": 0.618314732142857,
+      "spawnIndex": 10,
+      "distance": 697.94921875,
+      "landing": [
+        701.3671875,
+        3,
+        0
+      ],
+      "scratchLanding": [
+        701.3671875,
+        3,
+        0
+      ],
+      "queryEvents": [
+        {
+          "x": 350,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 350,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 525,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 700,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 875,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 175,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 612.5,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 831.25,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 721.875,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 667.1875,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 694.53125,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 708.203125,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 701.3671875,
+          "z": 0,
+          "depth": null,
+          "value": 3
+        },
+        {
+          "x": 350.68359375,
+          "z": 0,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 350.68359375,
+          "z": 697.94921875,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 350.68359375,
+          "z": -697.94921875,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 350.68359375,
+          "z": 348.974609375,
+          "depth": null,
+          "value": -5
+        },
+        {
+          "x": 350.68359375,
+          "z": -348.974609375,
+          "depth": null,
+          "value": -5
+        }
+      ]
+    }
+  ]
+}

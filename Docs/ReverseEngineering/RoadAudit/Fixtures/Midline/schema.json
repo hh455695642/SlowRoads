@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "slowroads-hills-midline-entry-v1",
+  "title": "Slow Roads 1.0.2 Hills midline entry trace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "version", "style", "seed", "scenario", "sourceHashes", "sections", "profile",
+    "effectiveMidlineConfig", "effectiveHeightConfig", "inputContract",
+    "initial", "initialQueryEvents", "initialLayerEvents", "trace"
+  ],
+  "properties": {
+    "schema": { "const": 1 },
+    "version": { "const": "1.0.2" },
+    "style": { "enum": ["style0", "style3"] },
+    "seed": { "type": "string", "minLength": 1 },
+    "scenario": { "enum": ["archive-heightfield", "explicit", "retry-low", "restart"] },
+    "sourceHashes": {
+      "type": "object",
+      "required": ["Dev", "Hills", "Settings", "Rand", "Normals"],
+      "additionalProperties": { "$ref": "#/$defs/sha256" }
+    },
+    "sections": {
+      "type": "object",
+      "required": ["vector2", "vector3", "curve", "gradient", "midline", "hillsMidline"],
+      "additionalProperties": { "$ref": "#/$defs/sha256" }
+    },
+    "profile": { "type": "object" },
+    "effectiveMidlineConfig": { "type": "object" },
+    "effectiveHeightConfig": { "type": "object" },
+    "inputContract": { "type": "object" },
+    "initial": { "$ref": "#/$defs/state" },
+    "initialQueryEvents": { "type": "array", "items": { "$ref": "#/$defs/query" } },
+    "initialLayerEvents": { "type": "array", "items": { "$ref": "#/$defs/layerEvent" } },
+    "restart": { "type": ["object", "null"] },
+    "smoothing": { "type": ["object", "null"] },
+    "bridgeTest": { "type": ["object", "null"] },
+    "bridgeImprove": { "type": ["object", "null"] },
+    "bridgeSweep": { "type": ["object", "null"] },
+    "fine": { "type": "object" },
+    "trace": {
+      "type": "array",
+      "minItems": 0,
+      "items": { "$ref": "#/$defs/step" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "vector3": {
+      "type": "array", "prefixItems": [
+        { "type": "number" }, { "type": "number" }, { "type": "number" }
+      ], "minItems": 3, "maxItems": 3
+    },
+    "layers": {
+      "type": "array", "prefixItems": [
+        { "type": "integer" }, { "type": "integer" }
+      ], "minItems": 2, "maxItems": 2
+    },
+    "layerEvent": {
+      "type": "object", "additionalProperties": false,
+      "required": ["layers"],
+      "properties": { "layers": { "$ref": "#/$defs/layers" } }
+    },
+    "query": {
+      "type": "object", "additionalProperties": false,
+      "required": ["x", "z", "depth", "value"],
+      "properties": {
+        "x": { "type": "number" }, "z": { "type": "number" },
+        "depth": { "type": ["integer", "null"] }, "value": { "type": "number" }
+      }
+    },
+    "node": {
+      "type": ["object", "null"],
+      "required": ["i", "p", "a", "da", "t", "g", "gf", "gfa", "h", "n", "bridge", "blend", "o", "fs"],
+      "properties": {
+        "i": { "type": "integer" }, "p": { "$ref": "#/$defs/vector3" },
+        "n": { "$ref": "#/$defs/vector3" }, "bridge": { "type": "boolean" }
+      }
+    },
+    "state": {
+      "type": "object",
+      "required": [
+        "generation", "head", "tail", "fineTail", "smoothWindowHead", "startNode",
+        "restartCount", "generationCount", "prevT", "byWater", "waterFactor",
+        "targetDir", "prevTargetSide", "targetOverflow", "accumulatedOverflow",
+        "antiTarget", "antiTargetRange", "antiTargetTriggerCount", "bridge",
+        "tailLayers", "headLayers", "trackers", "aleaState", "randState",
+        "layerEventCount", "queryCount"
+      ],
+      "properties": {
+        "head": { "$ref": "#/$defs/node" },
+        "tail": { "$ref": "#/$defs/node" },
+        "fineTail": { "$ref": "#/$defs/node" },
+        "smoothWindowHead": { "$ref": "#/$defs/node" },
+        "targetDir": { "$ref": "#/$defs/vector3" },
+        "antiTarget": { "$ref": "#/$defs/vector3" },
+        "headLayers": { "$ref": "#/$defs/layers" },
+        "tailLayers": { "$ref": "#/$defs/layers" },
+        "trackers": { "type": "array", "minItems": 4, "maxItems": 4 },
+        "aleaState": { "type": "array", "minItems": 4, "maxItems": 4 },
+        "randState": { "type": "array", "minItems": 4, "maxItems": 4 }
+      }
+    },
+    "step": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ordinal", "didExtend", "queryEvents", "layerEvents", "scratch", "state"],
+      "properties": {
+        "ordinal": { "type": "integer", "minimum": 0 },
+        "didExtend": { "type": "boolean" },
+        "queryEvents": { "type": "array", "items": { "$ref": "#/$defs/query" } },
+        "layerEvents": { "type": "array", "items": { "$ref": "#/$defs/layerEvent" } },
+        "scratch": { "type": "object" },
+        "transition": { "type": "object" },
+        "state": { "$ref": "#/$defs/state" }
+      }
+    }
+  }
+}

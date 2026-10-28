@@ -32,7 +32,7 @@
 
 - S0：调试基础设施已具备；主场景仍接旧道路，提供暂停/单步/重置、Cube 与相机跟随。
 - S1a：P0/P1 已通过下述限定范围的原版对照与 Editor 回归；未接入中线。移动设备性能与 getXZLayer 不在本次已验收范围。
-- S1b：粗/精中线、回退、桥梁与道路属性对照；空间索引、裁剪和分步作业验证。
+- S1b：P2/P3的R01–R09已通过style0/style3及限定自然/合成用例，包含粗精线、桥/回退、属性、版本化快照、米制查询与边界重放；空间索引/正式streaming仍待P5。实际范围与93/93结果统一见 `Docs/ReverseEngineering/RoadAudit/P2P3_开发实施计划.md` 文首记录。
 - S1c：地形、路基、道路、树群、农田、墙/桥/路边物件完整复刻；临时参考资产绑定。
 - S1d：固定观察点图像、生成计数、生命周期、Android/iOS GPU 帧耗时与带宽验收；通过后才能进入 S2。
 - S2：自有美术替换与材质/LOD 验证，检查所有临时素材引用已经清除。
@@ -61,6 +61,12 @@
     unity command 'test run' --project-path E:/UnityProject/Unity6/SlowRoads --caller plugin --skill unity-cli --mode editor --filter SlowRoads.Generation.Tests --filter_type assembly --format json
 
 fixture 仅在审查原版来源与配置差异后显式加 --write 更新；普通测试不会写期望值。测试输出误差统计，CPU 测试记录计量校准和 GC.Alloc 次数。
+
+## P2/P3交接状态（2026-10-28）
+
+`Runtime/Generation/Midline` 已接通原Se/B7完整逻辑update与预算让出。私有密度源随head层变化；`MidlineReadView`只在完成边界按需复制，P4消费者检查generation/revision及独立ready界。B7可回写旧标线属性，必须处理AttributeDirtyFrom，不能假设所有已读属性永久冻结。`MidlineDistanceIndex`是米制折线查询扩展，不是原道路UV算法；checkpoint只保证完成update边界的确定性重放。
+
+本次93/93是纯数据验收，没有把新路径源接入主场景。唯一场景继续Legacy/Cube/相机，后续P4/P5再做几何与接入验证；P6仍需Android/iOS实测。原版Math由Node/V8参考执行器验证，不外推原Electron和全部GPU/CPU平台逐位一致。
 
 ## 使用调试框架
 
