@@ -1,0 +1,248 @@
+{
+  "scope": "Archive identity, original segment data construction, and static road-control checks; no Unity runtime or visual verification.",
+  "provenance": [
+    {
+      "name": "DevMidlineGenerator.6316d1a7.js",
+      "size": 54705,
+      "correctMatchesAsar": true,
+      "oldMatchesAsar": false,
+      "sha256": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8"
+    },
+    {
+      "name": "SettingsManager.9657445f.js",
+      "size": 800404,
+      "correctMatchesAsar": true,
+      "oldMatchesAsar": false,
+      "sha256": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da"
+    },
+    {
+      "name": "HillsHeightmap.2938f21e.js",
+      "size": 171634,
+      "correctMatchesAsar": true,
+      "oldMatchesAsar": false,
+      "sha256": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee"
+    },
+    {
+      "name": "CaliMidlineGenerator.98e60041.js",
+      "size": 212075,
+      "correctMatchesAsar": true,
+      "oldMatchesAsar": false,
+      "sha256": "ac48318e83c04b32b4ffc9935d6b9ca40b690e79bbb471701365bdb5f8475f7c"
+    },
+    {
+      "name": "normals.d4d92770.js",
+      "size": 1317492,
+      "correctMatchesAsar": true,
+      "oldMatchesAsar": false,
+      "sha256": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+    },
+    {
+      "name": "2.c189d18b.js",
+      "size": 644397,
+      "correctMatchesAsar": true,
+      "oldMatchesAsar": false,
+      "sha256": "d81c86dfee64002ebe097c0965aed164e4c3a656762796399b30100244ff6021"
+    }
+  ],
+  "formattedSources": [
+    {
+      "name": "DevMidlineGenerator.6316d1a7.js",
+      "sameIgnoringWhitespace": true,
+      "syntaxCheckPassed": true
+    },
+    {
+      "name": "HillsHeightmap.2938f21e.js",
+      "sameIgnoringWhitespace": true,
+      "syntaxCheckPassed": true
+    },
+    {
+      "name": "CaliMidlineGenerator.98e60041.js",
+      "sameIgnoringWhitespace": true,
+      "syntaxCheckPassed": true
+    },
+    {
+      "name": "2.c189d18b.js",
+      "sameIgnoringWhitespace": true,
+      "syntaxCheckPassed": true
+    }
+  ],
+  "geometry": [
+    {
+      "halfWidth": 1.8,
+      "subdivisions": [
+        1,
+        1
+      ],
+      "vertices": 6,
+      "coarseTriangles": 4,
+      "fineTriangles": 4,
+      "endV": 5.555555555555555,
+      "fullWidth": 3.5999999046325684
+    },
+    {
+      "halfWidth": 1.8,
+      "subdivisions": [
+        2,
+        5
+      ],
+      "vertices": 16,
+      "coarseTriangles": 4,
+      "fineTriangles": 14,
+      "endV": 5.5555555555555545,
+      "fullWidth": 3.5999999046325684
+    },
+    {
+      "halfWidth": 1.8,
+      "subdivisions": [
+        10,
+        10
+      ],
+      "vertices": 42,
+      "coarseTriangles": 4,
+      "fineTriangles": 40,
+      "endV": 5.5555555555555545,
+      "fullWidth": 3.5999999046325684
+    },
+    {
+      "halfWidth": 3.7,
+      "subdivisions": [
+        1,
+        1
+      ],
+      "vertices": 6,
+      "coarseTriangles": 4,
+      "fineTriangles": 4,
+      "endV": 2.7027027027027026,
+      "fullWidth": 7.400000095367432
+    },
+    {
+      "halfWidth": 3.7,
+      "subdivisions": [
+        2,
+        5
+      ],
+      "vertices": 16,
+      "coarseTriangles": 4,
+      "fineTriangles": 14,
+      "endV": 2.702702702702702,
+      "fullWidth": 7.400000095367432
+    },
+    {
+      "halfWidth": 3.7,
+      "subdivisions": [
+        10,
+        10
+      ],
+      "vertices": 42,
+      "coarseTriangles": 4,
+      "fineTriangles": 40,
+      "endV": 2.702702702702702,
+      "fullWidth": 7.400000095367432
+    },
+    {
+      "halfWidth": 4.7,
+      "subdivisions": [
+        1,
+        1
+      ],
+      "vertices": 6,
+      "coarseTriangles": 4,
+      "fineTriangles": 4,
+      "endV": 2.127659574468085,
+      "fullWidth": 9.399999618530273
+    },
+    {
+      "halfWidth": 4.7,
+      "subdivisions": [
+        2,
+        5
+      ],
+      "vertices": 16,
+      "coarseTriangles": 4,
+      "fineTriangles": 14,
+      "endV": 2.1276595744680855,
+      "fullWidth": 9.399999618530273
+    },
+    {
+      "halfWidth": 4.7,
+      "subdivisions": [
+        10,
+        10
+      ],
+      "vertices": 42,
+      "coarseTriangles": 4,
+      "fineTriangles": 40,
+      "endV": 2.1276595744680855,
+      "fullWidth": 9.399999618530273
+    },
+    {
+      "halfWidth": 6,
+      "subdivisions": [
+        1,
+        1
+      ],
+      "vertices": 6,
+      "coarseTriangles": 4,
+      "fineTriangles": 4,
+      "endV": 1.6666666666666667,
+      "fullWidth": 12
+    },
+    {
+      "halfWidth": 6,
+      "subdivisions": [
+        2,
+        5
+      ],
+      "vertices": 16,
+      "coarseTriangles": 4,
+      "fineTriangles": 14,
+      "endV": 1.666666666666667,
+      "fullWidth": 12
+    },
+    {
+      "halfWidth": 6,
+      "subdivisions": [
+        10,
+        10
+      ],
+      "vertices": 42,
+      "coarseTriangles": 4,
+      "fineTriangles": 40,
+      "endV": 1.6666666666666663,
+      "fullWidth": 12
+    }
+  ],
+  "segmentSeam": {
+    "worldPositionsMatch": true,
+    "uvMatches": true,
+    "previousEndV": 2.702702702702702,
+    "nextStartV": 2.702702760696411
+  },
+  "adaptive": [
+    {
+      "dot": 1,
+      "segments": 1
+    },
+    {
+      "dot": 0.9999,
+      "segments": 1
+    },
+    {
+      "dot": 0.999,
+      "segments": 3
+    },
+    {
+      "dot": 0.995,
+      "segments": 7
+    },
+    {
+      "dot": 0.99,
+      "segments": 10
+    },
+    {
+      "dot": 0.98,
+      "segments": 10
+    }
+  ],
+  "unityGradLonAndGradLatHaveNoConsumers": true
+}

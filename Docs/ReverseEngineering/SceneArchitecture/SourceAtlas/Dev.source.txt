@@ -1,0 +1,2207 @@
+Source: C:/Users/ruze/OneDrive/Desktop/Slow Roads/extracted_correct/build/_app/immutable/chunks/DevMidlineGenerator.6316d1a7.js
+Raw SHA-256: 3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8
+Formatting: Prettier only; Acorn AST verified equivalent after flattening associative logical expressions.
+Prefix Lxxxxx refers to formatted module line, not minified raw line.
+
+===== DevMidlineGenerator.6316d1a7: 1-2201 =====
+L00001 var Y = Object.defineProperty;
+L00002 var Q = (T, a, r) =>
+L00003   a in T ? Y(T, a, { enumerable: !0, configurable: !0, writable: !0, value: r }) : (T[a] = r);
+L00004 var n = (T, a, r) => (Q(T, typeof a != "symbol" ? a + "" : a, r), r);
+L00005 import {
+L00006   V as m,
+L00007   am as $,
+L00008   aE as K,
+L00009   aD as J,
+L00010   aC as O,
+L00011   aB as B,
+L00012   aW as ee,
+L00013   p as i,
+L00014   dT as G,
+L00015   an as te,
+L00016   dU as ie,
+L00017   L as y,
+L00018   O as ae,
+L00019   aX as X,
+L00020   aL as re,
+L00021   cb as se,
+L00022   dV as q,
+L00023   y as ne,
+L00024 } from "./normals.d4d92770.js";
+L00025 const p = {},
+L00026   R = 100,
+L00027   he = { maxCached: 32, spiralise: !0 };
+L00028 class oe {
+L00029   constructor(a = {}) {
+L00030     n(this, "cache", {});
+L00031     n(this, "cacheAccess", {});
+L00032     n(this, "cacheLayer", {});
+L00033     n(this, "cacheCount", 0);
+L00034     n(this, "tileSize", 3e3);
+L00035     n(this, "curLayer", [0, 0]);
+L00036     n(this, "config", { maxCached: 32, spiralise: !0 });
+L00037     this.config = { ...he, ...a };
+L00038   }
+L00039   destroy() {
+L00040     (delete this.cache, delete this.cacheAccess, delete this.cacheLayer);
+L00041   }
+L00042   getXZ(a, r) {
+L00043     return 0;
+L00044   }
+L00045   getXZLayer(a, r, o) {
+L00046     return 0;
+L00047   }
+L00048   getCurvature(a, r) {
+L00049     return (
+L00050       (p.hAvg = 0),
+L00051       (p.hAvg += this.getXZ(a + 5, r, 1)),
+L00052       (p.hAvg += this.getXZ(a - 5, r, 1)),
+L00053       (p.hAvg += this.getXZ(a, r + 5, 1)),
+L00054       (p.hAvg += this.getXZ(a, r - 5, 1)),
+L00055       (p.hAvg = p.hAvg / 4 - this.getXZ(a, r)),
+L00056       p.hAvg * 0.005
+L00057     );
+L00058   }
+L00059   generateTile(a, r) {
+L00060     return [];
+L00061   }
+L00062   getTile(a, r) {
+L00063     return (
+L00064       (p.bx = a + R),
+L00065       (p.bz = r + R),
+L00066       this.cache[p.bx] && this.cache[p.bx][p.bz] ? (this.cacheAccess[p.bx][p.bz] = 2) : this.cacheTile(a, r),
+L00067       this.cache[p.bx][p.bz]
+L00068     );
+L00069   }
+L00070   cacheTile(a, r) {
+L00071     (this.cacheCount++, this.pruneCache());
+L00072     let o = this.generateTile(a, r);
+L00073     ((p.bx = a + R),
+L00074       (p.bz = r + R),
+L00075       p.bx in this.cache ||
+L00076         ((this.cache[p.bx] = {}), (this.cacheLayer[p.bx] = {}), (this.cacheAccess[p.bx] = {})),
+L00077       (this.cache[p.bx][p.bz] = o),
+L00078       (this.cacheLayer[p.bx][p.bz] = this.curLayer[a < 0 ? 0 : 1]),
+L00079       (this.cacheAccess[p.bx][p.bz] = 2));
+L00080   }
+L00081   customPruneTile(a, r) {}
+L00082   pruneCache(a = !1) {
+L00083     if (!(!a && this.cacheCount <= this.config.maxCached))
+L00084       for (p.ox in this.cache) {
+L00085         for (p.oz in this.cache[p.ox])
+L00086           if (
+L00087             this.cacheAccess[p.ox][p.oz] < 0 ||
+L00088             this.cacheLayer[p.ox][p.oz] !== this.curLayer[p.ox < R ? 0 : 1]
+L00089           ) {
+L00090             if (
+L00091               (delete this.cache[p.ox][p.oz],
+L00092               delete this.cacheAccess[p.ox][p.oz],
+L00093               delete this.cacheLayer[p.ox][p.oz],
+L00094               this.customPruneTile(p.ox, p.oz),
+L00095               this.cacheCount--,
+L00096               !a && this.cacheCount <= this.config.maxCached)
+L00097             )
+L00098               break;
+L00099           } else this.cacheAccess[p.ox][p.oz] -= 1;
+L00100         if (
+L00101           (Object.keys(this.cache[p.ox]).length == 0 &&
+L00102             (delete this.cache[p.ox], delete this.cacheAccess[p.ox], delete this.cacheLayer[p.ox]),
+L00103           !a && this.cacheCount <= this.config.maxCached)
+L00104         )
+L00105           break;
+L00106       }
+L00107   }
+L00108   incrementLayer(a, r = !1) {
+L00109     (!this.config.spiralise && !r) || (this.curLayer[a]++, this.setLayers(this.curLayer, r));
+L00110   }
+L00111   setLayers(a, r = !1) {
+L00112     (!this.config.spiralise && !r) ||
+L00113       ((this.curLayer[0] = a[0]), (this.curLayer[1] = a[1]), this.pruneCache(!0));
+L00114   }
+L00115   cosLerp(a) {
+L00116     return (Math.cos(a * 3.1415) + 1) / 2;
+L00117   }
+L00118   sharpLerp(a) {
+L00119     return 1 - a;
+L00120   }
+L00121   smoothLerp(a) {
+L00122     return -1 * (3 - a * 2) * a * a + 1;
+L00123   }
+L00124   smootherLerp(a) {
+L00125     return -1 * ((a * (a * 6 - 15) + 10) * a * a * a) + 1;
+L00126   }
+L00127   sharpLerpAB(a, r, o) {
+L00128     return (r - a) * o + a;
+L00129   }
+L00130   smootherLerpAB(a, r, o) {
+L00131     return (r - a) * ((o * (o * 6 - 15) + 10) * o * o * o) + a;
+L00132   }
+L00133 }
+L00134 var de =
+L00135   typeof globalThis < "u"
+L00136     ? globalThis
+L00137     : typeof window < "u"
+L00138       ? window
+L00139       : typeof global < "u"
+L00140         ? global
+L00141         : typeof self < "u"
+L00142           ? self
+L00143           : {};
+L00144 function le(T) {
+L00145   return T && T.__esModule && Object.prototype.hasOwnProperty.call(T, "default") ? T.default : T;
+L00146 }
+L00147 var j = { exports: {} };
+L00148 (function (T, a) {
+L00149   (function (r, o) {
+L00150     T.exports = o();
+L00151   })(de, function () {
+L00152     return (
+L00153       (r.importState = function (l) {
+L00154         var f = new r();
+L00155         return (f.importState(l), f);
+L00156       }),
+L00157       r
+L00158     );
+L00159     function r() {
+L00160       return (function (l) {
+L00161         var f = 0,
+L00162           c = 0,
+L00163           g = 0,
+L00164           x = 1;
+L00165         l.length == 0 && (l = [+new Date()]);
+L00166         var u = o();
+L00167         ((f = u(" ")), (c = u(" ")), (g = u(" ")));
+L00168         for (var b = 0; b < l.length; b++)
+L00169           ((f -= u(l[b])),
+L00170             f < 0 && (f += 1),
+L00171             (c -= u(l[b])),
+L00172             c < 0 && (c += 1),
+L00173             (g -= u(l[b])),
+L00174             g < 0 && (g += 1));
+L00175         u = null;
+L00176         var v = function () {
+L00177           var w = 2091639 * f + x * 23283064365386963e-26;
+L00178           return ((f = c), (c = g), (g = w - (x = w | 0)));
+L00179         };
+L00180         return (
+L00181           (v.next = v),
+L00182           (v.uint32 = function () {
+L00183             return v() * 4294967296;
+L00184           }),
+L00185           (v.fract53 = function () {
+L00186             return v() + ((v() * 2097152) | 0) * 11102230246251565e-32;
+L00187           }),
+L00188           (v.version = "Alea 0.9"),
+L00189           (v.args = l),
+L00190           (v.exportState = function () {
+L00191             return [f, c, g, x];
+L00192           }),
+L00193           (v.importState = function (w) {
+L00194             ((f = +w[0] || 0), (c = +w[1] || 0), (g = +w[2] || 0), (x = +w[3] || 0));
+L00195           }),
+L00196           v
+L00197         );
+L00198       })(Array.prototype.slice.call(arguments));
+L00199     }
+L00200     function o() {
+L00201       var l = 4022871197,
+L00202         f = function (c) {
+L00203           c = c.toString();
+L00204           for (var g = 0; g < c.length; g++) {
+L00205             l += c.charCodeAt(g);
+L00206             var x = 0.02519603282416938 * l;
+L00207             ((l = x >>> 0), (x -= l), (x *= l), (l = x >>> 0), (x -= l), (l += x * 4294967296));
+L00208           }
+L00209           return (l >>> 0) * 23283064365386963e-26;
+L00210         };
+L00211       return ((f.version = "Mash 0.9"), f);
+L00212     }
+L00213   });
+L00214 })(j);
+L00215 var ge = j.exports;
+L00216 const Z = le(ge),
+L00217   ce = Math.PI * 2,
+L00218   s = {};
+L00219 class ze extends oe {
+L00220   constructor(r = {}) {
+L00221     super(r);
+L00222     n(this, "config", {
+L00223       seed: "a",
+L00224       scale: 1,
+L00225       resolution: 5,
+L00226       depth: 3,
+L00227       upscale: 3,
+L00228       offset: 0,
+L00229       maxCached: 32,
+L00230       tileSize: 3e3,
+L00231       depthScaleFactor: 1,
+L00232     });
+L00233     n(this, "protoTile", null);
+L00234     ((this.config = { ...this.config, ...r }), (this.tileSize = this.config.tileSize));
+L00235   }
+L00236   getXZ(r, o, l = null) {
+L00237     ((s.tx = r / this.tileSize),
+L00238       (s.tz = o / this.tileSize),
+L00239       (s.ox = Math.floor(s.tx)),
+L00240       (s.oz = Math.floor(s.tz)),
+L00241       (s.px = s.tx - s.ox),
+L00242       (s.pz = s.tz - s.oz),
+L00243       (s.tile = this.getTile(s.ox, s.oz)),
+L00244       (l = l || this.config.depth),
+L00245       (s.depth = 0),
+L00246       (s.d = 0),
+L00247       (s.h = 0),
+L00248       (s.sq = this.config.resolution),
+L00249       (s.sqb = s.sq - 1),
+L00250       (s.heightFactor = 1),
+L00251       (s.depthScaleFactor = 1));
+L00252     for (s.layer of s.tile) {
+L00253       if (s.depth == l) break;
+L00254       ((s.sx = s.px * s.sq),
+L00255         (s.sz = s.pz * s.sq),
+L00256         (s.ix = Math.floor(s.sx)),
+L00257         (s.ix1 = s.ix + 1),
+L00258         (s.iz = Math.floor(s.sz)),
+L00259         (s.iz1 = s.iz + 1),
+L00260         (s.qx = s.sx - s.ix),
+L00261         (s.qz = s.sz - s.iz),
+L00262         (s.n0 = this.dotGridGradient(s.layer, s.ix, s.iz, s.sx, s.sz)),
+L00263         s.ix1 < s.sq
+L00264           ? (s.n1 = this.dotGridGradient(s.layer, s.ix1, s.iz, s.sx, s.sz))
+L00265           : (s.n1 = this.dotGridGradient(this.getTile(s.ox + 1, s.oz)[s.depth], 0, s.iz, s.sx - s.sq, s.sz)),
+L00266         (s.int0 = this.smootherLerp(s.n0, s.n1, s.qx)),
+L00267         s.iz1 < s.sq
+L00268           ? ((s.n0 = this.dotGridGradient(s.layer, s.ix, s.iz1, s.sx, s.sz)),
+L00269             s.ix1 < s.sq
+L00270               ? (s.n1 = this.dotGridGradient(s.layer, s.ix1, s.iz1, s.sx, s.sz))
+L00271               : (s.n1 = this.dotGridGradient(
+L00272                   this.getTile(s.ox + 1, s.oz)[s.depth],
+L00273                   0,
+L00274                   s.iz1,
+L00275                   s.sx - s.sq,
+L00276                   s.sz,
+L00277                 )))
+L00278           : ((s.n0 = this.dotGridGradient(this.getTile(s.ox, s.oz + 1)[s.depth], s.ix, 0, s.sx, s.sz - s.sq)),
+L00279             s.ix1 < s.sq
+L00280               ? (s.n1 = this.dotGridGradient(
+L00281                   this.getTile(s.ox, s.oz + 1)[s.depth],
+L00282                   s.ix1,
+L00283                   0,
+L00284                   s.sx,
+L00285                   s.sz - s.sq,
+L00286                 ))
+L00287               : (s.n1 = this.dotGridGradient(
+L00288                   this.getTile(s.ox + 1, s.oz + 1)[s.depth],
+L00289                   0,
+L00290                   0,
+L00291                   s.sx - s.sq,
+L00292                   s.sz - s.sq,
+L00293                 ))),
+L00294         (s.int1 = this.smootherLerp(s.n0, s.n1, s.qx)),
+L00295         (s.heightFactor = this.config.resolution / s.sq),
+L00296         (s.h += this.smootherLerp(s.int0, s.int1, s.qz) * s.heightFactor * s.depthScaleFactor),
+L00297         (s.depthScaleFactor *= this.config.depthScaleFactor),
+L00298         (s.sq = this.getNextDepthResolution(s.sq, s.depth)),
+L00299         s.depth++);
+L00300     }
+L00301     return s.h * this.config.scale + this.config.offset;
+L00302   }
+L00303   smootherLerp(r, o, l) {
+L00304     return (o - r) * ((l * (l * 6 - 15) + 10) * l * l * l) + r;
+L00305   }
+L00306   generateTile(r, o) {
+L00307     if (this.config.repeated && this.protoTile) return this.protoTile;
+L00308     let l, f, c, g, x;
+L00309     this.config.repeated
+L00310       ? (x = new window.alea(this.config.seed))
+L00311       : (x = new window.alea(this.config.seed + "#" + this.curLayer[r < 0 ? 0 : 1] + "#" + r + "#" + o));
+L00312     let u = this.config.resolution,
+L00313       b = [];
+L00314     for (l = 0; l < this.config.depth; l++) {
+L00315       let v = [];
+L00316       for (f = 0; f < u; f++)
+L00317         for (v.push([]), c = 0; c < u; c++) ((g = x() * ce), v[f].push({ x: Math.cos(g), y: Math.sin(g) }));
+L00318       (b.push(v), (u = this.getNextDepthResolution(u, l)));
+L00319     }
+L00320     return (this.config.repeated && (this.protoTile = b), b);
+L00321   }
+L00322   getNextDepthResolution(r) {
+L00323     return Math.round(r * this.config.upscale);
+L00324   }
+L00325   dotGridGradient(r, o, l, f, c) {
+L00326     return ((s.grad = r[o][l]), (f - o) * s.grad.x + (c - l) * s.grad.y);
+L00327   }
+L00328 }
+L00329 const we = `
+L00330 #ifdef USE_FOG
+L00331 
+L00332 	varying float vFogDepth;
+L00333     varying vec3 vFogPos;
+L00334 	varying float vFogBlend;
+L00335 	varying float vHaze;
+L00336 	varying float vDesat;
+L00337 
+L00338 	// NOTE CHANGES HERE MUST BE REFLECTED IN CLOUD SHADER(s)
+L00339 
+L00340     #ifdef FOG_EXP2
+L00341 		uniform float fogDensity;
+L00342     #endif
+L00343 
+L00344 	uniform float fogNear;
+L00345 	uniform float fogFar;
+L00346 
+L00347     uniform float hazeHeight;
+L00348     uniform float hazeIntensity;
+L00349 
+L00350 float noise(vec2 p, float freq ){
+L00351 	float unit = 1024./freq;
+L00352 	vec2 ij = floor(p/unit);
+L00353 	vec2 xy = mod(p,unit)/unit;
+L00354 	//xy = 3.*xy*xy-2.*xy*xy*xy;
+L00355 	xy = .5*(1.-cos(PI*xy));
+L00356 	float a = rand((ij+vec2(0.,0.)));
+L00357 	float b = rand((ij+vec2(1.,0.)));
+L00358 	float c = rand((ij+vec2(0.,1.)));
+L00359 	float d = rand((ij+vec2(1.,1.)));
+L00360 	float x1 = mix(a, b, xy.x);
+L00361 	float x2 = mix(c, d, xy.x);
+L00362 	return mix(x1, x2, xy.y);
+L00363 }
+L00364 
+L00365 float pNoise(vec2 p, int res){
+L00366 	float persistance = .5;
+L00367 	float n = 0.;
+L00368 	float normK = 0.;
+L00369 	float f = 4.;
+L00370 	float amp = 1.;
+L00371 	int iCount = 0;
+L00372 	for (int i = 0; i<50; i++){
+L00373 		n+=amp*noise(p, f);
+L00374 		f*=2.;
+L00375 		normK+=amp;
+L00376 		amp*=persistance;
+L00377 		if (iCount == res) break;
+L00378 		iCount++;
+L00379 	}
+L00380 	float nf = n/normK;
+L00381 	return nf*nf*nf*nf;
+L00382 }
+L00383 
+L00384 
+L00385 #endif
+L00386 `,
+L00387   Ie = `
+L00388 #ifdef USE_FOG
+L00389 
+L00390     vFogPos = (modelMatrix * vec4(position, 1.0)).xyz;
+L00391     #ifdef USE_INSTANCING
+L00392         vFogPos = (modelMatrix * instanceMatrix * vec4(position, 1.0)).xyz;
+L00393     #endif
+L00394 
+L00395 	#ifdef USE_ORIGIN_OFFSET
+L00396 		vFogPos.x -= originOffset.x;
+L00397 		vFogPos.z -= originOffset.y;
+L00398 	#endif
+L00399 
+L00400 
+L00401 	//// FOG DEPTH
+L00402 
+L00403 	// FLAT - can I do this if cheap?
+L00404 	// float fogDepth = -mvPosition.z;
+L00405 
+L00406 	// CYLINDRICAL
+L00407 	// If cylindrical, have to pass in camera position to everything using fog. Do this in a module patch?
+L00408 	float fogDepth = distance(vFogPos, cameraPosition);
+L00409 
+L00410 	vHaze = min(1.0, fogDepth / fogFar);// * 0.5;
+L00411 
+L00412 	vDesat = vHaze;
+L00413 
+L00414 	// Still unsure whether to square...
+L00415 	vHaze *= vHaze;
+L00416 
+L00417 	vHaze *= 1.0 + min(0.0, hazeIntensity);	
+L00418 	vDesat *= 1.0 + min(0.0, hazeIntensity);
+L00419 
+L00420 	float ffogNear = fogNear;
+L00421 
+L00422 	#ifdef IS_WATER
+L00423 		//
+L00424 		ffogNear = 0.0;
+L00425 	#endif
+L00426 
+L00427 	#ifdef FOG_EXP2
+L00428 		vFogDepth = max(0.0, (fogDepth - ffogNear) * (fogFar / (fogFar - ffogNear)));
+L00429 		vFogDepth = 1.0 - exp( - fogDensity * fogDensity * vFogDepth * vFogDepth );
+L00430 	#else
+L00431 
+L00432 		vFogDepth = smoothstep( ffogNear, fogFar, fogDepth );
+L00433 	#endif
+L00434 
+L00435 
+L00436 	//// NOISE VARIATION
+L00437 	float fogHeight = vFogPos.y;
+L00438 	#ifdef FOG_EXP2
+L00439 	    if(fogDepth < 1000.0) {
+L00440 			fogHeight += pNoise(vFogPos.xz/2.0, 3) * hazeHeight * (fogDepth / 1000.0);
+L00441 		} else {
+L00442 			fogHeight += pNoise(vFogPos.xz/2.0, 3) * hazeHeight;
+L00443 		}
+L00444 	#endif
+L00445 
+L00446     //// HAZE
+L00447 
+L00448 	float hazeTest = min(cameraPosition.y, fogHeight);
+L00449 	
+L00450     if(hazeHeight > 0.0 && hazeTest < hazeHeight) {
+L00451 
+L00452 		float haze = (1.0 - (hazeTest / hazeHeight)) * hazeIntensity;
+L00453 
+L00454 		if(fogDepth < 50.0) {
+L00455 			float fff = 1.0 - (fogDepth / 50.0);
+L00456 			haze *= 1.0 - fff*fff;
+L00457 		}
+L00458 
+L00459 		if(haze < 0.0) {
+L00460 			haze = 0.0;
+L00461 		}
+L00462 
+L00463 		vFogDepth += haze;
+L00464 
+L00465     } else {
+L00466 		float cloudTest = max(cameraPosition.y, fogHeight);
+L00467 
+L00468 		// TODO - need a better blend here I think?
+L00469 		if(hazeHeight < 0.0) {// && cloudTest > -hazeHeight) {
+L00470 
+L00471 
+L00472 			float haze = min(1.0, cloudTest / -hazeHeight) * hazeIntensity;
+L00473 			// float haze = min(1.0, (cloudTest / -hazeHeight) - 1.0) * hazeIntensity;
+L00474 
+L00475 			if(fogDepth < haze * 100.0) {
+L00476 				float fff = 1.0 - (fogDepth / (haze * 100.0));
+L00477 				haze *= 1.0 - fff*fff;
+L00478 			}
+L00479 
+L00480 			vFogDepth += haze;
+L00481 		}
+L00482     }
+L00483 
+L00484 
+L00485 	float fogAvg = (fogFar + ffogNear) / 2.0;
+L00486 	vFogBlend = 1.0;
+L00487 	if(fogAvg < 500.0) {
+L00488 		if(fogAvg <  50.0) {
+L00489 			vFogBlend = 0.0;
+L00490 		} else {
+L00491 			vFogBlend = (fogAvg-50.0) / 450.0;
+L00492 		}
+L00493 	}
+L00494 
+L00495 	if(hazeHeight < 0.0) {
+L00496 	    vFogBlend *= (1.0 - hazeIntensity);
+L00497 	}
+L00498 
+L00499 	//// LIMIT
+L00500 	vFogDepth = min(1.0, vFogDepth);
+L00501 
+L00502 #endif
+L00503 `,
+L00504   Ae = `
+L00505 #ifdef USE_FOG
+L00506 
+L00507 	uniform vec3 fogColorA;
+L00508     uniform vec3 fogColorB;
+L00509 	uniform vec3 fogColorC;
+L00510 	varying float vFogDepth;
+L00511     varying vec3 vFogPos;
+L00512 	varying float vFogBlend;
+L00513 	varying float vHaze;
+L00514 	varying float vDesat;
+L00515 
+L00516 	float fogFactor = 1.0;
+L00517 
+L00518 	#ifdef FOG_EXP2
+L00519 
+L00520 		uniform float fogDensity;
+L00521 
+L00522 	#else
+L00523 
+L00524 
+L00525 	#endif
+L00526 
+L00527 	uniform float fogNear;
+L00528 	uniform float fogFar;
+L00529 
+L00530     uniform float hazeHeight;
+L00531     uniform float hazeIntensity;
+L00532 
+L00533 	vec3 desaturate(vec3 color, float degree) {
+L00534 		return mix(color, vec3(dot(color, vec3(0.299, 0.587, 0.114))), degree);
+L00535 	}
+L00536 
+L00537 #endif
+L00538 `,
+L00539   Me = `
+L00540 #ifdef USE_FOG
+L00541 
+L00542 	// Cylindrical
+L00543 	//float fogDepth = distance(vFogPos, cameraPosition);
+L00544 
+L00545 	// TODO figure out the right way to squash horizons - third colour or configurable squash value?
+L00546 	float fogBlend = max(((vFogPos.y - cameraPosition.y) * 2.0) / distance(vFogPos, cameraPosition), 0.0) * vFogBlend;
+L00547 
+L00548 
+L00549 
+L00550 	//// HAZE DESATURATE
+L00551 	gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(dot(gl_FragColor.rgb, vec3(0.299, 0.587, 0.114))), vDesat);	
+L00552 
+L00553 	//// HAZE TONE
+L00554 	gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColorC, vHaze);
+L00555 
+L00556 	gl_FragColor.rgb = mix( gl_FragColor.rgb, mix(fogColorA, fogColorB, fogBlend), vFogDepth * fogFactor );
+L00557 
+L00558 #endif
+L00559 `;
+L00560 let fe = 0,
+L00561   A,
+L00562   I = 7,
+L00563   M = 0,
+L00564   L;
+L00565 const h = { normVec: new m(), vecA: new m() },
+L00566   D = class D {
+L00567     constructor(a) {
+L00568       n(this, "mesh");
+L00569       n(this, "geo");
+L00570       n(this, "mat");
+L00571       n(this, "node");
+L00572       n(this, "o", new m());
+L00573       n(this, "headIndex");
+L00574       n(this, "tailIndex");
+L00575       n(this, "genIndex0", []);
+L00576       n(this, "genIndex1", []);
+L00577       n(this, "genNodeCount", 0);
+L00578       n(this, "vertCount", 0);
+L00579       n(this, "index0", []);
+L00580       n(this, "index1", []);
+L00581       n(this, "bounds", { maxX: 0, minX: 0, maxY: 0, minY: 0, maxZ: 0, minZ: 0 });
+L00582       n(this, "curLod", 0);
+L00583       n(this, "genIndex", 0);
+L00584       n(this, "indexArr");
+L00585       n(this, "posArr");
+L00586       n(this, "normArr");
+L00587       n(this, "uvA");
+L00588       n(this, "uvB");
+L00589       n(this, "id");
+L00590       n(this, "index0Size", 0);
+L00591       n(this, "index1Size", 0);
+L00592       ((this.id = fe++),
+L00593         (A = a),
+L00594         (this.mat = this.getMaterial()),
+L00595         (I = this.getRoadWidth()),
+L00596         (L = 10 / (I * 2)),
+L00597         (D.uvStep = L),
+L00598         (M = 0),
+L00599         (this.geo = new K()),
+L00600         (this.mesh = new J(this.geo, this.mat)),
+L00601         (this.mesh.matrixAutoUpdate = !1),
+L00602         (this.mesh.receiveShadow = !0),
+L00603         (this.vertCount = (A * 10 + 1) * 2),
+L00604         this.geo.setAttribute("position", new O(new Float32Array(this.vertCount * 3), 3)),
+L00605         this.geo.attributes.position.setUsage(B),
+L00606         this.geo.setAttribute("normal", new O(new Float32Array(this.vertCount * 3), 3)),
+L00607         this.geo.attributes.normal.setUsage(B),
+L00608         (this.geo.computeVertexNormals = () => {}),
+L00609         this.geo.setAttribute("uv", new O(new Float32Array(this.vertCount * 2), 2)),
+L00610         this.geo.attributes.uv.setUsage(B),
+L00611         (this.geo.boundingSphere = new ee()));
+L00612       let r = (A - 1) * 2 * 3,
+L00613         o = (A * 10 + 1) * 2 * 3;
+L00614       if (((this.lod1IndexStart = r + 6), D.indexTemplateNodeCount !== A)) {
+L00615         ((D.indexTemplate = []),
+L00616           (D.indexTemplate.length = r + o),
+L00617           (D.indexTemplateNodeCount = A),
+L00618           (D.uv0 = []));
+L00619         for (let l = 0; l <= A; l++) D.uv0.push(l, 0, l, 1);
+L00620       }
+L00621       (this.geo.setIndex(D.indexTemplate),
+L00622         (this.indexArr = this.geo.index.array),
+L00623         (this.lod0LiveIndex = 0),
+L00624         (this.lod0IndexIndex = 0),
+L00625         (this.lod1LiveIndex = 0),
+L00626         (this.lod1IndexIndex = this.lod1IndexStart),
+L00627         (this.posArr = this.geo.attributes.position.array),
+L00628         (this.normArr = this.geo.attributes.normal.array),
+L00629         (this.uvArr = this.geo.attributes.uv.array));
+L00630     }
+L00631     static reset() {
+L00632       (console.log("Hitting the road segment reset"), delete D.indexTemplate);
+L00633     }
+L00634     getMaterial() {
+L00635       return new $();
+L00636     }
+L00637     getRoadWidth() {
+L00638       return 3.2;
+L00639     }
+L00640     destroy() {
+L00641       (this.geo.dispose(), delete this.headNode);
+L00642     }
+L00643     initGeneration(a) {
+L00644       ((this.headNode = a),
+L00645         (this.node = a),
+L00646         (this.headIndex = a.i),
+L00647         (this.tailIndex = a.i + A),
+L00648         this.mesh.position.copy(this.node.p),
+L00649         (this.mesh.position.y = 0),
+L00650         this.o.copy(this.mesh.position),
+L00651         (this.lod0IndexIndex = 0),
+L00652         (this.lod1IndexIndex = this.lod1IndexStart),
+L00653         (this.genIndex = 0),
+L00654         (this.uvIndex = 0),
+L00655         (this.genIndex0 = []),
+L00656         (this.genIndex1 = []),
+L00657         (this.genNodeCount = 0),
+L00658         (M %= 10),
+L00659         (h.na = this.node),
+L00660         h.normVec.copy(h.na.nextFine.p).sub(h.na.p).normalize(),
+L00661         h.vecA.copy(h.normVec),
+L00662         h.vecA.set(-h.na.n.x, 0, -h.na.n.z),
+L00663         h.normVec.cross(h.vecA));
+L00664       let r = G;
+L00665       ((this.posArr[this.genIndex] = this.node.p.x - this.node.n.x * I - this.o.x),
+L00666         (this.normArr[this.genIndex++] = h.normVec.x),
+L00667         (this.posArr[this.genIndex] = this.node.p.y + r),
+L00668         (this.normArr[this.genIndex++] = h.normVec.y),
+L00669         (this.posArr[this.genIndex] = this.node.p.z - this.node.n.z * I - this.o.z),
+L00670         (this.normArr[this.genIndex++] = h.normVec.z),
+L00671         (this.posArr[this.genIndex] = this.node.p.x + this.node.n.x * I - this.o.x),
+L00672         (this.normArr[this.genIndex++] = h.normVec.x),
+L00673         (this.posArr[this.genIndex] = this.node.p.y + r),
+L00674         (this.normArr[this.genIndex++] = h.normVec.y),
+L00675         (this.posArr[this.genIndex] = this.node.p.z + this.node.n.z * I - this.o.z),
+L00676         (this.normArr[this.genIndex++] = h.normVec.z),
+L00677         (this.uvArr[this.uvIndex++] = 0),
+L00678         (this.uvArr[this.uvIndex++] = M),
+L00679         (this.uvArr[this.uvIndex++] = 1),
+L00680         (this.uvArr[this.uvIndex++] = M),
+L00681         (this.bounds.minX = this.node.p.x),
+L00682         (this.bounds.maxX = this.bounds.minX),
+L00683         (this.bounds.minY = this.node.p.y),
+L00684         (this.bounds.maxY = this.bounds.minY),
+L00685         (this.bounds.minZ = this.node.p.z),
+L00686         (this.bounds.maxZ = this.bounds.minZ));
+L00687     }
+L00688     genNext() {
+L00689       for (
+L00690         h.na = this.node,
+L00691           h.nb = this.node.next,
+L00692           h.ba = this.node.bridge ? 1 : 0,
+L00693           h.bb = this.node.next.bridge ? 1 : 0,
+L00694           h.genNodeCountA = this.genNodeCount,
+L00695           h.roadNodeCount = 0;
+L00696         h.na.nextFine && h.na.i !== h.nb.i && ((h.na = h.na.nextFine), !!h.na.nextFine);
+L00697       ) {
+L00698         ((h.a = this.genNodeCount * 2),
+L00699           (h.b = h.a + 1),
+L00700           (h.c = h.a + 2),
+L00701           (h.d = h.a + 3),
+L00702           (this.indexArr[this.lod1IndexIndex++] = h.a),
+L00703           (this.indexArr[this.lod1IndexIndex++] = h.b),
+L00704           (this.indexArr[this.lod1IndexIndex++] = h.c),
+L00705           (this.indexArr[this.lod1IndexIndex++] = h.b),
+L00706           (this.indexArr[this.lod1IndexIndex++] = h.d),
+L00707           (this.indexArr[this.lod1IndexIndex++] = h.c),
+L00708           h.normVec.copy(h.na.nextFine.p).sub(h.na.p).normalize(),
+L00709           h.vecA.copy(h.normVec),
+L00710           h.vecA.set(-h.na.n.x, 0, -h.na.n.z),
+L00711           h.normVec.cross(h.vecA));
+L00712         let r = G;
+L00713         ((this.posArr[this.genIndex] = h.na.p.x - h.na.n.x * I - this.o.x),
+L00714           (this.normArr[this.genIndex++] = h.normVec.x),
+L00715           (this.posArr[this.genIndex] = h.na.p.y + r),
+L00716           (this.normArr[this.genIndex++] = h.normVec.y),
+L00717           (this.posArr[this.genIndex] = h.na.p.z - h.na.n.z * I - this.o.z),
+L00718           (this.normArr[this.genIndex++] = h.normVec.z),
+L00719           (this.posArr[this.genIndex] = h.na.p.x + h.na.n.x * I - this.o.x),
+L00720           (this.normArr[this.genIndex++] = h.normVec.x),
+L00721           (this.posArr[this.genIndex] = h.na.p.y + r),
+L00722           (this.normArr[this.genIndex++] = h.normVec.y),
+L00723           (this.posArr[this.genIndex] = h.na.p.z + h.na.n.z * I - this.o.z),
+L00724           (this.normArr[this.genIndex++] = h.normVec.z),
+L00725           this.customGenNext(h.na),
+L00726           this.genNodeCount++,
+L00727           h.roadNodeCount++);
+L00728       }
+L00729       h.uvDist = L / h.roadNodeCount;
+L00730       let a = M;
+L00731       for (h.i = 0; h.i < h.roadNodeCount; h.i++)
+L00732         ((M += h.uvDist),
+L00733           (this.uvArr[this.uvIndex++] = 0),
+L00734           (this.uvArr[this.uvIndex++] = M),
+L00735           (this.uvArr[this.uvIndex++] = 1),
+L00736           (this.uvArr[this.uvIndex++] = M),
+L00737           this.customGenFine(
+L00738             this.node,
+L00739             this.node.next,
+L00740             a,
+L00741             a + L,
+L00742             h.i / h.roadNodeCount,
+L00743             (h.i + 1) / h.roadNodeCount,
+L00744           ));
+L00745       return (
+L00746         (this.curUV = M),
+L00747         (h.a = h.genNodeCountA * 2),
+L00748         (h.b = h.a + 1),
+L00749         (h.c = this.genNodeCount * 2),
+L00750         (h.d = h.c + 1),
+L00751         (this.indexArr[this.lod0IndexIndex++] = h.a),
+L00752         (this.indexArr[this.lod0IndexIndex++] = h.b),
+L00753         (this.indexArr[this.lod0IndexIndex++] = h.c),
+L00754         (this.indexArr[this.lod0IndexIndex++] = h.b),
+L00755         (this.indexArr[this.lod0IndexIndex++] = h.d),
+L00756         (this.indexArr[this.lod0IndexIndex++] = h.c),
+L00757         (this.node = this.node.next),
+L00758         this.node.p.x < this.bounds.minX
+L00759           ? (this.bounds.minX = this.node.p.x)
+L00760           : this.node.p.x > this.bounds.maxX && (this.bounds.maxX = this.node.p.x),
+L00761         this.node.p.y < this.bounds.minY
+L00762           ? (this.bounds.minY = this.node.p.y)
+L00763           : this.node.p.y > this.bounds.maxY && (this.bounds.maxY = this.node.p.y),
+L00764         this.node.p.z < this.bounds.minZ
+L00765           ? (this.bounds.minZ = this.node.p.z)
+L00766           : this.node.p.z > this.bounds.maxZ && (this.bounds.maxZ = this.node.p.z),
+L00767         this.node.nextFine && this.node.i >= this.tailIndex
+L00768       );
+L00769     }
+L00770     finalise() {
+L00771       ((this.curLod = 0),
+L00772         (this.lod0LiveIndex = this.lod0IndexIndex),
+L00773         (this.lod1LiveIndex = this.lod1IndexIndex),
+L00774         (this.geo.attributes.position.needsUpdate = !0),
+L00775         (this.geo.attributes.normal.needsUpdate = !0),
+L00776         (this.geo.attributes.uv.needsUpdate = !0),
+L00777         (this.geo.index.needsUpdate = !0),
+L00778         this.geo.boundingSphere.center.set(
+L00779           (this.bounds.maxX + this.bounds.minX) / 2 - this.mesh.position.x,
+L00780           (this.bounds.maxY + this.bounds.minY) / 2 - this.mesh.position.y,
+L00781           (this.bounds.maxZ + this.bounds.minZ) / 2 - this.mesh.position.z,
+L00782         ),
+L00783         (this.geo.boundingSphere.radius =
+L00784           Math.sqrt(
+L00785             (this.bounds.maxX - this.bounds.minX) * (this.bounds.maxX - this.bounds.minX) +
+L00786               (this.bounds.maxY - this.bounds.minY) * (this.bounds.maxY - this.bounds.minY) +
+L00787               (this.bounds.maxZ - this.bounds.minZ) * (this.bounds.maxZ - this.bounds.minZ),
+L00788           ) /
+L00789             2 +
+L00790           5),
+L00791         this.mesh.updateMatrix(),
+L00792         i.vehicleIndex >= this.headIndex - A / 2
+L00793           ? this.upgrade()
+L00794           : this.geo.setDrawRange(0, this.lod0LiveIndex));
+L00795     }
+L00796     upgrade() {
+L00797       this.curLod != 1 &&
+L00798         ((this.curLod = 1),
+L00799         this.geo.setDrawRange(this.lod1IndexStart, this.lod1LiveIndex - this.lod1IndexStart));
+L00800     }
+L00801     downgrade() {
+L00802       this.curLod != 0 && ((this.curLod = 0), this.geo.setDrawRange(0, this.lod0LiveIndex));
+L00803     }
+L00804   };
+L00805 (n(D, "indexTemplate", null), n(D, "indexTemplateNodeCount", 0), n(D, "uvStep", 10));
+L00806 let U = D;
+L00807 new te({ color: 110832, fog: !1, depthTest: !1 });
+L00808 const pe = 0,
+L00809   S = 500,
+L00810   N = 2500,
+L00811   C = 1900,
+L00812   me = 22,
+L00813   V = -17,
+L00814   xe = 150;
+L00815 let z = 7,
+L00816   H = Math.floor(z / 2);
+L00817 const ue = 40;
+L00818 let k, W;
+L00819 const ve = 100,
+L00820   E = new m(1, 5, 1),
+L00821   P = {
+L00822     seed: 1,
+L00823     feelDist: 10,
+L00824     feelAng: 0.463,
+L00825     maxTurnDelta: 0.7,
+L00826     nodeSpacing: 10,
+L00827     panicDist: 10,
+L00828     distRange: 0,
+L00829     testDist: 20,
+L00830     minElev: 2,
+L00831     maxGrad: 0.18,
+L00832     isStraight: !1,
+L00833     minBridgeElev: 0,
+L00834     maxBridgeElev: 4,
+L00835     maxBridgeNodes: 35,
+L00836     minBridgeNodes: 3,
+L00837     minStartElev: 10,
+L00838     maxStartElev: 18e4,
+L00839     genRadius: 12e3,
+L00840     genMinRadius: 6e3,
+L00841     genDeviation: 0,
+L00842     curvatureHeightFactor: 3,
+L00843     minFineSegs: 1,
+L00844     roadSink: 0.2,
+L00845     squared: !1,
+L00846     smoothWindow: 7,
+L00847     smoothFactor: 1,
+L00848     fineHorizon: 400,
+L00849     restartMargin: 200,
+L00850     direction: null,
+L00851     hasSmoothing: !0,
+L00852     smoothingStrength: 1,
+L00853     maxGradLon: 5,
+L00854     testBridgeLateral: !0,
+L00855     overflowRevertBase: 25,
+L00856     canEmergencyBridge: !0,
+L00857     maxTargetOverflow: 3,
+L00858   };
+L00859 let d = { ...P };
+L00860 const t = { vecA: new m(), vecB: new m(), vecC: new m() },
+L00861   e = {
+L00862     vecA: new m(),
+L00863     vecB: new m(),
+L00864     trackerDir: new m(),
+L00865     bridgeMid: new m(),
+L00866     bridgeTest: new m(),
+L00867     bridgeDir: new m(),
+L00868   },
+L00869   F = [new m(), new m(), new m(), new m()],
+L00870   be = new ie(F, !1),
+L00871   _ = 1 / 3,
+L00872   Te = 8;
+L00873 class Se {
+L00874   constructor(a = {}, r = {}, o, l) {
+L00875     n(this, "E", e);
+L00876     n(this, "T", t);
+L00877     n(this, "heightmap");
+L00878     n(this, "rand");
+L00879     n(this, "prevTargetSide", 0);
+L00880     n(this, "targetOverflow", 0);
+L00881     n(this, "inOverflow", !1);
+L00882     n(this, "antiTarget", new m());
+L00883     n(this, "antiTargetRevert", ue);
+L00884     n(this, "antiTargetRange", 0);
+L00885     n(this, "antiTargetTriggerPoint", new m());
+L00886     n(this, "antiTargetTriggerCount", 0);
+L00887     n(this, "antiWeight", 0);
+L00888     n(this, "lastResetIndex", 0);
+L00889     n(this, "maxRetractIndex", 0);
+L00890     n(this, "totalDA", 0);
+L00891     n(this, "bridging", !1);
+L00892     n(this, "antiBridgePoint", new m());
+L00893     n(this, "bridge", {
+L00894       landing: new m(),
+L00895       distance: 0,
+L00896       spawnNode: null,
+L00897       quality: 0,
+L00898       optionA: new m(),
+L00899       optionB: new m(),
+L00900       optionC: new m(),
+L00901     });
+L00902     n(this, "turnTrackers", [
+L00903       {
+L00904         i: 0,
+L00905         m: 15,
+L00906         r: 15,
+L00907         n: null,
+L00908         a: 3.3,
+L00909         da: 0,
+L00910         o: 0,
+L00911         toleranceFactor: 1,
+L00912         tolerance: 0,
+L00913         daThreshold: 3.3,
+L00914       },
+L00915       {
+L00916         i: 1,
+L00917         m: 30,
+L00918         r: 10,
+L00919         n: null,
+L00920         a: 3.3,
+L00921         da: 0,
+L00922         o: 0.5,
+L00923         toleranceFactor: 1,
+L00924         tolerance: 0,
+L00925         daThreshold: 3.3,
+L00926         gThreshold: 20,
+L00927       },
+L00928       {
+L00929         i: 2,
+L00930         m: 60,
+L00931         r: 15,
+L00932         n: null,
+L00933         a: 3.4,
+L00934         da: 0,
+L00935         o: 0.75,
+L00936         toleranceFactor: 1,
+L00937         tolerance: 0,
+L00938         daThreshold: 3.3,
+L00939         gThreshold: 25,
+L00940       },
+L00941       {
+L00942         i: 3,
+L00943         m: 120,
+L00944         r: 20,
+L00945         n: null,
+L00946         a: 3.6,
+L00947         da: 0,
+L00948         o: 0.8,
+L00949         toleranceFactor: 1,
+L00950         tolerance: 0,
+L00951         daThreshold: 3.3,
+L00952       },
+L00953     ]);
+L00954     n(this, "revertTrackerIndex", null);
+L00955     n(this, "accumulatedOverflow", 0);
+L00956     n(this, "vehicleDebug", null);
+L00957     n(this, "antiDir", new m());
+L00958     n(this, "targetDir", new m(1, 0, 0));
+L00959     n(this, "midlineDir", new m());
+L00960     n(this, "midlineOrth", new m());
+L00961     n(this, "alea");
+L00962     n(this, "hasInitGeneration", !1);
+L00963     n(this, "generationResets", 0);
+L00964     n(this, "hasInitSmoothing", !1);
+L00965     n(this, "hasInitDiscretisation", !1);
+L00966     n(this, "loaderIteration", 0);
+L00967     n(this, "startNode", 0);
+L00968     n(this, "loadCheckTime");
+L00969     n(this, "loadCheckProgress");
+L00970     n(this, "loadCheckCounter");
+L00971     n(this, "loadCheckLog", 0);
+L00972     n(this, "generationCount", 0);
+L00973     n(this, "headHeightmap", { prevSide: 1, curSide: 1, nextLayerSwitch: 1, layers: [0, 0] });
+L00974     n(this, "tailHeightmap", {
+L00975       prevSide: 1,
+L00976       curSide: 1,
+L00977       nextLayerSwitch: 1,
+L00978       layers: [0, 0],
+L00979       prevSwitchNode: -100,
+L00980     });
+L00981     n(this, "tVec", new m());
+L00982     n(this, "h1", 0);
+L00983     n(this, "h2", 0);
+L00984     n(this, "feelDir", new m(1, 0, 0.5));
+L00985     n(this, "prevT", 0);
+L00986     n(this, "byWater", !1);
+L00987     n(this, "waterFactor", 0);
+L00988     n(this, "closestApproach", 0);
+L00989     n(this, "trackRevertCount", 0);
+L00990     n(this, "allowEmergencyBridge", !1);
+L00991     n(this, "landing", new m());
+L00992     n(this, "smoothWindowHead", null);
+L00993     n(this, "smoothMidlineHeadH", 0);
+L00994     n(this, "doUpdate", 0);
+L00995     n(this, "didExtend", !1);
+L00996     n(this, "extending", !1);
+L00997     n(this, "extendCount", 0);
+L00998     let f = Object.keys(t);
+L00999     for (let g of f) delete t[g];
+L01000     ((t.vecA = new m()), (t.vecB = new m()), (t.vecC = new m()));
+L01001     let c = Object.keys(t);
+L01002     for (let g of c) delete e[g];
+L01003     if (
+L01004       ((e.vecA = new m()),
+L01005       (e.vecB = new m()),
+L01006       (e.trackerDir = new m()),
+L01007       (e.bridgeMid = new m()),
+L01008       (e.bridgeTest = new m()),
+L01009       (e.bridgeDir = new m()),
+L01010       (this.E = e),
+L01011       (this.T = t),
+L01012       (d = { ...P, ...a }),
+L01013       (this.config = { ...P, ...a }),
+L01014       (z = this.config.smoothWindow),
+L01015       (H = Math.floor(z / 2)),
+L01016       (i.seed = r.seed),
+L01017       (this.alea = new Z(r.seed)),
+L01018       a.oneDir
+L01019         ? (this.spiralDir = 1)
+L01020         : ((this.spiralDir = this.alea.next() < 0.5 ? -1 : 1),
+L01021           y.add("MIDLINE: Spiral dir " + this.spiralDir)),
+L01022       "spiralise" in a ? (d.spiralise = a.spiralise) : (d.spiralise = !d.direction && !d.isStraight),
+L01023       a.turnTrackers)
+L01024     )
+L01025       for (let g = 0; g < this.turnTrackers.length; g++) {
+L01026         let x = this.turnTrackers[g],
+L01027           u = a.turnTrackers[g];
+L01028         u && (this.turnTrackers[g] = { ...x, ...u });
+L01029       }
+L01030     if (a.turnbackLimits)
+L01031       for (let g = 0; g < this.turnTrackers.length && a.turnbackLimits[g]; g++)
+L01032         this.turnTrackers[g].a = a.turnbackLimits[g];
+L01033     ((k = d.maxBridgeNodes * 10),
+L01034       (W = d.minBridgeNodes * 10),
+L01035       (E.y = d.curvatureHeightFactor),
+L01036       (r.maxCached = Te),
+L01037       (this.heightmap = new o(r)),
+L01038       (this.heightmapLayerState = l),
+L01039       (this.container = new ae()),
+L01040       (this.config = d));
+L01041   }
+L01042   initialise(a, r) {
+L01043     (this.deleteState(),
+L01044       y.add("MIDLINE: Initialising at node " + r),
+L01045       (this.demoViolationA = !1),
+L01046       (this.demoViolationB = !1),
+L01047       (this.demoViolationC = !1),
+L01048       (this.seed = a),
+L01049       (this.startNode = r),
+L01050       (this.targetRadius = d.genRadius),
+L01051       (this.targetMargin = d.genRadius - d.genMinRadius),
+L01052       (this.targetRadiusMin = this.targetRadius - this.targetMargin),
+L01053       (this.targetRadiusMax = this.targetRadius + this.targetMargin),
+L01054       (this.restartCount = 0),
+L01055       (this.generationResets = 0),
+L01056       (this.hasInitGeneration = !1),
+L01057       (this.hasInitSmoothing = !1),
+L01058       (this.hasInitDiscretisation = !1),
+L01059       (this.loaderIteration = 0),
+L01060       (this.maxResets = pe / 30 + 50),
+L01061       (this.rand = new window.alea(a)),
+L01062       this.makeHeadNode(),
+L01063       (this.loadCheckTime = Date.now()),
+L01064       (this.loadCheckProgress = 0),
+L01065       (this.loadCheckCounter = 3),
+L01066       (i.vehicleNode = i.tail),
+L01067       (i.vehicleIndex = i.vehicleNode.i));
+L01068   }
+L01069   load() {
+L01070     if (Date.now() - this.loadCheckTime > 2e3) {
+L01071       if (
+L01072         i.tail.i - this.loadCheckProgress < 50 &&
+L01073         (this.loadCheckCounter--,
+L01074         y.add(
+L01075           " - Midline failing to progress; tail at " + i.tail.i + ", last check " + this.loadCheckProgress,
+L01076         ),
+L01077         this.loadCheckCounter <= 0)
+L01078       ) {
+L01079         let r = X();
+L01080         throw (
+L01081           re.set("seed", se(), !0),
+L01082           (location.hash = X()),
+L01083           new Error("Failed to generate road " + r + " - please refresh to try a different seed.")
+L01084         );
+L01085       }
+L01086       ((this.loadCheckTime = Date.now()), (this.loadCheckProgress = i.tail.i));
+L01087     }
+L01088     if (i.tail.i < this.startNode + N)
+L01089       return (
+L01090         this.update(),
+L01091         i.tail.i > this.loadCheckLog &&
+L01092           i.tail.i % 500 == 0 &&
+L01093           ((this.loadCheckLog = i.tail.i), y.add("MIDLINE: Loaded to " + i.tail.i / 100 + "km")),
+L01094         i.vehicleNode.i < this.startNode &&
+L01095           i.tail.i - i.vehicleNode.i > C &&
+L01096           ((i.vehicleNode = i.vehicleNode.next), (i.vehicleIndex = i.vehicleNode.i)),
+L01097         !1
+L01098       );
+L01099     for (; i.vehicleNode.i < this.startNode;) i.vehicleNode = i.vehicleNode.next;
+L01100     return ((i.vehicleIndex = i.vehicleNode.i), !0);
+L01101   }
+L01102   restartGeneration() {
+L01103     (this.restartCount++,
+L01104       (this.accumulatedOverflow = 0),
+L01105       (this.targetOverflow = 0),
+L01106       (this.antiTargetRange = 0),
+L01107       (this.inOverflow = !1),
+L01108       this.generationCount++,
+L01109       this.makeHeadNode());
+L01110   }
+L01111   makeHeadNode() {
+L01112     this.deleteState();
+L01113     let a = this.getNextStartingPose();
+L01114     ((a.position.y -= d.roadSink),
+L01115       i.head
+L01116         ? ((i.head.i = V),
+L01117           i.head.p.copy(a.position),
+L01118           (i.head.n.x = -a.vector.z),
+L01119           (i.head.n.z = a.vector.x),
+L01120           (i.head.a = a.heading),
+L01121           (i.head.da = 0),
+L01122           (i.head.t = 0),
+L01123           (i.head.g = 0),
+L01124           (i.head.gfa = 0),
+L01125           (i.head.h = 0),
+L01126           (i.head.next = null),
+L01127           (i.head.prev = null),
+L01128           delete i.head.dswl,
+L01129           delete i.head.dswr,
+L01130           delete i.head.lWallDist,
+L01131           delete i.head.rWallDist)
+L01132         : (i.head = {
+L01133             i: V,
+L01134             p: new m().copy(a.position),
+L01135             n: { x: -a.vector.z, y: 0, z: a.vector.x },
+L01136             a: a.heading,
+L01137             da: 0,
+L01138             t: 0,
+L01139             g: 0,
+L01140             gf: 0,
+L01141             gfa: 0,
+L01142             h: 0,
+L01143             next: null,
+L01144             prev: null,
+L01145           }),
+L01146       (i.tail = i.head),
+L01147       (i.fineTail = i.head),
+L01148       (i.vehicleNode = i.head),
+L01149       (i.vehicleIndex = i.head.i),
+L01150       d.spiralise
+L01151         ? (this.targetDir.copy(i.head.p).negate().normalize(),
+L01152           this.targetDir
+L01153             .set(-this.targetDir.z * this.spiralDir, 0, this.targetDir.x * this.spiralDir)
+L01154             .normalize())
+L01155         : d.direction
+L01156           ? ((this.targetDir.x = d.direction.x),
+L01157             (this.targetDir.z = d.direction.z),
+L01158             this.targetDir.normalize())
+L01159           : (console.log("MIDLINE: No target direction given; aiming for origin"),
+L01160             (this.targetDir.x = -i.head.p.x),
+L01161             (this.targetDir.z = -i.head.p.z),
+L01162             this.targetDir.normalize()),
+L01163       this.midlineDir.set(Math.cos(i.tail.a), 0, Math.sin(i.tail.a)),
+L01164       this.midlineOrth.set(-this.midlineDir.z, 0, this.midlineDir.x),
+L01165       (this.prevTargetSide = Math.sign(this.midlineOrth.dot(this.targetDir) * -1)),
+L01166       (this.smoothWindowHead = i.head));
+L01167     for (t.tracker of this.turnTrackers) ((t.tracker.n = i.head), (t.tracker.da = 0));
+L01168   }
+L01169   checkUpdateHeadHeightmap() {
+L01170     d.spiralise &&
+L01171       this.headHeightmap.prevSide !== Math.sign(i.head.p.z) &&
+L01172       this.headHeightmap.nextLayerSwitch === Math.sign(i.head.p.x) &&
+L01173       ((this.headHeightmap.prevSide = Math.sign(i.head.p.z)),
+L01174       (this.headHeightmap.nextLayerSwitch = Math.sign(i.head.p.x) * -1),
+L01175       (this.headHeightmap.curSide = (this.headHeightmap.curSide + 1) % 2),
+L01176       this.headHeightmap.layers[this.headHeightmap.curSide]++,
+L01177       this.heightmapLayerState.set([...this.headHeightmap.layers]),
+L01178       y.add(
+L01179         "MIDLINE: Incrementing head heightmap: " +
+L01180           this.headHeightmap.layers[0] +
+L01181           ", " +
+L01182           this.headHeightmap.layers[1] +
+L01183           " @ node " +
+L01184           i.head.i +
+L01185           "(x " +
+L01186           i.head.p.x +
+L01187           ")",
+L01188       ));
+L01189   }
+L01190   checkUpdateTailHeightmap() {
+L01191     d.spiralise &&
+L01192       this.tailHeightmap.prevSide !== Math.sign(i.tail.p.z) &&
+L01193       this.tailHeightmap.nextLayerSwitch === Math.sign(i.tail.p.x) &&
+L01194       ((this.tailHeightmap.prevSide = Math.sign(i.tail.p.z)),
+L01195       (this.tailHeightmap.nextLayerSwitch = Math.sign(i.tail.p.x) * -1),
+L01196       (this.tailHeightmap.curSide = (this.tailHeightmap.curSide + 1) % 2),
+L01197       this.tailHeightmap.layers[this.tailHeightmap.curSide]++,
+L01198       this.heightmap.setLayers(this.tailHeightmap.layers),
+L01199       (this.tailHeightmap.prevSwitchNode = i.tail.i),
+L01200       y.add(
+L01201         "MIDLINE: Incrementing tail heightmap: " +
+L01202           this.tailHeightmap.layers[0] +
+L01203           ", " +
+L01204           this.tailHeightmap.layers[1] +
+L01205           " @ node " +
+L01206           i.tail.i +
+L01207           "(x " +
+L01208           i.tail.p.x +
+L01209           ")",
+L01210       ));
+L01211   }
+L01212   undoUpdateTailHeightmap() {
+L01213     ((this.tailHeightmap.prevSide = -this.tailHeightmap.prevSide),
+L01214       (this.tailHeightmap.nextLayerSwitch = -this.tailHeightmap.nextLayerSwitch),
+L01215       this.tailHeightmap.layers[this.tailHeightmap.curSide]--,
+L01216       (this.tailHeightmap.curSide = (this.tailHeightmap.curSide + 1) % 2),
+L01217       this.heightmap.setLayers(this.tailHeightmap.layers),
+L01218       (this.tailHeightmap.prevSwitchNode = -100),
+L01219       y.add("MIDLINE: Tail reverted across tailHeightmap boundary; undoing"));
+L01220   }
+L01221   getNextStartingPose() {
+L01222     let a = 0,
+L01223       r,
+L01224       o,
+L01225       l;
+L01226     const f = new Z(d.seed + "" + this.generationCount);
+L01227     let c = !1;
+L01228     for (d.startPos && this.restartCount > 2 && console.log("FAILED TO GENERATE FROM START POS"); ;) {
+L01229       if (d.startPos && this.restartCount < 3)
+L01230         (console.log("Loading dedicated start pos"),
+L01231           console.log(d.startPos),
+L01232           (r = d.startPos.x),
+L01233           (l = d.startPos.z),
+L01234           (c = !0));
+L01235       else if (d.spiralise) {
+L01236         if (this.restartCount > 20) {
+L01237           (console.warn("Bad starting seed; incrementing heightmap layers"),
+L01238             this.tailHeightmap.layers[0]++,
+L01239             this.tailHeightmap.layers[1]++,
+L01240             this.heightmap.setLayers(this.tailHeightmap.layers, !0),
+L01241             y.add(
+L01242               "MIDLINE: Incrementing tail heightmap layers: " +
+L01243                 this.tailHeightmap.layers[0] +
+L01244                 ", " +
+L01245                 this.tailHeightmap.layers[1],
+L01246             ),
+L01247             this.headHeightmap.layers[0]++,
+L01248             this.headHeightmap.layers[1]++,
+L01249             this.heightmapLayerState.set([...this.headHeightmap.layers]),
+L01250             y.add(
+L01251               "MIDLINE: Incrementing head heightmap layers: " +
+L01252                 this.headHeightmap.layers[0] +
+L01253                 ", " +
+L01254                 this.headHeightmap.layers[1],
+L01255             ),
+L01256             (this.restartCount = 0),
+L01257             (a = 0));
+L01258           continue;
+L01259         } else
+L01260           this.restartCount > 0 &&
+L01261             (this.restartCount % 2 == 1
+L01262               ? (a = d.restartMargin * Math.ceil(this.restartCount / 2))
+L01263               : (a = d.restartMargin * -(this.restartCount / 2)));
+L01264         ((r = 0), (l = this.targetRadius + a));
+L01265       } else {
+L01266         this.restartCount > 20
+L01267           ? ((a += f.next() * d.restartMargin), (this.restartCount = 0))
+L01268           : (a = f.next() * d.restartMargin);
+L01269         let b = f.next() * Math.PI * 2;
+L01270         ((r = Math.cos(b) * a), (l = Math.sin(b) * a));
+L01271       }
+L01272       if (((o = this.heightmap.getXZ(r, l)), !c && (o < d.minStartElev || o > d.maxStartElev))) {
+L01273         this.restartCount++;
+L01274         continue;
+L01275       }
+L01276       let g = this.heightmap.getXZ(r, l - 10),
+L01277         x = this.heightmap.getXZ(r + 10, l),
+L01278         u = this.heightmap.getXZ(r, l + 10);
+L01279       if (d.startHeading && this.restartCount < 3)
+L01280         (console.log("Start heading given", d.startHeading),
+L01281           this.tVec.set(d.startHeading.x, 0, d.startHeading.z),
+L01282           this.tVec.normalize());
+L01283       else if (x - g == 0 || u - x == 0) this.tVec.set(0.99, 0, 0.01);
+L01284       else {
+L01285         let b = (o - g) / (x - g),
+L01286           v = (o - x) / (u - x);
+L01287         if (b >= 0 && b <= 1) this.tVec.set(b, 0, (1 - b) * -1).normalize();
+L01288         else if (v >= 0 && v <= 1) this.tVec.set(1 - v, 0, v).normalize();
+L01289         else {
+L01290           (this.restartCount++, console.log("Starting angle issue ", b, v));
+L01291           continue;
+L01292         }
+L01293       }
+L01294       return (
+L01295         this.restartCount && y.add("MIDLINE: Start-pose attempts: " + this.restartCount),
+L01296         {
+L01297           position: { x: r, y: o, z: l },
+L01298           vector: { x: this.tVec.x, z: this.tVec.z },
+L01299           heading: Math.atan2(this.tVec.z, this.tVec.x),
+L01300         }
+L01301       );
+L01302     }
+L01303   }
+L01304   destroy() {
+L01305     this.deleteState();
+L01306   }
+L01307   deleteState() {
+L01308     (i.head && delete i.head.next,
+L01309       delete i.tail,
+L01310       delete i.fineTail,
+L01311       delete i.vehicleNode,
+L01312       i.generation++,
+L01313       delete this.smoothWindowHead,
+L01314       (this.onBridgeApproach = !1),
+L01315       (this.bridging = !1),
+L01316       delete this.bridge.spawnNode,
+L01317       (this.bridge.quality = 0));
+L01318     for (t.t of this.turnTrackers) t.t.n = null;
+L01319     let a = this.spiralDir < 0 ? 0 : 1;
+L01320     ((this.headHeightmap = { prevSide: 1, curSide: a, nextLayerSwitch: this.spiralDir, layers: [0, 0] }),
+L01321       this.heightmapLayerState.set([0, 0]),
+L01322       (this.tailHeightmap = { prevSide: 1, curSide: a, nextLayerSwitch: this.spiralDir, layers: [0, 0] }),
+L01323       this.heightmap.setLayers(this.tailHeightmap.layers));
+L01324   }
+L01325   rebuildFine(a) {
+L01326     for (
+L01327       d.fineHorizon = a, i.fineTail = i.head;
+L01328       i.fineTail.i < i.vehicleIndex + d.fineHorizon && i.fineTail.i < i.tail.i - C;
+L01329     )
+L01330       this.extendFine();
+L01331   }
+L01332   reset(a, r) {
+L01333     (this.deleteState(),
+L01334       (this.rand = new window.alea(a)),
+L01335       (i.head = {
+L01336         i: V,
+L01337         p: new m().copy(r.position),
+L01338         n: { x: -r.vector.z, y: 0, z: r.vector.x },
+L01339         a: r.heading,
+L01340         da: 0,
+L01341         t: 0,
+L01342         c: new m(),
+L01343         g: 0,
+L01344         gf: 0,
+L01345         gfa: 0,
+L01346         h: 0,
+L01347         ps: null,
+L01348         ns: null,
+L01349         next: null,
+L01350         prev: null,
+L01351       }),
+L01352       (i.tail = i.head),
+L01353       (i.vehicleNode = i.head),
+L01354       (i.vehicleIndex = i.head.i),
+L01355       (i.vehicleIndexDidChange = !0),
+L01356       d.spiralise
+L01357         ? (this.targetDir.copy(i.head.p).negate().normalize(),
+L01358           this.targetDir
+L01359             .set(-this.targetDir.z * this.spiralDir, 0, this.targetDir.x * this.spiralDir)
+L01360             .normalize())
+L01361         : d.direction
+L01362           ? ((this.targetDir.x = d.direction.x),
+L01363             (this.targetDir.z = d.direction.z),
+L01364             this.targetDir.normalize())
+L01365           : (console.log("MIDLINE: No target direction given; aiming for origin"),
+L01366             (this.targetDir.x = -i.head.p.x),
+L01367             (this.targetDir.z = -i.head.p.z),
+L01368             this.targetDir.normalize()),
+L01369       (this.smoothWindowHead = i.head));
+L01370     for (t.tracker of this.turnTrackers) ((t.tracker.n = i.head), (t.tracker.da = 0));
+L01371   }
+L01372   extendFine() {
+L01373     for (
+L01374       t.n = i.fineTail,
+L01375         F[0].copy(t.n.prev ? t.n.prev.p : t.n.p),
+L01376         F[1].copy(t.n.p),
+L01377         F[2].copy(t.n.next.p),
+L01378         F[3].copy(t.n.next.next.p),
+L01379         t.vecA.copy(t.n.next.p).sub(t.n.p).multiply(E).normalize(),
+L01380         t.vecC.copy(t.n.next.next.p).sub(t.n.next.p).multiply(E).normalize(),
+L01381         t.n.prev
+L01382           ? (t.vecB.copy(t.n.p).sub(t.n.prev.p).multiply(E).normalize(),
+L01383             (t.minDot = Math.min(t.vecA.dot(t.vecB), t.vecA.dot(t.vecC))),
+L01384             t.minDot > 1 && (t.minDot = 1),
+L01385             (t.segs = Math.ceil(1 - t.vecA.dot(t.vecB)) * 10))
+L01386           : (t.minDot = t.vecA.dot(t.vecC)),
+L01387         t.minDot = (1 - Math.max(t.minDot, 0.99)) * 100,
+L01388         t.minDot = Math.sqrt(t.minDot),
+L01389         t.segs = Math.floor(t.minDot * 10),
+L01390         t.segs > 10 && (t.segs = 10),
+L01391         t.segs < d.minFineSegs && (t.segs = d.minFineSegs),
+L01392         t.prevFine = t.n,
+L01393         t.n.fs = t.segs,
+L01394         t.i = 1;
+L01395       t.i <= t.segs;
+L01396       t.i++
+L01397     )
+L01398       (t.i < t.segs
+L01399         ? ((t.nextFine = {
+L01400             next: t.n.next,
+L01401             prev: t.n,
+L01402             nextFine: null,
+L01403             prevFine: t.prevFine,
+L01404             p: new m(),
+L01405             n: { x: 1, y: 0, z: 0 },
+L01406           }),
+L01407           (t.t = t.i / t.segs),
+L01408           be.getPoint(_ + _ * t.t, t.nextFine.p))
+L01409         : ((t.nextFine = i.fineTail.next), (t.nextFine.prevFine = t.prevFine)),
+L01410         (t.prevFine.nextFine = t.nextFine),
+L01411         t.prevFine.prevFine &&
+L01412           ((t.pdx = t.nextFine.p.x - t.prevFine.prevFine.p.x),
+L01413           (t.pdz = t.nextFine.p.z - t.prevFine.prevFine.p.z),
+L01414           (t.pdxz = Math.sqrt(t.pdx * t.pdx + t.pdz * t.pdz)),
+L01415           (t.prevFine.n.x = -t.pdz / t.pdxz),
+L01416           (t.prevFine.n.z = t.pdx / t.pdxz)),
+L01417         (t.prevFine = t.nextFine));
+L01418     i.fineTail = i.fineTail.next;
+L01419   }
+L01420   extendMidline() {
+L01421     var o, l;
+L01422     ((this.didExtend = !0),
+L01423       i.tail.i > N &&
+L01424         i.tail.i - i.vehicleIndex < C &&
+L01425         !this.allowEmergencyBridge &&
+L01426         !this.bridging &&
+L01427         (this.allowEmergencyBridge = this.config.canEmergencyBridge),
+L01428       (t.feelDist = d.feelDist * (1 + this.waterFactor)),
+L01429       (t.feelL = this.heightmap.getMidlineXZ(
+L01430         Math.cos(i.tail.a - d.feelAng) * t.feelDist + i.tail.p.x,
+L01431         Math.sin(i.tail.a - d.feelAng) * t.feelDist + i.tail.p.z,
+L01432         this.heightmap.midlineDepth,
+L01433       )),
+L01434       (t.feelR = this.heightmap.getMidlineXZ(
+L01435         Math.cos(i.tail.a + d.feelAng) * t.feelDist + i.tail.p.x,
+L01436         Math.sin(i.tail.a + d.feelAng) * t.feelDist + i.tail.p.z,
+L01437         this.heightmap.midlineDepth,
+L01438       )),
+L01439       (t.feelA = this.heightmap.getMidlineXZ(i.tail.p.x, i.tail.p.z, this.heightmap.midlineDepth)),
+L01440       (t.feelA = Math.max(t.feelA, d.minElev)),
+L01441       (this.waterFactor = 0),
+L01442       (this.byWater = !1),
+L01443       t.feelR < d.minElev * 2 ? (this.byWater = !0) : t.feelL < d.minElev * 2 && (this.byWater = !0),
+L01444       (t.feelAvg = (t.feelR + t.feelL) / 2),
+L01445       t.feelAvg < d.minElev * 3 &&
+L01446         (t.feelAvg > d.minElev
+L01447           ? (this.waterFactor = 1 - (t.feelAvg - d.minElev) / (d.minElev * 2))
+L01448           : (this.waterFactor = 1)),
+L01449       (t.feelDif = (t.feelR - t.feelL) / 2));
+L01450     let a = d.maxGrad + this.antiWeight * d.maxGrad * 0.5;
+L01451     ((t.gradLat = (t.feelL - t.feelR) / t.feelDist),
+L01452       (t.gradLat /= a),
+L01453       (t.gradLon = (t.feelAvg - t.feelA) / t.feelDist),
+L01454       (t.gradLon /= a),
+L01455       (t.bT = 0),
+L01456       t.feelDif !== 0 && (t.bT = (t.feelAvg - t.feelA) / t.feelDif),
+L01457       (t.bT = Math.max(Math.min(t.bT, 1), -1)),
+L01458       this.midlineDir.set(Math.cos(i.tail.a), 0, Math.sin(i.tail.a)),
+L01459       this.midlineOrth.set(-this.midlineDir.z, 0, this.midlineDir.x),
+L01460       (e.targetDot = Math.max(Math.min(1, this.midlineDir.dot(this.targetDir)), -1)),
+L01461       (e.targetSide = Math.sign(this.midlineOrth.dot(this.targetDir) * -1) || this.prevTargetSide),
+L01462       e.targetSide == this.prevTargetSide &&
+L01463         this.targetOverflow > 1.5 &&
+L01464         (e.targetSide == 1 ? (e.targetSide = -2) : (e.targetSide = 2)),
+L01465       (e.targetDot < 0 || this.targetOverflow > 0) && e.targetSide != this.prevTargetSide
+L01466         ? (e.targetSide > this.prevTargetSide
+L01467             ? this.prevT < 0
+L01468               ? ((this.targetOverflow += this.prevT),
+L01469                 this.inOverflow && this.targetOverflow <= 0 && (this.targetOverflow = 0.01),
+L01470                 this.targetOverflow > 0
+L01471                   ? ((e.targetSide = this.prevTargetSide), (e.targetDot = -1))
+L01472                   : (this.targetOverflow = 0))
+L01473               : ((this.targetOverflow += this.prevT),
+L01474                 (e.targetSide = this.prevTargetSide),
+L01475                 (e.targetDot = -1))
+L01476             : this.prevT > 0
+L01477               ? ((this.targetOverflow -= this.prevT),
+L01478                 this.inOverflow && this.targetOverflow <= 0 && (this.targetOverflow = 0.01),
+L01479                 this.targetOverflow > 0
+L01480                   ? ((e.targetSide = this.prevTargetSide), (e.targetDot = -1))
+L01481                   : (this.targetOverflow = 0))
+L01482               : ((this.targetOverflow -= this.prevT),
+L01483                 (e.targetSide = this.prevTargetSide),
+L01484                 (e.targetDot = -1)),
+L01485           (this.accumulatedOverflow += this.targetOverflow))
+L01486         : ((this.targetOverflow = 0),
+L01487           this.accumulatedOverflow > 0 &&
+L01488             ((this.accumulatedOverflow -= 3),
+L01489             this.accumulatedOverflow < 0 && (this.accumulatedOverflow = 0))),
+L01490       (this.inOverflow = this.targetOverflow > 0),
+L01491       (this.prevTargetSide = e.targetSide),
+L01492       (e.targetAng = Math.acos(e.targetDot)),
+L01493       (t.gradLeft = (t.feelL - t.feelA) / t.feelDist / a),
+L01494       (t.gradRight = (t.feelR - t.feelA) / t.feelDist / a),
+L01495       (t.maxT = 1),
+L01496       (t.minT = -1),
+L01497       (t.gradLeftAbs = Math.abs(t.gradLeft)),
+L01498       (t.gradRightAbs = Math.abs(t.gradRight)),
+L01499       (t.gradLeftAbs > 1 || t.gradRightAbs > 1) &&
+L01500         ((t.gradDif = (t.gradLeft - t.gradRight) / 2),
+L01501         (t.gradAvg = (t.gradLeft + t.gradRight) / 2),
+L01502         (t.gradLeft > 1 && t.gradRight > 1) || (t.gradLeft < -1 && t.gradRight < -1)
+L01503           ? t.gradLeftAbs < t.gradRightAbs
+L01504             ? ((t.maxT = 1), (t.minT = 1))
+L01505             : ((t.maxT = -1), (t.minT = -1))
+L01506           : (t.gradLeftAbs > 1 &&
+L01507               (t.gradLeft < 0
+L01508                 ? (t.maxT = (1 + t.gradAvg) / Math.abs(t.gradDif))
+L01509                 : (t.maxT = (1 - t.gradAvg) / Math.abs(t.gradDif))),
+L01510             t.gradRightAbs > 1 &&
+L01511               (t.gradRight < 0
+L01512                 ? (t.minT = (1 + t.gradAvg) / Math.abs(t.gradDif))
+L01513                 : (t.minT = (1 - t.gradAvg) / Math.abs(t.gradDif)),
+L01514               (t.minT *= -1)))),
+L01515       (t.gradAvg = (Math.abs(t.gradLat) + Math.abs(t.gradLon)) / 2),
+L01516       (t.maxDif = d.maxTurnDelta + Math.abs(t.gradAvg) * 0.5),
+L01517       (t.maxT *= 1 + this.antiWeight * 0.25),
+L01518       (t.minT *= 1 + this.antiWeight * 0.25),
+L01519       t.maxT > this.prevT
+L01520         ? (t.maxT = Math.min(t.maxT, this.prevT + t.maxDif))
+L01521         : (t.maxT = Math.max(t.maxT, this.prevT - t.maxDif)),
+L01522       t.minT < this.prevT
+L01523         ? (t.minT = Math.max(t.minT, this.prevT - t.maxDif))
+L01524         : (t.minT = Math.min(t.minT, this.prevT + t.maxDif)),
+L01525       this.byWater &&
+L01526         (t.gradLat < 0
+L01527           ? t.maxT > 0 && (t.maxT *= 1 - this.waterFactor)
+L01528           : t.minT < 0 && (t.minT *= 1 - this.waterFactor)),
+L01529       (t.bT = Math.max(Math.min(t.maxT, t.bT), t.minT)),
+L01530       i.tail.i > 1 &&
+L01531         !this.bridging &&
+L01532         t.feelA < this.config.maxBridgeElev &&
+L01533         t.feelA > this.config.minBridgeElev &&
+L01534         (this.tVec.set(0, 0, 0),
+L01535         this.targetOverflow <= 0
+L01536           ? ((this.tVec.x = this.midlineDir.x),
+L01537             (this.tVec.z = this.midlineDir.z),
+L01538             this.tVec.normalize(),
+L01539             this.testForBridge(i.tail.prev, 1, this.tVec),
+L01540             this.bridge.optionA.copy(this.landing))
+L01541           : this.bridge.optionA.set(0, 0, 0),
+L01542         (e.bridgeSide = Math.sign(t.gradLat)),
+L01543         (e.bridgeTargetSide = 1),
+L01544         e.bridgeSide == e.targetSide && (e.bridgeTargetSide = -1),
+L01545         (this.tVec.x = i.tail.prev.n.x * e.bridgeSide),
+L01546         (this.tVec.z = i.tail.prev.n.z * e.bridgeSide),
+L01547         this.tVec.normalize(),
+L01548         this.config.testBridgeLateral && e.targetDot + 1 * e.bridgeTargetSide > -1
+L01549           ? ((this.tVec.x += this.midlineDir.x * 0.15),
+L01550             (this.tVec.z += this.midlineDir.z * 0.15),
+L01551             this.tVec.normalize(),
+L01552             this.testForBridge(i.tail.prev, 1, this.tVec),
+L01553             this.bridge.optionB.copy(this.landing))
+L01554           : this.bridge.optionB.set(0, 0, 0),
+L01555         e.targetDot + 0.7071 * e.bridgeTargetSide > -1
+L01556           ? ((this.tVec.x += this.midlineDir.x),
+L01557             (this.tVec.z += this.midlineDir.z),
+L01558             this.tVec.normalize(),
+L01559             this.testForBridge(i.tail.prev, 1, this.tVec),
+L01560             this.bridge.optionC.copy(this.landing))
+L01561           : this.bridge.optionC.set(0, 0, 0)),
+L01562       (t.gradLon2 = t.gradLon * t.gradLon),
+L01563       t.gradLon2 <= 1
+L01564         ? (!this.byWater || t.gradLon > 0) && (t.bT *= t.gradLon2)
+L01565         : t.bT < 0
+L01566           ? (t.bT = t.minT)
+L01567           : (t.bT = t.maxT),
+L01568       (t.bT = Math.max(Math.min(t.maxT, t.bT), t.minT)),
+L01569       (this.antiWeight = 0),
+L01570       this.antiTargetRange > 0 &&
+L01571         ((e.d = i.tail.p.x - this.antiTarget.x),
+L01572         (e.d = e.d * e.d + (i.tail.p.z - this.antiTarget.z) * (i.tail.p.z - this.antiTarget.z)),
+L01573         this.antiDir.set(this.antiTarget.x - i.tail.p.x, 0, this.antiTarget.z - i.tail.p.z),
+L01574         this.antiDir.normalize(),
+L01575         (e.antiDot = this.midlineDir.dot(this.antiDir)),
+L01576         e.d < this.antiTargetRange
+L01577           ? ((this.antiWeight = 1 - e.d / this.antiTargetRange),
+L01578             (e.antiSide = this.midlineOrth.dot(this.antiDir)),
+L01579             (e.antiRedirect = d.feelAng * 2 * e.antiSide),
+L01580             (e.antiAdjust = (e.antiDot + 1) / 2),
+L01581             (this.antiWeight *= e.antiAdjust),
+L01582             (e.antiRedirect = Math.max(Math.min(t.maxT, e.antiRedirect), t.minT)),
+L01583             (t.bT = this.antiWeight * e.antiRedirect + (1 - this.antiWeight) * t.bT))
+L01584           : e.antiDot < -0.707 &&
+L01585             ((this.antiTargetRange = 0),
+L01586             (this.revertTrackerIndex = null),
+L01587             (this.trackRevertCount = 0),
+L01588             (this.antiTargetTriggerCount = 0),
+L01589             (this.allowEmergencyBridge = !1))),
+L01590       (e.targetAdjust = (1 - (e.targetDot + 1) / 2) * (1 - this.waterFactor * this.waterFactor)),
+L01591       (e.targetAdjust *= 1 - this.antiWeight),
+L01592       (e.targetRedirect = (e.targetAng * e.targetSide) / d.feelAng),
+L01593       (e.targetRedirect = Math.max(Math.min(t.maxT, e.targetRedirect), t.minT)),
+L01594       (t.bT = e.targetAdjust * e.targetRedirect + (1 - e.targetAdjust) * t.bT),
+L01595       (e.violatedOverflow =
+L01596         (this.accumulatedOverflow > xe || this.targetOverflow > d.maxTargetOverflow) && !this.bridging),
+L01597       (e.shouldBridge = !1),
+L01598       !this.bridging &&
+L01599         this.bridge.spawnNode &&
+L01600         ((e.bridgeRevertNodes = i.tail.i - this.bridge.spawnNode.i),
+L01601         e.bridgeRevertNodes > S && this.resetBridgeState(),
+L01602         (e.bridgeQualityThreshold = e.targetDot < 0 ? 0.5 + e.targetDot / 2 : 0.5 + e.targetDot * 0.25),
+L01603         (e.bridgeQualityThreshold -= this.antiTargetTriggerCount * 0.1),
+L01604         this.targetOverflow > 0 && (e.bridgeQualityThreshold = 0),
+L01605         (e.bridgeRevertMinNodes = (1 - this.bridge.quality) * 20),
+L01606         (e.bridgeRevertMaxNodes = (1 - e.bridgeQualityThreshold) * 150),
+L01607         (e.shouldBridge =
+L01608           !this.bridging &&
+L01609           this.bridge.quality >= e.bridgeQualityThreshold &&
+L01610           e.bridgeRevertNodes >= e.bridgeRevertMinNodes &&
+L01611           e.bridgeRevertNodes <= e.bridgeRevertMaxNodes)),
+L01612       (e.violatedTurnback = !1));
+L01613     for (e.tracker of this.turnTrackers)
+L01614       if (
+L01615         ((e.tracker.da += i.tail.da),
+L01616         e.tracker.n.i <= i.tail.i - e.tracker.m &&
+L01617           ((e.tracker.da -= e.tracker.n.da), (e.tracker.n = e.tracker.n.next)),
+L01618         (e.tracker.daThreshold = e.tracker.a),
+L01619         Math.abs(e.tracker.da) > e.tracker.daThreshold &&
+L01620           (e.trackerDir.copy(i.tail.p).sub(e.tracker.n.p).normalize(),
+L01621           (e.tracker.targetDot = e.trackerDir.dot(this.targetDir)),
+L01622           (e.tracker.daThreshold = e.tracker.a),
+L01623           (e.tracker.tolerance = (e.tracker.targetDot + e.targetDot) / 2),
+L01624           (((e.targetDot < 0 || e.tracker.targetDot < 0) && this.byWater) || this.targetOverflow > 0) &&
+L01625             (e.tracker.tolerance = 0),
+L01626           e.tracker.tolerance > 0 &&
+L01627             (e.tracker.daThreshold = e.tracker.a + e.tracker.tolerance * e.tracker.toleranceFactor)),
+L01628         !this.bridging &&
+L01629           (Math.abs(e.tracker.da) > e.tracker.daThreshold ||
+L01630             e.shouldBridge ||
+L01631             (e.tracker.gThreshold && Math.abs(i.tail.g) > e.tracker.gThreshold) ||
+L01632             Math.abs(t.gradLon) > this.config.maxGradLon))
+L01633       ) {
+L01634         ((this.trackerViolation =
+L01635           e.tracker.i +
+L01636           ": " +
+L01637           ((Math.abs(e.tracker.da) / e.tracker.a) * 100).toFixed(1) +
+L01638           "%, " +
+L01639           (e.targetDot.toFixed(1) + " vs " + e.tracker.o)),
+L01640           (e.violatedTurnback = !0));
+L01641         break;
+L01642       }
+L01643     if (
+L01644       ((e.bridgeViolation = !1),
+L01645       this.bridging &&
+L01646         i.tail.i - this.bridge.spawnNode.i > this.bridge.distance / 10 + 20 &&
+L01647         ((e.bridgeViolation = !0),
+L01648         y.add("MIDLINE: Bridge overrunning at " + this.bridge.spawnNode.i + ", reached " + i.tail.i)),
+L01649       !d.isStraight &&
+L01650         (e.bridgeViolation ||
+L01651           e.violatedTurnback ||
+L01652           e.shouldBridge ||
+L01653           e.violatedOverflow ||
+L01654           this.customRevertTest()))
+L01655     ) {
+L01656       if (
+L01657         ((e.revertDistance = 0),
+L01658         (e.violatedTurnbackMulti = !1),
+L01659         (e.violatedOverflowMulti = !1),
+L01660         (this.didExtend = !1),
+L01661         e.violatedTurnback
+L01662           ? (this.lastResetIndex > 0 && Math.abs(this.lastResetIndex - i.tail.i) < e.tracker.m * 2) ||
+L01663             (this.revertTrackerIndex == e.tracker.i && this.antiWeight > 0)
+L01664             ? ((e.violatedTurnbackMulti = !0),
+L01665               (e.revertDistance = Math.max(
+L01666                 e.tracker.m,
+L01667                 this.antiTargetRevert + e.tracker.r * (this.antiTargetTriggerCount + 1),
+L01668               )),
+L01669               i.tail.i - e.revertDistance < this.maxRetractIndex &&
+L01670                 (e.revertDistance = i.tail.i - this.maxRetractIndex + (this.antiTargetTriggerCount + 1)))
+L01671             : (e.revertDistance = e.tracker.m)
+L01672           : e.violatedOverflow
+L01673             ? this.antiWeight > 0
+L01674               ? ((e.violatedOverflowMulti = !0), (this.antiTargetRevert += 50))
+L01675               : (this.antiTargetRevert = this.config.overflowRevertBase)
+L01676             : e.bridgeViolation && (e.revertDistance = i.tail.i - this.bridge.spawnNode.i + 5),
+L01677         this.bridging &&
+L01678           ((e.shouldBridge = !1),
+L01679           (this.bridging = !1),
+L01680           this.antiBridgePoint.copy(this.bridge.landing),
+L01681           this.resetBridgeState()),
+L01682         e.shouldBridge ||
+L01683         (!this.bridging &&
+L01684           this.bridge.spawnNode &&
+L01685           this.bridge.quality > 0 &&
+L01686           e.bridgeRevertNodes < e.revertDistance)
+L01687           ? ((this.bridging = !0),
+L01688             (this.onBridgeApproach = !0),
+L01689             (this.bridgeApproachFactor = 1),
+L01690             (this.onBridgeDismount = !1),
+L01691             this.improveBridgeStartNode(),
+L01692             (this.bridge.landing.y = this.bridge.spawnNode.p.y),
+L01693             (this.bridge.height = this.bridge.landing.y),
+L01694             (this.revertTrackerIndex = null),
+L01695             (this.antiTargetRange = 0),
+L01696             (this.antiTargetTrigger = i.tail.i),
+L01697             (e.revertDistance = i.tail.i - this.bridge.spawnNode.i),
+L01698             (e.maxRevert = !1))
+L01699           : e.violatedOverflow
+L01700             ? (this.antiTargetRevert >= S
+L01701                 ? (e.maxRetract || (e.maxRetract = 0), (e.maxRetract += 1), (this.antiTargetRevert = S))
+L01702                 : e.maxRetract && (e.maxRetract = 0),
+L01703               (e.revertDistance = Math.max(50, this.antiTargetRevert)),
+L01704               e.maxRetract
+L01705                 ? (this.antiTarget.copy(i.tail.p),
+L01706                   (this.antiTarget.x += this.rand() * this.antiTargetRevert * Math.min(e.maxRetract, 4)),
+L01707                   (this.antiTarget.z += this.rand() * this.antiTargetRevert * Math.min(e.maxRetract, 4)))
+L01708                 : this.antiTarget.lerp(i.tail.p, 1 / (this.antiTargetTriggerCount + 1)),
+L01709               (this.allowEmergencyBridge = this.config.canEmergencyBridge))
+L01710             : (this.antiTargetTriggerPoint.copy(i.tail.p),
+L01711               e.violatedTurnbackMulti
+L01712                 ? (this.antiTargetTriggerCount++,
+L01713                   (this.antiTargetRevert = Math.max(
+L01714                     e.tracker.m,
+L01715                     this.antiTargetRevert + e.tracker.r * this.antiTargetTriggerCount,
+L01716                   )),
+L01717                   i.tail.i - this.antiTargetRevert < this.maxRetractIndex
+L01718                     ? (this.antiTarget.lerp(i.tail.p, this.rand()),
+L01719                       (this.antiTargetRevert = i.tail.i - this.maxRetractIndex + this.antiTargetTriggerCount),
+L01720                       (this.allowEmergencyBridge = this.config.canEmergencyBridge),
+L01721                       (e.maxRevert = !0))
+L01722                     : (this.antiTargetRevert >= S
+L01723                         ? (e.maxRetract || (e.maxRetract = 0),
+L01724                           (e.maxRetract += 1),
+L01725                           (this.antiTargetRevert = S))
+L01726                         : e.maxRetract && (e.maxRetract = 0),
+L01727                       e.maxRetract
+L01728                         ? (this.antiTarget.copy(i.tail.p),
+L01729                           (this.antiTarget.x +=
+L01730                             this.rand() * this.antiTargetRevert * Math.min(e.maxRetract, 4)),
+L01731                           (this.antiTarget.z +=
+L01732                             this.rand() * this.antiTargetRevert * Math.min(e.maxRetract, 4)))
+L01733                         : this.antiTarget.lerp(i.tail.p, 1 / (this.antiTargetTriggerCount + 1))),
+L01734                   (e.revertDistance = this.antiTargetRevert))
+L01735                 : ((this.revertTrackerIndex = e.tracker.i),
+L01736                   this.antiTarget.copy(i.tail.p).add(e.tracker.n.p).multiplyScalar(0.5),
+L01737                   (this.antiTargetRevert = e.tracker.m),
+L01738                   this.antiTargetTriggerPoint.copy(this.antiTarget),
+L01739                   (this.antiTargetTriggerCount = 0),
+L01740                   (e.revertDistance = this.antiTargetRevert),
+L01741                   (e.maxRevert = !1))),
+L01742         (e.resetIndex = i.tail.i - e.revertDistance),
+L01743         e.resetIndex < i.head.i + z)
+L01744       )
+L01745         return (console.log("Reset to head; trying new spot"), this.restartGeneration(), !1);
+L01746       for (; i.tail.i > e.resetIndex;) {
+L01747         if (!i.tail.bridge && (o = i.tail.prev) != null && o.bridge) {
+L01748           for (e.bn = i.tail.prev; (l = e.bn) != null && l.bridge;) e.bn = e.bn.prev;
+L01749           if (e.bn.i < e.resetIndex) break;
+L01750           this.antiBridgePoint.copy(i.tail.p);
+L01751         }
+L01752         if (
+L01753           i.tail.prev == null ||
+L01754           i.tail.i - i.head.i < z ||
+L01755           (i.tail.d > 0 &&
+L01756             i.tail.gfa < 0.1 &&
+L01757             Math.abs(i.tail.g) < 0.1 &&
+L01758             Math.abs(i.tail.i - this.lastResetIndex) > this.antiTargetRevert / 4)
+L01759         )
+L01760           break;
+L01761         (i.tail.o &&
+L01762           (i.tail.o < 0 ? (this.accumulatedOverflow += i.tail.o) : (this.accumulatedOverflow -= i.tail.o)),
+L01763           (this.totalDA -= Math.abs(i.tail.da)),
+L01764           (i.tail = i.tail.prev),
+L01765           delete i.tail.next,
+L01766           (i.tail.next = null));
+L01767       }
+L01768       if (
+L01769         (i.tail.i < this.tailHeightmap.prevSwitchNode && this.undoUpdateTailHeightmap(),
+L01770         this.smoothWindowHead.i > i.tail.i - z)
+L01771       )
+L01772         for (
+L01773           e.startI = 0,
+L01774             this.smoothWindowHead.i <= i.tail.i
+L01775               ? (e.startI = Math.max(0, i.tail.i - this.smoothWindowHead.i))
+L01776               : ((this.smoothWindowHead = i.tail), (this.smoothWindowHead.p.y += this.smoothWindowHead.h)),
+L01777             e.i = e.startI;
+L01778           e.i <= z;
+L01779           e.i++
+L01780         )
+L01781           this.smoothWindowHead.prev &&
+L01782             ((this.smoothWindowHead = this.smoothWindowHead.prev),
+L01783             (this.smoothWindowHead.p.y += this.smoothWindowHead.h));
+L01784       if (
+L01785         (this.bridging ||
+L01786           ((this.antiTargetRange = this.antiTarget.distanceToSquared(i.tail.p) * 4),
+L01787           (this.lastResetIndex = i.tail.i)),
+L01788         !this.bridging &&
+L01789           this.bridge.spawnNode &&
+L01790           this.bridge.spawnNode.i > i.tail.i &&
+L01791           this.resetBridgeState(),
+L01792         i.vehicleIndex > i.tail.i)
+L01793       )
+L01794         return (
+L01795           console.error("Midline has somehow reverted behind car?"),
+L01796           console.error("Vehicle index, tail index:", i.vehicleIndex, i.tail.i),
+L01797           (i.vehicleIndex = i.tail.i),
+L01798           (i.vehicleNode = i.tail),
+L01799           this.restartGeneration(),
+L01800           !1
+L01801         );
+L01802       this.hasInitGeneration && i.tail.i - C + 100 < i.vehicleIndex;
+L01803       for (e.tracker2 of this.turnTrackers)
+L01804         for (
+L01805           e.tracker2.n = i.tail, e.tracker2.da = i.tail.da, e.i = 0;
+L01806           e.i < e.tracker2.m && e.tracker2.n.prev;
+L01807           e.i++
+L01808         )
+L01809           ((e.tracker2.n = e.tracker2.n.prev), (e.tracker2.da += e.tracker2.n.da));
+L01810       return (
+L01811         (this.prevT = i.tail.t),
+L01812         (this.waterFactor = Math.max(Math.min(1, 1 - (i.tail.p.y - d.minElev) / (d.minElev * 2)), 0)),
+L01813         "o" in i.tail
+L01814           ? i.tail.o < 0
+L01815             ? ((this.prevTargetSide = -1), (this.targetOverflow = -i.tail.o))
+L01816             : ((this.prevTargetSide = 1), (this.targetOverflow = i.tail.o))
+L01817           : (this.midlineDir.set(Math.cos(i.tail.a), 0, Math.sin(i.tail.a)),
+L01818             this.midlineOrth.set(-this.midlineDir.z, 0, this.midlineDir.x),
+L01819             (e.targetDot = this.midlineDir.dot(this.targetDir)),
+L01820             (e.targetSide = this.midlineOrth.dot(this.targetDir) * -1),
+L01821             e.targetSide != 0 && (e.targetSide /= Math.abs(e.targetSide)),
+L01822             (this.prevTargetSide = e.targetSide),
+L01823             (this.targetOverflow = 0),
+L01824             (this.accumulatedOverflow = 0),
+L01825             (this.inOverflow = !1)),
+L01826         !1
+L01827       );
+L01828     }
+L01829     if (this.bridging)
+L01830       if (this.onBridgeApproach) {
+L01831         e.vecA
+L01832           .set(
+L01833             this.bridge.landing.x - this.bridge.spawnNode.p.x,
+L01834             0,
+L01835             this.bridge.landing.z - this.bridge.spawnNode.p.z,
+L01836           )
+L01837           .normalize();
+L01838         let f = Math.atan2(e.vecA.z, e.vecA.x),
+L01839           c = i.tail.a - f;
+L01840         c < -Math.PI ? (c += Math.PI * 2) : c > Math.PI && (c -= Math.PI * 2);
+L01841         let g = c / d.feelAng;
+L01842         ((t.bT = Math.min(Math.max(-this.bridgeApproachFactor, g), this.bridgeApproachFactor)),
+L01843           this.bridgeApproachFactor < 1.4 && (this.bridgeApproachFactor = 1.4),
+L01844           Math.abs(t.bT) < 0.25 && (t.bT = 0));
+L01845       } else t.bT = 0;
+L01846     (d.isStraight && (t.bT = 0),
+L01847       this.bridging || (t.bT = (1 - this.antiWeight) * (t.bT * d.smoothFactor) + this.antiWeight * t.bT),
+L01848       (this.prevT = t.bT),
+L01849       (t.bDir = i.tail.a - t.bT * d.feelAng),
+L01850       t.bDir < -Math.PI ? (t.bDir += Math.TAU) : t.bDir > Math.PI && (t.bDir -= Math.TAU),
+L01851       (e.roadSinkFactor = d.roadSink),
+L01852       t.feelAvg < 10 ? (e.roadSinkFactor = 0) : t.feelAvg < 20 && (e.roadSinkFacotr *= (t.feelAvg - 10) / 10),
+L01853       (e.x = Math.cos(t.bDir) * d.nodeSpacing + i.tail.p.x),
+L01854       (e.z = Math.sin(t.bDir) * d.nodeSpacing + i.tail.p.z),
+L01855       (e.nx = e.x - i.tail.p.x),
+L01856       (e.nz = e.z - i.tail.p.z),
+L01857       (e.nxz = Math.sqrt(e.nx * e.nx + e.nz * e.nz)),
+L01858       (i.tail.n = { x: -e.nz / e.nxz, y: 0, z: e.nx / e.nxz }));
+L01859     let r = {
+L01860       i: i.tail.i + 1,
+L01861       p: new m(
+L01862         e.x,
+L01863         Math.max(this.heightmap.getXZ(e.x, e.z, this.heightmap.midlineDepth), d.minElev) - e.roadSinkFactor,
+L01864         e.z,
+L01865       ),
+L01866       a: t.bDir,
+L01867       d: e.targetDot,
+L01868       da: t.bT * d.feelAng,
+L01869       h: 0,
+L01870       t: t.bT,
+L01871       n: { x: 0, y: 0, z: 1 },
+L01872       g: t.gradLat,
+L01873       gf: t.gradLon,
+L01874       gfa: Math.abs(t.gradLon),
+L01875       next: null,
+L01876       prev: i.tail,
+L01877     };
+L01878     if (
+L01879       ((this.totalDA += Math.abs(r.da)),
+L01880       this.bridging &&
+L01881         (this.onBridgeApproach
+L01882           ? (r.p.y <= this.bridge.height && t.bT == 0 && ((i.tail.bridge = !0), (this.onBridgeApproach = !1)),
+L01883             r.p.y > this.bridge.height
+L01884               ? (r.p.y = (this.bridge.height + r.p.y) / 2)
+L01885               : (r.p.y = Math.max(r.p.y, this.bridge.height)))
+L01886           : r.p.y > d.minElev && r.p.y > this.bridge.height - 1
+L01887             ? ((this.onBridgeDismount = !1),
+L01888               (this.bridging = !1),
+L01889               console.log("Bridge at ", r.i),
+L01890               (this.allowEmergencyBridge = !1),
+L01891               this.resetBridgeState(),
+L01892               (r.p.y = (r.p.y + this.bridge.height) / 2))
+L01893             : (r.p.y = Math.max(r.p.y, this.bridge.height))),
+L01894       ((this.bridging && !this.onBridgeApproach && !this.onBridgeDismount) || (d.isStraight && r.p.y <= 2)) &&
+L01895         (r.bridge = !0),
+L01896       this.targetOverflow > 0 && (r.o = this.targetOverflow * e.targetSide),
+L01897       (i.tail.next = r),
+L01898       isNaN(e.x))
+L01899     )
+L01900       return (
+L01901         y.add("MIDLINE: NaN at index " + r.i),
+L01902         console.log("NAN x AT INDEX " + r.i),
+L01903         console.log("bT ", t.bT),
+L01904         console.log("bDir ", t.bDir),
+L01905         console.log("E.targetDot ", e.targetDot),
+L01906         console.log("originAdjust ", e.targetAdjust),
+L01907         console.log("TargetRedirect ", e.targetRedirect),
+L01908         console.log("TargetSide ", e.targetSide),
+L01909         console.log("originAng ", e.targetAng),
+L01910         console.log("Targetdir ", this.targetDir),
+L01911         console.log("Min max ", t.minT, t.maxT),
+L01912         console.log("Gradlat, lon ", t.gradLat, t.gradLon),
+L01913         console.log("gradAVg ", t.gradAvg),
+L01914         console.log("antiWeight ", this.antiWeight),
+L01915         console.log("feelL, feelR ", t.feelL, t.feelR),
+L01916         console.log("feelAvg ", t.feelAvg),
+L01917         console.log("feelDif ", t.feelDif),
+L01918         console.log("waterFactor ", this.waterFactor),
+L01919         console.log("maxDif ", t.maxDif),
+L01920         !1
+L01921       );
+L01922     if (
+L01923       ((i.tail = r),
+L01924       (this.maxRetractIndex = Math.max(this.maxRetractIndex, i.tail.i - S)),
+L01925       d.spiralise &&
+L01926         (this.tVec.copy(i.tail.p).negate().normalize(),
+L01927         this.targetDir.set(-this.tVec.z * this.spiralDir, 0, this.tVec.x * this.spiralDir).normalize(),
+L01928         (e.factor = 0),
+L01929         !d.isStraight))
+L01930     ) {
+L01931       if (((e.rad = i.tail.p.length()), this.config.genDeviation)) {
+L01932         let f = Math.atan2(this.tVec.z, this.tVec.x),
+L01933           c = Math.min(1, Math.max(0, Math.sin(f * 2 - 1.57) - 0.65) * 4);
+L01934         ((this.targetRadius = d.genRadius + d.genDeviation * c),
+L01935           (this.targetRadiusMin = this.targetRadius - this.targetMargin),
+L01936           (this.targetRadiusMax = this.targetRadius + this.targetMargin));
+L01937       }
+L01938       e.rad < this.targetRadius
+L01939         ? (e.rad < this.targetRadiusMin
+L01940             ? (e.factor = 1)
+L01941             : (e.factor = 1 - (e.rad - this.targetRadiusMin) / this.targetMargin),
+L01942           (e.factor *= e.factor),
+L01943           this.targetDir.lerp(this.tVec.negate(), e.factor).normalize())
+L01944         : (e.rad > this.targetRadiusMax
+L01945             ? (e.factor = 1)
+L01946             : (e.factor = (e.rad - this.targetRadius) / this.targetMargin),
+L01947           (e.factor *= e.factor),
+L01948           this.targetDir.lerp(this.tVec, e.factor).normalize());
+L01949     }
+L01950     return (
+L01951       this.smoothWindowHead.i < i.tail.i - z && (this.smoothHeight(), this.smoothCurves()),
+L01952       d.spiralise && this.checkUpdateTailHeightmap(),
+L01953       !0
+L01954     );
+L01955   }
+L01956   customRevertTest() {
+L01957     return !1;
+L01958   }
+L01959   resetBridgeState() {
+L01960     ((this.bridge.spawnNode = null),
+L01961       (this.bridge.distance = 0),
+L01962       (this.bridge.quality = 0),
+L01963       this.bridge.landing.set(0, 0, 0));
+L01964   }
+L01965   improveBridgeStartNode() {
+L01966     let a,
+L01967       r,
+L01968       o = this.bridge.spawnNode,
+L01969       l = this.bridge.spawnNode.p.distanceToSquared(this.bridge.landing),
+L01970       f = l + 225,
+L01971       c = new q(),
+L01972       g = new q();
+L01973     ((g.x = o.p.x - o.prev.p.x),
+L01974       (g.y = o.p.z - o.prev.p.z),
+L01975       g.normalize(),
+L01976       c.set(this.bridge.landing.x - o.p.x, this.bridge.landing.z - o.p.z).normalize(),
+L01977       (r = g.dot(c)));
+L01978     let x = g.dot(c);
+L01979     if (((o = o.prev), !!o))
+L01980       for (let u = 0; u < 10 && !(!o.prev || o.p.y > this.bridge.landing.y + 4); u++)
+L01981         ((a = o.p.distanceToSquared(this.bridge.landing)),
+L01982           (g.x = o.p.x - o.prev.p.x),
+L01983           (g.y = o.p.z - o.prev.p.z),
+L01984           g.normalize(),
+L01985           c.set(this.bridge.landing.x - o.p.x, this.bridge.landing.z - o.p.z).normalize(),
+L01986           (r = g.dot(c)),
+L01987           a < l && ((l = a), (this.bridge.spawnNode = o)),
+L01988           r > x && (r > 0.707 || a < f) && ((x = r), (this.bridge.spawnNode = o)),
+L01989           r < 0.707 && (this.bridge.spawnNode = o),
+L01990           (o = o.prev));
+L01991   }
+L01992   testForBridge(a, r, o) {
+L01993     let l = 0,
+L01994       f = k,
+L01995       c = 5,
+L01996       g = f / 2,
+L01997       x = !1;
+L01998     ((this.landing.x = a.p.x + o.x * f * r),
+L01999       (this.landing.z = a.p.z + o.z * f * r),
+L02000       (this.landing.y = this.heightmap.getXZ(this.landing.x, this.landing.z, this.heightmap.midlineDepth)));
+L02001     let u = a.p.y - 2;
+L02002     if (
+L02003       (this.landing.y < u && ((this.landing.y = 0), (l = k), (x = !0)),
+L02004       this.allowEmergencyBridge && e.targetDot < 0 && !ne)
+L02005     ) {
+L02006       x = !1;
+L02007       do
+L02008         ((this.landing.x = a.p.x + o.x * f * r),
+L02009           (this.landing.z = a.p.z + o.z * f * r),
+L02010           (this.landing.y = this.heightmap.getXZ(
+L02011             this.landing.x,
+L02012             this.landing.z,
+L02013             this.heightmap.midlineDepth,
+L02014           )),
+L02015           (f += k / 2),
+L02016           (c += 0.51));
+L02017       while (this.landing.y < u);
+L02018     }
+L02019     for (let v = 0; v < c; v++) {
+L02020       if (
+L02021         ((this.landing.x = a.p.x + o.x * g * r),
+L02022         (this.landing.z = a.p.z + o.z * g * r),
+L02023         (this.landing.y = this.heightmap.getXZ(this.landing.x, this.landing.z, this.heightmap.midlineDepth)),
+L02024         this.landing.y < u)
+L02025       ) {
+L02026         if (x) return;
+L02027         ((l = g), (g = l * 0.5 + f * 0.5));
+L02028       } else ((f = g), (g = l * 0.5 + f * 0.5));
+L02029       x = !1;
+L02030     }
+L02031     if (g < W || this.landing.distanceTo(this.antiBridgePoint) < ve) return;
+L02032     let b = this.checkBridgeQuality(a.p, this.landing, g);
+L02033     b > 0 &&
+L02034       (b > this.bridge.quality || (this.bridge.spawnNode && this.bridge.spawnNode.i < i.tail.i - 50)) &&
+L02035       ((this.bridge.quality = b),
+L02036       (this.bridge.spawnNode = a),
+L02037       (this.bridge.distance = g),
+L02038       this.bridge.landing.copy(this.landing));
+L02039   }
+L02040   checkBridgeQuality(a, r, o) {
+L02041     e.bridgeMid.copy(a).add(r).multiplyScalar(0.5);
+L02042     let l = 1 - (o - W) / k,
+L02043       f = 1 - Math.min(1, Math.abs(a.y - r.y) / 4),
+L02044       c = this.heightmap.getXZ(e.bridgeMid.x, e.bridgeMid.z, this.heightmap.midlineDepth);
+L02045     if (c > 0) return -1;
+L02046     (c > -2 ? (c = c / -2) : (c = 1),
+L02047       e.bridgeDir.copy(r).sub(a),
+L02048       (e.bridgeDir.y = 0),
+L02049       e.bridgeDir.normalize());
+L02050     let g = (e.bridgeDir.dot(this.targetDir) + 1) / 2;
+L02051     if (
+L02052       ((e.bridgeDir.y = e.bridgeDir.x),
+L02053       (e.bridgeDir.x = -e.bridgeDir.z),
+L02054       (e.bridgeDir.z = e.bridgeDir.y),
+L02055       (e.bridgeDir.y = 0),
+L02056       e.bridgeTest.copy(e.bridgeDir).multiplyScalar(o).add(e.bridgeMid),
+L02057       (e.bridgeCheckRight = this.heightmap.getXZ(
+L02058         e.bridgeTest.x,
+L02059         e.bridgeTest.z,
+L02060         this.heightmap.midlineDepth,
+L02061       )),
+L02062       e.bridgeCheckRight > 0 ||
+L02063         (e.bridgeCheckRight > -4 ? (e.bridgeCheckRight = e.bridgeCheckRight / -4) : (e.bridgeCheckRight = 1),
+L02064         e.bridgeTest.copy(e.bridgeDir).multiplyScalar(-o).add(e.bridgeMid),
+L02065         (e.bridgeCheckLeft = this.heightmap.getXZ(
+L02066           e.bridgeTest.x,
+L02067           e.bridgeTest.z,
+L02068           this.heightmap.midlineDepth,
+L02069         )),
+L02070         e.bridgeCheckLeft > 0))
+L02071     )
+L02072       return -1;
+L02073     e.bridgeCheckLeft > -4 ? (e.bridgeCheckLeft = e.bridgeCheckLeft / -4) : (e.bridgeCheckLeft = 1);
+L02074     let x = (e.bridgeCheckLeft + e.bridgeCheckRight) / 2;
+L02075     return (
+L02076       e.bridgeTest
+L02077         .copy(e.bridgeDir)
+L02078         .multiplyScalar(o / 2)
+L02079         .add(e.bridgeMid),
+L02080       (e.bridgeCheckRight = this.heightmap.getXZ(
+L02081         e.bridgeTest.x,
+L02082         e.bridgeTest.z,
+L02083         this.heightmap.midlineDepth,
+L02084       )),
+L02085       e.bridgeCheckRight > 0 ||
+L02086       (e.bridgeTest
+L02087         .copy(e.bridgeDir)
+L02088         .multiplyScalar(-o / 2)
+L02089         .add(e.bridgeMid),
+L02090       (e.bridgeCheckLeft = this.heightmap.getXZ(e.bridgeTest.x, e.bridgeTest.z, this.heightmap.midlineDepth)),
+L02091       e.bridgeCheckLeft > 0)
+L02092         ? -1
+L02093         : (l + f + c + g + x) / 5
+L02094     );
+L02095   }
+L02096   smoothCurves() {
+L02097     if (this.config.smoothingStrength == 0) return;
+L02098     this.smoothCurvesD();
+L02099     let a = this.smoothWindowHead;
+L02100     if (!a.prev) return;
+L02101     let r = a.prev,
+L02102       o = Math.atan2(a.p.z - r.p.z, a.p.x - r.p.x);
+L02103     a.a = o;
+L02104     let l = r.a - a.a;
+L02105     (l > Math.PI ? (l -= Math.TAU) : l < -Math.PI && (l += Math.TAU), (a.da = l));
+L02106   }
+L02107   smoothCurvesA() {
+L02108     let a = this.smoothWindowHead;
+L02109     if (!a.prev) return;
+L02110     let r = a.prev,
+L02111       o = a.next,
+L02112       l = Math.sign(r.da),
+L02113       f = Math.sign(a.da),
+L02114       c = Math.sign(o.da),
+L02115       g = r.da + a.da + o.da,
+L02116       x = r.da * l + a.da * f + o.da * c,
+L02117       u = 1 - Math.abs(g) / x,
+L02118       b = a.n.x,
+L02119       v = a.n.z,
+L02120       w = 10 * Math.sin(r.da / 2) * u * 0.5;
+L02121     ((this.smoothWindowHead.p.x += b * w), (this.smoothWindowHead.p.z += v * w));
+L02122   }
+L02123   smoothCurvesB() {
+L02124     let a = this.smoothWindowHead;
+L02125     if (!a.prev) return;
+L02126     let r = a.prev,
+L02127       o = a.next,
+L02128       l = (r.p.x + o.p.x) / 2,
+L02129       f = (r.p.z + o.p.z) / 2,
+L02130       c = Math.max(0.25, Math.min(1, Math.abs(r.da - o.da) / 1.2));
+L02131     ((a.p.x = a.p.x * (1 - c) + l * c), (a.p.z = a.p.z * (1 - c) + f * c));
+L02132   }
+L02133   smoothCurvesD() {
+L02134     let a = this.smoothWindowHead;
+L02135     if (!a.prev) return;
+L02136     let r = a.prev,
+L02137       o = a.next,
+L02138       l = (r.p.x + o.p.x) / 2,
+L02139       f = (r.p.z + o.p.z) / 2,
+L02140       c = (r.da + a.da + o.da) / 3,
+L02141       g = 1 - Math.max(0.25, Math.min(1, Math.abs(c) / 0.4));
+L02142     ((g *= this.config.smoothingStrength),
+L02143       (a.p.x = a.p.x * (1 - g) + l * g),
+L02144       (a.p.z = a.p.z * (1 - g) + f * g));
+L02145   }
+L02146   smoothCurvesC() {
+L02147     let a = this.smoothWindowHead;
+L02148     if (!a.prev) return;
+L02149     let r = a.prev,
+L02150       o = a.next,
+L02151       l = (r.da + o.da) / 2,
+L02152       f = a.da - l,
+L02153       c = Math.abs(f) / (Math.abs(r.da) + Math.abs(o.da) / 2),
+L02154       g = 10 * Math.sin(r.da / 2) * c,
+L02155       x = a.n.x,
+L02156       u = a.n.z;
+L02157     ((this.smoothWindowHead.p.x += x * g), (this.smoothWindowHead.p.z += u * g));
+L02158   }
+L02159   smoothHeight() {
+L02160     for (
+L02161       e.avg = 0, e.n = this.smoothWindowHead, e.windowHasBridge = !1, e.bridgeLerp = 1, e.i = 0;
+L02162       e.i < z;
+L02163       e.i++
+L02164     )
+L02165       (e.n.bridge &&
+L02166         ((e.windowHasBridge = !0), (e.bridgeLerp = Math.min(e.bridgeLerp, Math.abs(e.i - H) / H))),
+L02167         (e.avg += e.n.p.y),
+L02168         (e.n = e.n.next),
+L02169         e.i <= H && (e.s = e.n));
+L02170     ((e.avg /= z),
+L02171       (e.r = e.s.prev),
+L02172       (e.q = e.r.prev),
+L02173       (e.s.h = e.s.p.y - e.avg),
+L02174       e.windowHasBridge,
+L02175       this.smoothWindowHead.i <= i.head.i + H &&
+L02176         (this.smoothWindowHead.i == i.head.i && (this.smoothMidlineHeadH = e.s.h),
+L02177         (this.smoothWindowHead.h = this.smoothMidlineHeadH)),
+L02178       (this.smoothWindowHead.p.y -= this.smoothWindowHead.h),
+L02179       (this.smoothWindowHead = this.smoothWindowHead.next));
+L02180   }
+L02181   update() {
+L02182     return (
+L02183       (this.didExtend = !1),
+L02184       i.tail.i < i.vehicleIndex + N &&
+L02185         ((this.didExtend = this.extendMidline()),
+L02186         this.smoothWindowHead.i < i.tail.i - z && this.smoothHeight()),
+L02187       this.didExtend &&
+L02188         i.tail.i - i.head.i > N + me &&
+L02189         ((t.n = i.head.next),
+L02190         delete i.head,
+L02191         (i.head = t.n),
+L02192         (i.head.prev = null),
+L02193         delete i.head.prevFine,
+L02194         this.checkUpdateHeadHeightmap()),
+L02195       i.fineTail.i < i.vehicleIndex + d.fineHorizon && i.fineTail.i < i.tail.i - C && this.extendFine(),
+L02196       this.didExtend
+L02197     );
+L02198   }
+L02199 }
+L02200 export { Z as A, R as B, d as C, oe as H, Se as M, ze as P, U as R, Ae as a, Me as f, we as p, Ie as v };
+L02201 

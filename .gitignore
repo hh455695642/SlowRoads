@@ -107,3 +107,23 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Local assistant state and obsolete audit previews
+/.workbuddy/
+/Docs/Agents/Artifacts/HillsDebugPreview.png
+
+# Local editor configuration and credentials
+/.idea/
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Python audit script caches
+__pycache__/
+*.py[cod]

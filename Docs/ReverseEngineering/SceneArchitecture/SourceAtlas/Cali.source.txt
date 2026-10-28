@@ -1,0 +1,1967 @@
+Source: C:/Users/ruze/OneDrive/Desktop/Slow Roads/extracted_correct/build/_app/immutable/chunks/CaliMidlineGenerator.98e60041.js
+Raw SHA-256: ac48318e83c04b32b4ffc9935d6b9ca40b690e79bbb471701365bdb5f8475f7c
+Formatting: Prettier only; Acorn AST verified equivalent after flattening associative logical expressions.
+Prefix Lxxxxx refers to formatted module line, not minified raw line.
+
+===== CaliMidlineGenerator.98e60041: 6400-8360 =====
+L06400 I.onBeforeCompile = (i) => {
+L06401   ((i.uniforms.noiseMap = I.userData.noiseMap),
+L06402     (i.uniforms.sproutNear = I.userData.sproutNear),
+L06403     (i.uniforms.sproutFar = I.userData.sproutFar),
+L06404     (i.uniforms.sproutMargin = I.userData.sproutMargin),
+L06405     (i.uniforms.radiance = r.userData.radiance),
+L06406     (i.uniforms.shadowFactor = J),
+L06407     (i.uniforms.vehiclePos = M.userData.vehiclePos),
+L06408     (i.uniforms.flatten = M.userData.flatten),
+L06409     (i.vertexShader = i.vertexShader.replace("#include <common>", "#include <common>" + co)),
+L06410     (i.vertexShader = i.vertexShader.replace("#include <project_vertex>", "" + ho)),
+L06411     (i.fragmentShader = i.fragmentShader.replace("#include <common>", "#include <common>" + fo)),
+L06412     (i.fragmentShader = i.fragmentShader.replace("#include <map_fragment>", vo)),
+L06413     (i.fragmentShader = i.fragmentShader.replace("#include <normal_fragment_begin>", go)),
+L06414     (i.fragmentShader = i.fragmentShader.replace("#include <lights_lambert_pars_fragment>", Gt)),
+L06415     (i.fragmentShader = i.fragmentShader.replace("#include <lights_fragment_begin>", Wt)),
+L06416     (i.fragmentShader = i.fragmentShader.replace(
+L06417       "vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;",
+L06418       "vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directDiffuse * totalEmissiveRadiance;",
+L06419     )));
+L06420 };
+L06421 const be = new T({
+L06422   map: y,
+L06423   normalMap: y,
+L06424   color: 14540253,
+L06425   alphaTest: 0.5,
+L06426   side: Y,
+L06427   normalMapType: Ie,
+L06428   forceSinglePass: !0,
+L06429   customProgramCacheKey: () => "cali_barrier",
+L06430 });
+L06431 be.onBeforeCompile = Xe();
+L06432 be.needsCameraPosition = !0;
+L06433 const Ze = new T({ map: y, flatShading: !0 });
+L06434 Ze.onBeforeCompile = Xe();
+L06435 Ze.needsCameraPosition = !0;
+L06436 const we = new T({
+L06437   map: y,
+L06438   normalMap: y,
+L06439   flatShading: !0,
+L06440   alphaTest: 0.25,
+L06441   side: Y,
+L06442   normalMapType: Ie,
+L06443   forceSinglePass: !0,
+L06444   customProgramCacheKey: () => "cali_fence",
+L06445 });
+L06446 we.onBeforeCompile = Xe();
+L06447 we.needsCameraPosition = !0;
+L06448 const Je = new T({ map: f(wo), side: Y });
+L06449 Je.map.flipY = !1;
+L06450 Je.needsCameraPosition = !0;
+L06451 const Ke = new T({ map: f(Co) });
+L06452 Ke.map.flipY = !1;
+L06453 Ke.needsCameraPosition = !0;
+L06454 const Ye = new T({
+L06455   map: f(st, 4, ne),
+L06456   flatShading: !0,
+L06457   alphaTest: 0.75,
+L06458   emissive: 16777215,
+L06459   emissiveMap: f(st, 4),
+L06460   emissiveIntensity: 0,
+L06461   customProgramCacheKey: () => "cali_sign",
+L06462 });
+L06463 Ye.onBeforeCompile = (i) => (
+L06464   (i.fragmentShader = i.fragmentShader.replace("#include <lights_pars_begin>", Mo)),
+L06465   i
+L06466 );
+L06467 Ye.needsCameraPosition = !0;
+L06468 const Vt = new T({ map: y, color: 12303291, flatShading: !0, customProgramCacheKey: () => "cali_bridge" });
+L06469 Vt.needsCameraPosition = !0;
+L06470 const Uo = new ye({ color: 0, transparent: !0, opacity: 0.4 });
+L06471 Uo.needsCameraPosition = !0;
+L06472 const Ho = "" + new URL("../assets/tree_01_oak.61c827ba.glb", import.meta.url).href,
+L06473   Bo = "" + new URL("../assets/tree_02_oak.b9713fd0.glb", import.meta.url).href,
+L06474   zo = "" + new URL("../assets/tree_03_oak.af66028e.glb", import.meta.url).href,
+L06475   Go = "" + new URL("../assets/tree_04_pine.89430af9.glb", import.meta.url).href,
+L06476   Wo = "" + new URL("../assets/tree_05_pine.85a8a199.glb", import.meta.url).href,
+L06477   ko = "" + new URL("../assets/tree_06_palm.82848093.glb", import.meta.url).href,
+L06478   Vo =
+L06479     "data:model/gltf-binary;base64,Z2xURgIAAAAsDgAAIAQAAEpTT057ImFzc2V0Ijp7ImdlbmVyYXRvciI6Iktocm9ub3MgZ2xURiBCbGVuZGVyIEkvTyB2NC41LjQ3IiwidmVyc2lvbiI6IjIuMCJ9LCJzY2VuZSI6MCwic2NlbmVzIjpbeyJuYW1lIjoiU2NlbmUiLCJub2RlcyI6WzBdfV0sIm5vZGVzIjpbeyJtZXNoIjowLCJuYW1lIjoidGVybWluYWwiLCJ0cmFuc2xhdGlvbiI6Wy0wLjAwNzQyMzA0MzI1MTAzNzU5OCwwLjAyNzQwMTIwODg3NzU2MzQ3NywwLjAyMDY2MTU5MjQ4MzUyMDUwOF19XSwibWVzaGVzIjpbeyJuYW1lIjoiQ3lsaW5kZXIiLCJwcmltaXRpdmVzIjpbeyJhdHRyaWJ1dGVzIjp7IlBPU0lUSU9OIjowLCJOT1JNQUwiOjEsIlRFWENPT1JEXzAiOjJ9LCJpbmRpY2VzIjozfV19XSwiYWNjZXNzb3JzIjpbeyJidWZmZXJWaWV3IjowLCJjb21wb25lbnRUeXBlIjo1MTI2LCJjb3VudCI6NjYsIm1heCI6WzAuMTQyNDAwNzExNzc0ODI2MDUsMC42MTg5MDk1Mzc3OTIyMDU4LDAuMzgwNjUwMTMyODk0NTE2XSwibWluIjpbLTAuMTgxNzU0MjMxNDUyOTQxOSwwLjIxOTkxMTU3NTMxNzM4MjgsLTAuMzEwOTU0NTExMTY1NjE4OV0sInR5cGUiOiJWRUMzIn0seyJidWZmZXJWaWV3IjoxLCJjb21wb25lbnRUeXBlIjo1MTI2LCJjb3VudCI6NjYsInR5cGUiOiJWRUMzIn0seyJidWZmZXJWaWV3IjoyLCJjb21wb25lbnRUeXBlIjo1MTI2LCJjb3VudCI6NjYsInR5cGUiOiJWRUMyIn0seyJidWZmZXJWaWV3IjozLCJjb21wb25lbnRUeXBlIjo1MTIzLCJjb3VudCI6MjE2LCJ0eXBlIjoiU0NBTEFSIn1dLCJidWZmZXJWaWV3cyI6W3siYnVmZmVyIjowLCJieXRlTGVuZ3RoIjo3OTIsImJ5dGVPZmZzZXQiOjAsInRhcmdldCI6MzQ5NjJ9LHsiYnVmZmVyIjowLCJieXRlTGVuZ3RoIjo3OTIsImJ5dGVPZmZzZXQiOjc5Miwi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",
+L06480   jo = "" + new URL("../assets/reflector.ba4a4e3a.glb", import.meta.url).href;
+L06481 let k = 1e3,
+L06482   Xo = {},
+L06483   qo = 30,
+L06484   lt = {},
+L06485   jt = 400,
+L06486   Qo,
+L06487   E,
+L06488   Xt,
+L06489   qt = 24,
+L06490   Se = 3,
+L06491   Ce = !1,
+L06492   $e = !1,
+L06493   Zo = !0,
+L06494   F = !1,
+L06495   $ = !1,
+L06496   Be = 3,
+L06497   ze = 2,
+L06498   Ge = 0.2,
+L06499   Jo = [1],
+L06500   Ko = 3,
+L06501   ws = [0.5, 0.2, 0.45, 0.55, 0.5, 1, 1, 1],
+L06502   dt = 2048,
+L06503   et = 32,
+L06504   Cs = et / 2,
+L06505   _e,
+L06506   ct,
+L06507   De,
+L06508   ht,
+L06509   Yo;
+L06510 const Me = 12e3,
+L06511   Ee = Me ** 2,
+L06512   Qt = 700,
+L06513   ft = Qt ** 2;
+L06514 let $o = 0.5,
+L06515   er = 0.8,
+L06516   tr = 1,
+L06517   Ms = 0.5,
+L06518   ys = 0.95,
+L06519   Is = 0.95,
+L06520   Rs = 1,
+L06521   Ts = 1,
+L06522   ar = 0.7,
+L06523   ir = 0.75,
+L06524   or = 0.85,
+L06525   Es = 0.5,
+L06526   rr = 0.025,
+L06527   sr = 0.3,
+L06528   nr = 0.2,
+L06529   Ps = 0,
+L06530   lr = 0,
+L06531   dr = 1,
+L06532   cr,
+L06533   hr,
+L06534   fr,
+L06535   ce,
+L06536   We,
+L06537   Zt,
+L06538   le,
+L06539   ke,
+L06540   Jt,
+L06541   gr,
+L06542   re,
+L06543   Kt,
+L06544   vr,
+L06545   ur,
+L06546   mr,
+L06547   pr = {},
+L06548   Os = 30,
+L06549   Ns = 0.6,
+L06550   Ar = {},
+L06551   Sr = 5e3,
+L06552   Fs = 11,
+L06553   Us = 6,
+L06554   Hs = 4,
+L06555   Bs = 2,
+L06556   zs = 0.6,
+L06557   Gs = 0.6,
+L06558   _r = !0,
+L06559   Dr = 1,
+L06560   xr = 5e3;
+L06561 const Ws = [
+L06562     [0.6, 0.8, 1, 1.2, 2.2, 2.2],
+L06563     [1, 1, 1, 1, 1, 1],
+L06564   ],
+L06565   ks = [[Ho, Bo, zo, Go, Wo, ko], []];
+L06566 let gt = 1e4,
+L06567   Vs = 1,
+L06568   js = 3,
+L06569   Xs = 0.5,
+L06570   Pe = 40,
+L06571   se = 1,
+L06572   vt = 3,
+L06573   Lr = 9,
+L06574   br = !1,
+L06575   wr = 4e3,
+L06576   qs = 1,
+L06577   Cr = !0;
+L06578 const Qs = -30;
+L06579 let Ve = 30,
+L06580   Zs = 3,
+L06581   Yt = 4,
+L06582   Mr = Ve / 2 - Yt;
+L06583 const Js = { BridgeWall: 0, SeaWall: 1, Barrier: 2 };
+L06584 let ut = 2,
+L06585   mt = 1.5,
+L06586   pt = 0.4,
+L06587   At = 0.2,
+L06588   St = 2,
+L06589   _t = 0.8,
+L06590   Ks = 4;
+L06591 const Ys = {
+L06592   RailTerminal: { src: Vo, material: Je, glb: !0, retireMargin: 10 },
+L06593   Reflector: { src: jo, material: Ke, glb: !0, retireMargin: 10 },
+L06594 };
+L06595 let yr = 25,
+L06596   Ir = 10,
+L06597   Rr = 100,
+L06598   $s = 0.75,
+L06599   Tr = !1,
+L06600   xe = 4,
+L06601   Er = [];
+L06602 const Pr = [1, 0.25, 0, 0.25, 1],
+L06603   Or = [1, 0.444, 0.111, 0, 0.111, 0.444, 1],
+L06604   Nr = [1, 0.565, 0.25, 0.0625, 0, 0.0625, 0.25, 0.565, 1],
+L06605   Fr = [1, 0.64, 0.36, 0.16, 0.04, 0, 0.04, 0.16, 0.36, 0.64, 1];
+L06606 let Ur = 200,
+L06607   Dt = 1600,
+L06608   Hr = 20,
+L06609   Br = !1,
+L06610   zr = !1,
+L06611   Gr = !1,
+L06612   Wr = !1,
+L06613   kr = !1,
+L06614   Vr = 150,
+L06615   jr = 40;
+L06616 const en = (i, a) => {
+L06617     let t = ee.graphics.viewDistance[i],
+L06618       o = ee.graphics.detail[a];
+L06619     ((qo = t.heightmapMaxCached),
+L06620       (k = t.tileSize * 2),
+L06621       (ke = a > 2),
+L06622       (Zt = k * ce),
+L06623       (le = k * We),
+L06624       (Jt = Math.sqrt(5 / (le * le))),
+L06625       $t(),
+L06626       (Qo = t.roadNodes),
+L06627       (dt = t.tileSize),
+L06628       F ? (_e = 16) : (_e = o.cellRes),
+L06629       (ct = t.lod0Horizon),
+L06630       (De = t.lod1Horizon),
+L06631       (yr = De * 2),
+L06632       (Ir = De / 2),
+L06633       o.shadowRes,
+L06634       (ht = Math.max(1, Math.floor(o.sea.res * (dt / et)))),
+L06635       (Yo = ht + 1),
+L06636       (_r = W.detailTrees),
+L06637       (Sr = t.imposterInstanceSize),
+L06638       (xr = t.treeInstanceSize),
+L06639       (Ve = t.maxWallLength),
+L06640       (Mr = Ve / 2 - Yt),
+L06641       t.objectDespawnHorizon,
+L06642       (Rr = t.bridgeLookahead),
+L06643       (Tr = o.bridges.genArches),
+L06644       (xe = o.bridges.segments),
+L06645       (Er = xe == 4 ? Pr : xe == 6 ? Or : xe == 8 ? Nr : Fr),
+L06646       (Ur = t.cloudAltitude),
+L06647       (Dt = t.cloudScale),
+L06648       (Hr = Math.max(20, Dt / 400)),
+L06649       (Pe = o.grass.margin),
+L06650       (se = o.grass.density),
+L06651       W.grassDensity !== Tt.Auto && ((se = (W.grassDensity - 1) / 3), (Pe = 20 + se * 20)),
+L06652       F && (se *= 0.7),
+L06653       (vt = 1 + se * 3),
+L06654       (Lr = vt * 3),
+L06655       (gt = _e * _e * se * De * (1 + Pe / 12)),
+L06656       (wr = gt * 0.15),
+L06657       (br = a == 0),
+L06658       (Vr = t.midlineIndexMargin),
+L06659       (jt = t.midlineFineHorizon),
+L06660       (jr = ct),
+L06661       To(o),
+L06662       Eo(t));
+L06663   },
+L06664   tn = (i) => {
+L06665     let a = i.roadStyle,
+L06666       t = Aa[i.laneStyle];
+L06667     ((F = !1),
+L06668       ($ = !1),
+L06669       (i.laneStyle == G.OffRoad || i.laneStyle == G.OffRoadWide) &&
+L06670         ((F = !0), ($ = i.laneStyle == G.OffRoad), (Be = $ ? 1 : 2), (Ge = $ ? 0.2 : 0.4), (ze = $ ? 5 : 1)));
+L06671     let o = ee.roads,
+L06672       s = ee.roads.style[a],
+L06673       n;
+L06674     t == 0 ? (n = o.laneWidth.single) : (n = o.laneWidth.compound);
+L06675     let l;
+L06676     i.laneStyle == G.OffRoadWide || i.laneStyle == G.SingleWide
+L06677       ? ((l = n.wide), i.laneStyle == G.OffRoadWide && (l = n.wideOffroad))
+L06678       : ((l = n.standard), i.laneStyle == G.OffRoad && (l = n.standardOffroad));
+L06679     let h = 0,
+L06680       g = [];
+L06681     if (t == 0) (g.push(0), (h = l / 2));
+L06682     else {
+L06683       let x = 0.1,
+L06684         p = 0.6;
+L06685       h = x;
+L06686       for (let u = 0; u < t; u++) ((h += l), g.push(h - l / 2));
+L06687       h += p;
+L06688     }
+L06689     ((Xo = s.heightmap),
+L06690       (Ar = s.treemap),
+L06691       (lt = s.midline),
+L06692       (lt.fineHorizon = jt),
+L06693       (E = h),
+L06694       (Ko = l),
+L06695       (Jo = g),
+L06696       (Xt = h / 2),
+L06697       (Ce = t == 0),
+L06698       ($e = i.laneStyle == G.Single || i.laneStyle == G.OffRoad),
+L06699       Xr());
+L06700   },
+L06701   Xr = () => {
+L06702     ((qt = et - E),
+L06703       $e
+L06704         ? ((ut = 4), (mt = 2.5), (pt = 1), (At = 0.5), (St = 1), (_t = 1.4))
+L06705         : ((ut = 2), (mt = 1.5), (pt = 0.3), (At = 0.15), (St = 2), (_t = 2.4)),
+L06706       (Zo = !F && !Ce));
+L06707   };
+L06708 function $t() {
+L06709   if (((re = Kt), re <= 0 && k < 2e3)) {
+L06710     let i = k / 2e3;
+L06711     ((re = ((1 + re) / 2) * i * 2 - 1), re < -1 && (re = -1));
+L06712   }
+L06713 }
+L06714 const an = (i) => {
+L06715   var t;
+L06716   let a = { ...ee.style[i.season].common, ...ee.style[i.season][i.time][i.weather] };
+L06717   ((tr = a.friction.road),
+L06718     ($o = a.friction.grass),
+L06719     (er = a.friction.gravel),
+L06720     (or = a.slip.road),
+L06721     (ar = a.slip.grass),
+L06722     (ir = a.slip.gravel),
+L06723     (rr = a.roughness.road),
+L06724     (sr = a.roughness.grass),
+L06725     (nr = a.roughness.gravel),
+L06726     (cr = a.fog.colA),
+L06727     (hr = a.fog.colB),
+L06728     (fr = a.fog.colC ?? a.fog.colB),
+L06729     (vr = a.water.underwater),
+L06730     (ur = a.water.body),
+L06731     (Cr = !((t = a.effects) != null && t.frozenWater)),
+L06732     (ce = a.fog.near),
+L06733     (We = a.fog.far),
+L06734     (Zt = k * ce),
+L06735     (le = k * We),
+L06736     (Jt = Math.sqrt(5 / (le * le))),
+L06737     (gr = a.fog.hazeHeight ?? 0),
+L06738     (Kt = a.fog.hazeIntensity ?? 0),
+L06739     $t(),
+L06740     a.colours.clear,
+L06741     (zr = !!a.stars),
+L06742     (Gr = a.stars),
+L06743     (Wr = !!a.snow),
+L06744     (kr = a.snow),
+L06745     (mr = a.lights),
+L06746     (lr = a.surfaces.road),
+L06747     (dr = a.surfaces.offroad),
+L06748     (Br = a.clouds.hasClouds !== !1),
+L06749     (pr = a.audio),
+L06750     Ro(i.season, a));
+L06751 };
+L06752 ee.styleMeta.presets;
+L06753 const qr = new V({
+L06754     scale: 0.03,
+L06755     offset: 0,
+L06756     resolution: 7,
+L06757     depth: 2,
+L06758     upscale: 3,
+L06759     tileSize: 40,
+L06760     spiralise: !1,
+L06761     repeated: !0,
+L06762   }),
+L06763   xt = new V({
+L06764     scale: 0.5,
+L06765     offset: 0,
+L06766     resolution: 5,
+L06767     depth: 3,
+L06768     upscale: 3,
+L06769     tileSize: 25,
+L06770     spiralise: !1,
+L06771     repeated: !0,
+L06772   }),
+L06773   Qr = new V({
+L06774     scale: 5,
+L06775     offset: 0,
+L06776     resolution: 5,
+L06777     depth: 2,
+L06778     upscale: 2,
+L06779     tileSize: 200,
+L06780     spiralise: !1,
+L06781     repeated: !0,
+L06782   }),
+L06783   Zr = new V({
+L06784     scale: 8,
+L06785     offset: 1,
+L06786     resolution: 7,
+L06787     depth: 2,
+L06788     upscale: 3,
+L06789     tileSize: 100,
+L06790     spiralise: !1,
+L06791     repeated: !0,
+L06792   }),
+L06793   D = {},
+L06794   on = (i, a, t, o) => {
+L06795     var n, l;
+L06796     ((D.h = 0),
+L06797       (a.h = a.n.h + a.t * (a.n.next.h - a.n.h)),
+L06798       (a.gfa = a.n.gfa + a.t * (a.n.next.gfa - a.n.gfa)),
+L06799       (a.gt = a.n.g + a.t * (a.n.next.g - a.n.g)),
+L06800       a.s == Math.sign(a.g) ? (a.ga = Math.max(0, Math.abs(a.gt) - 1) / 3) : (a.ga = 0),
+L06801       (a.rd = a.d),
+L06802       F
+L06803         ? ((a.rd = a.d),
+L06804           (a.w = E),
+L06805           $ ? (a.w += Se * 2) : (a.w += Se + a.ga),
+L06806           (D.widthLerp = 1),
+L06807           a.d < a.w && (D.widthLerp = a.d / a.w),
+L06808           (a.d += 0.4),
+L06809           $
+L06810             ? ((a.d += 0.2),
+L06811               isNaN(t) && (console.log("Nan stuff"), console.log(i), console.log(a), console.log(t, o)),
+L06812               (a.d += xt.getXZ(t, o) * 0.5))
+L06813             : (a.d += xt.getXZ(t, o)))
+L06814         : (a.w = E + Math.max(1, Se + 2 - a.ga)),
+L06815       (a.y -= 0.01 + 0.01 * a.gfa),
+L06816       (a.ga = Math.min(1, Math.max(0, a.ga)) ** 2),
+L06817       (a.blend = a.n.blend + a.t * (a.n.next.blend - a.n.blend)),
+L06818       (D.rm = qt * (0.4 + 0.6 * a.blend)));
+L06819     let s = (a.d - a.w) / 16;
+L06820     if (
+L06821       (s < 0 && (s = 0),
+L06822       s > 1 && (s = 1),
+L06823       (s = (1 - s) ** 2),
+L06824       s > 0 && ((i += s * Qr.getXZ(t, o)), a.ga > 0 && (i += Zr.getXZ(t, o) * s * a.ga)),
+L06825       a.d < a.w + D.rm)
+L06826     ) {
+L06827       if (!F && a.d < Xt && !a.n.bridge) return a.y;
+L06828       if (((D.lt = Math.max(0, Math.min(1, (a.d - a.w) / D.rm))), (D.lt = Kr(D.lt)), F)) {
+L06829         let h = 1 - a.ga;
+L06830         if (
+L06831           (h > 0 && a.d < a.w + 10 && (a.d < a.w ? (i += Be * h) : (i += Jr(1 - (a.d - a.w) / 10) * Be * h)),
+L06832           !(a.d < a.w - ze))
+L06833         )
+L06834           if (a.d < a.w) {
+L06835             let b = 1 - (a.w - a.d) / ze;
+L06836             ((b *= b), (a.y += b * Ge));
+L06837           } else a.d < a.w + 5 && (a.y += (Ge * (Math.cos((Math.PI * (a.d - a.w)) / 5) + 1)) / 2);
+L06838         a.y += qr.getXZ(t, o);
+L06839         let g = a.t;
+L06840         a.slope = a.n.bank * (1 - g) + a.n.next.bank * g;
+L06841         let x = a.s;
+L06842         a.slope < 0 && (x *= -1);
+L06843         let p = (D.widthLerp * x + 1) / 2;
+L06844         p = p * p * 2 - 1;
+L06845         let u = 1;
+L06846         a.y += Math.abs(a.slope) * p * u;
+L06847       }
+L06848       return (
+L06849         (D.h = i),
+L06850         (D.rd = a.d - a.w),
+L06851         a.n.bridge &&
+L06852           (n = a.n.next) != null &&
+L06853           n.bridge &&
+L06854           (a.n.next.next.bridge
+L06855             ? (l = a.n.prev) != null && l.bridge
+L06856               ? (D.lt = 1)
+L06857               : (D.lt = Math.max(a.t, D.lt))
+L06858             : (D.lt = Math.max(1 - a.t, D.lt)),
+L06859           a.d < E + Se + 1 && D.h > a.y && (D.h = a.y)),
+L06860         D.h * D.lt + a.y * (1 - D.lt)
+L06861       );
+L06862     }
+L06863     return i;
+L06864   },
+L06865   Jr = (i) => (i * (i * 6 - 15) + 10) * i * i * i,
+L06866   Kr = (i) => {
+L06867     let a = i;
+L06868     return (
+L06869       i > 0.3333 ? ((D.lerp = 1 - (i - 0.3333) / 0.6667), (a = 1 - D.lerp * D.lerp * 0.5)) : (a = i * 1.5),
+L06870       a
+L06871     );
+L06872   },
+L06873   e = { id: 0 },
+L06874   C = {},
+L06875   Oe = {};
+L06876 class Yr extends ca {
+L06877   constructor(t = {}) {
+L06878     super(t);
+L06879     v(this, "debug", !0);
+L06880     v(this, "config", {
+L06881       seed: "a",
+L06882       scale: 90,
+L06883       offset: 60,
+L06884       resolution: 5,
+L06885       upresFactor: 2,
+L06886       depth: 3,
+L06887       depthHeightFactor: 1,
+L06888       layerResolutions: [3, 5, 9, 13],
+L06889       squared: !1,
+L06890       temper: !1,
+L06891       temperBelow: 100,
+L06892       temperMin: 0.25,
+L06893       spiralise: !0,
+L06894       maxCached: 32,
+L06895       tileScaleRandom: 0,
+L06896       tileSize: 3e3,
+L06897       coastRadius: Me,
+L06898       coastMargin: Qt,
+L06899       distort: !1,
+L06900       distortFactor: 1,
+L06901       deviationConfig: { resolution: 1, depth: 2, upscale: 3, tilesize: 3e3 },
+L06902       deviationFactor: 0,
+L06903     });
+L06904     v(this, "distortMap");
+L06905     v(this, "protoTile", null);
+L06906     ((this.config = { ...this.config, ...t }),
+L06907       (this.distortMap = new V({ resolution: 2, depth: 2, upscale: 2, tileSize: 3e3 })),
+L06908       (this.deviateMap = new V(this.config.deviationConfig)),
+L06909       this.config.layerResolutions.length
+L06910         ? (this.config.depth = this.config.layerResolutions.length)
+L06911         : this.generateLayerResolutions(),
+L06912       (this.config.coastRadiusMin = this.config.coastRadius - this.config.coastMargin),
+L06913       (this.config.coastRadiusMinSq = this.config.coastRadiusMin ** 2),
+L06914       (this.config.coastRadiusMax = this.config.coastRadius + this.config.coastMargin),
+L06915       (this.config.coastRadiusMaxSq = this.config.coastRadiusMax ** 2));
+L06916   }
+L06917   setLayers(t, o = !1) {
+L06918     (super.setLayers(t, o), this.deviateMap.setLayers(t, !0));
+L06919   }
+L06920   generateLayerResolutions() {
+L06921     let t = this.config.resolution;
+L06922     for (let o = 0; o < this.config.depth; o++)
+L06923       (this.layerResolutions.push(t), (t = t + this.config.upresFactor * (o + 1)));
+L06924   }
+L06925   generateTile(t, o) {
+L06926     if (this.config.repeated && this.protoTile) return this.protoTile;
+L06927     let s = [],
+L06928       n;
+L06929     this.config.repeated
+L06930       ? (n = new window.alea(this.config.seed))
+L06931       : (n = new window.alea(this.config.seed + "#" + this.curLayer[t < 0 ? 0 : 1] + "#" + t + "#" + o));
+L06932     let l = 1 + n() * this.config.tileScaleRandom - this.config.tileScaleRandom / 2,
+L06933       h,
+L06934       g,
+L06935       x,
+L06936       p = this.config.depthHeightFactor,
+L06937       u = t * this.config.tileSize,
+L06938       b = o * this.config.tileSize;
+L06939     for (
+L06940       (this.config.coastRadius + this.config.coastMargin) ** 2,
+L06941         (this.config.coastRadius - this.config.coastMargin) ** 2,
+L06942         h = 0;
+L06943       h < this.config.depth;
+L06944       h++
+L06945     ) {
+L06946       ((g = this.config.layerResolutions[h]),
+L06947         (x = (this.config.resolution / g) * p),
+L06948         (p *= this.config.depthHeightFactor));
+L06949       let U = [],
+L06950         O = 1 / g,
+L06951         N;
+L06952       for (C.i = 0; C.i < g; C.i++) {
+L06953         for (N = [], C.j = 0; C.j < g; C.j++) {
+L06954           ((C.h = n() * 2 - 1),
+L06955             this.config.squared && (C.h < 0 ? (C.h *= -(C.h * (1 + C.h)) * 4) : (C.h *= C.h * (1 - C.h) * 4)),
+L06956             (C.h *= x));
+L06957           let H = b + (C.j / g) * this.config.tileSize,
+L06958             B = u + (C.i / g) * this.config.tileSize,
+L06959             ve = Math.sqrt(B * B + H * H);
+L06960           ve += this.getDeviation(B, H);
+L06961           let ue = 1;
+L06962           (ve < this.config.coastRadiusMin
+L06963             ? (ue = -1)
+L06964             : ve < this.config.coastRadiusMax &&
+L06965               (ue = Math.max(-1, Math.min(1, (ve - this.config.coastRadius) / this.config.coastMargin))),
+L06966             ue < 0 && (C.h *= 1 + ue),
+L06967             N.push({
+L06968               x: (C.i + 0.5) / g,
+L06969               y: C.h * this.config.scale * l,
+L06970               z: (C.j + 0.5) / g,
+L06971               r: O,
+L06972               r2: O * O,
+L06973             }));
+L06974         }
+L06975         U.push(N);
+L06976       }
+L06977       s.push(U);
+L06978     }
+L06979     return (this.config.repeated && (this.protoTile = s), s);
+L06980   }
+L06981   roadLerp(t) {
+L06982     return t > 0.3333 ? ((Oe.lerp = 1 - (t - 0.3333) / 0.6667), 1 - Oe.lerp * Oe.lerp * 0.5) : t * 1.5;
+L06983   }
+L06984   getCurvature(t, o) {
+L06985     let s = 0;
+L06986     return (
+L06987       (s += this.getXZ(t + 64, o, 1)),
+L06988       (s += this.getXZ(t - 64, o, 1)),
+L06989       (s += this.getXZ(t, o + 64, 1)),
+L06990       (s += this.getXZ(t, o - 64, 1)),
+L06991       (s = s / 4 - this.getXZ(t, o)),
+L06992       (s = -Math.min(1, Math.max(-1, s * 0.01))),
+L06993       s
+L06994     );
+L06995   }
+L06996   getMidlineXZ(t, o) {
+L06997     return this.getXZ(t, o);
+L06998   }
+L06999   getDeviation(t, o) {
+L07000     return this.deviateMap.getXZ(t, o) * this.config.deviationFactor;
+L07001   }
+L07002   getXZ(t, o, s = null, n = !1) {
+L07003     this.config.distort &&
+L07004       ((e.distort = this.distortMap.getXZ(t / 3, o / 3) * 2 * Math.PI),
+L07005       (e.dx = Math.sin(e.distort)),
+L07006       (e.dz = Math.cos(e.distort)),
+L07007       (t += e.dx * 200 * this.config.distortFactor),
+L07008       (o += e.dz * 200 * this.config.distortFactor));
+L07009     let l = 1,
+L07010       h = Math.sqrt(t * t + o * o),
+L07011       g = this.getDeviation(t, o);
+L07012     ((h += g),
+L07013       h < this.config.coastRadiusMin
+L07014         ? (l = -1)
+L07015         : ((l = (h - this.config.coastRadius) / this.config.coastMargin),
+L07016           l < 1 && (l = this.smoothLerpW((l + 1) / 2) * 2 - 1)),
+L07017       (e.d = 0),
+L07018       (e.h = 0),
+L07019       (e.heightFactor = 1),
+L07020       (e.sq = this.config.layerResolutions[0]),
+L07021       (e.sqb = e.sq - 1),
+L07022       (e.wx = t / this.config.tileSize),
+L07023       (e.wz = o / this.config.tileSize),
+L07024       (e.ox = Math.floor(e.wx)),
+L07025       (e.oz = Math.floor(e.wz)),
+L07026       (e.px = e.wx - e.ox),
+L07027       (e.pz = e.wz - e.oz),
+L07028       (e.tile = this.getTile(e.ox, e.oz)),
+L07029       (s = s || this.config.depth),
+L07030       (e.depth = 0));
+L07031     for (e.layer of e.tile) {
+L07032       if (e.depth == s) break;
+L07033       ((e.ix = Math.floor(e.px * e.sq - 0.5)),
+L07034         (e.iz = Math.floor(e.pz * e.sq - 0.5)),
+L07035         (e.th = 0),
+L07036         e.ix >= 0
+L07037           ? (e.iz >= 0
+L07038               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix][e.iz], e.depth))
+L07039               : (e.th += this.lerpHeight(
+L07040                   e.d,
+L07041                   e.px,
+L07042                   e.pz + 1,
+L07043                   this.getTile(e.ox, e.oz - 1)[e.depth][e.ix][e.sqb],
+L07044                   e.depth,
+L07045                 )),
+L07046             e.iz < e.sqb
+L07047               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix][e.iz + 1], e.depth))
+L07048               : (e.th += this.lerpHeight(
+L07049                   e.d,
+L07050                   e.px,
+L07051                   e.pz - 1,
+L07052                   this.getTile(e.ox, e.oz + 1)[e.depth][e.ix][0],
+L07053                   e.depth,
+L07054                 )))
+L07055           : (e.iz >= 0
+L07056               ? (e.th += this.lerpHeight(
+L07057                   e.d,
+L07058                   e.px + 1,
+L07059                   e.pz,
+L07060                   this.getTile(e.ox - 1, e.oz)[e.depth][e.sqb][e.iz],
+L07061                   e.depth,
+L07062                 ))
+L07063               : (e.th += this.lerpHeight(
+L07064                   e.d,
+L07065                   e.px + 1,
+L07066                   e.pz + 1,
+L07067                   this.getTile(e.ox - 1, e.oz - 1)[e.depth][e.sqb][e.sqb],
+L07068                   e.depth,
+L07069                 )),
+L07070             e.iz < e.sqb
+L07071               ? (e.th += this.lerpHeight(
+L07072                   e.d,
+L07073                   e.px + 1,
+L07074                   e.pz,
+L07075                   this.getTile(e.ox - 1, e.oz)[e.depth][e.sqb][e.iz + 1],
+L07076                   e.depth,
+L07077                 ))
+L07078               : (e.th += this.lerpHeight(
+L07079                   e.d,
+L07080                   e.px + 1,
+L07081                   e.pz - 1,
+L07082                   this.getTile(e.ox - 1, e.oz + 1)[e.depth][e.sqb][0],
+L07083                   e.depth,
+L07084                 ))),
+L07085         e.ix < e.sqb
+L07086           ? (e.iz >= 0
+L07087               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix + 1][e.iz], e.depth))
+L07088               : (e.th += this.lerpHeight(
+L07089                   e.d,
+L07090                   e.px,
+L07091                   e.pz + 1,
+L07092                   this.getTile(e.ox, e.oz - 1)[e.depth][e.ix + 1][e.sqb],
+L07093                   e.depth,
+L07094                 )),
+L07095             e.iz < e.sqb
+L07096               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix + 1][e.iz + 1], e.depth))
+L07097               : (e.th += this.lerpHeight(
+L07098                   e.d,
+L07099                   e.px,
+L07100                   e.pz - 1,
+L07101                   this.getTile(e.ox, e.oz + 1)[e.depth][e.ix + 1][0],
+L07102                   e.depth,
+L07103                 )))
+L07104           : (e.iz >= 0
+L07105               ? (e.th += this.lerpHeight(
+L07106                   e.d,
+L07107                   e.px - 1,
+L07108                   e.pz,
+L07109                   this.getTile(e.ox + 1, e.oz)[e.depth][0][e.iz],
+L07110                   e.depth,
+L07111                 ))
+L07112               : (e.th += this.lerpHeight(
+L07113                   e.d,
+L07114                   e.px - 1,
+L07115                   e.pz + 1,
+L07116                   this.getTile(e.ox + 1, e.oz - 1)[e.depth][0][e.sqb],
+L07117                   e.depth,
+L07118                 )),
+L07119             e.iz < e.sqb
+L07120               ? (e.th += this.lerpHeight(
+L07121                   e.d,
+L07122                   e.px - 1,
+L07123                   e.pz,
+L07124                   this.getTile(e.ox + 1, e.oz)[e.depth][0][e.iz + 1],
+L07125                   e.depth,
+L07126                 ))
+L07127               : (e.th += this.lerpHeight(
+L07128                   e.d,
+L07129                   e.px - 1,
+L07130                   e.pz - 1,
+L07131                   this.getTile(e.ox + 1, e.oz + 1)[e.depth][0][0],
+L07132                   e.depth,
+L07133                 ))),
+L07134         (e.temper = 1),
+L07135         this.config.temper &&
+L07136           e.depth > 0 &&
+L07137           (e.temper = Math.min(
+L07138             Math.max(
+L07139               this.config.temperMin,
+L07140               (e.h + this.config.offset + this.config.temperBase) / this.config.temperBelow,
+L07141             ),
+L07142             1,
+L07143           )),
+L07144         (e.h += e.th * e.temper),
+L07145         e.depth++,
+L07146         (e.sq = this.config.layerResolutions[e.depth]),
+L07147         (e.sqb = e.sq - 1));
+L07148     }
+L07149     return (
+L07150       l >= 2 &&
+L07151         (l <= 3
+L07152           ? (e.h *= 0.2 + 0.8 * this.smoothLerpW(3 - l))
+L07153           : l <= 4
+L07154             ? (e.h *= 0.2 + 0.3 * this.smoothLerpW(l - 3))
+L07155             : l <= 6
+L07156               ? (e.h *= 0.5)
+L07157               : l <= 7
+L07158                 ? ((e.h *= 0.5 + (l - 6) * 0.5), (e.h += (l - 6) * this.config.scale * 2))
+L07159                 : (e.h += this.config.scale * 2)),
+L07160       (e.h += Math.min(1, l) * this.config.scale * 2),
+L07161       e.h + this.config.offset
+L07162     );
+L07163   }
+L07164   getXZLayer(t, o, s, n = this.config.depth) {
+L07165     ((e.d = 0),
+L07166       (e.h = 0),
+L07167       (e.heightFactor = 1),
+L07168       (e.sq = this.config.layerResolutions[0]),
+L07169       (e.sqb = e.sq - 1),
+L07170       (e.wx = t / this.config.tileSize),
+L07171       (e.wz = o / this.config.tileSize),
+L07172       (e.ox = Math.floor(e.wx)),
+L07173       (e.oz = Math.floor(e.wz)),
+L07174       (e.px = e.wx - e.ox),
+L07175       (e.pz = e.wz - e.oz),
+L07176       (e.tile = this.getTile(e.ox, e.oz)),
+L07177       (n = n || this.config.depth),
+L07178       (e.depth = 0),
+L07179       (e.i = 0));
+L07180     for (e.layer of e.tile) {
+L07181       if (e.depth == n) break;
+L07182       if (e.i++ !== s) {
+L07183         (e.depth++, (e.sq = this.config.layerResolutions[e.depth]), (e.sqb = e.sq - 1));
+L07184         continue;
+L07185       }
+L07186       ((e.ix = Math.floor(e.px * e.sq - 0.5)),
+L07187         (e.iz = Math.floor(e.pz * e.sq - 0.5)),
+L07188         (e.th = 0),
+L07189         e.ix >= 0
+L07190           ? (e.iz >= 0
+L07191               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix][e.iz]))
+L07192               : (e.th += this.lerpHeight(
+L07193                   e.d,
+L07194                   e.px,
+L07195                   e.pz + 1,
+L07196                   this.getTile(e.ox, e.oz - 1)[e.depth][e.ix][e.sqb],
+L07197                 )),
+L07198             e.iz < e.sqb
+L07199               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix][e.iz + 1]))
+L07200               : (e.th += this.lerpHeight(
+L07201                   e.d,
+L07202                   e.px,
+L07203                   e.pz - 1,
+L07204                   this.getTile(e.ox, e.oz + 1)[e.depth][e.ix][0],
+L07205                 )))
+L07206           : (e.iz >= 0
+L07207               ? (e.th += this.lerpHeight(
+L07208                   e.d,
+L07209                   e.px + 1,
+L07210                   e.pz,
+L07211                   this.getTile(e.ox - 1, e.oz)[e.depth][e.sqb][e.iz],
+L07212                 ))
+L07213               : (e.th += this.lerpHeight(
+L07214                   e.d,
+L07215                   e.px + 1,
+L07216                   e.pz + 1,
+L07217                   this.getTile(e.ox - 1, e.oz - 1)[e.depth][e.sqb][e.sqb],
+L07218                 )),
+L07219             e.iz < e.sqb
+L07220               ? (e.th += this.lerpHeight(
+L07221                   e.d,
+L07222                   e.px + 1,
+L07223                   e.pz,
+L07224                   this.getTile(e.ox - 1, e.oz)[e.depth][e.sqb][e.iz + 1],
+L07225                 ))
+L07226               : (e.th += this.lerpHeight(
+L07227                   e.d,
+L07228                   e.px + 1,
+L07229                   e.pz - 1,
+L07230                   this.getTile(e.ox - 1, e.oz + 1)[e.depth][e.sqb][0],
+L07231                 ))),
+L07232         e.ix < e.sqb
+L07233           ? (e.iz >= 0
+L07234               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix + 1][e.iz]))
+L07235               : (e.th += this.lerpHeight(
+L07236                   e.d,
+L07237                   e.px,
+L07238                   e.pz + 1,
+L07239                   this.getTile(e.ox, e.oz - 1)[e.depth][e.ix + 1][e.sqb],
+L07240                 )),
+L07241             e.iz < e.sqb
+L07242               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix + 1][e.iz + 1]))
+L07243               : (e.th += this.lerpHeight(
+L07244                   e.d,
+L07245                   e.px,
+L07246                   e.pz - 1,
+L07247                   this.getTile(e.ox, e.oz + 1)[e.depth][e.ix + 1][0],
+L07248                 )))
+L07249           : (e.iz >= 0
+L07250               ? (e.th += this.lerpHeight(e.d, e.px - 1, e.pz, this.getTile(e.ox + 1, e.oz)[e.depth][0][e.iz]))
+L07251               : (e.th += this.lerpHeight(
+L07252                   e.d,
+L07253                   e.px - 1,
+L07254                   e.pz + 1,
+L07255                   this.getTile(e.ox + 1, e.oz - 1)[e.depth][0][e.sqb],
+L07256                 )),
+L07257             e.iz < e.sqb
+L07258               ? (e.th += this.lerpHeight(
+L07259                   e.d,
+L07260                   e.px - 1,
+L07261                   e.pz,
+L07262                   this.getTile(e.ox + 1, e.oz)[e.depth][0][e.iz + 1],
+L07263                 ))
+L07264               : (e.th += this.lerpHeight(
+L07265                   e.d,
+L07266                   e.px - 1,
+L07267                   e.pz - 1,
+L07268                   this.getTile(e.ox + 1, e.oz + 1)[e.depth][0][0],
+L07269                 ))),
+L07270         (e.h += e.th * e.temper));
+L07271       break;
+L07272     }
+L07273     return e.h + this.config.offset;
+L07274   }
+L07275   lerpHeight(t, o, s, n, l) {
+L07276     return (
+L07277       (t = (n.x - o) * (n.x - o) + (n.z - s) * (n.z - s)),
+L07278       t < n.r2
+L07279         ? l == 0
+L07280           ? ((t = Math.sqrt(t)), (n.r = Math.sqrt(n.r2)), (1 - t / n.r) ** 2 * n.y)
+L07281           : (1 - t / n.r2) * n.y
+L07282         : 0
+L07283     );
+L07284   }
+L07285   smoothLerpW(t) {
+L07286     return (3 - t * 2) * t * t;
+L07287   }
+L07288 }
+L07289 const $r = 3,
+L07290   es = 20,
+L07291   ts = Math.PI * 2,
+L07292   Lt = 2,
+L07293   c = {};
+L07294 class as {
+L07295   constructor(a = $r, t = es, o = "perlin") {
+L07296     v(this, "layers", []);
+L07297     v(this, "amplitudeFactor", 1);
+L07298     ((this.depth = a), (this.res = t));
+L07299     let s = new It(o);
+L07300     for (let h = 0; h < a; h++) {
+L07301       let g = [];
+L07302       for (let x = 0; x < t; x++) {
+L07303         let p = [];
+L07304         for (let u = 0; u < t; u++) {
+L07305           let b = s.next() * ts;
+L07306           p.push({ x: Math.cos(b), y: Math.sin(b) });
+L07307         }
+L07308         (p.push({ ...p[0] }), g.push(p));
+L07309       }
+L07310       (g.push([...g[0]]), this.layers.push(g), (t *= Lt));
+L07311     }
+L07312     let n = 0,
+L07313       l = 1;
+L07314     for (let h = 0; h < a; h++) ((n += l), (l /= 2));
+L07315     ((this.amplitudeFactor = 1 / n), (this.amplitudeFactor = 0.5 + this.amplitudeFactor * 0.5));
+L07316   }
+L07317   get(a, t) {
+L07318     ((c.x = a - Math.floor(a)),
+L07319       (c.z = t - Math.floor(t)),
+L07320       (c.res = this.res),
+L07321       (c.v = 0),
+L07322       (c.a = this.amplitudeFactor));
+L07323     for (c.l of this.layers)
+L07324       ((c.sx = c.x * c.res),
+L07325         (c.sz = c.z * c.res),
+L07326         (c.ix = Math.floor(c.sx)),
+L07327         (c.ix1 = c.ix + 1),
+L07328         (c.iz = Math.floor(c.sz)),
+L07329         (c.iz1 = c.iz + 1),
+L07330         (c.qx = c.sx - c.ix),
+L07331         (c.qz = c.sz - c.iz),
+L07332         (c.n0 = this.dotGridGradient(c.l[c.ix][c.iz], c.ix, c.iz, c.sx, c.sz)),
+L07333         (c.n1 = this.dotGridGradient(c.l[c.ix1][c.iz], c.ix1, c.iz, c.sx, c.sz)),
+L07334         (c.int0 = this.smoothLerp(c.n0, c.n1, c.qx)),
+L07335         (c.n2 = this.dotGridGradient(c.l[c.ix][c.iz1], c.ix, c.iz1, c.sx, c.sz)),
+L07336         (c.n3 = this.dotGridGradient(c.l[c.ix1][c.iz1], c.ix1, c.iz1, c.sx, c.sz)),
+L07337         (c.int1 = this.smoothLerp(c.n2, c.n3, c.qx)),
+L07338         (c.v += this.smoothLerp(c.int0, c.int1, c.qz) * c.a),
+L07339         (c.a /= 2),
+L07340         (c.res *= Lt));
+L07341     return c.v + 0.5;
+L07342   }
+L07343   dotGridGradient(a, t, o, s, n) {
+L07344     return (s - t) * a.x + (n - o) * a.y;
+L07345   }
+L07346   smootherLerp(a, t, o) {
+L07347     return (t - a) * ((o * (o * 6 - 15) + 10) * o * o * o) + a;
+L07348   }
+L07349   smoothLerp(a, t, o) {
+L07350     return a + (t - a) * (o * o * (3 - 2 * o));
+L07351   }
+L07352 }
+L07353 const bt = new Sa([0, 0]);
+L07354 let wt = [
+L07355     [
+L07356       [5.43, 11.05],
+L07357       [8.67, 2.95],
+L07358       [10.12, 10],
+L07359       [1.31, 11.59],
+L07360       [13.5, 4.38],
+L07361       [1.78, 3.03],
+L07362       [3.47, 14.38],
+L07363       [4.63, 1.48],
+L07364     ],
+L07365     [
+L07366       [9.27, 3.47],
+L07367       [0.85, 6.11],
+L07368       [14.79, 6.06],
+L07369       [11.49, 14.36],
+L07370       [1.85, 11.06],
+L07371       [4.43, 4.48],
+L07372       [7.25, 10.78],
+L07373       [13.53, 12.15],
+L07374     ],
+L07375     [
+L07376       [8.91, 3.55],
+L07377       [4.1, 2.4],
+L07378       [0.83, 10.31],
+L07379       [15.1, 6.36],
+L07380       [3.59, 13.1],
+L07381       [15.01, 11.95],
+L07382       [6.29, 8.03],
+L07383       [14.15, 0.98],
+L07384     ],
+L07385     [
+L07386       [11.42, 2.87],
+L07387       [2.23, 14.46],
+L07388       [5.24, 4.48],
+L07389       [9.44, 8],
+L07390       [14.16, 12.87],
+L07391       [6.83, 13.01],
+L07392       [10.17, 12.19],
+L07393       [14.14, 8.51],
+L07394     ],
+L07395     [
+L07396       [10.06, 4.5],
+L07397       [12.55, 7.1],
+L07398       [5.37, 6.15],
+L07399       [8.42, 0.92],
+L07400       [9.96, 11.18],
+L07401       [13.87, 3.82],
+L07402       [3.12, 1.39],
+L07403       [13.25, 10.74],
+L07404     ],
+L07405     [
+L07406       [14.65, 5.82],
+L07407       [1.98, 8.85],
+L07408       [12.78, 9.7],
+L07409       [5.81, 5.2],
+L07410       [11.36, 2.43],
+L07411       [5.03, 10.44],
+L07412       [14.67, 14.76],
+L07413       [6.97, 1.43],
+L07414     ],
+L07415     [
+L07416       [5.8, 14.18],
+L07417       [14.88, 9.73],
+L07418       [5.4, 8.96],
+L07419       [9.88, 0.79],
+L07420       [9.41, 6.42],
+L07421       [9.78, 14.6],
+L07422       [14.8, 6.25],
+L07423       [2.96, 1],
+L07424     ],
+L07425     [
+L07426       [1.26, 13.83],
+L07427       [12.15, 0.98],
+L07428       [9.11, 2.9],
+L07429       [3.1, 6.51],
+L07430       [9.56, 11.05],
+L07431       [7.54, 8.42],
+L07432       [8.86, 14.6],
+L07433       [9.98, 5.93],
+L07434     ],
+L07435     [
+L07436       [3.21, 2.68],
+L07437       [14.44, 11.46],
+L07438       [13.45, 8.1],
+L07439       [5.99, 8.05],
+L07440       [9.54, 12.16],
+L07441       [1.43, 14.6],
+L07442       [7.28, 0.94],
+L07443       [1.36, 7.41],
+L07444     ],
+L07445     [
+L07446       [8.98, 8.13],
+L07447       [12.02, 14.11],
+L07448       [7.13, 1.74],
+L07449       [1.94, 4.83],
+L07450       [1.7, 12.29],
+L07451       [5.49, 6.98],
+L07452       [10.28, 1.92],
+L07453       [12.57, 9.35],
+L07454     ],
+L07455     [
+L07456       [10.56, 11.95],
+L07457       [7.5, 6.74],
+L07458       [3.77, 15.22],
+L07459       [13.74, 3.22],
+L07460       [12.24, 15.19],
+L07461       [12.16, 9.04],
+L07462       [12.17, 5.84],
+L07463       [3.47, 1.31],
+L07464     ],
+L07465     [
+L07466       [1.07, 13.24],
+L07467       [13.52, 9.34],
+L07468       [2.45, 8.48],
+L07469       [1.81, 5.48],
+L07470       [7.21, 3.26],
+L07471       [5.76, 7.83],
+L07472       [9.66, 10.4],
+L07473       [10.32, 2.86],
+L07474     ],
+L07475     [
+L07476       [13.07, 9.82],
+L07477       [9.2, 4.53],
+L07478       [14.09, 5.04],
+L07479       [9.36, 11.06],
+L07480       [5.99, 0.95],
+L07481       [2.52, 5.72],
+L07482       [2.56, 2.36],
+L07483       [4.25, 9.21],
+L07484     ],
+L07485     [
+L07486       [5.54, 10.89],
+L07487       [8.81, 5.79],
+L07488       [1.82, 13.66],
+L07489       [11.04, 12.48],
+L07490       [12.02, 1.86],
+L07491       [7.96, 1.84],
+L07492       [14.58, 8.55],
+L07493       [14.62, 4.25],
+L07494     ],
+L07495     [
+L07496       [1.1, 10.33],
+L07497       [14.93, 12.58],
+L07498       [4.9, 5.96],
+L07499       [8.51, 6.98],
+L07500       [12.59, 6.24],
+L07501       [7.1, 3.09],
+L07502       [4.87, 12.57],
+L07503       [8.38, 12.46],
+L07504     ],
+L07505     [
+L07506       [13.48, 4.02],
+L07507       [4.54, 11.46],
+L07508       [1.87, 3.37],
+L07509       [8.1, 10.33],
+L07510       [9, 2.98],
+L07511       [6.9, 6.23],
+L07512       [1.36, 10.06],
+L07513       [11.25, 8.72],
+L07514     ],
+L07515     [
+L07516       [1.68, 13.34],
+L07517       [10.38, 3.19],
+L07518       [9.68, 11.44],
+L07519       [1.13, 2.44],
+L07520       [7.4, 3.79],
+L07521       [0.79, 8.95],
+L07522       [5.1, 14.53],
+L07523       [12.76, 1.14],
+L07524     ],
+L07525     [
+L07526       [2.12, 9.78],
+L07527       [8, 6.81],
+L07528       [1.03, 5.62],
+L07529       [1.74, 0.84],
+L07530       [13.81, 7.35],
+L07531       [15.13, 13.92],
+L07532       [9.91, 4.32],
+L07533       [6.11, 2.97],
+L07534     ],
+L07535     [
+L07536       [12.23, 1.54],
+L07537       [9.3, 11.97],
+L07538       [15.24, 5.26],
+L07539       [3.02, 6.96],
+L07540       [9.06, 7.5],
+L07541       [3.43, 14.74],
+L07542       [11.29, 14.23],
+L07543       [6.12, 2.84],
+L07544     ],
+L07545     [
+L07546       [10.83, 5.49],
+L07547       [12.14, 14.86],
+L07548       [12.99, 9.52],
+L07549       [4.84, 9.77],
+L07550       [11.38, 1.89],
+L07551       [1.7, 3.02],
+L07552       [8.1, 8.28],
+L07553       [2.14, 13.62],
+L07554     ],
+L07555     [
+L07556       [2.12, 4.33],
+L07557       [1.66, 11.69],
+L07558       [9.32, 14.53],
+L07559       [5.78, 13.86],
+L07560       [5.18, 1.18],
+L07561       [10.84, 7.6],
+L07562       [7.37, 7.81],
+L07563       [9.04, 4.54],
+L07564     ],
+L07565     [
+L07566       [9.94, 3.18],
+L07567       [4.59, 5.66],
+L07568       [13.66, 3.65],
+L07569       [1.71, 7.18],
+L07570       [12.05, 6.55],
+L07571       [12.33, 15.03],
+L07572       [1.83, 2.22],
+L07573       [6.08, 13.3],
+L07574     ],
+L07575     [
+L07576       [10.11, 5.48],
+L07577       [3.41, 12.83],
+L07578       [7.23, 12.43],
+L07579       [13.12, 3.31],
+L07580       [12.07, 10.98],
+L07581       [7.2, 7.17],
+L07582       [14.08, 14.15],
+L07583       [6.3, 3.3],
+L07584     ],
+L07585     [
+L07586       [11.28, 8.77],
+L07587       [2.4, 15.05],
+L07588       [14.74, 10.4],
+L07589       [1.1, 12.31],
+L07590       [4.86, 10.63],
+L07591       [11.66, 14.68],
+L07592       [11.72, 5.04],
+L07593       [8.52, 6.95],
+L07594     ],
+L07595   ],
+L07596   Ct = [
+L07597     [
+L07598       [3.65, 1],
+L07599       [4.98, 0.99],
+L07600       [0.51, 0.95],
+L07601       [1.26, 0.95],
+L07602       [2.99, 1.06],
+L07603       [4.95, 0.99],
+L07604       [5.2, 1.07],
+L07605       [4.85, 1.21],
+L07606     ],
+L07607     [
+L07608       [3.74, 0.82],
+L07609       [0.88, 1.02],
+L07610       [5.13, 0.82],
+L07611       [1.89, 0.92],
+L07612       [6.26, 1.16],
+L07613       [1.53, 0.95],
+L07614       [5.61, 1.25],
+L07615       [4.44, 1.27],
+L07616     ],
+L07617     [
+L07618       [1.45, 1],
+L07619       [3.79, 0.86],
+L07620       [1.81, 0.86],
+L07621       [3.91, 0.97],
+L07622       [0, 1.06],
+L07623       [0.07, 1.03],
+L07624       [1.7, 1.07],
+L07625       [4.62, 1.19],
+L07626     ],
+L07627     [
+L07628       [3.93, 0.86],
+L07629       [2.84, 0.92],
+L07630       [6.04, 1.03],
+L07631       [5.9, 1.14],
+L07632       [6.16, 1.11],
+L07633       [2.29, 1.05],
+L07634       [3.53, 1.07],
+L07635       [1.24, 1.1],
+L07636     ],
+L07637     [
+L07638       [4.03, 0.94],
+L07639       [5.03, 0.87],
+L07640       [1.38, 0.84],
+L07641       [2.1, 0.91],
+L07642       [2.04, 1.01],
+L07643       [5.32, 0.93],
+L07644       [0.37, 1.09],
+L07645       [2.35, 1.02],
+L07646     ],
+L07647     [
+L07648       [4.69, 0.87],
+L07649       [1.29, 1],
+L07650       [6.15, 1.08],
+L07651       [0.82, 0.98],
+L07652       [3.51, 1.03],
+L07653       [5.33, 0.95],
+L07654       [6.13, 1.05],
+L07655       [0.63, 1.2],
+L07656     ],
+L07657     [
+L07658       [4.71, 0.94],
+L07659       [1.8, 0.86],
+L07660       [0.19, 0.87],
+L07661       [2.1, 1.14],
+L07662       [5.14, 0.93],
+L07663       [5.19, 1.03],
+L07664       [2.76, 1.24],
+L07665       [0.15, 1.05],
+L07666     ],
+L07667     [
+L07668       [5.4, 0.98],
+L07669       [0.95, 0.93],
+L07670       [2.61, 0.85],
+L07671       [0.43, 0.89],
+L07672       [5.37, 1.04],
+L07673       [1.9, 1.19],
+L07674       [3.57, 1.16],
+L07675       [2.86, 1.02],
+L07676     ],
+L07677     [
+L07678       [3.14, 0.77],
+L07679       [3.49, 1.06],
+L07680       [4.71, 1.1],
+L07681       [1.38, 0.89],
+L07682       [4.71, 1.02],
+L07683       [4.9, 0.94],
+L07684       [1.82, 1.24],
+L07685       [1.31, 1.21],
+L07686     ],
+L07687     [
+L07688       [0.92, 0.87],
+L07689       [6.01, 0.78],
+L07690       [4.01, 0.99],
+L07691       [5.21, 0.9],
+L07692       [1.98, 0.98],
+L07693       [4.52, 1.16],
+L07694       [1.81, 1.06],
+L07695       [1.87, 1.25],
+L07696     ],
+L07697     [
+L07698       [1.3, 1.02],
+L07699       [4.43, 0.87],
+L07700       [5.39, 1.02],
+L07701       [3.13, 1.14],
+L07702       [2.49, 1.09],
+L07703       [6.16, 1.11],
+L07704       [3.22, 1.11],
+L07705       [4.99, 1.06],
+L07706     ],
+L07707     [
+L07708       [2.82, 0.87],
+L07709       [0.44, 1.02],
+L07710       [2.14, 0.92],
+L07711       [1, 0.98],
+L07712       [4.67, 1.08],
+L07713       [2.76, 1.07],
+L07714       [1.78, 1.21],
+L07715       [1.25, 1.21],
+L07716     ],
+L07717   ],
+L07718   is = 6;
+L07719 const ea = [
+L07720     [0, 0, 0],
+L07721     [0, 0, 0],
+L07722     [0, 0, 0],
+L07723     [0, 0, 0],
+L07724     [0, 0, 1],
+L07725     [0, 0, 0],
+L07726     [0, 0, 0],
+L07727     [0, 0, 0],
+L07728     [1, 0, 0],
+L07729     [1, 0, 0],
+L07730     [0, 1, 0],
+L07731     [1, 0, 0],
+L07732     [1, 0, 0],
+L07733     [0, 1, 0],
+L07734     [0, 2, 0],
+L07735     [2, 0, 2],
+L07736     [0, 1, 2],
+L07737     [0, 0, 2],
+L07738     [0, 1, 2],
+L07739     [1, 0, 0],
+L07740     [1, 0, 0],
+L07741     [0, 1, 0],
+L07742     [1, 0, 0],
+L07743     [1, 0, 0],
+L07744     [0, 1, 0],
+L07745     [0, 2, 0],
+L07746     [2, 0, 2],
+L07747     [0, 1, 2],
+L07748     [0, 0, 2],
+L07749     [3, 1, 2],
+L07750     [0, 3, 1],
+L07751     [0, 4, 0],
+L07752   ],
+L07753   os = ea.length,
+L07754   ta = [
+L07755     [0, 1, 2, 0, 1, 2],
+L07756     [1, 1, 2, 1, 0, 2],
+L07757     [2, 2, 1, 2, 1, 2],
+L07758     [1, 1, 2, 1, 2, 0],
+L07759     [2, 0, 1, 1, 1, 1],
+L07760     [0, 1, 2, 0, 1, 2],
+L07761     [1, 1, 2, 1, 0, 2],
+L07762     [2, 2, 1, 2, 1, 2],
+L07763     [1, 1, 2, 1, 2, 0],
+L07764     [2, 0, 1, 1, 1, 1],
+L07765     [1, 1, 1, 1, 0, 1],
+L07766     [1, 3, 1, 1, 1, 1],
+L07767     [1, 1, 2, 1, 2, 3],
+L07768     [1, 1, 2, 3, 2, 1],
+L07769     [1, 1, 1, 3, 2, 4],
+L07770   ],
+L07771   rs = ta.length,
+L07772   ss = 0.001,
+L07773   ns = [0, 1, 5, 2, 5],
+L07774   aa = [
+L07775     [3, 3, 3],
+L07776     [3, 3, 3],
+L07777     [3, 3, 4],
+L07778   ],
+L07779   ls = aa.length,
+L07780   ia = [
+L07781     [3, 3, 4, 4, 4],
+L07782     [4, 3, 4, 3, 4],
+L07783     [4, 3, 4, 4, 4],
+L07784     [3, 3, 3, 4, 4],
+L07785     [3, 4, 3, 4, 4],
+L07786     [3, 4, 4, 4, 3],
+L07787     [4, 4, 4, 4, 4],
+L07788     [4, 4, 4, 4, 4],
+L07789   ],
+L07790   ds = ia.length,
+L07791   rn = { Oak: 0, Pine: 1, Palm: 2 },
+L07792   he = [];
+L07793 for (let i = 0; i < Dr; i++) {
+L07794   let a = [];
+L07795   for (let t = 0; t < wt.length; t++) for (let o = 0; o < Ct.length; o++) a.push({ t: wt[t], p: Ct[o] });
+L07796   he.push(a);
+L07797 }
+L07798 const Mt = he[0].length;
+L07799 new as(4, 4);
+L07800 const yt = new Et("slowroads", Mt * 3.14159, Mt);
+L07801 new Et("slowroads", 31, is);
+L07802 const Ne = new Pt("slowroads", 101);
+L07803 new Pt("treetype", 101);
+L07804 const m = { get: { i: 0, a: [], c: 0, t: 0 }, vs: [0, 0, 0, 0] };
+L07805 class cs {
+L07806   constructor() {
+L07807     v(this, "map");
+L07808     v(this, "defaultOffset", 2.2);
+L07809     v(this, "densityFactor", 1);
+L07810     v(this, "updateTreeDensity", () => {
+L07811       W.treeDensity == Tt.Auto
+L07812         ? (this.densityFactor = 0.5 + Math.min(0.5, W.detail / 5))
+L07813         : (this.densityFactor = (W.treeDensity - 1) / 3);
+L07814     });
+L07815     v(this, "onHeightmapLayersChangedBound", this.onHeightmapLayersChanged.bind(this));
+L07816     v(this, "elevFactor");
+L07817     (bt.addListener(this.onHeightmapLayersChangedBound),
+L07818       W.addListener("detail", this.updateTreeDensity),
+L07819       W.addListener("treeDensity", this.updateTreeDensity));
+L07820   }
+L07821   onHeightmapLayersChanged(a) {
+L07822     this.map && this.map.setLayers(a);
+L07823   }
+L07824   init(a, t) {
+L07825     (this.updateTreeDensity(),
+L07826       (this.map = new Yr({ seed: a, ...t })),
+L07827       (this.elevFactor = t.elevFactor),
+L07828       this.map.setLayers(bt.value),
+L07829       (this.typeMap = new V({ seed: a, scale: 1, resolution: 11, depth: 4, upscale: 2, offset: 0.2 })),
+L07830       (this.noiseMap = new V({
+L07831         scale: 3,
+L07832         offset: 0.7,
+L07833         resolution: 3,
+L07834         depth: 3,
+L07835         upscale: 3,
+L07836         depthScaleFactor: 1.2,
+L07837         repeated: !0,
+L07838       })));
+L07839   }
+L07840   getDensityAt(a, t, o) {
+L07841     if (a == 0 && t == 0) return 0;
+L07842     let s = this.noiseMap.getXZ(a, t);
+L07843     s -= 1 - this.densityFactor;
+L07844     let n = o ?? this.map.getXZ(a, t),
+L07845       l = 0;
+L07846     (n > 200 && (n > 600 ? (l = 1) : (l = (n - 200) / 400)), (s -= 1 * l));
+L07847     let h = a / (Math.abs(a) + Math.abs(t)),
+L07848       g = t / (Math.abs(a) + Math.abs(t)),
+L07849       x = this.map.getXZ(a + h * 40, t + g * 40),
+L07850       p = (n - x) / 2;
+L07851     p > 0
+L07852       ? (p > 1 && (p = 1), (p *= Math.min(1, n / 250) * 0.5), (s = p + s * (1 - p)))
+L07853       : (p < -1 && (p = -1), (s += p * 0.5));
+L07854     let u = (a * a + t * t - Ee) / 36e6 - 1.1;
+L07855     return (
+L07856       u > 0 && (u > 1 && (u = 1), (s -= u * 0.9)),
+L07857       (s *= this.densityFactor),
+L07858       s < 0 ? (s = 0) : s > 1 && (s = 1),
+L07859       s
+L07860     );
+L07861   }
+L07862   getShadowDensityAt(a, t) {
+L07863     m.d = this.getDensityAt(a, t);
+L07864     let o = this.map.getXZ(a, t),
+L07865       s = this.typeMap.getXZ(a, t);
+L07866     if (s > 0) {
+L07867       let n = o / 160;
+L07868       (n > 1 && (n = 2 - n), n < 0 && (n = 0), (s -= (1 - n) * 0.5));
+L07869       let l = (a * a + t * t - Ee) / ft;
+L07870       l > 0 ? (s *= Math.min(1, l)) : l < 1 && (s = 0);
+L07871     }
+L07872     return (s > 1 && (s = 1), s < 0 && (s = 0), Math.sqrt(m.d) * (0.75 + 0.25 * s));
+L07873   }
+L07874   getTypeAt(a, t) {
+L07875     return 0;
+L07876   }
+L07877   getTreesAt(a, t) {
+L07878     let o = this.map.getXZ(a, t);
+L07879     if (
+L07880       ((m.get.d = this.getDensityAt(a, t, o)),
+L07881       (m.get.nd = 0),
+L07882       W.detail > 2 &&
+L07883         (m.get.nd =
+L07884           (this.getDensityAt(a + 10, t + 10) +
+L07885             this.getDensityAt(a + 10, t - 10) +
+L07886             this.getDensityAt(a - 10, t - 10) +
+L07887             this.getDensityAt(a - 10, t + 10)) /
+L07888           4),
+L07889       (m.dd = (m.get.d - 0.001) * 5),
+L07890       (m.ddd = m.dd % 1),
+L07891       (m.dd = Math.floor(m.dd)),
+L07892       Ne.next() < m.ddd && m.dd++,
+L07893       (m.get.c = m.dd),
+L07894       m.get.c <= 0)
+L07895     )
+L07896       return ((m.get.c = 0), m.get);
+L07897     ((m.get.i = yt.next()), (m.get.y = 0), (m.get.a = he[m.get.y][m.get.i]), (m.get.species = 0));
+L07898     let s = this.typeMap.getXZ(a, t);
+L07899     if (s > 0) {
+L07900       let n = o / 160;
+L07901       (n > 1 && (n = 2 - n), n < 0 && (n = 0), (s -= (1 - n) * 0.5));
+L07902       let l = (a * a + t * t - Ee) / ft;
+L07903       l > 0 ? (s *= Math.min(1, l)) : l < 1 && (s = 0);
+L07904     }
+L07905     return (
+L07906       s > Ne.next()
+L07907         ? (m.get.c < 4
+L07908             ? (m.get.v = aa[Math.floor(Math.random() * ls)])
+L07909             : (m.get.v = ia[Math.floor(Math.random() * ds)]),
+L07910           (m.get.species = 1))
+L07911         : m.get.c < 3 && o < 50 && Ne.next() < 0.1 * (1 - o / 50)
+L07912           ? ((m.get.species = 2), (m.get.v = [5, 5, 5, 5, 5]))
+L07913           : m.get.c < 4
+L07914             ? (m.get.v = ea[Math.floor(Math.random() * os)])
+L07915             : m.get.c > 2 && Math.random() < ss
+L07916               ? (m.get.v = ns)
+L07917               : (m.get.v = ta[Math.floor(Math.random() * rs)]),
+L07918       (m.get.t = 0),
+L07919       m.get
+L07920     );
+L07921   }
+L07922   getArrangementIndex(a, t) {
+L07923     return 0;
+L07924   }
+L07925   getArrangement(a, t = 0) {
+L07926     return he[t][a];
+L07927   }
+L07928   getTreesForDensity(a, t = 0) {
+L07929     return a < 0.2 ? [] : he[t][yt.next()];
+L07930   }
+L07931   addExtraTree(a, t, o, s, n, l, h, g) {
+L07932     return -1;
+L07933   }
+L07934   removeExtraTree(a, t, o) {}
+L07935 }
+L07936 const Le = new cs(),
+L07937   d = {},
+L07938   Fe = 5,
+L07939   Z = 2;
+L07940 let Ue = 6,
+L07941   He = 3;
+L07942 const hs = 0.8,
+L07943   fs = new V({
+L07944     scale: 1,
+L07945     offset: 0.5,
+L07946     resolution: 5,
+L07947     depth: 3,
+L07948     upscale: 3,
+L07949     tileSize: 400,
+L07950     spiralise: !1,
+L07951     repeated: !0,
+L07952   });
+L07953 class sn extends ha {
+L07954   constructor(...t) {
+L07955     super(...t);
+L07956     v(this, "foundCoast", !1);
+L07957     v(this, "testOffset", 0);
+L07958     v(this, "testAngle", 0);
+L07959     v(this, "negDotCounter", 0);
+L07960     v(this, "tmn");
+L07961     v(this, "markingsNode");
+L07962     v(this, "markingsAbsDa", 0);
+L07963     v(this, "markingsDa", 0);
+L07964     v(this, "markingsGradLat", 0);
+L07965     v(this, "markingsGradLonDiff", 0);
+L07966     v(this, "markingsTrees", 0);
+L07967     v(this, "prevGradLonDiff", 0);
+L07968     v(this, "prevMarkingsDa", 0);
+L07969     v(this, "prevSolidLeftSeg", { start: null, end: null });
+L07970     v(this, "prevSolidRightSeg", { start: null, end: null });
+L07971     v(this, "hasSolidLineLeft", !1);
+L07972     v(this, "hasSolidLineRight", !1);
+L07973     v(this, "solidLineLeftExtensions", 0);
+L07974     v(this, "solidLineRightExtensions", 0);
+L07975     v(this, "solidLineRightPrepend", He);
+L07976     v(this, "solidLineExtensions", He);
+L07977     ((this.config.canEmergencyBridge = !1),
+L07978       (this.config.testBridgeLateral = !1),
+L07979       (this.config.maxGradLon = 5),
+L07980       (this.turnTrackers = [
+L07981         {
+L07982           i: 0,
+L07983           m: 15,
+L07984           r: 15,
+L07985           n: null,
+L07986           a: 3.2,
+L07987           da: 0,
+L07988           o: 0,
+L07989           toleranceFactor: 0.2,
+L07990           tolerance: 0,
+L07991           daThreshold: 4,
+L07992         },
+L07993         {
+L07994           i: 1,
+L07995           m: 35,
+L07996           r: 10,
+L07997           n: null,
+L07998           a: 3.5,
+L07999           da: 0,
+L08000           o: 0.5,
+L08001           toleranceFactor: 0.4,
+L08002           tolerance: 0,
+L08003           daThreshold: 4,
+L08004           gThreshold: 20,
+L08005         },
+L08006         {
+L08007           i: 2,
+L08008           m: 50,
+L08009           r: 15,
+L08010           n: null,
+L08011           a: 3.4,
+L08012           da: 0,
+L08013           o: 0.75,
+L08014           toleranceFactor: 0.6,
+L08015           tolerance: 0,
+L08016           daThreshold: 3.3,
+L08017           gThreshold: 25,
+L08018         },
+L08019         {
+L08020           i: 3,
+L08021           m: 100,
+L08022           r: 20,
+L08023           n: null,
+L08024           a: 4,
+L08025           da: 0,
+L08026           o: 0.8,
+L08027           toleranceFactor: 0.6,
+L08028           tolerance: 0,
+L08029           daThreshold: 3.3,
+L08030         },
+L08031         {
+L08032           i: 4,
+L08033           m: 150,
+L08034           r: 20,
+L08035           n: null,
+L08036           a: 4,
+L08037           da: 0,
+L08038           o: 0.8,
+L08039           toleranceFactor: 0.5,
+L08040           tolerance: 0,
+L08041           daThreshold: 3.3,
+L08042         },
+L08043       ]));
+L08044   }
+L08045   getNextStartingPose() {
+L08046     let t, o, s;
+L08047     (new It(this.config.seed + "" + this.generationCount),
+L08048       this.config.startPos && this.restartCount > 2 && console.log("FAILED TO GENERATE FROM START POS"),
+L08049       (this.testAngle = this.restartCount / 20));
+L08050     let n = Math.cos(this.testAngle),
+L08051       l = Math.sin(this.testAngle),
+L08052       h = Me - 250,
+L08053       g = Me + 250,
+L08054       x = this.heightmap.getXZ(n * h, l * h);
+L08055     for (; x > 0;) ((h -= 250), (x = this.heightmap.getXZ(n * h, l * h)));
+L08056     let p = this.heightmap.getXZ(n * g, l * g);
+L08057     for (; p < 0;) ((g += 250), (p = this.heightmap.getXZ(n * g, l * g)));
+L08058     let u = -1,
+L08059       b = (h + g) / 2;
+L08060     for (
+L08061       ;
+L08062       g - h > 25 &&
+L08063       ((x = this.heightmap.getXZ(n * h, l * h)),
+L08064       (p = this.heightmap.getXZ(n * g, l * g)),
+L08065       (b = (h + g) / 2),
+L08066       (u = this.heightmap.getXZ(n * b, l * b)),
+L08067       !(u > 5 && u < 40));
+L08068     ) {
+L08069       if (p > 5 && u < 40) {
+L08070         ((u = p), (b = g));
+L08071         break;
+L08072       }
+L08073       if (x > 5 && x < 40) {
+L08074         ((u = x), (b = h));
+L08075         break;
+L08076       }
+L08077       u < 5 ? (h = b) : (g = b);
+L08078     }
+L08079     if (((o = u), (t = n * b), (s = l * b), this.spiralDir !== null))
+L08080       this.tVec.set(s * this.spiralDir, 0, -t * this.spiralDir).normalize();
+L08081     else if (this.config.startHeading && this.restartCount < 3)
+L08082       (console.log("Start heading given", this.config.startHeading),
+L08083         this.tVec.set(this.config.startHeading.x, 0, this.config.startHeading.z),
+L08084         this.tVec.normalize());
+L08085     else {
+L08086       let U = this.heightmap.getXZ(t, s - 10),
+L08087         O = this.heightmap.getXZ(t + 10, s),
+L08088         N = this.heightmap.getXZ(t, s + 10);
+L08089       if (O - U == 0 || N - O == 0) this.tVec.set(0.99, 0, 0.01);
+L08090       else {
+L08091         let H = (o - U) / (O - U),
+L08092           B = (o - O) / (N - O);
+L08093         if (H >= 0 && H <= 1) this.tVec.set(H, 0, (1 - H) * -1).normalize();
+L08094         else if (B >= 0 && B <= 1) this.tVec.set(1 - B, 0, B).normalize();
+L08095         else {
+L08096           if (
+L08097             (this.restartCount++,
+L08098             console.warn("Not sure what's wrong here, TODO"),
+L08099             this.tVec.set(1 - B, 0, B).normalize(),
+L08100             this.restartCount > 100)
+L08101           )
+L08102             throw new Error("Failed to choose spawn location");
+L08103           return this.getNextStartingPose();
+L08104         }
+L08105       }
+L08106     }
+L08107     return (
+L08108       this.restartCount && _a.add("MIDLINE: Start-pose attempts: " + this.restartCount),
+L08109       {
+L08110         position: { x: t, y: o, z: s },
+L08111         vector: { x: this.tVec.x, z: this.tVec.z },
+L08112         heading: Math.atan2(this.tVec.z, this.tVec.x),
+L08113       }
+L08114     );
+L08115   }
+L08116   initialise(t, o) {
+L08117     (super.initialise(t, o),
+L08118       (this.markingsNode = P.head),
+L08119       (Ue = this.config.markingsMargin ?? 6),
+L08120       (He = Ue / 2));
+L08121   }
+L08122   makeHeadNode() {
+L08123     (super.makeHeadNode(), (P.head.blend = 0));
+L08124   }
+L08125   extendMidline() {
+L08126     var t;
+L08127     if (super.extendMidline()) {
+L08128       if (!P.tail.blend) {
+L08129         let o = P.tail;
+L08130         ((o.blend = 1 - Math.min(Math.max(0, fs.getXZ(o.p.x, o.p.z)), 1) ** 2),
+L08131           (t = o.prev) != null && t.blend && (o.blend = o.prev.blend * 0.5 + o.blend * 0.5));
+L08132       }
+L08133       return !0;
+L08134     }
+L08135     return !1;
+L08136   }
+L08137   customRevertTest() {
+L08138     if (this.E.targetDot > -0.5) return !1;
+L08139     if (this.spiralDir > 0 && this.T.gradLeft > this.T.gradRight) {
+L08140       let t = this.heightmap.getXZ(
+L08141         P.tail.p.x + this.midlineOrth.x * 200,
+L08142         P.tail.p.z + this.midlineOrth.z * 200,
+L08143       );
+L08144       if (t < 0 || t < P.tail.p.y - 100) return ((this.E.violatedOverflow = !0), !0);
+L08145     } else if (this.spiralDir < 0 && this.T.gradLeft < this.T.gradRight) {
+L08146       let t = this.heightmap.getXZ(
+L08147         P.tail.p.x - this.midlineOrth.x * 200,
+L08148         P.tail.p.z - this.midlineOrth.z * 200,
+L08149       );
+L08150       if (t < 0 || t < P.tail.p.y - 100) return ((this.E.violatedOverflow = !0), !0);
+L08151     }
+L08152     return !1;
+L08153   }
+L08154   extendFine() {
+L08155     if ((super.extendFine(), !!P.fineTail.prev)) {
+L08156       if (
+L08157         ((d.n = P.fineTail.prev),
+L08158         d.n.shadowLeft
+L08159           ? (d.n.shadowLeft = Math.max(
+L08160               d.n.shadowLeft,
+L08161               Le.getShadowDensityAt(d.n.p.x - d.n.n.x * E, d.n.p.z - d.n.n.z * E),
+L08162             ))
+L08163           : (d.n.shadowLeft = Le.getShadowDensityAt(d.n.p.x - d.n.n.x * E, d.n.p.z - d.n.n.z * E)),
+L08164         d.n.shadowRight
+L08165           ? (d.n.shadowRight = Math.max(
+L08166               d.n.shadowRight,
+L08167               Le.getShadowDensityAt(d.n.p.x + d.n.n.x * E, d.n.p.z + d.n.n.z * E),
+L08168             ))
+L08169           : (d.n.shadowRight = Le.getShadowDensityAt(d.n.p.x + d.n.n.x * E, d.n.p.z + d.n.n.z * E)),
+L08170         (d.th = d.n.p.y - d.n.h),
+L08171         d.th < Fe
+L08172           ? ((d.tgLeft = 1),
+L08173             (d.tgRight = 1),
+L08174             d.n.g < 0 ? (d.tgLeft = Math.max(0, 1 - d.n.g / -Z)) : (d.tgRight = Math.max(0, 1 - d.n.g / Z)),
+L08175             (d.n.shadowLeft *= Math.min(d.th / Fe, d.tgLeft)),
+L08176             (d.n.shadowRight *= Math.min(d.th / Fe, d.tgRight)))
+L08177           : d.g < -Z
+L08178             ? (d.n.shadowLeft *= Math.max(0, (d.g + Z) / Z))
+L08179             : d.g > Z && (d.n.shadowRight *= Math.max(0, (d.g - Z) / Z)),
+L08180         d.n.bridge && ((d.n.shadowLeft *= 0), (d.n.shadowRight *= 0)),
+L08181         d.n.prev && d.n.prev.fs > 0)
+L08182       )
+L08183         for (d.nn = d.n.prev.nextFine, d.fs = d.n.prev.fs + 1, d.i = 1; d.i < d.fs; d.i++)
+L08184           ((d.l = d.i / d.fs),
+L08185             (d.nn.shadowLeft = d.n.shadowLeft * d.l + d.n.prev.shadowLeft * (1 - d.l)),
+L08186             (d.nn.shadowRight = d.n.shadowRight * d.l + d.n.prev.shadowRight * (1 - d.l)),
+L08187             (d.nn = d.nn.nextFine));
+L08188       this.updateMarkings();
+L08189     }
+L08190   }
+L08191   updateMarkings() {
+L08192     let t = P.fineTail.prev;
+L08193     ((this.markingsDa += t.da),
+L08194       (this.markingsAbsDa += Math.abs(t.da)),
+L08195       (this.markingsGradLat += t.g),
+L08196       (this.markingsTrees += Math.min(t.shadowLeft, t.shadowRight)),
+L08197       !(this.markingsNode.i > t.i - Ue + 1) &&
+L08198         ((this.markingsNode.paintSolidLeftWeight = 1),
+L08199         (this.markingsNode.paintSolidRightWeight = 1),
+L08200         (this.markingsNode = this.markingsNode.next)));
+L08201   }
+L08202   smoothHeight() {
+L08203     super.smoothHeight();
+L08204     let t = this.smoothWindowHead.prev;
+L08205     if (t.prev) {
+L08206       let o = t.next.a - t.prev.a;
+L08207       (o > Math.PI ? (o -= Math.TAU) : o < -Math.PI && (o += Math.TAU),
+L08208         (t.bank = o * hs),
+L08209         (t.bank = t.bank * 0.5 + t.prev.bank * 0.5));
+L08210     } else t.bank = 0;
+L08211   }
+L08212 }
+L08213 export {
+L08214   Rr as $,
+L08215   Ir as A,
+L08216   wr as B,
+L08217   Cs as C,
+L08218   $e as D,
+L08219   be as E,
+L08220   Xs as F,
+L08221   gt as G,
+L08222   Js as H,
+L08223   F as I,
+L08224   Mr as J,
+L08225   Ve as K,
+L08226   De as L,
+L08227   Yt as M,
+L08228   Zs as N,
+L08229   St as O,
+L08230   as as P,
+L08231   Ks as Q,
+L08232   E as R,
+L08233   ht as S,
+L08234   Sr as T,
+L08235   ut as U,
+L08236   pt as V,
+L08237   _ as W,
+L08238   mt as X,
+L08239   At as Y,
+L08240   Ze as Z,
+L08241   _t as _,
+L08242   w as a,
+L08243   ar as a$,
+L08244   Tr as a0,
+L08245   Vt as a1,
+L08246   Uo as a2,
+L08247   $s as a3,
+L08248   xe as a4,
+L08249   Er as a5,
+L08250   As as a6,
+L08251   Ss as a7,
+L08252   _s as a8,
+L08253   ee as a9,
+L08254   Jo as aA,
+L08255   ws as aB,
+L08256   Po as aC,
+L08257   Hr as aD,
+L08258   A as aE,
+L08259   xs as aF,
+L08260   kt as aG,
+L08261   Gr as aH,
+L08262   Xo as aI,
+L08263   qo as aJ,
+L08264   Yr as aK,
+L08265   bt as aL,
+L08266   Ar as aM,
+L08267   sn as aN,
+L08268   lt as aO,
+L08269   Vr as aP,
+L08270   Zo as aQ,
+L08271   Ys as aR,
+L08272   r as aS,
+L08273   Qo as aT,
+L08274   Ds as aU,
+L08275   et as aV,
+L08276   _e as aW,
+L08277   ct as aX,
+L08278   on as aY,
+L08279   jt as aZ,
+L08280   $o as a_,
+L08281   en as aa,
+L08282   Br as ab,
+L08283   Dt as ac,
+L08284   ks as ad,
+L08285   de as ae,
+L08286   xr as af,
+L08287   qs as ag,
+L08288   k as ah,
+L08289   jr as ai,
+L08290   an as aj,
+L08291   pr as ak,
+L08292   zr as al,
+L08293   Wr as am,
+L08294   mr as an,
+L08295   tr as ao,
+L08296   cr as ap,
+L08297   hr as aq,
+L08298   fr as ar,
+L08299   ce as as,
+L08300   Zt as at,
+L08301   le as au,
+L08302   Jt as av,
+L08303   gr as aw,
+L08304   re as ax,
+L08305   tn as ay,
+L08306   Ko as az,
+L08307   Fs as b,
+L08308   sr as b0,
+L08309   ys as b1,
+L08310   Rs as b2,
+L08311   lr as b3,
+L08312   or as b4,
+L08313   rr as b5,
+L08314   dr as b6,
+L08315   Se as b7,
+L08316   er as b8,
+L08317   Is as b9,
+L08318   ir as ba,
+L08319   nr as bb,
+L08320   Ur as bc,
+L08321   bs as bd,
+L08322   vr as be,
+L08323   ur as bf,
+L08324   Os as bg,
+L08325   Ns as bh,
+L08326   kr as bi,
+L08327   ke as bj,
+L08328   Cr as bk,
+L08329   Ms as bl,
+L08330   Ts as bm,
+L08331   Es as bn,
+L08332   Ps as bo,
+L08333   Ls as bp,
+L08334   ps as bq,
+L08335   Us as c,
+L08336   dt as d,
+L08337   Yo as e,
+L08338   Gs as f,
+L08339   Le as g,
+L08340   Ws as h,
+L08341   rn as i,
+L08342   Hs as j,
+L08343   Qs as k,
+L08344   M as l,
+L08345   Vs as m,
+L08346   I as n,
+L08347   _r as o,
+L08348   Bs as p,
+L08349   zs as q,
+L08350   br as r,
+L08351   js as s,
+L08352   se as t,
+L08353   Pe as u,
+L08354   vt as v,
+L08355   Lr as w,
+L08356   $ as x,
+L08357   Ye as y,
+L08358   yr as z,
+L08359 };
+L08360 

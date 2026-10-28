@@ -1,0 +1,1667 @@
+{
+  "assets": [
+    {
+      "source": "_app/immutable/assets/grass.15f2422c.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/grass.png",
+      "sha256": "02a8792d9bedb84e9a24774f4f4d59b7ce8e359278ae771d76f1e55b47e55dbe",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_grasses.7ddf683f.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_grasses.png",
+      "sha256": "d2026256236437729b91bcf6af91e2fdf71ccd6b94b7e5585b1178c96c32800b",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_bushes.2db1f4bc.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_bushes.png",
+      "sha256": "daf951252703a6091b7a3818fcdff7ce170d7e63c6d64434011f62c9bcd7cc05",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/forest_spring.a81cef17.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/forest_spring.png",
+      "sha256": "26f3a22bc19c805569e50ca1913b3d72a41f2b0bc57a053289885e91e88469c0",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/gravel.0c64b1c3.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/gravel.png",
+      "sha256": "e666f400f1f7a4ed0f936d7edccedb1790f6b1927cadfa73e32827d56bc189bd",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/sand.43e5b6fc.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/sand.png",
+      "sha256": "7f38834e73de5536e68ceafa2f33a8d92bb22d3d662348934c300aa150d8191f",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_rock.d1f6769c.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/spring_rock.png",
+      "sha256": "b195bc0b0231b915466242aa9a9308c793ef52c1dbc45122af2b5d0f8461eae2",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/rock_bump.8f8c68ad.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/rock_bump.png",
+      "sha256": "03fb73e3a3708c8daf2f8ab11847bbfd0337f6b83955dc4b7e994d511aa8098b",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_heather_05.5f56558d.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_heather_05.png",
+      "sha256": "d88b160431d647a1a0166b38e18c2e1ca79190474dc8949adac2ff037150dd60",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/ground_detail_near.9099b9d5.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/ground_detail_near.png",
+      "sha256": "e9fd7342da002f53a6c8112529e998a32c1aa63a047b3c86e7a4d950902609c8",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/ground_detail_far.a63b212a.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/ground_detail_far.png",
+      "sha256": "2846e879630299033fefe645b0c01b3219816d81619422df6e777ee3a1382611",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/grass_variation.209068de.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/grass_variation.png",
+      "sha256": "e66d0ea1e3558e8bd31d46392bd7e3319a2253c4e09438b5a80481d6eab5e4f8",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_base.f6473539.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_base.png",
+      "sha256": "6f1602efd9deafb4d3a52126fcacb099b6596e60675ab24e353ec64079ba6c8a",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_dashed.246907ab.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_dashed.png",
+      "sha256": "4eaf2d44483c07cc93687b94bf5e53d979963a22383edbe1bf3fa5a6e0fc7fb9",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_dashed_long.58ab8a61.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_dashed_long.png",
+      "sha256": "2e02172723cf3dc6066b59bad4b633c7cb57bbf9368511633dd370506cca47b0",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_solid.5d853556.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_solid.png",
+      "sha256": "b384f0405b15bb371b81ee93b9251b98bbe14d91c1bf4a62822ac6694490fba6",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_solid_left.68b665c9.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_solid_left.png",
+      "sha256": "bd5643add2ff5dc2f1e10442abe8f93eb5dd386f9db4903a07ecca6b357676f7",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_solid_right.3f96bedd.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_solid_right.png",
+      "sha256": "6d18f5f69997be60f17504197269a3ebe04a61d9b38bea9ec618a7fb45691fd8",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_merge_left.27a677e8.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_merge_left.png",
+      "sha256": "c2e0ff3fade260a27e672ad5b8d5434ff8bf3f6dbb7f28bb85537161494b1234",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_merge_right.5c821b1d.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_merge_right.png",
+      "sha256": "18eae62907cd14d6d23d99ae1aeba42794f6228e7c227ea7b01e605208aced10",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_base_spring.2a1a3159.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_single_base_spring.png",
+      "sha256": "f1d46372636b37ad4907b07db86216b6363ab13f57f8a3c06cee36e24aa5d5cb",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_overlay_spring.10938687.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_overlay_spring.png",
+      "sha256": "6bd814d3d3330bad75081181e348b8719e707ca3bdd2047e0f549dea92e0d7cc",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_overlay_spring.a23e0db5.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_single_overlay_spring.png",
+      "sha256": "ca7ca5841fa7033472fc946719df9073f4c0bc4550179ccfd18c2a5f1265f49c",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_wide.e9c6ee67.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_single_wide.png",
+      "sha256": "a789ba89c1171f061a7837e2a8608a3e66d28444088893ee6f66bb2fbe19688e",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/offroad_mask.07511369.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/offroad_mask.png",
+      "sha256": "3f65f860c8ec34befdac49017b33844cb4f8daec1260917a3120df8c85f58b50",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_imposters_0_d.2e67db77.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_imposters_0_d.png",
+      "sha256": "9fe8c4e2099eb83ba46f6841bddee3517b2b71b16a445f2147185014be5d1fbe",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_imposters_0_n.1d5afe54.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_imposters_0_n.png",
+      "sha256": "83561d09fe1797006cb18a002f03936885cf4875769cb250df938e2f2a0212cf",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_imposters_1_d.05133c03.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_imposters_1_d.png",
+      "sha256": "8db91330022cc884e9cf4b6788852820adcd118840a929bbc6cd2ddcac7b8015",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_imposters_1_n.2a7e8cf6.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_1_n.png",
+      "sha256": "e1d276c147dddea10922ba6eab582b689302705e3e67fe950efa5fc29d069586",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_trees_0.aee94219.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_0.png",
+      "sha256": "7b01a9582263f244c9135cbea2f9e720ef073578c6264bb8401f1a46a261a76e",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_trees_0_n.8e3ce8fa.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_0_n.png",
+      "sha256": "36add046889e6cf547fd421e9c33fb6a8e920a4ff2ebcd8e148d9f34db0f8dc7",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_trees_1_m.29ae06f6.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_1_m.png",
+      "sha256": "fd5eb2e464865bb5e64ebdf7d11601c5e7bb62a3dbd5bff733508adeab8370e1",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_trees_1_a.e8f53ceb.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_1_a.png",
+      "sha256": "f36ce7f31c3c3d42cc5f99a4fbcc0fe6f9a355a694daebb90969f0cbfd5edadc",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/wall_barrier.63193046.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/wall_barrier.png",
+      "sha256": "830e9c106776d32218e1d1380761351b0acfb1902662e668abd3dfc0cd468834",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/wall_concrete.d56426dc.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/wall_concrete.png",
+      "sha256": "6cc5cbee1d791306c82ab23728194e44c61cf423ac1e4557c612001a4b675ee4",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_wall_barrier_wood.29edf0af.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/spring_wall_barrier_wood.png",
+      "sha256": "94d0ae8a7ff612f5fcb000e34ef32dc06c64cffa9652b54eff3d743921fd4330",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_wall_drystone.6c714f68.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/spring_wall_drystone.png",
+      "sha256": "c268231454de128d98696e0d7bf080ec5fa24fd5c72057929ae6ac153ad5e0d3",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/bridge.7eaed52d.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/bridge.png",
+      "sha256": "a52d718293b7c72c1367ee10dc3a5b72142d43a50d065736c3e1ab6c5c32fa02",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/clouds_01.700a3fdb.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01.png",
+      "sha256": "096f2ba6477148d8831caa36853f04fe32e6bbb273e560dedc33a85b95e364bf",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_base.d5dbc374.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_single_base.png",
+      "sha256": "51f9cf50ddc02f306532c04ccae8cd6f853c95e1aba0f43fa93005aee741e9c7",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_rock.674f8c5a.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/summer_rock.png",
+      "sha256": "e71d8e7a8bb5feea3e79482bad822deb4b894473fafb21b717342456ed0bb576",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_bushes.943c4258.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_bushes.png",
+      "sha256": "f7812c5ab64d47d351e27debbf5db3f269724b7fe7285e2206db874caf440da6",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/forest_01.b82a9e7e.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/forest_01.png",
+      "sha256": "2be8cbe0170083eddfa769d7eaee9fdc9aee3a1178dab595aa897b236a6fd294",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_imposters_0_d.6a3261f4.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_0_d.png",
+      "sha256": "49a9924a7c58e175abf4e07c525f13eb898ac97381d1b0f743b60ecac6142cdf",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_imposters_0_n.99abbc99.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_0_n.png",
+      "sha256": "a0f69775b12f5faf114126a5d32547f263b04f5a93c00d26420da4fc73c61d14",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_imposters_1_d.a1e60bf5.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_1_d.png",
+      "sha256": "1d08155b24f0d07bf8de9b73366782ca2a607265b74670057c893f9f7ea6007f",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_trees_1_m.866c5db4.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_1_m.png",
+      "sha256": "f211a3a8c63285dd6b1d73b94bbd845ea2b44306de894e7d724dcf389072ae28",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_trees_1_a.c88ed1f2.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_1_a.png",
+      "sha256": "4fa821dfe3b523e855c84eff3612eaa0731f2c0181b9dfe1eb89e4751ccc615c",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/wall_barrier_wood.a34ab34c.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/wall_barrier_wood.png",
+      "sha256": "79dc67be111f1d5bbc879e843239110a76b9559f0ad485f7948f25b4888891ea",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/wall_drystone.c5584f29.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/wall_drystone.png",
+      "sha256": "405c8719e6e5f41e98caac0cb25962266c0c092f426ba35dd7749dab36301d9f",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_bushes.b82ca395.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_bushes.png",
+      "sha256": "93e601556fdae42dd16e1e60e75387bf3a7b6f311e46d8b41f861e2a93388f4e",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/forest_autumn.55ca08bd.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/forest_autumn.png",
+      "sha256": "e4b730e3d50121a656214c45e6a5c4e465a739bc7e208cc63bbcb38210c95adf",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_heather.d890b430.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_heather.png",
+      "sha256": "b7ee0720117f9bf50f5410af6c25edf4aba17eaaa720fca76577cdd139e8df58",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_overlay_autumn.68f523cb.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_overlay_autumn.png",
+      "sha256": "cfab501303bf70c027476b2185bc9f36eada35019ec11bb565f805030c45b139",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_overlay_autumn.59ecdb8e.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_single_overlay_autumn.png",
+      "sha256": "2edb5a7c0809451c960856cf5c19570b920adb5dcd3d374b267ec2dc54f8253c",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_imposters_0_d.4c4b38fd.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_0_d.png",
+      "sha256": "e26e1dbbc89a7ba42aced2a383d38a19fd6145861fb3547807a9622518ab708f",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_imposters_0_n.d10ccd46.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_0_n.png",
+      "sha256": "84b21ff6bace13efb88d10878b7d1c57412582ea4c8c6aca84e6364431a3a156",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_imposters_1_d.0160320a.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_1_d.png",
+      "sha256": "e498d939fbfbe1912007ed30f36bd67459095d75e16f5156c83a5ae66b4adbd1",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_trees_0.2fe560b0.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_0.png",
+      "sha256": "e97a8eedf2b567a043d70bdf03234586cb69c9abeecc8e70ca620e090c6de57a",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_trees_0_n.a664e3e1.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_0_n.png",
+      "sha256": "69828137ebe49440a743c647a4200f8c2396aa08bf599d4a7034147c5158dfae",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_trees_1_m.2cd39e32.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_1_m.png",
+      "sha256": "49522afaf22c0e25be638a1af3cadab8d481846f6ab67214dae05921ed50ca92",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_trees_1_a.2aa926cb.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_1_a.png",
+      "sha256": "ec7ae3ae4d5d9671e3b3f44b8ca6ee0c6b9b766057a29cbd4d0004ca111eb4e8",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_grass.2126ead2.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/winter_grass.png",
+      "sha256": "0e810ea0f742601ee3ec2d96ea42a4df3b7740d8e022c9524f278acb334cd65b",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_grasses.fbb53d0d.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_grasses.png",
+      "sha256": "6bee0aa824de05c09772e0f5210abb2232be5b32744a4840d15c7c3abde1d36c",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_bushes.8e9f3165.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_bushes.png",
+      "sha256": "dbfd50df53ba7ec4462365af9495ede73437a1f4504ee2424055851a8569a6e3",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/forest_winter.0710a850.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/forest_winter.png",
+      "sha256": "79cb48634abd2f17fb8eb3ef18cd5ab3ce77864db98294442e97ff4c45923685",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_rock.674a5de1.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/winter_rock.png",
+      "sha256": "2c4aae54e6e2f1d913f3f2125526bf431cc5b6268a559647ad11e5c27ed810d4",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_gravel.03b9e4e9.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/winter_gravel.png",
+      "sha256": "1990f0cf035b20bd7db593c981acf30a8a502e30af4e9735d9bcf3877658833b",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_heather.b9aeb76f.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_heather.png",
+      "sha256": "14dc147234926498f2f8e75c4a9d2bbceefec552db401362418d1da7a4051055",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/ground_detail_far_winter.003963d8.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/ground_detail_far_winter.png",
+      "sha256": "b492dd5a4db119e3e436e3d9abd01ccdd72758522cf5b948be3d10e2da20aa90",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_road.a2a6e9fa.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/winter_road.png",
+      "sha256": "fe1cc5daf14a43b5f190eed5cd09401280fc367a53ea42270cfec49fa291bdcb",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_road_single.3028904b.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/winter_road_single.png",
+      "sha256": "64e895e5b3666496402a4993416a02ef5b4ab039ef1b70aff3b50147ca65688b",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_wide_winter.e588cd84.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_single_wide_winter.png",
+      "sha256": "da97bab104cd304e345147721686d9e096b6f15dad0a8c114316a4a050ddd826",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/offroad_mask_winter.3f84c777.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/offroad_mask_winter.png",
+      "sha256": "2303afd3b192e5862eb04011272bc2e30c6f0d7eda8744e883cebc759e868767",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_imposters_0_d.ce1a9b7d.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_imposters_0_d.png",
+      "sha256": "2f1daa9497994b1a607e024b192bdb2f5937902e3df74061c83fff47cf4618e4",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_imposters_0_n.8293f6b6.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_imposters_0_n.png",
+      "sha256": "639b9d5a9c829e297b39a06a32fe340d1a01cc1cbfc80c8efd74d292390fa4d7",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_imposters_1_d.2882c5c9.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_imposters_1_d.png",
+      "sha256": "fc822343e10ea6d3a7beb420eea33f6dec6a1979572c51079be0ed14d7ccf20c",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_trees_0.99189e5d.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_0.png",
+      "sha256": "07d9dcef1f9926794ec0c3975a56669b01ff19859220d23fc06c717496ee2aa6",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_trees_0_n.24c5f705.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_0_n.png",
+      "sha256": "1499b88b1d1c13c3a8b86675342a8a7f5243aa7744d259e9e0b068155b408567",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_trees_1_m.7ee3e863.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_1_m.png",
+      "sha256": "58de648db2fb28f1f6a3d1b753f8f9f8aa75836c9c0d9fa1e8d5b98589a62b05",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_trees_1_a.142fe383.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_1_a.png",
+      "sha256": "947d585ebe3b4ada520c11cedaaa0c142d75a53f3bb3a8e4c53af5c2cf456002",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_wall_barrier.2f3faaf6.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/winter_wall_barrier.png",
+      "sha256": "b757b3fb9a0e1313df3b5311e55c5771b6645616d7793707d15b1afda5485957",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_wall_concrete.edcd548c.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/winter_wall_concrete.png",
+      "sha256": "904a41a6945dff4e9c7c591034ff4b4745d45a66a4964a7af3a24b2ed0a3d41e",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_wall_barrier_wood.058b9fbc.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/winter_wall_barrier_wood.png",
+      "sha256": "b654e451ac7891e2ea6b9b4ebb01d60999a7284c4ebb996c8b949a8fb9cc3f7c",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_wall_drystone.ef024453.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/winter_wall_drystone.png",
+      "sha256": "0ff96c9479728086c89f17571f8ea35911ad454109476ed0ceae28390d96a726",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/noise_fine.592be1a0.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/noise_fine.png",
+      "sha256": "484a22e1a8b1c264249d720ee1c0193fcdc37223e02c8d7e6291abc0e91053b2",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/noise_finer.98c1753c.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/noise_finer.png",
+      "sha256": "e96391cd88d53d0bddfec29ab56baa04f4f8d03c1e7c6a12e65ac49f0ccdd5e7",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/sea_waves.63ff8729.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Water/sea_waves.png",
+      "sha256": "5872b1b0ef9ead5759d7d2f6e85db0e1c24fb9cfdbe4a4047790ee454bc93010",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/signs.c90afd62.webp",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/signs.png",
+      "sha256": "0bce522bdbcbb294a1e0bf402870e7017336d7c25ef49d80b1769d5c05600ffd",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_05.d68751e5.obj",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_05.obj",
+      "sha256": "d68751e54e9965df129a2ed47d98bb14b2962bc3285dece421e5705ef6e2bb22",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_06.693be0d9.obj",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_06.obj",
+      "sha256": "693be0d9ca55a3682e143e8d36e0d73c8b98ae8f32fbf4156d08300f53a3f046",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_07.1fef5d95.obj",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_07.obj",
+      "sha256": "1fef5d95a3ce30c40377e27037ce7f3ab9cf472421157b5ecc9528034832c1c9",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_08.b8bd204c.obj",
+      "origin": "HillsHeightmap.2938f21e.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_08.obj",
+      "sha256": "b8bd204c7a431fc535d45efce9a9f0a8d78aa4b8cdbfe27b4aeeef74644ebf08",
+      "contentVerified": true
+    },
+    {
+      "source": "HillsHeightmap.2938f21e.js#Ee",
+      "origin": "HillsHeightmap.2938f21e.js embedded Ee",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/wall_barrier_normal.png",
+      "sha256": "84a655ac5c110f63202166f527245b975f61f97f1cc612018bfbd0d4daf8d15a",
+      "contentVerified": true
+    },
+    {
+      "source": "HillsHeightmap.2938f21e.js#Te",
+      "origin": "HillsHeightmap.2938f21e.js embedded Te",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/wall_fence_normal.png",
+      "sha256": "515961c723c77e79015aec2b92090d2e65b386f3781bbbf00aacc573f6c98e1f",
+      "contentVerified": true
+    },
+    {
+      "source": "HillsHeightmap.2938f21e.js#Z",
+      "origin": "HillsHeightmap.2938f21e.js embedded Z",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/placeholder_white.png",
+      "sha256": "5597de9bff0e96679a16ffab8a963a12e083bc70b60f960f4d57c317650df9c7",
+      "contentVerified": true
+    },
+    {
+      "source": "HillsHeightmap.2938f21e.js#is",
+      "origin": "HillsHeightmap.2938f21e.js embedded is",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_particle.png",
+      "sha256": "80227ca83ea400e33df0068ad6e6d4155947315f47d36c8bd92e371cac888b09",
+      "contentVerified": true
+    },
+    {
+      "source": "HillsHeightmap.2938f21e.js#_s",
+      "origin": "HillsHeightmap.2938f21e.js embedded _s",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Props/verge_marker.obj",
+      "sha256": "c71c041d2d58c3c17b888bb04455844cc93d55911469a133b54de6884718c06c",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_trees_0.d5cc9742.webp",
+      "origin": "tree_04.6b3d8a5d.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_0.png",
+      "sha256": "8184a5bb669cafc34f8a201a17bedd06ce26ea01fd37c8f8116263bf3796cebb",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_trees_0_n.011e666e.webp",
+      "origin": "tree_04.6b3d8a5d.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_0_n.png",
+      "sha256": "00c85bfb9ecd50e8a839510e353f5f062c4d1e4835b8093b8279475029ac9e6d",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_01.49d91079.obj",
+      "origin": "tree_04.6b3d8a5d.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_01.obj",
+      "sha256": "49d91079121e7e7c628532e3e0f5c53a471872cca266100021f13914851ef4a5",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_02.52e8a31e.obj",
+      "origin": "tree_04.6b3d8a5d.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_02.obj",
+      "sha256": "52e8a31eefda59669611a11cc624da25d5c53f81a8813e07ebcd1fe85c704280",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_03.2a55062c.obj",
+      "origin": "tree_04.6b3d8a5d.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_03.obj",
+      "sha256": "2a55062cb4747e41c77e5ddfc9f5ff8474daab6866e1cd1927f3532ea5520017",
+      "contentVerified": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_04.53747223.obj",
+      "origin": "tree_04.6b3d8a5d.js",
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_04.obj",
+      "sha256": "53747223cefebd9d22209d2046b57bfdf6f4da5dec413e9c18d7133349a7fd84",
+      "contentVerified": true
+    }
+  ],
+  "removed": [
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Props/reflector.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Props/rock.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Props/turbine_01.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Trees/tree_01_oak.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Trees/tree_02_oak.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Trees/tree_03_oak.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Trees/tree_04_pine.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Trees/tree_05_pine.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Trees/tree_06_palm.mat",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Props/reflector.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Props/rock.obj",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Props/turbine_01.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_01_oak.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_02_oak.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_03_oak.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_04_pine.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_05_pine.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_06_palm.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_a.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_b.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_c.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_d.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_e.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_interior.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_interior_bars.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_main.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/bike_wheel.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/car_01.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/car_02.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/classic_a.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/classic_b.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/classic_c.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/classic_d.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/classic_e.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_a.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_b.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_c.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_d.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_dash.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_e.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_interior.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_main.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coach_steer.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coupe_dash.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coupe_interior.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coupe_main_4.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/coupe_steer.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/drift_ghost.obj",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/hatch_01.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/offroad_b.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/rally_dash.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/rally_interior.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/rally_main.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/rally_steer.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/sedan_01.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/sport_dash.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/sport_interior.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/sport_main.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/sport_steer.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/stretch_dash.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/stretch_interior.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/stretch_main.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/suv_01.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/van_01.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vehicles/wheel_01.glb",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Props/reflector.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Props/rock.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Props/turbine_01.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Trees/tree_01_oak.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Trees/tree_02_oak.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Trees/tree_03_oak.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Trees/tree_04_pine.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Trees/tree_05_pine.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Trees/tree_06_palm.prefab",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_01.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_02.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_04_0.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_04_0b.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_04_1.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_04_2.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_04_3.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_05.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_driftmas_06.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_summer_01.jpg",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_summer_01_b.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_summer_02.jpg",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_summer_02_b.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/bg_summer_03_b.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/topo-square-dark.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/topo-square-light.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/topo_square.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/topo_square_dark.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Backgrounds/topo_square_inverted.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Misc/preview.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Misc/releasesooner.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Misc/snow_spray.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Misc/terminal_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/noentry.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/offroad_mask_2.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/plates_cali.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_base.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_mask.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_dashed_2.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_paint_solid.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_single_base.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/road_single_wide.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/signs.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01_2.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/mars.svg",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/moon.svg",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/moon_earthrise.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/noise_water.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/venus.svg",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/aomap.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/cliff.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/cliff_bump.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/faux_texture.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/geomorphology.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/gravel_2.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/marl_diffuse.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/noise_brush_01.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/noise_fine_2.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/noise_finer.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/noise_scuffs.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/noise_surf_b.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/rock.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/rock_bump.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/rubble_base.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/sand_02.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/shale.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/shale_03.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/shale_bump.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/surface_bump.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/surface_rego.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/brush_01.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/brush_sprites.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/bush_sprites.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_0_d_2.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_0_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_rock_alpha.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/tree_conifer_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/trees_dev_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/trees_dev_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/bike_headlight_high.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/bike_window.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/coach_dash_map.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/coach_window.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/coupe_interior_map.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/coupe_window.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/dash_icon_lights.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/leather_roughness_02.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/leather_texture.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/map_dash.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/map_headlights_high.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/map_headlights_low.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/rally_window.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/reflector.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vehicles/sport_window.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/mars_barrier.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/venus_barrier.png"
+  ],
+  "removedCounts": {
+    "Models": 56,
+    "Textures": 86,
+    "Materials": 9,
+    "Prefabs": 9
+  },
+  "archiveSources": [
+    {
+      "source": "_app/immutable/assets/autumn_bushes.b82ca395.webp",
+      "sha256": "055e7544c6b321f53c1c5d1dfefeb97b6eb63d591278e318fe5db05cc6710419",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_heather.d890b430.webp",
+      "sha256": "36e7ab4c6dd194eaee1529e7c4ac1b4e22e1b85d3d82e3b3d4d438e84b649676",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_imposters_0_d.4c4b38fd.webp",
+      "sha256": "8f1c7f025b2354fa9cd2d45d86b200c189a75555798b5e107fbe91247e3499dd",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_imposters_0_n.d10ccd46.webp",
+      "sha256": "89401ae4d6f0cb1a0380eb12bf2dfa9aaabcdf65d16410438f62f54b8aa912b9",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_imposters_1_d.0160320a.webp",
+      "sha256": "3ac80778cebff9a935eb558b5deece596bcf9c9863ceb3276b4ec7658f5a36d4",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_imposters_1_n.2a7e8cf6.webp",
+      "sha256": "fff90db2300c97e9af5e3799c4d52637ab570c1e173367220ea17e3458c97b71",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_trees_0.2fe560b0.webp",
+      "sha256": "87cf819cabf6396c7eee6d286a84baa404bdb7e597062da8318f024e36d59113",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_trees_0_n.a664e3e1.webp",
+      "sha256": "0a77b265778299140c1fcdcd08f83f2eb71d936f096045be99067d3bedd80753",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_trees_1_a.2aa926cb.webp",
+      "sha256": "0fe0c4f9b294b89cd236faf2ba40f1a19a8541498a7b91a0c834095e4d3454a0",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/autumn_trees_1_m.2cd39e32.webp",
+      "sha256": "d33d6a63d870bca9a4d5a1dec8b073c3825e3c883a7065b8bf5bf449e8257bd8",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/bridge.7eaed52d.webp",
+      "sha256": "b5131695dbac1c0470ac8fd18df7609d9246c30649504c37c8bf096d9d927162",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/clouds_01.700a3fdb.webp",
+      "sha256": "87594163030c53b114e5ed816671639f6be6a1fea7fa756357221508f3eafc9e",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/forest_01.b82a9e7e.webp",
+      "sha256": "e7706548a28f1e9b75d127cf3f29d2d3dda17afe67c57a68a2184a40c9efe6cb",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/forest_autumn.55ca08bd.webp",
+      "sha256": "329b4c609a9d31911d84aaf629474a31172c594510de8c134d275130f5b2fc76",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/forest_spring.a81cef17.webp",
+      "sha256": "f915afc770bc1cacd3a6e9363206f5f5ece91e47cb640a04cdb3e095d9f9d99e",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/forest_winter.0710a850.webp",
+      "sha256": "f35bd89fa56ca834ed77b3148041ba4963c059c26bef58c1095331e620e14a08",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/grass.15f2422c.webp",
+      "sha256": "8a863f14e43f8d1a6359cbb84743efbaba3e3b5bd73693424a4c62133436bdec",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/grass_variation.209068de.webp",
+      "sha256": "f2939a2a436b48fe219f4e4c290abea4fa2c35e2dcb3d61fcb9fa6025b198273",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/gravel.0c64b1c3.webp",
+      "sha256": "64a220f3199e69ecfd19f85de6774bb6742112b57d0b91d8bf0efa23f1724924",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/ground_detail_far.a63b212a.webp",
+      "sha256": "e931ac6af938e9d99c5ef6e3c523bc0f1cfc6ecea9d0ebe3c9a38faaf0ef1315",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/ground_detail_far_winter.003963d8.webp",
+      "sha256": "8b15fa5448b5994fb745d0c5d7cd482a4b9eac53f07bf138c670601921f79acc",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/ground_detail_near.9099b9d5.webp",
+      "sha256": "e2edfaa4e42ce515ef7cb23be371ce67fd59ea210c6cf3a07dca0a58ad13bd95",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/noise_fine.592be1a0.webp",
+      "sha256": "84f808e96e57d072b16d43527fbd280af2dc16391bce7b0d0ce26389677a06cc",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/noise_finer.98c1753c.webp",
+      "sha256": "3ec278850b67640d87a8eff5eef904485a0b8a71db9726eb1d2826008a00cb36",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/offroad_mask.07511369.webp",
+      "sha256": "7eed9eec79bfdc28c38dd5c22d66fc5ec01956d830fe2c6b63a2bcc5e498bdc6",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/offroad_mask_winter.3f84c777.webp",
+      "sha256": "2713aba0406349000022d76abee870232de553ce71825d34f4e3cdf9d46861e6",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_base.f6473539.webp",
+      "sha256": "061e0c22be0e496d1ac20f18eef2263e3c4057f4c758d783f3c96434c75fdbf8",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_overlay_autumn.68f523cb.webp",
+      "sha256": "77f3cd38ea384d136c9eece44ab96fe3089a523f024e925f0e5443917e105357",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_overlay_spring.10938687.webp",
+      "sha256": "ca7c89a80f60dc93684a27d5ede3cb0f036c017395d528e6162247ead18ef2ac",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_dashed.246907ab.webp",
+      "sha256": "246907ab9f4bc70c2bba73ec6321f1ec5affd388048fcc27b81328265a1c8e54",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_dashed_long.58ab8a61.webp",
+      "sha256": "58ab8a613f82f06b251c430d73bd9dd8d9ff557b270c221683a552c91311e46f",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_merge_left.27a677e8.webp",
+      "sha256": "3e1f9768915cfd23f852fc3baca4611dcf6fd9f61039f043abfa6cf9176a9bde",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_merge_right.5c821b1d.webp",
+      "sha256": "479e788220d96463d39b2b7181ebf985e4031795531eef8e7e6657420e8beb14",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_solid.5d853556.webp",
+      "sha256": "6df52a5ba23a8fd39f72b345e82970374de9e32c8a6de3ed516cbd263fa1f8b8",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_solid_left.68b665c9.webp",
+      "sha256": "938e6af5f55a6764d5ecd6a3158e520127783e8efcf6ae3fc301874087bf9bb1",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_paint_solid_right.3f96bedd.webp",
+      "sha256": "e3f5dd61aafe41accfa6e0712c372d9c2c857f960e60a809676f8791b92ff430",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_base.d5dbc374.webp",
+      "sha256": "2d08e6ce4cdb26bca40aff1e7b107e4af0d1226a732c002ff9672678a2d6a64b",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_base_spring.2a1a3159.webp",
+      "sha256": "9f1656ef8b35b05322606449630e1e82085a2b61601ada3c727dfdfba33e5c52",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_overlay_autumn.59ecdb8e.webp",
+      "sha256": "6cb9c877ad5d1faeb6a2db814768c86ef73c537c7aaeecc596cbd59fab4d8d5c",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_overlay_spring.a23e0db5.webp",
+      "sha256": "45c1962f78e77315c7be38fc2fb18867a97ef14fef86c3c9f51984d23752450e",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_wide.e9c6ee67.webp",
+      "sha256": "671aaa85bcf86f6c5fbb943f6804f5b44f6683433dd4daa64ae5e96b2ca0794c",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/road_single_wide_winter.e588cd84.webp",
+      "sha256": "ef55d21938fbf1814d08872df0d812e3dba6dbb248cd8ef8f5728e84bc1e06fc",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/rock_bump.8f8c68ad.webp",
+      "sha256": "2c618830237d0140ec6aa50725449a527285e24c695219df2ed2cb0050f862c0",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/sand.43e5b6fc.webp",
+      "sha256": "6f62661801b8ef853c15dd9c30d8d1c4c88b1ebc7bd712c61762fc5953e86065",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/sea_waves.63ff8729.webp",
+      "sha256": "217c8d7464894050f61cd4e3109223fedab93be2951386aa21f8ca37df560108",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/signs.c90afd62.webp",
+      "sha256": "0bae6adcb6246e3ad07c70287b187f287f97c6f0400e53088e28197d60c6bce9",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_bushes.2db1f4bc.webp",
+      "sha256": "e71876eee2af00f961190cb685ea40b98d52334256de1908dcf1f219dff81b54",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_imposters_0_d.2e67db77.webp",
+      "sha256": "8a001271fe3e8cf9c1a90add11fef6bf6962c00f7b32d602f39ce6d4bd464226",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_imposters_0_n.1d5afe54.webp",
+      "sha256": "1a5e2ebd7926298dcd8ebb027472b4e7685bf223e6e493bfcb5171f11cadd126",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_imposters_1_d.05133c03.webp",
+      "sha256": "b092f356e9bdbfe66150ed8f1b4050ba26334d724f499b50bf3508127ca53e54",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_rock.d1f6769c.webp",
+      "sha256": "af4e53620b96d3433a76d522c3d9da503051a9fd71723124f2a94c53550b7c02",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_trees_0.aee94219.webp",
+      "sha256": "6b0afc7bdf02cef3999230140633e1103f19955bf19a722ad68007a543aa17a3",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_trees_0_n.8e3ce8fa.webp",
+      "sha256": "743bdf1a5e8274386f75f674cf8bde8874252214ff80d50cbf0eaad879aa3084",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_trees_1_a.e8f53ceb.webp",
+      "sha256": "bcf5cebf8537c16993737428bccd496e83d7ebca6fd04575e2477369a82c1a60",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_trees_1_m.29ae06f6.webp",
+      "sha256": "ccef2b5cb61da8eae41e4918133cb7e0bae2165fbe653291d729e92ad37c567d",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_wall_barrier_wood.29edf0af.webp",
+      "sha256": "5a77744f51fe2f5ba14817e33aa4bb02bd567e45b1a67c4c27bb2234b2de95e2",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/spring_wall_drystone.6c714f68.webp",
+      "sha256": "c38e8dcaed3d61f6448e2149542ae6a25f2ca706f98053323122811f5150327a",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_bushes.943c4258.webp",
+      "sha256": "708b2aabce0294d9cf5804a05fb7ff5c532ad75426cf4aad57810bbb3c0cf7d3",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_grasses.7ddf683f.webp",
+      "sha256": "93d00e3fadfe0e299e0b6a00293b89de23164274697d7de40db6e466d4691940",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_heather_05.5f56558d.webp",
+      "sha256": "45a92a152a63afc1e5eb536ed1db36fe61d35ac289ff48a5f1cad9b4a482bf72",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_imposters_0_d.6a3261f4.webp",
+      "sha256": "ebeb56e570c53f1efc9dae89ec306276d6a13173ac32fef2a63925bcc437c777",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_imposters_0_n.99abbc99.webp",
+      "sha256": "fca39d3e428b08a9c5222d6551dbe18b6fb5e82194f304524d837fd6cea3a0b2",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_imposters_1_d.a1e60bf5.webp",
+      "sha256": "fb6106fea5b974546e8b8f87548deb801189375eb52072c91133533c436f0bf0",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_rock.674f8c5a.webp",
+      "sha256": "5e36038dc5ea2174deb9185b861525f0ad7b46ce85e9e57efd5a6d249ecbda27",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_trees_0.d5cc9742.webp",
+      "sha256": "688880908a9cb89b854e1bb10d8f8b91cc4f3901dddfffdaa1a6d2c01c68cb4e",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_trees_0_n.011e666e.webp",
+      "sha256": "2326c3d39065171b950ee9f6ee8fb656c37c95ca8f4914770b2b257cbb103b4a",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_trees_1_a.c88ed1f2.webp",
+      "sha256": "191dbee944fd0598a3c385dc23f61106b75a254a3bf8ae00e45ba94a4def07e7",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/summer_trees_1_m.866c5db4.webp",
+      "sha256": "ea64a962c645cb712ea398e9b276f80ce32865d71265791f1472db547b9f996e",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_01.49d91079.obj",
+      "sha256": "49d91079121e7e7c628532e3e0f5c53a471872cca266100021f13914851ef4a5",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_02.52e8a31e.obj",
+      "sha256": "52e8a31eefda59669611a11cc624da25d5c53f81a8813e07ebcd1fe85c704280",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_03.2a55062c.obj",
+      "sha256": "2a55062cb4747e41c77e5ddfc9f5ff8474daab6866e1cd1927f3532ea5520017",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_04.53747223.obj",
+      "sha256": "53747223cefebd9d22209d2046b57bfdf6f4da5dec413e9c18d7133349a7fd84",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_05.d68751e5.obj",
+      "sha256": "d68751e54e9965df129a2ed47d98bb14b2962bc3285dece421e5705ef6e2bb22",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_06.693be0d9.obj",
+      "sha256": "693be0d9ca55a3682e143e8d36e0d73c8b98ae8f32fbf4156d08300f53a3f046",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_07.1fef5d95.obj",
+      "sha256": "1fef5d95a3ce30c40377e27037ce7f3ab9cf472421157b5ecc9528034832c1c9",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/tree_08.b8bd204c.obj",
+      "sha256": "b8bd204c7a431fc535d45efce9a9f0a8d78aa4b8cdbfe27b4aeeef74644ebf08",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/wall_barrier.63193046.webp",
+      "sha256": "9f898afd1d73f8197b95b1b0c55b82fdf6faf49e3e7be467d80aa0925737da6f",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/wall_barrier_wood.a34ab34c.webp",
+      "sha256": "504a9b51666c90077d2850bd04c4e10a1dad9d1e70f1a482a1b536bcab3dfa7e",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/wall_concrete.d56426dc.webp",
+      "sha256": "551192e73ad3280f1c550ec481fbfc2ef4d70911bc1af8218757125b7dc074a8",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/wall_drystone.c5584f29.webp",
+      "sha256": "35add602ea367708dc7933ea0de60913e7bba98c07a7f6681fd58961571b5588",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_bushes.8e9f3165.webp",
+      "sha256": "f501c50c35e5a6b68b739ff65ee236df97cef63f8cd5ff7f3abd070181f3600a",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_grass.2126ead2.webp",
+      "sha256": "e47d4f915bbb6d305db7eff6faefb03ddd0dac30946fd8cdeb7cf7bb4f418833",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_grasses.fbb53d0d.webp",
+      "sha256": "4abca8551da5d7c8b9d675dc17ee4eb4e8647dffd0607900fec4a23eedcca52e",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_gravel.03b9e4e9.webp",
+      "sha256": "8ec78c676d94249f8f3ba29bcdfe33ffad3e2307b0f29a1794fa162f60f33c49",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_heather.b9aeb76f.webp",
+      "sha256": "4ca50fd25e1850dd6268df82bd5b6d6398ed6e83332561488582fd90849d9e91",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_imposters_0_d.ce1a9b7d.webp",
+      "sha256": "177b2f9ba443c4eb4a9b193b350e02a4e49c2c2974e553a23ee3f51b60c3adf0",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_imposters_0_n.8293f6b6.webp",
+      "sha256": "f9355638879034836b6f283b750a954a95c10efd8fc207c5be07bce7361c7150",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_imposters_1_d.2882c5c9.webp",
+      "sha256": "fa0b2040b065ea413036aa21f3e2491200632d766468b09fb49039c0328e5636",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_road.a2a6e9fa.webp",
+      "sha256": "4b6df5b41df5c1ad60203128a657fb5346b61a55911f5d1a32dacf77fb6d222d",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_road_single.3028904b.webp",
+      "sha256": "38166e03bf0aa286325b4b0e16056ba45a1ac7ca7f70ee598aba67ce7abe51bc",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_rock.674a5de1.webp",
+      "sha256": "3c988d1c8344f597f4a27f41354e7c534001351ca627c7fa51f1a5a48381fca8",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_trees_0.99189e5d.webp",
+      "sha256": "e506ba74ceb7504b880ae980a2b3bac8d81b35413c0c3e608996a954522364b2",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_trees_0_n.24c5f705.webp",
+      "sha256": "fd7bf31b6f30c27b21113effba654db1e55b4fbff9ddb1e89889eab1f9fedfa7",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_trees_1_a.142fe383.webp",
+      "sha256": "a831b324da55968afcdc79eeae9e9e8f456bdafb75ecc727738f7ead03f63df9",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_trees_1_m.7ee3e863.webp",
+      "sha256": "f6ab085748bae9a0f137131d49a976c942115d91059b9843bfa0e7a755adbad0",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_wall_barrier.2f3faaf6.webp",
+      "sha256": "25652422c741ff888dde0fc8d4268c7148a9328c85ccd0a7fb9fdeca26730a13",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_wall_barrier_wood.058b9fbc.webp",
+      "sha256": "290940befc947224697008acfdf0fac2b91336a964dbd9e9c2fd1fc92b5e4530",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_wall_concrete.edcd548c.webp",
+      "sha256": "46a8f1240088f512b9fe6cec6b10ea8d41750b650c44673714971494ca678d75",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/assets/winter_wall_drystone.ef024453.webp",
+      "sha256": "7370f648807d8bb7639c1640cee152e142249765ceaa4df9e224dc7291605234",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/chunks/HillsHeightmap.2938f21e.js",
+      "sha256": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+      "archiveMatch": true
+    },
+    {
+      "source": "_app/immutable/chunks/tree_04.6b3d8a5d.js",
+      "sha256": "8161960e825013c83ebbbef6d4a97121790aa7a870fb716789c804731a6ebcf0",
+      "archiveMatch": true
+    }
+  ],
+  "importCorrections": [
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Terrain/rock_bump.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/offroad_mask.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_imposters_0_n.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_1_n.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_0_n.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_1_a.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_0_n.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_1_a.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_0_n.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_0_n.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_1_a.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/offroad_mask_winter.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_imposters_0_n.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_0_n.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_1_a.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/noise_fine.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/noise_finer.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Water/sea_waves.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/wall_barrier_normal.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Walls/wall_fence_normal.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/placeholder_white.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_particle.png",
+      "oldType": "Default",
+      "oldSRGB": true,
+      "newType": "Default",
+      "newSRGB": false
+    },
+    {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_0_n.png",
+      "oldType": "NormalMap",
+      "oldSRGB": false,
+      "newType": "Default",
+      "newSRGB": false
+    }
+  ],
+  "resolutionCorrections": [
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_imposters_0_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_imposters_0_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_imposters_1_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_1_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_0.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_0_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_1_m.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/spring_trees_1_a.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_0_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_0_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_imposters_1_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_1_m.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_1_a.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_0_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_0_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_imposters_1_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_0.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_0_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_1_m.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/autumn_trees_1_a.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_imposters_0_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_imposters_0_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_imposters_1_d.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_0.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_0_n.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_1_m.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/winter_trees_1_a.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_0.png",
+    "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Vegetation/summer_trees_0_n.png"
+  ],
+  "unityVerification": {
+    "models": [
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_05.obj",
+        "meshes": 1,
+        "vertices": 236
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_06.obj",
+        "meshes": 1,
+        "vertices": 534
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_07.obj",
+        "meshes": 1,
+        "vertices": 476
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_08.obj",
+        "meshes": 1,
+        "vertices": 179
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Props/verge_marker.obj",
+        "meshes": 1,
+        "vertices": 42
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_01.obj",
+        "meshes": 1,
+        "vertices": 158
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_02.obj",
+        "meshes": 1,
+        "vertices": 213
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_03.obj",
+        "meshes": 1,
+        "vertices": 200
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Trees/tree_04.obj",
+        "meshes": 1,
+        "vertices": 192
+      }
+    ],
+    "textures": 95,
+    "problems": [],
+    "compilationFailed": false
+  },
+  "playVerification": {
+    "frame": 5095,
+    "distance": 290.7368,
+    "nodes": 152,
+    "cameras": 1,
+    "scene": "Assets/Scenes/SlowRoadsRoadDemo.unity"
+  }
+}

@@ -1,0 +1,1736 @@
+Source: C:/Users/ruze/OneDrive/Desktop/Slow Roads/extracted_correct/build/_app/immutable/chunks/HillsHeightmap.2938f21e.js
+Raw SHA-256: ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee
+Formatting: Prettier only; Acorn AST verified equivalent after flattening associative logical expressions.
+Prefix Lxxxxx refers to formatted module line, not minified raw line.
+
+===== HillsHeightmap.2938f21e: 1440-1918 =====
+L01440         audio: { ...W },
+L01441       },
+L01442     },
+L01443     night: {
+L01444       clear: {
+L01445         lights: {
+L01446           headlights: { on: !0, intensity: 70 },
+L01447           sun: { col: 16777215, intensity: 0.04 },
+L01448           ambient: { col: 16777215, intensity: 0.05 },
+L01449           fresnelFactor: 0.26,
+L01450           radiance: 4,
+L01451         },
+L01452         fog: {
+L01453           colA: 1779767,
+L01454           colB: 264208,
+L01455           colC: 1779767,
+L01456           near: 0.9,
+L01457           far: 1,
+L01458           hazeHeight: 0,
+L01459           hazeIntensity: 0,
+L01460         },
+L01461         water: { base: 0, body: 2239285, highlight: 2699064, underwater: 1776669 },
+L01462         clouds: {
+L01463           hasClouds: !1,
+L01464           highlight: 1907739,
+L01465           lowlight: 1907739,
+L01466           shelfHeight0: 1e3,
+L01467           shelfHeight1: 500,
+L01468           skyScale0: 88,
+L01469           skyScale1: 92,
+L01470           mode: 0,
+L01471         },
+L01472         stars: { density: 2, horizonOffset: 0, horizonScale: 2, horizonOpacity: 0 },
+L01473         friction: { ...G },
+L01474         slip: { ...k },
+L01475         roughness: { ...B },
+L01476         audio: { ...W },
+L01477       },
+L01478       overcast: {
+L01479         lights: {
+L01480           headlights: { on: !0, intensity: 70 },
+L01481           sun: { col: 14083839, intensity: 0.06 },
+L01482           ambient: { col: 16777215, intensity: 0.05 },
+L01483           fresnelFactor: 0.26,
+L01484           radiance: 4,
+L01485         },
+L01486         fog: {
+L01487           colA: 1907739,
+L01488           colB: 6052956,
+L01489           colC: 1907739,
+L01490           near: -0.2,
+L01491           far: 1,
+L01492           hazeHeight: -60,
+L01493           hazeIntensity: 0.5,
+L01494         },
+L01495         water: { base: 0, body: 2368547, highlight: 2565670, underwater: 1907739 },
+L01496         clouds: {
+L01497           hasClouds: !0,
+L01498           highlight: 1907739,
+L01499           lowlight: 1907739,
+L01500           shelfHeight0: 1e3,
+L01501           shelfHeight1: 1200,
+L01502           skyScale0: 10,
+L01503           skyScale1: 36.5,
+L01504           mode: 0,
+L01505         },
+L01506         snow: { density: 1, col: 4210752, speed: 2 },
+L01507         friction: { ...G },
+L01508         slip: { ...k },
+L01509         roughness: { ...B },
+L01510         audio: { ...W },
+L01511       },
+L01512     },
+L01513   },
+L01514   Bt = ["spring", "summer", "autumn", "winter"],
+L01515   El = ["morning", "day", "evening", "night"],
+L01516   Tl = ["clear", "overcast"],
+L01517   te = {
+L01518     styleMeta: {
+L01519       season: {
+L01520         key: "season",
+L01521         readable: "SEASON",
+L01522         labelKey: "styleSeason",
+L01523         type: Pe.Selection,
+L01524         default: 1,
+L01525         options: [
+L01526           { key: "spring", readable: "Spring", icon: "/img/ico_scene_spring.svg" },
+L01527           { key: "summer", readable: "Summer", icon: "/img/ico_scene_summer.svg" },
+L01528           { key: "autumn", readable: "Autumn", icon: "/img/ico_scene_autumn.svg" },
+L01529           { key: "winter", readable: "Winter", icon: "/img/ico_scene_winter.svg" },
+L01530         ],
+L01531       },
+L01532       time: {
+L01533         key: "time",
+L01534         readable: "TIME",
+L01535         labelKey: "styleTime",
+L01536         type: Pe.Selection,
+L01537         default: 1,
+L01538         options: [
+L01539           { key: "morning", readable: "Morning", icon: "/img/ico_time_morning.svg" },
+L01540           { key: "day", readable: "Day", icon: "/img/ico_time_day.svg" },
+L01541           { key: "evening", readable: "Evening", icon: "/img/ico_time_evening.svg" },
+L01542           { key: "night", readable: "Night", icon: "/img/ico_time_night.svg" },
+L01543         ],
+L01544       },
+L01545       weather: {
+L01546         key: "weather",
+L01547         readable: "WEATHER",
+L01548         labelKey: "styleWeather",
+L01549         type: Pe.Selection,
+L01550         default: 0,
+L01551         options: [
+L01552           { key: "clear", readable: "Clear", icon: "/img/ico_weather_clear.svg" },
+L01553           { key: "overcast", readable: "Overcast", icon: "/img/ico_weather_overcast.svg" },
+L01554         ],
+L01555       },
+L01556     },
+L01557     style: { spring: yi, summer: bi, autumn: Vi, winter: mo },
+L01558     roads: {
+L01559       style: [
+L01560         {
+L01561           midline: {
+L01562             isStraight: !0,
+L01563             smoothWindow: 9,
+L01564             maxGrad: 0.2,
+L01565             genRadius: 100,
+L01566             genMinRadius: 100,
+L01567             minStartElev: 10,
+L01568             maxStartElev: 1e3,
+L01569             curvatureHeightFactor: 50,
+L01570             minFineSegs: 4,
+L01571             solidLineThreshold: 0.1,
+L01572             solidLineCrestThreshold: -0.02,
+L01573             markingsMargin: 12,
+L01574           },
+L01575           heightmap: {
+L01576             scale: 80,
+L01577             offset: 90,
+L01578             layerResolutions: [3, 21, 17, 31],
+L01579             squared: !0,
+L01580             depthHeightFactor: 0.7,
+L01581             temper: !0,
+L01582             temperBase: 50,
+L01583             temperBelow: 400,
+L01584             temperMin: 0,
+L01585             spiralise: !1,
+L01586             tileScaleRandom: 0.3,
+L01587           },
+L01588           treemap: {
+L01589             scale: 3,
+L01590             offset: 1.7,
+L01591             layerResolutions: [21, 9, 31],
+L01592             squared: !0,
+L01593             depthHeightFactor: 1.2,
+L01594             temper: !1,
+L01595             tileScaleRandom: 0.3,
+L01596           },
+L01597         },
+L01598         {
+L01599           midline: {
+L01600             isStraight: !1,
+L01601             smoothWindow: 9,
+L01602             maxGrad: 0.16,
+L01603             feelDist: 30,
+L01604             smoothFactor: 0.5,
+L01605             maxTurnDelta: 0.1,
+L01606             minFineSegs: 3,
+L01607             solidLineThreshold: 0.08,
+L01608             solidLineCrestThreshold: -0.3,
+L01609             markingsMargin: 8,
+L01610           },
+L01611           heightmap: {
+L01612             scale: 110,
+L01613             offset: 110,
+L01614             layerResolutions: [3, 9, 17],
+L01615             squared: !0,
+L01616             depthHeightFactor: 0.8,
+L01617             temper: !0,
+L01618             temperBase: 50,
+L01619             temperBelow: 400,
+L01620             temperMin: 0.2,
+L01621             tileScaleRandom: 0.35,
+L01622           },
+L01623           treemap: {
+L01624             scale: 0.6,
+L01625             offset: 2.2,
+L01626             layerResolutions: [3, 13, 29],
+L01627             squared: !1,
+L01628             depthHeightFactor: 2.2,
+L01629             temper: !1,
+L01630             tileScaleRandom: 0.35,
+L01631           },
+L01632         },
+L01633         {
+L01634           midline: {
+L01635             isStraight: !1,
+L01636             smoothWindow: 7,
+L01637             maxGrad: 0.12,
+L01638             feelDist: 10,
+L01639             smoothFactor: 0.7,
+L01640             maxTurnDelta: 0.2,
+L01641             minFineSegs: 2,
+L01642             solidLineThreshold: 0.08,
+L01643             solidLineCrestThreshold: -0.5,
+L01644             markingsMargin: 6,
+L01645             maxStartElev: 90,
+L01646           },
+L01647           heightmap: {
+L01648             scale: 15,
+L01649             offset: 120,
+L01650             layerResolutions: [19, 29, 39, 3, 5],
+L01651             squared: !0,
+L01652             depthHeightFactor: 2,
+L01653             temper: !0,
+L01654             temperBase: 50,
+L01655             temperBelow: 800,
+L01656             temperMin: 0.25,
+L01657             tileScaleRandom: 0.5,
+L01658             scale: 75,
+L01659             offset: 105,
+L01660             layerResolutions: [3, 11, 5, 27],
+L01661             squared: !0,
+L01662             depthHeightFactor: 1,
+L01663             temper: !0,
+L01664             temperBase: 50,
+L01665             temperBelow: 250,
+L01666             temperMin: 0.7,
+L01667             tileScaleRandom: 0.5,
+L01668           },
+L01669           treemap: {
+L01670             scale: 0.5,
+L01671             offset: 3,
+L01672             layerResolutions: [19, 29, 39, 3, 5, 4, 23, 9, 39],
+L01673             squared: !0,
+L01674             depthHeightFactor: 1.5,
+L01675             temper: !1,
+L01676             tileScaleRandom: 1,
+L01677             scale: 0.5,
+L01678             offset: 2.6,
+L01679             layerResolutions: [3, 11, 5, 17, 29],
+L01680             squared: !0,
+L01681             depthHeightFactor: 2,
+L01682             temper: !1,
+L01683             tileScaleRandom: 0.5,
+L01684           },
+L01685         },
+L01686         {
+L01687           midline: {
+L01688             isStraight: !1,
+L01689             smoothWindow: 7,
+L01690             maxGrad: 0.12,
+L01691             roadSink: 0.4,
+L01692             smoothFactor: 0.75,
+L01693             maxTurnDelta: 0.2,
+L01694             solidLineThreshold: 0.18,
+L01695             solidLineCrestThreshold: -0.5,
+L01696             markingsMargin: 5,
+L01697           },
+L01698           heightmap: {
+L01699             scale: 60,
+L01700             offset: 100,
+L01701             layerResolutions: [3, 9, 13, 27, 31],
+L01702             squared: !0,
+L01703             depthHeightFactor: 1.25,
+L01704             temper: !0,
+L01705             temperBase: 50,
+L01706             temperBelow: 500,
+L01707             temperMin: 0.5,
+L01708             tileScaleRandom: 0.25,
+L01709           },
+L01710           treemap: {
+L01711             scale: 0.75,
+L01712             offset: 2.75,
+L01713             layerResolutions: [3, 9, 11, 29],
+L01714             squared: !1,
+L01715             depthHeightFactor: 1.8,
+L01716             temper: !1,
+L01717             tileScaleRandom: 0.25,
+L01718           },
+L01719         },
+L01720         {
+L01721           midline: {
+L01722             isStraight: !0,
+L01723             smoothWindow: 7,
+L01724             maxGrad: 0.15,
+L01725             roadSink: 0.4,
+L01726             smoothFactor: 0.9,
+L01727             maxTurnDelta: 0.4,
+L01728             maxStartElev: 1e3,
+L01729           },
+L01730           heightmap: {
+L01731             scale: 0,
+L01732             offset: 150,
+L01733             layerResolutions: [2, 3, 5],
+L01734             squared: !0,
+L01735             depthHeightFactor: 1.1,
+L01736             temper: !0,
+L01737             temperBase: 50,
+L01738             temperBelow: 250,
+L01739             temperMin: 0.75,
+L01740             tileScaleRandom: 0.25,
+L01741           },
+L01742           treemap: {
+L01743             scale: 0,
+L01744             offset: 2.75,
+L01745             layerResolutions: [2, 7, 17, 29],
+L01746             squared: !1,
+L01747             depthHeightFactor: 1.8,
+L01748             temper: !1,
+L01749             tileScaleRandom: 0.25,
+L01750           },
+L01751         },
+L01752       ],
+L01753       laneWidth: {
+L01754         single: { standard: 3.6, wide: 7.2, wideOffroad: 7.2 },
+L01755         compound: { standard: 3.4, wide: 4 },
+L01756       },
+L01757     },
+L01758     graphics: {
+L01759       viewDistance: [
+L01760         {
+L01761           tileSize: 240,
+L01762           roadNodes: 25,
+L01763           lod0Horizon: 50,
+L01764           lod1Horizon: 13,
+L01765           imposterDissolveStart: 32,
+L01766           objectDespawnHorizon: 5,
+L01767           bridgeLookahead: 50,
+L01768           cloudAltitude: 400,
+L01769           cloudScale: 1200,
+L01770           fieldMapScale: 700,
+L01771           midlineIndexMargin: 140,
+L01772           midlineFineHorizon: 200,
+L01773           maxWallLength: 20,
+L01774           heightmapMaxCached: 12,
+L01775           imposterInstanceSize: 400,
+L01776           treeInstanceSize: 400,
+L01777         },
+L01778         {
+L01779           tileSize: 480,
+L01780           roadNodes: 25,
+L01781           lod0Horizon: 80,
+L01782           lod1Horizon: 16,
+L01783           imposterDissolveStart: 48,
+L01784           objectDespawnHorizon: 10,
+L01785           bridgeLookahead: 90,
+L01786           cloudAltitude: 500,
+L01787           cloudScale: 3600,
+L01788           fieldMapScale: 800,
+L01789           midlineIndexMargin: 160,
+L01790           midlineFineHorizon: 300,
+L01791           maxWallLength: 25,
+L01792           heightmapMaxCached: 16,
+L01793           imposterInstanceSize: 1600,
+L01794           treeInstanceSize: 450,
+L01795         },
+L01796         {
+L01797           tileSize: 840,
+L01798           roadNodes: 30,
+L01799           lod0Horizon: 100,
+L01800           lod1Horizon: 19,
+L01801           imposterDissolveStart: 64,
+L01802           objectDespawnHorizon: 15,
+L01803           bridgeLookahead: 160,
+L01804           cloudAltitude: 600,
+L01805           cloudScale: 7e3,
+L01806           fieldMapScale: 1e3,
+L01807           midlineIndexMargin: 180,
+L01808           midlineFineHorizon: 400,
+L01809           maxWallLength: 30,
+L01810           heightmapMaxCached: 20,
+L01811           imposterInstanceSize: 4e3,
+L01812           treeInstanceSize: 475,
+L01813         },
+L01814         {
+L01815           tileSize: 1500,
+L01816           roadNodes: 35,
+L01817           lod0Horizon: 120,
+L01818           lod1Horizon: 22,
+L01819           imposterDissolveStart: 96,
+L01820           objectDespawnHorizon: 15,
+L01821           bridgeLookahead: 200,
+L01822           cloudAltitude: 600,
+L01823           cloudScale: 11e3,
+L01824           fieldMapScale: 1e3,
+L01825           midlineIndexMargin: 200,
+L01826           midlineFineHorizon: 500,
+L01827           maxWallLength: 30,
+L01828           heightmapMaxCached: 28,
+L01829           imposterInstanceSize: 7500,
+L01830           treeInstanceSize: 500,
+L01831         },
+L01832         {
+L01833           tileSize: 2e3,
+L01834           roadNodes: 42,
+L01835           lod0Horizon: 140,
+L01836           lod1Horizon: 25,
+L01837           imposterDissolveStart: 128,
+L01838           objectDespawnHorizon: 15,
+L01839           bridgeLookahead: 300,
+L01840           cloudAltitude: 700,
+L01841           cloudScale: 15e3,
+L01842           fieldMapScale: 1e3,
+L01843           midlineIndexMargin: 200,
+L01844           midlineFineHorizon: 600,
+L01845           maxWallLength: 30,
+L01846           heightmapMaxCached: 40,
+L01847           imposterInstanceSize: 16e3,
+L01848           treeInstanceSize: 525,
+L01849         },
+L01850         {
+L01851           tileSize: 2500,
+L01852           roadNodes: 50,
+L01853           lod0Horizon: 160,
+L01854           lod1Horizon: 28,
+L01855           imposterDissolveStart: 128,
+L01856           objectDespawnHorizon: 15,
+L01857           bridgeLookahead: 300,
+L01858           cloudAltitude: 800,
+L01859           cloudScale: 22e3,
+L01860           fieldMapScale: 1e3,
+L01861           midlineIndexMargin: 200,
+L01862           midlineFineHorizon: 600,
+L01863           maxWallLength: 30,
+L01864           heightmapMaxCached: 40,
+L01865           imposterInstanceSize: 16e3,
+L01866           treeInstanceSize: 525,
+L01867         },
+L01868       ],
+L01869       detail: [
+L01870         {
+L01871           shadowRes: 256,
+L01872           cellRes: 10,
+L01873           sea: { res: 0.2, depth: !1, waves: !1 },
+L01874           trees: { has3D: !1, typeCount: 2 },
+L01875           bridges: { genArches: !0, segments: 4 },
+L01876           grass: { margin: 0, density: 0 },
+L01877           fields: { render: !1, treeDensity: 0, col: !1, boundary: !1 },
+L01878         },
+L01879         {
+L01880           shadowRes: 512,
+L01881           cellRes: 16,
+L01882           sea: { res: 0.3, depth: !1, waves: !0 },
+L01883           trees: { has3D: !0, typeCount: 2 },
+L01884           bridges: { genArches: !0, segments: 6 },
+L01885           grass: { margin: 16, density: 0.5 },
+L01886           fields: { render: !0, treeDensity: 0.7, col: !1, boundary: !1 },
+L01887         },
+L01888         {
+L01889           shadowRes: 1024,
+L01890           cellRes: 20,
+L01891           sea: { res: 0.4, depth: !0, waves: !0 },
+L01892           trees: { has3D: !0, typeCount: 2 },
+L01893           bridges: { genArches: !0, segments: 8 },
+L01894           grass: { margin: 20, density: 0.65 },
+L01895           fields: { render: !0, treeDensity: 1, col: !0, boundary: !1 },
+L01896         },
+L01897         {
+L01898           shadowRes: 2048,
+L01899           cellRes: 20,
+L01900           sea: { res: 0.5, depth: !0, waves: !0 },
+L01901           trees: { has3D: !0, typeCount: 2 },
+L01902           bridges: { genArches: !0, segments: 10 },
+L01903           grass: { margin: 24, density: 0.75 },
+L01904           fields: { render: !0, treeDensity: 1, col: !0, boundary: !1 },
+L01905         },
+L01906         {
+L01907           shadowRes: 2048,
+L01908           cellRes: 20,
+L01909           sea: { res: 0.5, depth: !0, waves: !0 },
+L01910           trees: { has3D: !0, typeCount: 2 },
+L01911           bridges: { genArches: !0, segments: 10 },
+L01912           grass: { margin: 28, density: 0.85 },
+L01913           fields: { render: !0, treeDensity: 1, col: !0, boundary: !0 },
+L01914         },
+L01915       ],
+L01916     },
+L01917   },
+L01918   vo = `
+
+===== HillsHeightmap.2938f21e: 5740-6988 =====
+L05740 let U = 1e3,
+L05741   ra = {},
+L05742   ia = 30,
+L05743   pe = {},
+L05744   Mt = 400,
+L05745   oa,
+L05746   O,
+L05747   Lt,
+L05748   yt = 16,
+L05749   re = 0.4,
+L05750   Oe = !1,
+L05751   He = !1,
+L05752   sa = !0,
+L05753   N = !1,
+L05754   F = !1,
+L05755   xs = 2.5,
+L05756   Ss = 12,
+L05757   We = 3,
+L05758   Ve = 2,
+L05759   me = 0.2,
+L05760   la = [1.5],
+L05761   na = 3,
+L05762   Ds = [0.6, 0.3, 0.75, 0.7, 0.8, 1, 1, 1],
+L05763   je,
+L05764   ws = 20,
+L05765   ne,
+L05766   bs,
+L05767   Ms,
+L05768   Xe,
+L05769   de,
+L05770   Ze,
+L05771   da,
+L05772   ca = 0.5,
+L05773   fa = 0.8,
+L05774   ga = 1,
+L05775   Ls = 0.5,
+L05776   ha = 0.7,
+L05777   ua = 0.75,
+L05778   pa = 0.85,
+L05779   ys = 0.5,
+L05780   ma = 0.025,
+L05781   va = 0.3,
+L05782   Aa = 0.2,
+L05783   Cs = 0,
+L05784   Is = 0.4,
+L05785   Rs = 0.8,
+L05786   Es = 1,
+L05787   Ts = 1,
+L05788   _a = 0,
+L05789   xa = 1,
+L05790   Sa,
+L05791   Da,
+L05792   wa,
+L05793   oe,
+L05794   Se,
+L05795   Ct,
+L05796   ee,
+L05797   De,
+L05798   It,
+L05799   ba,
+L05800   $,
+L05801   Rt,
+L05802   Ma,
+L05803   La,
+L05804   ya,
+L05805   Ca,
+L05806   Ia = {},
+L05807   Ns = 30,
+L05808   Us = 0.6,
+L05809   Ra = 256,
+L05810   Ea = {},
+L05811   Ta = 5e3,
+L05812   Fs = -0.3,
+L05813   Os = 11,
+L05814   Hs = 4,
+L05815   Ps = 2,
+L05816   zs = 1.8,
+L05817   Gs = 0.7,
+L05818   ks = 0.7,
+L05819   Na = !0,
+L05820   Ua = 2,
+L05821   Fa = 5e3;
+L05822 const Bs = [
+L05823   [Qr, Yr, Kr, qr],
+L05824   [ps, ms, vs, As],
+L05825 ];
+L05826 let Ws = !1,
+L05827   Qe = 1e4,
+L05828   Vs = 0.8,
+L05829   js = 1.5,
+L05830   Xs = 0.7,
+L05831   ve = 20,
+L05832   Zs = 40,
+L05833   ie = 1,
+L05834   Oa = !1,
+L05835   Ha = 4e3,
+L05836   Qs = 0.65,
+L05837   Ys = 1,
+L05838   Pa = !0,
+L05839   we = 30,
+L05840   Ks = 3,
+L05841   Et = 4,
+L05842   za = we / 2 - Et;
+L05843 const qs = { BridgeWall: 0, SeaWall: 1, Barrier: 2, Fence: 3, Drystone: 4 };
+L05844 let Tt = 2,
+L05845   Ga = O + Tt;
+L05846 const Js = 2,
+L05847   ka = 0.19,
+L05848   $s = 0.38,
+L05849   el = 0.12,
+L05850   tl = 1.12,
+L05851   al = ka * 2,
+L05852   Ba = 0.475,
+L05853   rl = (1 - Ba) * 2,
+L05854   il = 5;
+L05855 let Ye = 2,
+L05856   Ke = 1.5,
+L05857   qe = 0.4,
+L05858   Je = 0.2,
+L05859   $e = 0.4,
+L05860   et = 0.8,
+L05861   ol = 4,
+L05862   Wa = 10;
+L05863 const sl = { VergeMarker: { src: _s, materials: Fe, retireMargin: 10 } };
+L05864 let Va = 25,
+L05865   ja = 10,
+L05866   Xa = 100,
+L05867   ll = 35,
+L05868   nl = 3,
+L05869   dl = 0.75,
+L05870   Za = !1,
+L05871   ce = 4,
+L05872   Qa = [];
+L05873 const cl = [1, 0.25, 0, 0.25, 1],
+L05874   fl = [1, 0.444, 0.111, 0, 0.111, 0.444, 1],
+L05875   gl = [1, 0.565, 0.25, 0.0625, 0, 0.0625, 0.25, 0.565, 1],
+L05876   hl = [1, 0.64, 0.36, 0.16, 0.04, 0, 0.04, 0.16, 0.36, 0.64, 1];
+L05877 let Ya = 200,
+L05878   tt = 1600,
+L05879   Ka = 20,
+L05880   qa = !1,
+L05881   Ja = !1,
+L05882   $a = !1,
+L05883   er = !1,
+L05884   tr = !1,
+L05885   ar = 1e3,
+L05886   rr = 150,
+L05887   ir = !0,
+L05888   or = 1,
+L05889   sr = !0,
+L05890   lr = !1;
+L05891 const ul = 15,
+L05892   nr = 220,
+L05893   pl = nr / 2,
+L05894   ml = 0.5,
+L05895   vl = 0.15,
+L05896   Al = 0.7;
+L05897 let dr = 40;
+L05898 const _l = (t, a) => {
+L05899     let r = te.graphics.viewDistance[t],
+L05900       o = te.graphics.detail[a];
+L05901     ((ia = r.heightmapMaxCached),
+L05902       (U = r.tileSize * 2),
+L05903       r.tileSize < 300 && (console.log("Small tiles, reducing fwd view distance"), (U *= 0.75)),
+L05904       (De = a > 2),
+L05905       (Ct = U * oe),
+L05906       (ee = U * Se),
+L05907       (It = Math.sqrt(5 / (ee * ee))),
+L05908       fr(),
+L05909       (oa = r.roadNodes),
+L05910       (je = r.tileSize),
+L05911       N ? (ne = 24) : (ne = o.cellRes),
+L05912       (Xe = r.lod0Horizon),
+L05913       (de = r.lod1Horizon),
+L05914       (Va = de * 2),
+L05915       (ja = de / 2),
+L05916       (Ra = o.shadowRes),
+L05917       (Ze = Math.max(1, Math.floor(o.sea.res * (je / 20)))),
+L05918       (da = Ze + 1),
+L05919       (Na = ze.detailTrees),
+L05920       (Ua = o.trees.typeCount),
+L05921       (Ta = r.imposterInstanceSize),
+L05922       (Fa = r.treeInstanceSize),
+L05923       (we = r.maxWallLength),
+L05924       (za = we / 2 - Et),
+L05925       (Wa = r.objectDespawnHorizon),
+L05926       (Xa = r.bridgeLookahead),
+L05927       (Za = o.bridges.genArches),
+L05928       (ce = o.bridges.segments),
+L05929       (Qa = ce == 4 ? cl : ce == 6 ? fl : ce == 8 ? gl : hl),
+L05930       (Ya = r.cloudAltitude),
+L05931       (tt = r.cloudScale),
+L05932       (Ka = Math.max(20, tt / 400)),
+L05933       (ve = o.grass.margin),
+L05934       (ie = o.grass.density),
+L05935       ze.grassDensity !== yr.Auto && ((ie = (ze.grassDensity - 1) / 3), (ve = 12 + ie * 16)),
+L05936       (Qe = ne * ne * ie * de * (1 + ve / 12)),
+L05937       (Ha = Qe * 0.18),
+L05938       (Oa = ie == 0),
+L05939       (ar = r.fieldMapScale),
+L05940       (rr = r.midlineIndexMargin),
+L05941       (Mt = r.midlineFineHorizon),
+L05942       (ir = o.fields.render),
+L05943       (sr = o.fields.col),
+L05944       (lr = o.fields.boundary),
+L05945       (or = o.fields.treeDensity),
+L05946       (dr = Xe),
+L05947       ns(o),
+L05948       ds(r));
+L05949   },
+L05950   xl = (t) => {
+L05951     let a = t.roadStyle,
+L05952       r = Cr[t.laneStyle];
+L05953     ((N = !1),
+L05954       (F = !1),
+L05955       (t.laneStyle == z.OffRoad || t.laneStyle == z.OffRoadWide) &&
+L05956         ((N = !0),
+L05957         (F = t.laneStyle == z.OffRoad),
+L05958         (We = F ? 0.25 : 1),
+L05959         (me = F ? 0.1 : 0.2),
+L05960         (Ve = F ? 0.4 : 1)));
+L05961     let o = te.roads,
+L05962       l = te.roads.style[a],
+L05963       n;
+L05964     r == 0 ? (n = o.laneWidth.single) : (n = o.laneWidth.compound);
+L05965     let d;
+L05966     t.laneStyle == z.OffRoadWide || t.laneStyle == z.SingleWide
+L05967       ? ((d = n.wide), t.laneStyle == z.OffRoadWide && (d = n.wideOffroad))
+L05968       : (d = n.standard);
+L05969     let f = 0,
+L05970       m = [];
+L05971     if (r == 0) (m.push(0), (f = d / 2));
+L05972     else {
+L05973       let C = 0.1,
+L05974         L = 0.2;
+L05975       f = C;
+L05976       for (let h = 0; h < r; h++) ((f += d), m.push(f - d / 2));
+L05977       f += L;
+L05978     }
+L05979     ((ra = l.heightmap),
+L05980       (Ea = l.treemap),
+L05981       (pe = l.midline),
+L05982       (pe.fineHorizon = Mt),
+L05983       (pe.oneDir = !0),
+L05984       (O = f),
+L05985       (na = d),
+L05986       (la = m),
+L05987       (Lt = f / 2),
+L05988       (Oe = r == 0),
+L05989       (He = t.laneStyle == z.Single || t.laneStyle == z.OffRoad),
+L05990       cr());
+L05991   },
+L05992   cr = () => {
+L05993     ((Ga = Tt + O),
+L05994       (yt = 20 - O),
+L05995       He
+L05996         ? ((Ye = 4), (Ke = 2.5), (qe = 1), (Je = 0.5), ($e = 0.8), (et = 1.2))
+L05997         : ((Ye = 2), (Ke = 1.5), (qe = 0.3), (Je = 0.15), ($e = 0.4), (et = 0.8)),
+L05998       (sa = !N && !Oe));
+L05999   };
+L06000 function fr() {
+L06001   if ((($ = Rt), $ <= 0 && U < 2e3)) {
+L06002     let t = U / 2e3;
+L06003     (($ = ((1 + $) / 2) * t * 2 - 1), $ < -1 && ($ = -1));
+L06004   }
+L06005 }
+L06006 const Sl = (t) => {
+L06007   var r;
+L06008   let a = { ...te.style[t.season].common, ...te.style[t.season][t.time][t.weather] };
+L06009   ((ga = a.friction.road),
+L06010     (ca = a.friction.grass),
+L06011     (fa = a.friction.gravel),
+L06012     (pa = a.slip.road),
+L06013     (ha = a.slip.grass),
+L06014     (ua = a.slip.gravel),
+L06015     (ma = a.roughness.road),
+L06016     (va = a.roughness.grass),
+L06017     (Aa = a.roughness.gravel),
+L06018     (Sa = a.fog.colA),
+L06019     (Da = a.fog.colB),
+L06020     (wa = a.fog.colC ?? a.fog.colB),
+L06021     (Ma = a.water.underwater),
+L06022     (La = a.water.body),
+L06023     (Pa = !((r = a.effects) != null && r.frozenWater)),
+L06024     (oe = a.fog.near),
+L06025     (Se = a.fog.far),
+L06026     (Ct = U * oe),
+L06027     (ee = U * Se),
+L06028     (It = Math.sqrt(5 / (ee * ee))),
+L06029     (ba = a.fog.hazeHeight ?? 0),
+L06030     (Rt = a.fog.hazeIntensity ?? 0),
+L06031     fr(),
+L06032     (ya = a.colours.clear),
+L06033     (Ja = !!a.stars),
+L06034     ($a = a.stars),
+L06035     (er = !!a.snow),
+L06036     (tr = a.snow),
+L06037     (Ca = a.lights),
+L06038     (_a = a.surfaces.road),
+L06039     (xa = a.surfaces.offroad),
+L06040     (qa = a.clouds.hasClouds !== !1),
+L06041     (Ia = a.audio),
+L06042     ls(t.season, a));
+L06043 };
+L06044 let Dl = te.styleMeta.presets;
+L06045 const wl = new be({
+L06046     scale: 0.03,
+L06047     offset: 0,
+L06048     resolution: 7,
+L06049     depth: 2,
+L06050     upscale: 3,
+L06051     tileSize: 40,
+L06052     spiralise: !1,
+L06053     repeated: !0,
+L06054   }),
+L06055   jt = new be({
+L06056     scale: 0.5,
+L06057     offset: 0,
+L06058     resolution: 5,
+L06059     depth: 3,
+L06060     upscale: 3,
+L06061     tileSize: 25,
+L06062     spiralise: !1,
+L06063     repeated: !0,
+L06064   }),
+L06065   bl = new be({
+L06066     scale: 5,
+L06067     offset: 0,
+L06068     resolution: 5,
+L06069     depth: 2,
+L06070     upscale: 2,
+L06071     tileSize: 200,
+L06072     spiralise: !1,
+L06073     repeated: !0,
+L06074   }),
+L06075   Ml = new be({
+L06076     scale: 8,
+L06077     offset: 1,
+L06078     resolution: 7,
+L06079     depth: 2,
+L06080     upscale: 3,
+L06081     tileSize: 100,
+L06082     spiralise: !1,
+L06083     repeated: !0,
+L06084   }),
+L06085   u = {},
+L06086   Ll = (t, a, r, o) => {
+L06087     var n, d;
+L06088     ((u.h = 0),
+L06089       (a.h = a.n.h + a.t * (a.n.next.h - a.n.h)),
+L06090       (a.gfa = a.n.gfa + a.t * (a.n.next.gfa - a.n.gfa)),
+L06091       (a.gt = a.n.g + a.t * (a.n.next.g - a.n.g)),
+L06092       a.s == Math.sign(a.g) ? (a.ga = Math.max(0, Math.abs(a.gt) - 1) / 3) : (a.ga = 0),
+L06093       (a.rd = a.d),
+L06094       N
+L06095         ? ((a.rd = a.d),
+L06096           (a.w = O),
+L06097           F ? (a.w += re * 2) : (a.w += re + a.ga),
+L06098           (u.widthLerp = 1),
+L06099           a.d < a.w && (u.widthLerp = a.d / a.w),
+L06100           (a.d += 0.4),
+L06101           F
+L06102             ? ((a.d += 0.2),
+L06103               isNaN(r) && (console.log("Nan stuff"), console.log(t), console.log(a), console.log(r, o)),
+L06104               (a.d += jt.getXZ(r, o) * 0.5))
+L06105             : (a.d += jt.getXZ(r, o)))
+L06106         : (a.w = O + re + 0.25 + a.ga),
+L06107       (a.y -= 0.01 + 0.01 * a.gfa),
+L06108       (a.ga = Math.min(1, Math.max(0, a.ga)) ** 2),
+L06109       (a.blend = a.n.blend + a.t * (a.n.next.blend - a.n.blend)),
+L06110       (u.rm = yt * (0.4 + 0.6 * a.blend)));
+L06111     let l = (a.d - a.w) / 16;
+L06112     if (
+L06113       (l < 0 && (l = 0),
+L06114       l > 1 && (l = 1),
+L06115       (l = (1 - l) ** 2),
+L06116       l > 0 && ((t += l * bl.getXZ(r, o)), a.ga > 0 && (t += Ml.getXZ(r, o) * l * a.ga)),
+L06117       a.d < a.w + u.rm)
+L06118     ) {
+L06119       if (!N && a.d < Lt && !a.n.bridge) return a.y;
+L06120       if (((u.lt = Math.max(0, Math.min(1, (a.d - a.w) / u.rm))), (u.lt = gr(u.lt)), N)) {
+L06121         let f = 1 - a.ga;
+L06122         if (
+L06123           (f > 0 && (a.rd < a.w ? (t += We * f) : (t += Xt(1 - (a.rd - a.w) / u.rm) * We * f)),
+L06124           a.d < a.w - Ve)
+L06125         ) {
+L06126           if (F && a.d < 1.7) {
+L06127             let I = Xt(1 - a.d / 1.7);
+L06128             a.y += I * me * 2;
+L06129           }
+L06130         } else if (a.d < a.w) {
+L06131           let I = 1 - (a.w - a.d) / Ve;
+L06132           ((I *= I), (a.y += I * me));
+L06133         } else a.d < a.w + 5 && (a.y += (me * (Math.cos((Math.PI * (a.d - a.w)) / 5) + 1)) / 2);
+L06134         a.y += wl.getXZ(r, o);
+L06135         let m = a.t;
+L06136         a.slope = a.n.bank * (1 - m) + a.n.next.bank * m;
+L06137         let C = a.s;
+L06138         a.slope < 0 && (C *= -1);
+L06139         let L = (u.widthLerp * C + 1) / 2;
+L06140         L = L * L * 2 - 1;
+L06141         let h = F ? 0.5 : 1;
+L06142         a.y += Math.abs(a.slope) * L * h;
+L06143       }
+L06144       if (((u.h = t), (u.rd = a.d - a.w), a.n.bridge && (n = a.n.next) != null && n.bridge)) {
+L06145         a.n.next.next.bridge
+L06146           ? (d = a.n.prev) != null && d.bridge
+L06147             ? (u.lt = 1)
+L06148             : (u.lt = Math.max(a.t, u.lt))
+L06149           : (u.lt = Math.max(1 - a.t, u.lt));
+L06150         let f = 4;
+L06151         if (a.d < O + re + f && u.h > a.y) {
+L06152           let m = 1 - Math.max(0, (O + re + f - a.d) / f),
+L06153             C = u.lt * 0.33;
+L06154           ((m = (m - C) * (1 / (1 - C))), (u.lt = m));
+L06155         }
+L06156       }
+L06157       return u.h * u.lt + a.y * (1 - u.lt);
+L06158     }
+L06159     return t;
+L06160   },
+L06161   Xt = (t) => (t * (t * 6 - 15) + 10) * t * t * t,
+L06162   gr = (t) => (t > 0.3333 ? ((u.lerp = 1 - (t - 0.3333) / 0.6667), 1 - u.lerp * u.lerp * 0.5) : t * 1.5),
+L06163   Hl = Object.freeze(
+L06164     Object.defineProperty(
+L06165       {
+L06166         __proto__: null,
+L06167         get ANIMATE_WATER() {
+L06168           return Pa;
+L06169         },
+L06170         get AUDIO() {
+L06171           return Ia;
+L06172         },
+L06173         AUDIO_WIND_SPEED: Ns,
+L06174         AUDIO_WIND_VOL: Us,
+L06175         get BARRIER_DIST() {
+L06176           return $e;
+L06177         },
+L06178         get BARRIER_GRADIENT_MAINT() {
+L06179           return Ke;
+L06180         },
+L06181         get BARRIER_GRADIENT_THRESHOLD() {
+L06182           return Ye;
+L06183         },
+L06184         get BARRIER_TURN_MAINT() {
+L06185           return Je;
+L06186         },
+L06187         get BARRIER_TURN_THRESHOLD() {
+L06188           return qe;
+L06189         },
+L06190         get BRIDGE_GEN_ARCHES() {
+L06191           return Za;
+L06192         },
+L06193         get BRIDGE_HEIGHTS() {
+L06194           return Qa;
+L06195         },
+L06196         get BRIDGE_LOOKAHEAD() {
+L06197           return Xa;
+L06198         },
+L06199         BRIDGE_MAX_NODES: ll,
+L06200         BRIDGE_MIN_NODES: nl,
+L06201         get BRIDGE_SEGMENTS() {
+L06202           return ce;
+L06203         },
+L06204         BRIDGE_WALL_HEIGHT: dl,
+L06205         get BUSH_INSTANCE_SIZE() {
+L06206           return Ha;
+L06207         },
+L06208         BUSH_SPRITE_DENSITY: Ys,
+L06209         BUSH_SPRITE_MIN_FLATNESS: Qs,
+L06210         get CELL_RES() {
+L06211           return ne;
+L06212         },
+L06213         CELL_SIZE: ws,
+L06214         get CLEAR_COL() {
+L06215           return ya;
+L06216         },
+L06217         get CLOUD_ALTITUDE() {
+L06218           return Ya;
+L06219         },
+L06220         get CLOUD_RES() {
+L06221           return Ka;
+L06222         },
+L06223         get CLOUD_SCALE() {
+L06224           return tt;
+L06225         },
+L06226         get DRYSTONE_DIST() {
+L06227           return Ga;
+L06228         },
+L06229         DRYSTONE_GRADIENT_THRESHOLD: Js,
+L06230         DRYSTONE_HEIGHT: tl,
+L06231         DRYSTONE_MARGIN: Tt,
+L06232         DRYSTONE_SINK: el,
+L06233         DRYSTONE_UV_HEIGHT: Ba,
+L06234         DRYSTONE_UV_SCALE: il,
+L06235         DRYSTONE_UV_WIDTH: rl,
+L06236         DRYSTONE_WIDTH: al,
+L06237         DRYSTONE_WIDTH_BOTTOM: $s,
+L06238         DRYSTONE_WIDTH_TOP: ka,
+L06239         get FIELD_HAS_BOUNDARY() {
+L06240           return lr;
+L06241         },
+L06242         get FIELD_HAS_COL() {
+L06243           return sr;
+L06244         },
+L06245         get FIELD_HAS_RENDER() {
+L06246           return ir;
+L06247         },
+L06248         get FIELD_MAP_SCALE() {
+L06249           return ar;
+L06250         },
+L06251         FIELD_MAX_GRADE: Al,
+L06252         FIELD_MAX_HEIGHT: nr,
+L06253         FIELD_MAX_HEIGHT_HALF: pl,
+L06254         FIELD_MAX_TREE_DENSITY: vl,
+L06255         FIELD_MIN_HEIGHT: ul,
+L06256         FIELD_PROBABILITY_THRESHOLD: ml,
+L06257         get FIELD_TREE_DENSITY() {
+L06258           return or;
+L06259         },
+L06260         get FOG_COL_A() {
+L06261           return Sa;
+L06262         },
+L06263         get FOG_COL_B() {
+L06264           return Da;
+L06265         },
+L06266         get FOG_COL_C() {
+L06267           return wa;
+L06268         },
+L06269         get FOG_DENSITY() {
+L06270           return It;
+L06271         },
+L06272         get FOG_EXP2() {
+L06273           return De;
+L06274         },
+L06275         get FOG_FAR() {
+L06276           return ee;
+L06277         },
+L06278         get FOG_FAR_FACTOR() {
+L06279           return Se;
+L06280         },
+L06281         get FOG_HAZE_HEIGHT() {
+L06282           return ba;
+L06283         },
+L06284         get FOG_HAZE_INTENSITY() {
+L06285           return $;
+L06286         },
+L06287         get FOG_HAZE_INTENSITY_NOMINAL() {
+L06288           return Rt;
+L06289         },
+L06290         get FOG_NEAR() {
+L06291           return Ct;
+L06292         },
+L06293         get FOG_NEAR_FACTOR() {
+L06294           return oe;
+L06295         },
+L06296         FOLIAGE_SPRITE_MIN_FLATNESS: Xs,
+L06297         get FWD_VIEW_DISTANCE() {
+L06298           return U;
+L06299         },
+L06300         GRASS_BOUNCE: Is,
+L06301         get GRASS_FRICTION() {
+L06302           return ca;
+L06303         },
+L06304         get GRASS_ROUGHNESS() {
+L06305           return va;
+L06306         },
+L06307         get GRASS_SLIP() {
+L06308           return ha;
+L06309         },
+L06310         get GRASS_SPRITE_DENSITY() {
+L06311           return ie;
+L06312         },
+L06313         get GRASS_SPRITE_INSTANCE_SIZE() {
+L06314           return Qe;
+L06315         },
+L06316         get GRASS_SPRITE_MARGIN() {
+L06317           return ve;
+L06318         },
+L06319         GRASS_SPRITE_MIN_ELEVATION: js,
+L06320         GRASS_SPRITE_SCALE: Vs,
+L06321         GRASS_SPRITE_SINK_FACTOR: Zs,
+L06322         GRAVEL_BOUNCE: Rs,
+L06323         get GRAVEL_FRICTION() {
+L06324           return fa;
+L06325         },
+L06326         get GRAVEL_ROUGHNESS() {
+L06327           return Aa;
+L06328         },
+L06329         get GRAVEL_SLIP() {
+L06330           return ua;
+L06331         },
+L06332         get HAS_CLOUDS() {
+L06333           return qa;
+L06334         },
+L06335         get HAS_SNOW() {
+L06336           return er;
+L06337         },
+L06338         get HAS_STARS() {
+L06339           return Ja;
+L06340         },
+L06341         get HEIGHTMAP() {
+L06342           return ra;
+L06343         },
+L06344         get HEIGHTMAP_MAX_CACHED() {
+L06345           return ia;
+L06346         },
+L06347         ICE_BOUNCE: Ts,
+L06348         ICE_FRICTION: Ls,
+L06349         ICE_ROUGHNESS: Cs,
+L06350         ICE_SLIP: ys,
+L06351         get IS_GREENLANE() {
+L06352           return F;
+L06353         },
+L06354         get IS_OFFROAD() {
+L06355           return N;
+L06356         },
+L06357         LANE_CAUTION_FACTORS: Ds,
+L06358         get LANE_OFFSETS() {
+L06359           return la;
+L06360         },
+L06361         get LANE_WIDTH() {
+L06362           return na;
+L06363         },
+L06364         get LIGHTS() {
+L06365           return Ca;
+L06366         },
+L06367         get LOD_0_HORIZON() {
+L06368           return Xe;
+L06369         },
+L06370         get LOD_1_HORIZON() {
+L06371           return de;
+L06372         },
+L06373         get MAX_WALL_LENGTH() {
+L06374           return we;
+L06375         },
+L06376         get MIDLINE() {
+L06377           return pe;
+L06378         },
+L06379         get MIDLINE_FINE_HORIZON() {
+L06380           return Mt;
+L06381         },
+L06382         get MIDLINE_INDEX_MARGIN() {
+L06383           return rr;
+L06384         },
+L06385         MIN_WALL_GAP: Et,
+L06386         MIN_WALL_LENGTH: Ks,
+L06387         get OBJECT_DESPAWN_MARGIN() {
+L06388           return Wa;
+L06389         },
+L06390         OBJECT_LIBRARY: sl,
+L06391         get OFFROAD_SURFACE() {
+L06392           return xa;
+L06393         },
+L06394         PRESETS: Dl,
+L06395         ROAD_BOUNCE: Es,
+L06396         ROAD_BUMP_MARGIN: Ss,
+L06397         ROAD_BUMP_SIDING: xs,
+L06398         get ROAD_FRICTION() {
+L06399           return ga;
+L06400         },
+L06401         get ROAD_IS_NARROW() {
+L06402           return He;
+L06403         },
+L06404         get ROAD_IS_SINGLE_TRACK() {
+L06405           return Oe;
+L06406         },
+L06407         get ROAD_MARGIN() {
+L06408           return yt;
+L06409         },
+L06410         get ROAD_NODES() {
+L06411           return oa;
+L06412         },
+L06413         get ROAD_ROUGHNESS() {
+L06414           return ma;
+L06415         },
+L06416         ROAD_SIDING: re,
+L06417         get ROAD_SLIP() {
+L06418           return pa;
+L06419         },
+L06420         get ROAD_SURFACE() {
+L06421           return _a;
+L06422         },
+L06423         get ROAD_WIDTH() {
+L06424           return O;
+L06425         },
+L06426         get ROAD_WIDTH_HALF() {
+L06427           return Lt;
+L06428         },
+L06429         get SEAWALL_DIST() {
+L06430           return et;
+L06431         },
+L06432         SEAWALL_ELEV: ol,
+L06433         get SEA_RES() {
+L06434           return Ze;
+L06435         },
+L06436         get SEA_RES_1() {
+L06437           return da;
+L06438         },
+L06439         get SHADOW_RES() {
+L06440           return Ra;
+L06441         },
+L06442         get SHOW_CATS_EYES() {
+L06443           return sa;
+L06444         },
+L06445         SHOW_GRASS: Ws,
+L06446         get SIGN_LOOKAHEAD() {
+L06447           return Va;
+L06448         },
+L06449         get SIGN_RETIRE_HORIZON() {
+L06450           return ja;
+L06451         },
+L06452         get SKIP_FOLIAGE() {
+L06453           return Oa;
+L06454         },
+L06455         get SNOW_CONFIG() {
+L06456           return tr;
+L06457         },
+L06458         get STAR_CONFIG() {
+L06459           return $a;
+L06460         },
+L06461         TILE_LOOKAHEAD_HORIZON: bs,
+L06462         get TILE_SIZE() {
+L06463           return je;
+L06464         },
+L06465         TILE_STAGE_HORIZON: Ms,
+L06466         get TRAFFIC_HORIZON() {
+L06467           return dr;
+L06468         },
+L06469         get TREEMAP() {
+L06470           return Ea;
+L06471         },
+L06472         get TREE_HAS_3D() {
+L06473           return Na;
+L06474         },
+L06475         TREE_MIN_ELEV: Ps,
+L06476         TREE_MIN_FLATNESS: Gs,
+L06477         TREE_MIN_FLATNESS_FAR: ks,
+L06478         get TREE_MODEL_INSTANCE_SIZE() {
+L06479           return Fa;
+L06480         },
+L06481         TREE_OBJECTS: Bs,
+L06482         TREE_ROAD_MARGIN: zs,
+L06483         get TREE_SPRITE_INSTANCE_SIZE() {
+L06484           return Ta;
+L06485         },
+L06486         TREE_SPRITE_OFFSET: Fs,
+L06487         TREE_SPRITE_SCALE: Os,
+L06488         get TREE_TYPE_COUNT() {
+L06489           return Ua;
+L06490         },
+L06491         TREE_VARIANT_COUNT: Hs,
+L06492         get UNDERWATER_COL() {
+L06493           return Ma;
+L06494         },
+L06495         get UNDERWATER_COL_SURFACE() {
+L06496           return La;
+L06497         },
+L06498         get WALL_LENGTH_BACKFILL() {
+L06499           return za;
+L06500         },
+L06501         WallType: qs,
+L06502         applyRoadWidth: cr,
+L06503         getRoadBlendedHeight: Ll,
+L06504         loadAestheticSettings: Sl,
+L06505         loadGraphicsSettings: _l,
+L06506         loadWorldSettings: xl,
+L06507         roadLerp: gr,
+L06508       },
+L06509       Symbol.toStringTag,
+L06510       { value: "Module" },
+L06511     ),
+L06512   ),
+L06513   e = { id: 0 },
+L06514   w = {},
+L06515   Be = {};
+L06516 class Pl extends xr {
+L06517   constructor(r = {}) {
+L06518     super(r);
+L06519     T(this, "debug", !0);
+L06520     T(this, "config", {
+L06521       seed: "a",
+L06522       scale: 1,
+L06523       offset: 0,
+L06524       resolution: 5,
+L06525       upresFactor: 2,
+L06526       depth: 3,
+L06527       depthHeightFactor: 1,
+L06528       layerResolutions: [3, 6, 9],
+L06529       squared: !1,
+L06530       temper: !1,
+L06531       temperBelow: 100,
+L06532       temperMin: 0.25,
+L06533       spiralise: !0,
+L06534       maxCached: 32,
+L06535       tileScaleRandom: 0,
+L06536     });
+L06537     T(this, "distortMap");
+L06538     T(this, "protoTile", null);
+L06539     ((this.config = { ...this.config, ...r }),
+L06540       this.config.layerResolutions.length
+L06541         ? (this.config.depth = this.config.layerResolutions.length)
+L06542         : this.generateLayerResolutions());
+L06543   }
+L06544   generateLayerResolutions() {
+L06545     let r = this.config.resolution;
+L06546     for (let o = 0; o < this.config.depth; o++)
+L06547       (this.layerResolutions.push(r), (r = r + this.config.upresFactor * (o + 1)));
+L06548   }
+L06549   generateTile(r, o) {
+L06550     if (this.config.repeated && this.protoTile) return this.protoTile;
+L06551     let l = [],
+L06552       n;
+L06553     this.config.repeated
+L06554       ? (n = new window.alea(this.config.seed))
+L06555       : (n = new window.alea(this.config.seed + "#" + this.curLayer[r < 0 ? 0 : 1] + "#" + r + "#" + o));
+L06556     let d = 1 + n() * this.config.tileScaleRandom - this.config.tileScaleRandom / 2,
+L06557       f,
+L06558       m,
+L06559       C,
+L06560       L = this.config.depthHeightFactor;
+L06561     for (f = 0; f < this.config.depth; f++) {
+L06562       ((m = this.config.layerResolutions[f]),
+L06563         (C = (this.config.resolution / m) * L),
+L06564         (L *= this.config.depthHeightFactor));
+L06565       let h = [],
+L06566         I = 1 / m,
+L06567         Y;
+L06568       for (w.i = 0; w.i < m; w.i++) {
+L06569         for (Y = [], w.j = 0; w.j < m; w.j++)
+L06570           ((w.h = n() * 2 - 1),
+L06571             this.config.squared && (w.h < 0 ? (w.h *= -(w.h * (1 + w.h)) * 4) : (w.h *= w.h * (1 - w.h) * 4)),
+L06572             (w.h *= C),
+L06573             Y.push({
+L06574               x: (w.i + 0.5) / m,
+L06575               y: w.h * this.config.scale * d,
+L06576               z: (w.j + 0.5) / m,
+L06577               r: I,
+L06578               r2: I * I,
+L06579             }));
+L06580         h.push(Y);
+L06581       }
+L06582       l.push(h);
+L06583     }
+L06584     return (this.config.repeated && (this.protoTile = l), l);
+L06585   }
+L06586   roadLerp(r) {
+L06587     return r > 0.3333 ? ((Be.lerp = 1 - (r - 0.3333) / 0.6667), 1 - Be.lerp * Be.lerp * 0.5) : r * 1.5;
+L06588   }
+L06589   getCurvature(r, o) {
+L06590     return 0;
+L06591   }
+L06592   getMidlineXZ(r, o) {
+L06593     return this.getXZ(r, o);
+L06594   }
+L06595   getXZ(r, o, l = null, n = !1) {
+L06596     ((e.d = 0),
+L06597       (e.h = 0),
+L06598       (e.heightFactor = 1),
+L06599       (e.sq = this.config.layerResolutions[0]),
+L06600       (e.sqb = e.sq - 1),
+L06601       (e.wx = r / this.tileSize),
+L06602       (e.wz = o / this.tileSize),
+L06603       (e.ox = Math.floor(e.wx)),
+L06604       (e.oz = Math.floor(e.wz)),
+L06605       (e.px = e.wx - e.ox),
+L06606       (e.pz = e.wz - e.oz),
+L06607       (e.tile = this.getTile(e.ox, e.oz)),
+L06608       (l = l || this.config.depth),
+L06609       (e.depth = 0));
+L06610     for (e.layer of e.tile) {
+L06611       if (e.depth == l) break;
+L06612       ((e.ix = Math.floor(e.px * e.sq - 0.5)),
+L06613         (e.iz = Math.floor(e.pz * e.sq - 0.5)),
+L06614         (e.th = 0),
+L06615         e.ix >= 0
+L06616           ? (e.iz >= 0
+L06617               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix][e.iz]))
+L06618               : (e.th += this.lerpHeight(
+L06619                   e.d,
+L06620                   e.px,
+L06621                   e.pz + 1,
+L06622                   this.getTile(e.ox, e.oz - 1)[e.depth][e.ix][e.sqb],
+L06623                 )),
+L06624             e.iz < e.sqb
+L06625               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix][e.iz + 1]))
+L06626               : (e.th += this.lerpHeight(
+L06627                   e.d,
+L06628                   e.px,
+L06629                   e.pz - 1,
+L06630                   this.getTile(e.ox, e.oz + 1)[e.depth][e.ix][0],
+L06631                 )))
+L06632           : (e.iz >= 0
+L06633               ? (e.th += this.lerpHeight(
+L06634                   e.d,
+L06635                   e.px + 1,
+L06636                   e.pz,
+L06637                   this.getTile(e.ox - 1, e.oz)[e.depth][e.sqb][e.iz],
+L06638                 ))
+L06639               : (e.th += this.lerpHeight(
+L06640                   e.d,
+L06641                   e.px + 1,
+L06642                   e.pz + 1,
+L06643                   this.getTile(e.ox - 1, e.oz - 1)[e.depth][e.sqb][e.sqb],
+L06644                 )),
+L06645             e.iz < e.sqb
+L06646               ? (e.th += this.lerpHeight(
+L06647                   e.d,
+L06648                   e.px + 1,
+L06649                   e.pz,
+L06650                   this.getTile(e.ox - 1, e.oz)[e.depth][e.sqb][e.iz + 1],
+L06651                 ))
+L06652               : (e.th += this.lerpHeight(
+L06653                   e.d,
+L06654                   e.px + 1,
+L06655                   e.pz - 1,
+L06656                   this.getTile(e.ox - 1, e.oz + 1)[e.depth][e.sqb][0],
+L06657                 ))),
+L06658         e.ix < e.sqb
+L06659           ? (e.iz >= 0
+L06660               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix + 1][e.iz]))
+L06661               : (e.th += this.lerpHeight(
+L06662                   e.d,
+L06663                   e.px,
+L06664                   e.pz + 1,
+L06665                   this.getTile(e.ox, e.oz - 1)[e.depth][e.ix + 1][e.sqb],
+L06666                 )),
+L06667             e.iz < e.sqb
+L06668               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix + 1][e.iz + 1]))
+L06669               : (e.th += this.lerpHeight(
+L06670                   e.d,
+L06671                   e.px,
+L06672                   e.pz - 1,
+L06673                   this.getTile(e.ox, e.oz + 1)[e.depth][e.ix + 1][0],
+L06674                 )))
+L06675           : (e.iz >= 0
+L06676               ? (e.th += this.lerpHeight(e.d, e.px - 1, e.pz, this.getTile(e.ox + 1, e.oz)[e.depth][0][e.iz]))
+L06677               : (e.th += this.lerpHeight(
+L06678                   e.d,
+L06679                   e.px - 1,
+L06680                   e.pz + 1,
+L06681                   this.getTile(e.ox + 1, e.oz - 1)[e.depth][0][e.sqb],
+L06682                 )),
+L06683             e.iz < e.sqb
+L06684               ? (e.th += this.lerpHeight(
+L06685                   e.d,
+L06686                   e.px - 1,
+L06687                   e.pz,
+L06688                   this.getTile(e.ox + 1, e.oz)[e.depth][0][e.iz + 1],
+L06689                 ))
+L06690               : (e.th += this.lerpHeight(
+L06691                   e.d,
+L06692                   e.px - 1,
+L06693                   e.pz - 1,
+L06694                   this.getTile(e.ox + 1, e.oz + 1)[e.depth][0][0],
+L06695                 ))),
+L06696         (e.temper = 1),
+L06697         this.config.temper &&
+L06698           e.depth > 0 &&
+L06699           (e.temper = Math.min(
+L06700             Math.max(
+L06701               this.config.temperMin,
+L06702               (e.h + this.config.offset + this.config.temperBase) / this.config.temperBelow,
+L06703             ),
+L06704             1,
+L06705           )),
+L06706         (e.h += e.th * e.temper),
+L06707         e.depth++,
+L06708         (e.sq = this.config.layerResolutions[e.depth]),
+L06709         (e.sqb = e.sq - 1));
+L06710     }
+L06711     return e.h + this.config.offset;
+L06712   }
+L06713   getXZLayer(r, o, l, n = this.config.depth) {
+L06714     ((e.d = 0),
+L06715       (e.h = 0),
+L06716       (e.heightFactor = 1),
+L06717       (e.sq = this.config.layerResolutions[0]),
+L06718       (e.sqb = e.sq - 1),
+L06719       (e.wx = r / this.tileSize),
+L06720       (e.wz = o / this.tileSize),
+L06721       (e.ox = Math.floor(e.wx)),
+L06722       (e.oz = Math.floor(e.wz)),
+L06723       (e.px = e.wx - e.ox),
+L06724       (e.pz = e.wz - e.oz),
+L06725       (e.tile = this.getTile(e.ox, e.oz)),
+L06726       (n = n || this.config.depth),
+L06727       (e.depth = 0),
+L06728       (e.i = 0));
+L06729     for (e.layer of e.tile) {
+L06730       if (e.depth == n) break;
+L06731       if (e.i++ !== l) {
+L06732         (e.depth++, (e.sq = this.config.layerResolutions[e.depth]), (e.sqb = e.sq - 1));
+L06733         continue;
+L06734       }
+L06735       ((e.ix = Math.floor(e.px * e.sq - 0.5)),
+L06736         (e.iz = Math.floor(e.pz * e.sq - 0.5)),
+L06737         (e.th = 0),
+L06738         e.ix >= 0
+L06739           ? (e.iz >= 0
+L06740               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix][e.iz]))
+L06741               : (e.th += this.lerpHeight(
+L06742                   e.d,
+L06743                   e.px,
+L06744                   e.pz + 1,
+L06745                   this.getTile(e.ox, e.oz - 1)[e.depth][e.ix][e.sqb],
+L06746                 )),
+L06747             e.iz < e.sqb
+L06748               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix][e.iz + 1]))
+L06749               : (e.th += this.lerpHeight(
+L06750                   e.d,
+L06751                   e.px,
+L06752                   e.pz - 1,
+L06753                   this.getTile(e.ox, e.oz + 1)[e.depth][e.ix][0],
+L06754                 )))
+L06755           : (e.iz >= 0
+L06756               ? (e.th += this.lerpHeight(
+L06757                   e.d,
+L06758                   e.px + 1,
+L06759                   e.pz,
+L06760                   this.getTile(e.ox - 1, e.oz)[e.depth][e.sqb][e.iz],
+L06761                 ))
+L06762               : (e.th += this.lerpHeight(
+L06763                   e.d,
+L06764                   e.px + 1,
+L06765                   e.pz + 1,
+L06766                   this.getTile(e.ox - 1, e.oz - 1)[e.depth][e.sqb][e.sqb],
+L06767                 )),
+L06768             e.iz < e.sqb
+L06769               ? (e.th += this.lerpHeight(
+L06770                   e.d,
+L06771                   e.px + 1,
+L06772                   e.pz,
+L06773                   this.getTile(e.ox - 1, e.oz)[e.depth][e.sqb][e.iz + 1],
+L06774                 ))
+L06775               : (e.th += this.lerpHeight(
+L06776                   e.d,
+L06777                   e.px + 1,
+L06778                   e.pz - 1,
+L06779                   this.getTile(e.ox - 1, e.oz + 1)[e.depth][e.sqb][0],
+L06780                 ))),
+L06781         e.ix < e.sqb
+L06782           ? (e.iz >= 0
+L06783               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix + 1][e.iz]))
+L06784               : (e.th += this.lerpHeight(
+L06785                   e.d,
+L06786                   e.px,
+L06787                   e.pz + 1,
+L06788                   this.getTile(e.ox, e.oz - 1)[e.depth][e.ix + 1][e.sqb],
+L06789                 )),
+L06790             e.iz < e.sqb
+L06791               ? (e.th += this.lerpHeight(e.d, e.px, e.pz, e.layer[e.ix + 1][e.iz + 1]))
+L06792               : (e.th += this.lerpHeight(
+L06793                   e.d,
+L06794                   e.px,
+L06795                   e.pz - 1,
+L06796                   this.getTile(e.ox, e.oz + 1)[e.depth][e.ix + 1][0],
+L06797                 )))
+L06798           : (e.iz >= 0
+L06799               ? (e.th += this.lerpHeight(e.d, e.px - 1, e.pz, this.getTile(e.ox + 1, e.oz)[e.depth][0][e.iz]))
+L06800               : (e.th += this.lerpHeight(
+L06801                   e.d,
+L06802                   e.px - 1,
+L06803                   e.pz + 1,
+L06804                   this.getTile(e.ox + 1, e.oz - 1)[e.depth][0][e.sqb],
+L06805                 )),
+L06806             e.iz < e.sqb
+L06807               ? (e.th += this.lerpHeight(
+L06808                   e.d,
+L06809                   e.px - 1,
+L06810                   e.pz,
+L06811                   this.getTile(e.ox + 1, e.oz)[e.depth][0][e.iz + 1],
+L06812                 ))
+L06813               : (e.th += this.lerpHeight(
+L06814                   e.d,
+L06815                   e.px - 1,
+L06816                   e.pz - 1,
+L06817                   this.getTile(e.ox + 1, e.oz + 1)[e.depth][0][0],
+L06818                 ))),
+L06819         (e.h += e.th * e.temper));
+L06820       break;
+L06821     }
+L06822     return e.h + this.config.offset;
+L06823   }
+L06824   lerpHeight(r, o, l, n) {
+L06825     return (
+L06826       (r = (n.x - o) * (n.x - o) + (n.z - l) * (n.z - l)),
+L06827       r < n.r2 ? this.smootherLerp(r / n.r2) * n.y : 0
+L06828     );
+L06829   }
+L06830 }
+L06831 export {
+L06832   Ae as $,
+L06833   D as A,
+L06834   Vs as B,
+L06835   Ha as C,
+L06836   xe as D,
+L06837   y as E,
+L06838   ir as F,
+L06839   Qe as G,
+L06840   te as H,
+L06841   N as I,
+L06842   Na as J,
+L06843   zs as K,
+L06844   de as L,
+L06845   Gs as M,
+L06846   Oa as N,
+L06847   F as O,
+L06848   js as P,
+L06849   Xs as Q,
+L06850   O as R,
+L06851   Ze as S,
+L06852   je as T,
+L06853   ie as U,
+L06854   ve as V,
+L06855   b as W,
+L06856   bt as X,
+L06857   Va as Y,
+L06858   ja as Z,
+L06859   He as _,
+L06860   Pl as a,
+L06861   rr as a$,
+L06862   qs as a0,
+L06863   za as a1,
+L06864   Et as a2,
+L06865   we as a3,
+L06866   Ks as a4,
+L06867   $e as a5,
+L06868   ol as a6,
+L06869   Ye as a7,
+L06870   qe as a8,
+L06871   Ke as a9,
+L06872   Ja as aA,
+L06873   er as aB,
+L06874   Ca as aC,
+L06875   ga as aD,
+L06876   Sa as aE,
+L06877   Da as aF,
+L06878   wa as aG,
+L06879   oe as aH,
+L06880   Ct as aI,
+L06881   ee as aJ,
+L06882   It as aK,
+L06883   ba as aL,
+L06884   $ as aM,
+L06885   xl as aN,
+L06886   na as aO,
+L06887   la as aP,
+L06888   Ds as aQ,
+L06889   cs as aR,
+L06890   Ka as aS,
+L06891   g as aT,
+L06892   Ul as aU,
+L06893   ss as aV,
+L06894   $a as aW,
+L06895   ra as aX,
+L06896   ia as aY,
+L06897   Ea as aZ,
+L06898   pe as a_,
+L06899   Je as aa,
+L06900   wt as ab,
+L06901   et as ac,
+L06902   _e as ad,
+L06903   Xa as ae,
+L06904   Za as af,
+L06905   aa as ag,
+L06906   us as ah,
+L06907   dl as ai,
+L06908   ce as aj,
+L06909   Qa as ak,
+L06910   Bt as al,
+L06911   El as am,
+L06912   Tl as an,
+L06913   _l as ao,
+L06914   qa as ap,
+L06915   tt as aq,
+L06916   Bs as ar,
+L06917   ke as as,
+L06918   Fa as at,
+L06919   Ys as au,
+L06920   ar as av,
+L06921   U as aw,
+L06922   dr as ax,
+L06923   Sl as ay,
+L06924   Ia as az,
+L06925   Hl as b,
+L06926   sa as b0,
+L06927   sl as b1,
+L06928   i as b2,
+L06929   oa as b3,
+L06930   Nl as b4,
+L06931   ws as b5,
+L06932   ne as b6,
+L06933   Ll as b7,
+L06934   Mt as b8,
+L06935   ca as b9,
+L06936   Fl as bA,
+L06937   ha as ba,
+L06938   va as bb,
+L06939   Is as bc,
+L06940   pa as bd,
+L06941   ma as be,
+L06942   Es as bf,
+L06943   _a as bg,
+L06944   xa as bh,
+L06945   re as bi,
+L06946   fa as bj,
+L06947   ua as bk,
+L06948   Rs as bl,
+L06949   Aa as bm,
+L06950   Ya as bn,
+L06951   Ol as bo,
+L06952   Ma as bp,
+L06953   La as bq,
+L06954   Ns as br,
+L06955   Us as bs,
+L06956   tr as bt,
+L06957   De as bu,
+L06958   Xe as bv,
+L06959   Pa as bw,
+L06960   Ls as bx,
+L06961   ys as by,
+L06962   Ts as bz,
+L06963   Ua as c,
+L06964   sr as d,
+L06965   ta as e,
+L06966   vl as f,
+L06967   ul as g,
+L06968   nr as h,
+L06969   Al as i,
+L06970   ml as j,
+L06971   Ga as k,
+L06972   Js as l,
+L06973   ka as m,
+L06974   il as n,
+L06975   $s as o,
+L06976   el as p,
+L06977   tl as q,
+L06978   Ba as r,
+L06979   Ta as s,
+L06980   p as t,
+L06981   Os as u,
+L06982   Hs as v,
+L06983   Fs as w,
+L06984   da as x,
+L06985   ks as y,
+L06986   Ps as z,
+L06987 };
+L06988 

@@ -1,0 +1,3863 @@
+Source: C:/Users/ruze/OneDrive/Desktop/Slow Roads/extracted_correct/build/_app/immutable/chunks/2.c189d18b.js
+Raw SHA-256: d81c86dfee64002ebe097c0965aed164e4c3a656762796399b30100244ff6021
+Formatting: Prettier only; Acorn AST verified equivalent after flattening associative logical expressions.
+Prefix Lxxxxx refers to formatted module line, not minified raw line.
+
+===== 2.c189d18b: 2066-2092 =====
+L02066 class pw extends O2 {
+L02067   constructor(...e) {
+L02068     super(...e);
+L02069   }
+L02070   extendMidline() {
+L02071     var e;
+L02072     if (super.extendMidline()) {
+L02073       if (!Ne.tail.blend) {
+L02074         let t = Ne.tail;
+L02075         ((t.blend = 1 - Math.min(Math.max(0, vw.getXZ(t.p.x, t.p.z)), 1) ** 2),
+L02076           (e = t.prev) != null && e.blend && (t.blend = t.prev.blend * 0.5 + t.blend * 0.5));
+L02077       }
+L02078       return !0;
+L02079     }
+L02080     return !1;
+L02081   }
+L02082   smoothHeight() {
+L02083     super.smoothHeight();
+L02084     let e = this.smoothWindowHead.prev;
+L02085     if (e.prev) {
+L02086       let t = e.next.a - e.prev.a;
+L02087       (t > Math.PI ? (t -= Math.PI * 2) : t < -Math.PI && (t += Math.PI * 2),
+L02088         (e.bank = t * fw),
+L02089         (e.bank = e.bank * 0.5 + e.prev.bank * 0.5));
+L02090     } else e.bank = 0;
+L02091   }
+L02092 }
+
+===== 2.c189d18b: 3000-4700 =====
+L03000             groundC: 3552822,
+L03001             cliff: 3684408,
+L03002             rubble: 8882055,
+L03003             road: 4539717,
+L03004           },
+L03005           hasRubble: !0,
+L03006           hasStars: !1,
+L03007           lights: {
+L03008             headlights: { on: !0, col: 8843518, intensity: 300 },
+L03009             sun: { col: 16775070, intensity: 1.5, offset: { x: 0, y: 10, z: 0 } },
+L03010             ambient: { col: 6312470, intensity: 3 },
+L03011             fresnelFactor: -0.5,
+L03012             sceneBrightness: 1,
+L03013           },
+L03014           fog: {
+L03015             colA: 12628518,
+L03016             colB: 12628518,
+L03017             colC: 12628518,
+L03018             near: -0.1,
+L03019             far: 1,
+L03020             hazeHeight: -40,
+L03021             hazeIntensity: 0.25,
+L03022           },
+L03023           clouds: {
+L03024             hasClouds: !0,
+L03025             highlight: 12628518,
+L03026             lowlight: 12628518,
+L03027             shelfHeight0: 1e3,
+L03028             shelfHeight1: 1500,
+L03029             skyScale0: 30,
+L03030             skyScale1: 20,
+L03031             mode: 0,
+L03032           },
+L03033           friction: ju,
+L03034           slip: Fu,
+L03035           roughness: Uu,
+L03036           audio: {
+L03037             ambiance: { src: zu, loopStart: 0.05, loopEnd: 0.05 },
+L03038             wind: { src: Ru, loopStart: 0.05, loopEnd: 0.05 },
+L03039           },
+L03040           surfaces: { road: Ga.Gravel, offroad: Ga.Gravel },
+L03041         },
+L03042         day: { dust: 2038789 },
+L03043         night: {
+L03044           dust: 1973263,
+L03045           lights: {
+L03046             headlights: { on: !0, col: 10282751, intensity: 400 },
+L03047             sun: { col: 12628550, offset: { x: 0, y: 10, z: 0 }, intensity: 0.2 },
+L03048             ambient: { col: 6312470, intensity: 0.7 },
+L03049             fresnelFactor: 1,
+L03050           },
+L03051           fog: {
+L03052             colA: 5657130,
+L03053             colB: 0,
+L03054             colC: 1118464,
+L03055             near: -0.1,
+L03056             far: 1,
+L03057             hazeHeight: -20,
+L03058             hazeIntensity: 0.58,
+L03059           },
+L03060           clouds: {
+L03061             hasClouds: !0,
+L03062             highlight: 11184674,
+L03063             lowlight: 0,
+L03064             shelfHeight0: 1e3,
+L03065             shelfHeight1: 1500,
+L03066             skyScale0: 30,
+L03067             skyScale1: 20,
+L03068             mode: 0,
+L03069           },
+L03070         },
+L03071       },
+L03072     },
+L03073     roads: {
+L03074       style: [
+L03075         {
+L03076           midline: {
+L03077             ...rd,
+L03078             isStraight: !0,
+L03079             smoothWindow: 9,
+L03080             maxGrad: 0.2,
+L03081             genRadius: 100,
+L03082             genMinRadius: 100,
+L03083           },
+L03084           heightmap: {
+L03085             scale: 160,
+L03086             offset: 0,
+L03087             resolution: 2,
+L03088             depth: 4,
+L03089             squared: !1,
+L03090             craterlayers: 2,
+L03091             craterDepth: 0.5,
+L03092             craterProb: 0.5,
+L03093           },
+L03094         },
+L03095         {
+L03096           midline: { ...rd, smoothWindow: 9, maxGrad: 0.18, smoothFactor: 0.5 },
+L03097           heightmap: {
+L03098             scale: 200,
+L03099             offset: 0,
+L03100             resolution: 2,
+L03101             depth: 3,
+L03102             squared: !1,
+L03103             craterlayers: 2,
+L03104             craterDepth: 0.5,
+L03105             craterProb: 0.5,
+L03106           },
+L03107         },
+L03108         {
+L03109           midline: { ...rd, smoothWindow: 7, maxGrad: 0.16, smoothFactor: 0.5, maxTurnDelta: 0.6 },
+L03110           heightmap: {
+L03111             scale: 200,
+L03112             offset: 0,
+L03113             resolution: 2,
+L03114             depth: 4,
+L03115             squared: !1,
+L03116             craterlayers: 2,
+L03117             craterDepth: 0.5,
+L03118             craterProb: 0.5,
+L03119           },
+L03120         },
+L03121         {
+L03122           midline: { ...rd, smoothWindow: 7, maxGrad: 0.15, maxTurnDelta: 0.5 },
+L03123           heightmap: {
+L03124             scale: 150,
+L03125             offset: 0,
+L03126             resolution: 3,
+L03127             depth: 4,
+L03128             squared: !1,
+L03129             craterlayers: 3,
+L03130             craterDepth: 1,
+L03131             craterProb: 0.5,
+L03132           },
+L03133         },
+L03134         {
+L03135           midline: {
+L03136             isStraight: !0,
+L03137             smoothWindow: 7,
+L03138             maxGrad: 0.15,
+L03139             roadSink: 0.4,
+L03140             smoothFactor: 0.9,
+L03141             maxTurnDelta: 0.4,
+L03142             maxStartElev: 1e3,
+L03143           },
+L03144           heightmap: {
+L03145             scale: 0,
+L03146             offset: 150,
+L03147             layerResolutions: [2, 3, 5],
+L03148             squared: !0,
+L03149             depthHeightFactor: 1.1,
+L03150             temper: !0,
+L03151             temperBase: 50,
+L03152             temperBelow: 250,
+L03153             temperMin: 0.75,
+L03154             tileScaleRandom: 0.25,
+L03155           },
+L03156         },
+L03157       ],
+L03158       laneWidth: { single: { standard: 7.2, wide: 11 }, compound: { standard: 4.4, wide: 5.4 } },
+L03159     },
+L03160     graphics: {
+L03161       viewDistance: [
+L03162         {
+L03163           tileSize: 300,
+L03164           lod0Horizon: 60,
+L03165           lod1Horizon: 15,
+L03166           roadNodes: 20,
+L03167           objectDespawnHorizon: 5,
+L03168           cloudAltitude: 300,
+L03169           heightmapMaxCached: 10,
+L03170         },
+L03171         {
+L03172           tileSize: 600,
+L03173           lod0Horizon: 80,
+L03174           lod1Horizon: 18,
+L03175           roadNodes: 25,
+L03176           objectDespawnHorizon: 10,
+L03177           cloudAltitude: 400,
+L03178           heightmapMaxCached: 15,
+L03179         },
+L03180         {
+L03181           tileSize: 1e3,
+L03182           lod0Horizon: 110,
+L03183           lod1Horizon: 21,
+L03184           roadNodes: 30,
+L03185           objectDespawnHorizon: 15,
+L03186           cloudAltitude: 500,
+L03187           heightmapMaxCached: 20,
+L03188         },
+L03189         {
+L03190           tileSize: 1700,
+L03191           lod0Horizon: 130,
+L03192           lod1Horizon: 24,
+L03193           roadNodes: 35,
+L03194           objectDespawnHorizon: 15,
+L03195           cloudAltitude: 600,
+L03196           heightmapMaxCached: 28,
+L03197         },
+L03198         {
+L03199           tileSize: 2500,
+L03200           lod0Horizon: 150,
+L03201           lod1Horizon: 25,
+L03202           roadNodes: 35,
+L03203           objectDespawnHorizon: 15,
+L03204           cloudAltitude: 700,
+L03205           heightmapMaxCached: 36,
+L03206         },
+L03207         {
+L03208           tileSize: 3e3,
+L03209           lod0Horizon: 160,
+L03210           lod1Horizon: 28,
+L03211           roadNodes: 40,
+L03212           objectDespawnHorizon: 18,
+L03213           cloudAltitude: 800,
+L03214           heightmapMaxCached: 40,
+L03215         },
+L03216       ],
+L03217       detail: [
+L03218         { shadowRes: 256, cellRes: 20 },
+L03219         { shadowRes: 512, cellRes: 24 },
+L03220         { shadowRes: 1024, cellRes: 24 },
+L03221         { shadowRes: 2048, cellRes: 24 },
+L03222         { shadowRes: 2048, cellRes: 24 },
+L03223       ],
+L03224     },
+L03225   },
+L03226   eD =
+L03227     "data:model/obj;base64,IyBCbGVuZGVyIHYyLjkyLjAgT0JKIEZpbGU6ICcnCiMgd3d3LmJsZW5kZXIub3JnCm8gbWFyc2JhcnJpZXJfYmxhY2sKdiAwLjAxNTAyMyAtMC4yMTA4MjkgMC4wMjE4MzAKdiAtMC4wMTUyOTEgMC43MDM3NTYgMC4wMjE4MzAKdiAwLjAxNTAyMyAtMC4yMTA4MjkgLTAuMDIxODMwCnYgLTAuMDE1MjkxIDAuNzAzNzU2IC0wLjAyMTgzMAp2IDAuMDI0NjQwIC0wLjIxMDgyOSAwLjAwMDAwMAp2IDAuMDI0NjQwIDAuNzAzNzU2IDAuMDAwMDAwCnYgLTAuMTA5Njk3IDAuNDAyMDQ1IDAuMDIxODMwCnYgLTAuMTA5Njk3IDAuNjIzNjYzIDAuMDIxODMwCnYgLTAuMTA5Njk3IDAuNjIzNjYzIC0wLjAyMTgzMAp2IC0wLjEwOTY5NyAwLjQwMjA0NSAtMC4wMjE4MzAKdiAwLjAyNDY0MCAwLjE0MDE0MiAwLjAwMDAwMAp2IC0wLjAxNTI5MSAwLjY0Nzk5NSAwLjAyMTgzMAp2IC0wLjA3MDMwNSAwLjYwMDcxOSAwLjAyMTgzMAp2IC0wLjA3MTIyMyAwLjQwNzk1MCAwLjAyMTgzMAp2IC0wLjAxNTI5MSAwLjEzNjgwNCAwLjAyMTgzMAp2IC0wLjAxNTI5MSAwLjY0Nzk5NSAtMC4wMjE4MzAKdiAtMC4wNzAzMDUgMC42MDA3MTkgLTAuMDIxODMwCnYgLTAuMDcxMjIzIDAuNDA3OTUwIC0wLjAyMTgzMAp2IC0wLjAxNTI5MSAwLjEzNjgwNCAtMC4wMjE4MzAKdnQgMC42MDEyODUgMC4wMDAwMDAKdnQgMC42MjUwMDAgMC4wMDAwMDAKdnQgMC42MjUwMDAgMC4yNTAwMDAKdnQgMC42MDEyODUgMC4yNTAwMDAKdnQgMC4xMjUwMDAgMC41MDAwMDAKdnQgMC4zNzUwMDAgMC43NTAwMDAKdnQgMC4xMjUwMDAgMC43NTAwMDAKdnQgMC4zNzUwMDAgMC4wMDAwMDAKdnQgMC41MTc5NTIgMC4wMDAwMDAKdnQgMC41MTc5NTIgMC4yNTAwMDAKdnQgMC4zNzUwMDAgMC4yNTAwMDAKdnQgMC42MjUwMDAgMS4wMDAwMDAKdnQgMC42MjUwMDAgMC41MDAwMDAKdnQgMC4wMDAwMDAgMC4wMDAwMDAKdnQgMC4wMDAwMDAgMC4wMDAwMDAKdnQgMC4xODk4NzggMC4zMDM4MDUKdnQgMC4xMTYwNDIgMC4yMDQzMzcKdnQgMC42MjUwMDAgMC43NTAwMDAKdnQgMC4wMDAwMDAgMC4wMDAwMDAKdnQgMC4xODk4NzggMC4zMDM4MDUKdnQgMC4wMDAwMDAgMC4wMDAwMDAKdnQgMC4wMDAwMDAgMC4wMDAwMDAKdnQgMC4wMDAwMDAgMC4wMDAwMDAKdnQgMC40MzM0MTAgMC41MDAwMDAKdnQgMC4zNzUwMDAgMC41MDAwMDAKdnQgMC4xOTcwODAgMC41MjQ1NDUKdm4gLTAuNjQ2OSAwLjc2MjUgMC4wMDAwCnZuIDAuMDAwMCAtMS4wMDAwIDAuMDAwMAp2biAtMC45Nzk5IC0wLjE5OTQgMC4wMDAwCnZuIC0xLjAwMDAgMC4wMDAwIDAuMDAwMAp2biAwLjAwMDAgMS4wMDAwIC0wLjAwMDAKdm4gLTAuMDAwMCAwLjAwMDAgMS4wMDAwCnZuIDAuNDc5NyAwLjAwMDAgMC44Nzc0CnZuIDAuNjU5OCAwLjAyODYgMC43NTA5CnZuIDEuMDAwMCAtMC4wMDQ4IC0wLjAwMDAKdm4gMC45Nzk0IDAuMjAyMCAtMC4wMDAwCnZuIDAuNjUxOCAtMC43NTg0IC0wLjAwMDAKdm4gMC4wMDAwIDAuMDAwMCAtMS4wMDAwCnZuIDAuNjU5OCAwLjAyODYgLTAuNzUwOQp2biAwLjQ3OTcgMC4wMDAwIC0wLjg3NzQKcyBvZmYKZiA4LzEvMSAyLzIvMSA0LzMvMSA5LzQvMQpmIDMvNS8yIDUvNi8yIDEvNy8yCmYgMS84LzMgNy85LzMgMTAvMTAvMyAzLzExLzMKZiA3LzkvNCA4LzEvNCA5LzQvNCAxMC8xMC80CmYgMi8xMi81IDYvMTMvNSA0LzMvNQpmIDE1LzE0LzYgMTQvMTUvNiA3LzkvNiAxLzgvNgpmIDEyLzE2LzcgMTUvMTQvNyAxMS8xNy83CmYgMi8xMi83IDEyLzE2LzcgMTEvMTcvNyA2LzE4LzcKZiA4LzEvNiAxMy8xOS82IDEyLzE2LzYgMi8xMi82CmYgNy85LzYgMTQvMTUvNiAxMy8xOS82IDgvMS82CmYgMS84LzggNS82LzggMTEvMTcvOCAxNS8xNC84CmYgMTUvMTQvNCAxMi8xNi80IDE2LzIwLzQgMTkvMjEvNApmIDEzLzE5LzkgMTQvMTUvOSAxOC8yMi85IDE3LzIzLzkKZiAxNC8xNS8xMCAxNS8xNC8xMCAxOS8yMS8xMCAxOC8yMi8xMApmIDEyLzE2LzExIDEzLzE5LzExIDE3LzIzLzExIDE2LzIwLzExCmYgOS80LzEyIDQvMy8xMiAxNi8yMC8xMiAxNy8yMy8xMgpmIDEwLzEwLzEyIDkvNC8xMiAxNy8yMy8xMiAxOC8yMi8xMgpmIDMvMTEvMTIgMTAvMTAvMTIgMTgvMjIvMTIgMTkvMjEvMTIKZiAzLzExLzEzIDE5LzIxLzEzIDExLzI0LzEzIDUvMjUvMTMKZiAxOS8yMS8xNCAxNi8yMC8xNCAxMS8yNC8xNApmIDYvMTMvMTQgMTEvMjYvMTQgMTYvMjAvMTQgNC8zLzE0Cm8gbWFyc2JhcnJpZXJfcmVmbGVjdAp2IDAuMDI0NDgyIDAuNzQ1OTg3IDAuMDAwMTYxCnYgLTAuMDE0MDMwIDAuNzQ1OTg3IC0wLjAyMDk5Ngp2IC0wLjAxNDAzMCAwLjc0NTk4NyAwLjAyMTMxOQp2IC0wLjAxNDAzMCAwLjcwMzY5MyAwLjAyMTMxOQp2IC0wLjAxNDAzMCAwLjcwMzY5MyAtMC4wMjA5OTYKdiAwLjAyNDQ4MiAwLjcwMzY5MyAwLjAwMDE2MQp2dCAwLjYyNTAwMCAwLjMzNTQxMgp2dCAwLjYyNTAwMCAwLjAwMDAwMAp2dCAwLjYyNTAwMCAwLjAwMDAwMAp2dCAwLjYyNTAwMCAwLjMzNTQxMgp2dCAwLjYyNTAwMCAwLjUwMDAwMAp2dCAwLjc4OTU4OCAwLjUwMDAwMAp2dCAwLjc4OTU4OCAwLjc1MDAwMAp2dCAwLjYyNTAwMCAwLjkxNDU4OAp2dCAwLjYyNTAwMCAwLjc1MDAwMAp2dCAwLjYyNTAwMCAwLjc1MDAwMAp2dCAwLjYyNTAwMCAwLjkxNDU4OAp2dCAwLjYyNTAwMCAwLjUwMDAwMAp2biAtMS4wMDAwIDAuMDAwMCAwLjAwMDAKdm4gMC4wMDAwIDEuMDAwMCAwLjAwMDAKdm4gMC40ODE1IDAuMDAwMCAwLjg3NjQKdm4gMC40ODE1IDAuMDAwMCAtMC44NzY0CnMgb2ZmCmYgMjQvMjcvMTUgMjMvMjgvMTUgMjIvMjkvMTUgMjEvMzAvMTUKZiAyMC8zMS8xNiAyMS8zMi8xNiAyMi8zMy8xNgpmIDIzLzM0LzE3IDI1LzM1LzE3IDIwLzM2LzE3IDIyLzM3LzE3CmYgMjUvMzgvMTggMjQvMjcvMTggMjEvMzAvMTggMjAvMzEvMTgK",
+L03228   tD =
+L03229     "data:model/obj;base64,IyBCbGVuZGVyIHYyLjkyLjAgT0JKIEZpbGU6ICcnCiMgd3d3LmJsZW5kZXIub3JnCm8gbWFyc21hcmtlcl9ibGFjawp2IC0wLjAyOTA4MSAtMC4xODE2ODAgMC4wMjE2NzEKdiAwLjAwMDAwMCAtMC4xODE2ODAgLTAuMDI5NDUxCnYgMC4wMjkwODEgLTAuMTgxNjgwIDAuMDIxNjcxCnYgLTAuMDI5MDgxIDAuNjYwNTg2IDAuMDIxNjcxCnYgMC4wMDAwMDAgMC42NjA1ODYgLTAuMDI5NDUxCnYgMC4wMjkwODEgMC42NjA1ODYgMC4wMjE2NzEKdnQgMC4zNzUwMDAgMC43NTAwMDAKdnQgMC41OTkxMTUgMC43NTAwMDAKdnQgMC41OTkxMTUgMS4wMDAwMDAKdnQgMC4zNzUwMDAgMS4wMDAwMDAKdnQgMC4zNzUwMDAgMC41MDAwMDAKdnQgMC41OTkxMTUgMC41MDAwMDAKdnQgMC4zNzUwMDAgMC4wMDAwMDAKdnQgMC41OTkxMTUgMC4wMDAwMDAKdnQgMC41OTkxMTUgMC4yNTAwMDAKdnQgMC4zNzUwMDAgMC4yNTAwMDAKdm4gMC4wMDAwIDAuMDAwMCAxLjAwMDAKdm4gMC44NjkyIDAuMDAwMCAtMC40OTQ1CnZuIC0wLjg2OTIgMC4wMDAwIC0wLjQ5NDUKcyBvZmYKZiAzLzEvMSA2LzIvMSA0LzMvMSAxLzQvMQpmIDIvNS8yIDUvNi8yIDYvMi8yIDMvMS8yCmYgMS83LzMgNC84LzMgNS85LzMgMi8xMC8zCm8gbWFyc21hcmtlcl9yZWZsZWN0CnYgLTAuMDI5MDgxIDAuNzE0NTU0IDAuMDIxNjcxCnYgMC4wMDAwMDAgMC43MTQ1NTQgLTAuMDI5NDUxCnYgMC4wMjkwODEgMC43MTQ1NTQgMC4wMjE2NzEKdiAtMC4wMjkwODEgMC42NjA1ODYgMC4wMjE2NzEKdiAwLjAwMDAwMCAwLjY2MDU4NiAtMC4wMjk0NTEKdiAwLjAyOTA4MSAwLjY2MDU4NiAwLjAyMTY3MQp2dCAwLjU5OTExNSAwLjAwMDAwMAp2dCAwLjYyNTAwMCAwLjAwMDAwMAp2dCAwLjYyNTAwMCAwLjI1MDAwMAp2dCAwLjU5OTExNSAwLjI1MDAwMAp2dCAwLjU5OTExNSAwLjUwMDAwMAp2dCAwLjYyNTAwMCAwLjUwMDAwMAp2dCAwLjYyNTAwMCAwLjc1MDAwMAp2dCAwLjU5OTExNSAwLjc1MDAwMAp2dCAwLjYyNTAwMCAxLjAwMDAwMAp2dCAwLjU5OTExNSAxLjAwMDAwMAp2dCAwLjg3NTAwMCAwLjUwMDAwMAp2dCAwLjg3NTAwMCAwLjc1MDAwMAp2biAtMC44NjkyIDAuMDAwMCAtMC40OTQ1CnZuIDAuODY5MiAwLjAwMDAgLTAuNDk0NQp2biAwLjAwMDAgMC4wMDAwIDEuMDAwMAp2biAwLjAwMDAgMS4wMDAwIDAuMDAwMApzIG9mZgpmIDEwLzExLzQgNy8xMi80IDgvMTMvNCAxMS8xNC80CmYgMTEvMTUvNSA4LzE2LzUgOS8xNy81IDEyLzE4LzUKZiAxMi8xOC82IDkvMTcvNiA3LzE5LzYgMTAvMjAvNgpmIDgvMjEvNyA3LzIyLzcgOS8xNy83Cg==";
+L03230 let qi,
+L03231   a0,
+L03232   o0 = 32,
+L03233   h0,
+L03234   rn,
+L03235   d0,
+L03236   u0 = 16,
+L03237   sD = 0,
+L03238   c0 = [1.5],
+L03239   f0 = 3,
+L03240   iD = [0.8, 0.5, 0.9, 0.8, 1, 1, 1, 1],
+L03241   v0,
+L03242   p0,
+L03243   m0,
+L03244   g0,
+L03245   _0,
+L03246   lD,
+L03247   b0 = 0.75,
+L03248   Cc = 1,
+L03249   nD = 0.25,
+L03250   rD = 0.8,
+L03251   w0 = 0,
+L03252   D0 = 1,
+L03253   M0 = 1,
+L03254   I0 = 1,
+L03255   A0 = 0.2,
+L03256   y0 = 0.5;
+L03257 const aD = new sf({
+L03258     scale: 0.6,
+L03259     offset: 0,
+L03260     resolution: 5,
+L03261     depth: 3,
+L03262     upscale: 3,
+L03263     tileSize: 80,
+L03264     spiralise: !1,
+L03265     repeated: !0,
+L03266   }),
+L03267   oD = new sf({
+L03268     scale: 16,
+L03269     offset: 8,
+L03270     resolution: 8,
+L03271     depth: 2,
+L03272     upscale: 3,
+L03273     tileSize: 100,
+L03274     spiralise: !1,
+L03275     repeated: !0,
+L03276   });
+L03277 let Ec,
+L03278   Lc,
+L03279   Tc,
+L03280   Bd,
+L03281   Wd,
+L03282   qd,
+L03283   S0,
+L03284   Kd,
+L03285   k0,
+L03286   C0,
+L03287   gl,
+L03288   hh = {},
+L03289   hD = 40,
+L03290   dD = 0.5,
+L03291   E0 = !1,
+L03292   Nc = 200,
+L03293   wa = 1600,
+L03294   Vc = 20,
+L03295   dh = !1,
+L03296   Ld = !1,
+L03297   zc = !1,
+L03298   Rc = !1,
+L03299   L0 = 0,
+L03300   uD = { x: 50, y: 25, z: -100 },
+L03301   au = 30,
+L03302   T0 = 4,
+L03303   cD = au / 2 - T0;
+L03304 const Pc = { Barrier: 0 },
+L03305   fD = {
+L03306     BarrierMarker: { src: eD, materials: Hd, retireMargin: 10 },
+L03307     Marker: { src: tD, materials: Hd, retireMargin: 10 },
+L03308   };
+L03309 let Yd = 1e3,
+L03310   vD = 0.3,
+L03311   pD = 0.25,
+L03312   jc = !0;
+L03313 const mD = (s, e) => {
+L03314     let t = ar.graphics.viewDistance[s],
+L03315       i = ar.graphics.detail[e];
+L03316     ((o0 = t.heightmapMaxCached),
+L03317       (qi = t.tileSize * 2),
+L03318       (S0 = e >= 2),
+L03319       (Kd = Math.sqrt(5 / (qi * qi))),
+L03320       (Wd = qi * Bd),
+L03321       (qd = qi),
+L03322       t.roadNodes,
+L03323       (v0 = t.tileSize),
+L03324       (p0 = 20),
+L03325       (m0 = i.cellRes),
+L03326       (g0 = t.lod0Horizon),
+L03327       (_0 = t.lod1Horizon),
+L03328       i.shadowRes,
+L03329       (Yd = t.lod1Horizon * i.cellRes * 10),
+L03330       (Nc = t.cloudAltitude),
+L03331       (wa = Math.max(qi * 2, Nc * 12)),
+L03332       (Vc = Math.max(20, wa / 400)),
+L03333       Pw(t));
+L03334   },
+L03335   gD = (s) => {
+L03336     let e = s.roadStyle,
+L03337       t = Qc[s.laneStyle];
+L03338     t = 0;
+L03339     let i = ar.roads,
+L03340       l = i.style[e],
+L03341       n;
+L03342     t == 0 ? (n = i.laneWidth.single) : (n = i.laneWidth.compound);
+L03343     let r;
+L03344     s.laneStyle == nn.OffRoadWide || s.laneStyle == nn.SingleWide ? (r = n.wide) : (r = n.standard);
+L03345     let o = 0,
+L03346       a = [];
+L03347     if (t == 0) (a.push(0), (o = r / 2));
+L03348     else {
+L03349       let h = 0.1,
+L03350         u = 0.2;
+L03351       o = h;
+L03352       for (let c = 0; c < t; c++) ((o += r), a.push(o - r / 2));
+L03353       o += u;
+L03354     }
+L03355     ((a0 = l.heightmap), (h0 = l.midline), (rn = o), (f0 = r), (c0 = a), (d0 = o / 2), _D());
+L03356   },
+L03357   _D = () => {
+L03358     u0 = 24 - rn;
+L03359   },
+L03360   bD = (s) => {
+L03361     let e = { ...ar.style[s.location].common, ...ar.style[s.location][s.time] };
+L03362     ((Cc = e.friction.road),
+L03363       (b0 = e.friction.regolith),
+L03364       (M0 = e.slip.road),
+L03365       (I0 = e.slip.regolith),
+L03366       (A0 = e.roughness.road),
+L03367       (y0 = e.roughness.regolith),
+L03368       (Ec = e.fog.colA),
+L03369       (Lc = e.fog.colB),
+L03370       (Tc = e.fog.colC),
+L03371       (Bd = e.fog.near),
+L03372       (Kd = Math.sqrt(5 / (qi * qi))),
+L03373       (Wd = qi * Bd),
+L03374       (qd = qi),
+L03375       (k0 = e.fog.hazeHeight ?? 0),
+L03376       (C0 = e.fog.hazeIntensity ?? 0),
+L03377       e.colours.clear,
+L03378       (gl = e.lights),
+L03379       (w0 = e.surfaces.road),
+L03380       (D0 = e.surfaces.offroad),
+L03381       (hh = e.audio),
+L03382       (E0 = s.location == "moon"),
+L03383       (jc = e.hasRubble),
+L03384       (Ld = !!e.stars),
+L03385       (zc = e.stars),
+L03386       (dh = e.clouds.hasClouds),
+L03387       (Rc = !!e.hasEarth),
+L03388       (L0 = e.nightEarth ? 1 : 0),
+L03389       Rw(s.season, e));
+L03390   },
+L03391   si = {},
+L03392   mp = (s, e, t, i) => {
+L03393     ((si.h = 0),
+L03394       (e.h = e.n.h + e.t * (e.n.next.h - e.n.h)),
+L03395       (e.gfa = e.n.gfa + e.t * (e.n.next.gfa - e.n.gfa)),
+L03396       e.s == Math.sign(e.g) ? (e.ga = Math.max(0, Math.abs(e.g) - 1) / 2) : (e.ga = 0),
+L03397       (e.w = rn + sD),
+L03398       (e.ga = Math.min(1, Math.max(0, e.ga)) ** 2),
+L03399       (e.blend = e.n.blend + e.t * (e.n.next.blend - e.n.blend)),
+L03400       (si.rm = u0 * (0.5 + 0.5 * e.blend)));
+L03401     let l = (e.d - e.w) / 16;
+L03402     if (
+L03403       (l < 0 && (l = 0),
+L03404       l > 1 && (l = 1),
+L03405       (l = (1 - l) ** 2),
+L03406       l > 0 && e.ga > 0 && (s += oD.getXZ(t, i) * l * e.ga),
+L03407       e.d < e.w + si.rm)
+L03408     ) {
+L03409       ((si.l = 1), (si.la = 1.5));
+L03410       let n = 1,
+L03411         r = 2.8,
+L03412         o = 0.1;
+L03413       if (e.d < e.w) {
+L03414         if (((si.l = e.d / e.w), e.d < e.w - r)) {
+L03415           let h = 1 - e.d / (e.w - r);
+L03416           n = Fc(h) * o;
+L03417         } else {
+L03418           let h = 1 - (e.w - e.d) / r;
+L03419           n = Fc(h) ** 2;
+L03420         }
+L03421         ((e.y -= (1 - n) * 0.25), (si.la = 1 - (1 - n) * 0.9));
+L03422       } else e.d < e.w + 2 && (si.la = 1 + (e.d - e.w) / 4);
+L03423       ((si.l *= e.s), (e.y += aD.getXZ(t, i) * si.la));
+L03424       let a = e.t;
+L03425       return (
+L03426         (e.slope = e.n.bank * (1 - a) + e.n.next.bank * a),
+L03427         (e.y += e.slope * si.l),
+L03428         e.d < d0
+L03429           ? e.y
+L03430           : ((si.lt = Math.max(0, Math.min(1, (e.d - e.w) / si.rm))),
+L03431             (si.lt = wD(si.lt)),
+L03432             (si.h = s),
+L03433             (si.rd = e.d - e.w),
+L03434             si.h * si.lt + e.y * (1 - si.lt))
+L03435       );
+L03436     }
+L03437     return s;
+L03438   },
+L03439   Fc = (s) => (s * (s * 6 - 15) + 10) * s * s * s,
+L03440   wD = (s) => Math.sqrt(Fc(s)),
+L03441   DD = Math.PI * 2,
+L03442   ne = {};
+L03443 class Qd extends q2 {
+L03444   constructor(t = {}) {
+L03445     super(t);
+L03446     E(this, "config", {
+L03447       seed: "a",
+L03448       scale: 70,
+L03449       resolution: 2,
+L03450       depth: 5,
+L03451       upscaleFactor: 3,
+L03452       offset: 0,
+L03453       initialHeight: 1,
+L03454       squared: !0,
+L03455       compound: !0,
+L03456       craterLayers: 2,
+L03457       craterDepth: 1.5,
+L03458       craterProb: 1,
+L03459       maxCached: 32,
+L03460     });
+L03461     E(this, "craterCache", {});
+L03462     E(this, "grad");
+L03463     this.config = { ...this.config, ...t };
+L03464   }
+L03465   pruneCache(t = !1) {
+L03466     if (!t && this.cacheCount <= this.config.maxCached) return;
+L03467     let i, l;
+L03468     for (i in this.cache) {
+L03469       for (l in this.cache[i])
+L03470         if (this.cacheAccess[i][l] < 0 || this.cacheLayer[i][l] !== this.curLayer[i < K2 ? 0 : 1]) {
+L03471           if (
+L03472             (delete this.cache[i][l],
+L03473             delete this.cacheAccess[i][l],
+L03474             delete this.cacheLayer[i][l],
+L03475             i in this.craterCache && delete this.craterCache[i][l],
+L03476             this.cacheCount--,
+L03477             !t && this.cacheCount <= this.config.maxCached)
+L03478           )
+L03479             break;
+L03480         } else this.cacheAccess[i][l] -= 1;
+L03481       if (
+L03482         (Object.keys(this.cache[i]).length == 0 &&
+L03483           (delete this.cache[i],
+L03484           delete this.cacheAccess[i],
+L03485           delete this.cacheLayer[i],
+L03486           delete this.craterCache[i]),
+L03487         !t && this.cacheCount <= this.config.maxCached)
+L03488       )
+L03489         break;
+L03490     }
+L03491   }
+L03492   checkTileCrater(t, i, l, n, r) {
+L03493     var o;
+L03494     return (
+L03495       (this.craterCache[t] && this.craterCache[t][i]) || this.cacheTileCraters(t, i),
+L03496       (o = this.craterCache[t][i][r][Math.floor(l * ((r + 1) * 2))]) == null
+L03497         ? void 0
+L03498         : o[Math.floor(n * ((r + 1) * 2))]
+L03499     );
+L03500   }
+L03501   cacheTileCraters(t, i) {
+L03502     let l = [],
+L03503       n,
+L03504       r = 0,
+L03505       o,
+L03506       a,
+L03507       h,
+L03508       u,
+L03509       c,
+L03510       _,
+L03511       b,
+L03512       D,
+L03513       g,
+L03514       w,
+L03515       I,
+L03516       A = new window.alea(this.config.seed + "#" + this.curLayer[t < 0 ? 0 : 1] + "#" + t + "#" + i);
+L03517     for (let C = 0; C < this.config.craterLayers; C++) {
+L03518       for (
+L03519         n = {},
+L03520           o = (C + 1) * 2,
+L03521           a = 1 / (o * 2),
+L03522           c = 1 / o / 2,
+L03523           _ = c / 2,
+L03524           u = c - _,
+L03525           r = this.config.craterProb * o * o,
+L03526           h = 0;
+L03527         h < r;
+L03528         h++
+L03529       )
+L03530         ((g = _ + A() * u),
+L03531           (b = c - g),
+L03532           (D = -(b / 2)),
+L03533           (w = Math.floor(A() * o)),
+L03534           (I = Math.floor(A() * o)),
+L03535           n[w] || (n[w] = {}),
+L03536           (n[w][I] = {
+L03537             x: w / o + a + (A() * b + D),
+L03538             y: -(1 + A()) * this.config.craterDepth,
+L03539             z: I / o + a + (A() * b + D),
+L03540             r: g,
+L03541             r2: g * g,
+L03542             r3: g * g * g * 0.512,
+L03543           }));
+L03544       l.push(n);
+L03545     }
+L03546     return (this.craterCache[t] || (this.craterCache[t] = {}), (this.craterCache[t][i] = l), l);
+L03547   }
+L03548   generateTile(t, i) {
+L03549     let l,
+L03550       n,
+L03551       r,
+L03552       o,
+L03553       a = new window.alea(this.config.seed + "#" + this.curLayer[t < 0 ? 0 : 1] + "#" + t + "#" + i),
+L03554       h = this.config.resolution,
+L03555       u = [],
+L03556       c = [];
+L03557     for (l = 0; l < this.config.depth; l++) {
+L03558       for (c = [], n = 0; n < h; n++)
+L03559         for (c.push([]), r = 0; r < h; r++) ((o = a() * DD), c[n].push({ x: Math.cos(o), y: Math.sin(o) }));
+L03560       (u.push(c), (h = this.getNextDepthResolution(h, l)));
+L03561     }
+L03562     return u;
+L03563   }
+L03564   getNextDepthResolution(t, i) {
+L03565     return Math.round(t * this.config.upscaleFactor);
+L03566   }
+L03567   dotGridGradient(t, i, l, n, r) {
+L03568     return ((this.grad = t[i][l]), (n - i) * this.grad.x + (r - l) * this.grad.y);
+L03569   }
+L03570   sharpLerp(t, i, l) {
+L03571     return (i - t) * l + t;
+L03572   }
+L03573   smoothLerp(t, i, l) {
+L03574     return (i - t) * (3 - l * 2) * l * l + t;
+L03575   }
+L03576   smootherLerp(t, i, l) {
+L03577     return (i - t) * ((l * (l * 6 - 15) + 10) * l * l * l) + t;
+L03578   }
+L03579   getMidlineXZ(t, i) {
+L03580     return this.getXZ(t, i);
+L03581   }
+L03582   getXZ(t, i, l) {
+L03583     ((ne.d = 0),
+L03584       (ne.h = 0),
+L03585       (ne.sq = this.config.resolution),
+L03586       (ne.sqb = ne.sq - 1),
+L03587       (ne.wx = t / this.tileSize),
+L03588       (ne.wz = i / this.tileSize),
+L03589       (ne.ox = Math.floor(ne.wx)),
+L03590       (ne.oz = Math.floor(ne.wz)),
+L03591       (ne.px = ne.wx - ne.ox),
+L03592       ne.px == 1 && (ne.px -= 1e-7),
+L03593       (ne.pz = ne.wz - ne.oz),
+L03594       ne.pz == 1 && (ne.pz -= 1e-7),
+L03595       (ne.tile = this.getTile(ne.ox, ne.oz)),
+L03596       (l = l || this.config.depth),
+L03597       (ne.depth = 0),
+L03598       (ne.h = this.config.initialHeight),
+L03599       (ne.heightFactor = 1),
+L03600       (ne.ch = 0));
+L03601     for (ne.layer of ne.tile) {
+L03602       if (ne.depth == l) break;
+L03603       ((ne.sx = ne.px * ne.sq),
+L03604         (ne.sz = ne.pz * ne.sq),
+L03605         (ne.ix = Math.floor(ne.sx)),
+L03606         (ne.ix1 = ne.ix + 1),
+L03607         (ne.iz = Math.floor(ne.sz)),
+L03608         (ne.iz1 = ne.iz + 1),
+L03609         (ne.qx = ne.sx - ne.ix),
+L03610         (ne.qz = ne.sz - ne.iz),
+L03611         (ne.n0 = this.dotGridGradient(ne.layer, ne.ix, ne.iz, ne.sx, ne.sz)),
+L03612         ne.ix1 < ne.sq
+L03613           ? (ne.n1 = this.dotGridGradient(ne.layer, ne.ix1, ne.iz, ne.sx, ne.sz))
+L03614           : (ne.n1 = this.dotGridGradient(
+L03615               this.getTile(ne.ox + 1, ne.oz)[ne.depth],
+L03616               0,
+L03617               ne.iz,
+L03618               ne.sx - ne.sq,
+L03619               ne.sz,
+L03620             )),
+L03621         (ne.int0 = this.smootherLerp(ne.n0, ne.n1, ne.qx)),
+L03622         ne.iz1 < ne.sq
+L03623           ? ((ne.n0 = this.dotGridGradient(ne.layer, ne.ix, ne.iz1, ne.sx, ne.sz)),
+L03624             ne.ix1 < ne.sq
+L03625               ? (ne.n1 = this.dotGridGradient(ne.layer, ne.ix1, ne.iz1, ne.sx, ne.sz))
+L03626               : (ne.n1 = this.dotGridGradient(
+L03627                   this.getTile(ne.ox + 1, ne.oz)[ne.depth],
+L03628                   0,
+L03629                   ne.iz1,
+L03630                   ne.sx - ne.sq,
+L03631                   ne.sz,
+L03632                 )))
+L03633           : ((ne.n0 = this.dotGridGradient(
+L03634               this.getTile(ne.ox, ne.oz + 1)[ne.depth],
+L03635               ne.ix,
+L03636               0,
+L03637               ne.sx,
+L03638               ne.sz - ne.sq,
+L03639             )),
+L03640             ne.ix1 < ne.sq
+L03641               ? (ne.n1 = this.dotGridGradient(
+L03642                   this.getTile(ne.ox, ne.oz + 1)[ne.depth],
+L03643                   ne.ix1,
+L03644                   0,
+L03645                   ne.sx,
+L03646                   ne.sz - ne.sq,
+L03647                 ))
+L03648               : (ne.n1 = this.dotGridGradient(
+L03649                   this.getTile(ne.ox + 1, ne.oz + 1)[ne.depth],
+L03650                   0,
+L03651                   0,
+L03652                   ne.sx - ne.sq,
+L03653                   ne.sz - ne.sq,
+L03654                 ))),
+L03655         (ne.int1 = this.smootherLerp(ne.n0, ne.n1, ne.qx)),
+L03656         (ne.heightFactor = this.config.resolution / ne.sq),
+L03657         this.config.compound && (ne.heightFactor *= ne.h),
+L03658         (ne.cl = 1),
+L03659         ne.depth < this.config.craterLayers &&
+L03660           ((ne.craterFactor = 1 / ((ne.depth + 1) * 2)),
+L03661           (ne.c = this.checkTileCrater(ne.ox, ne.oz, ne.px, ne.pz, ne.depth)),
+L03662           ne.c &&
+L03663             ((ne.d = (ne.c.x - ne.px) * (ne.c.x - ne.px) + (ne.c.z - ne.pz) * (ne.c.z - ne.pz)),
+L03664             ne.d < ne.c.r2 &&
+L03665               ((ne.ch -= ne.c.y * (1 - this.smoothLerpW(1 - ne.d / ne.c.r2)) * ne.craterFactor * 0.5 * ne.cl),
+L03666               (ne.d *= Math.sqrt(ne.d)),
+L03667               ne.d < ne.c.r3 &&
+L03668                 ((ne.d = ne.d / ne.c.r3),
+L03669                 (ne.ch += ne.c.y * (1 - this.smootherLerpW(1 - ne.d)) * ne.craterFactor * ne.cl),
+L03670                 (ne.cl = Math.min(ne.cl, ne.d)))))),
+L03671         (ne.h += this.smootherLerp(ne.int0, ne.int1, ne.qz) * ne.heightFactor * ne.cl),
+L03672         (ne.sq = this.getNextDepthResolution(ne.sq, ne.depth)),
+L03673         ne.depth++);
+L03674     }
+L03675     return (
+L03676       this.config.squared && (ne.h *= ne.h),
+L03677       (ne.h += ne.ch),
+L03678       ne.h * this.config.scale + this.config.offset
+L03679     );
+L03680   }
+L03681   smootherLerpW(t) {
+L03682     return -1 * ((t * (t * 6 - 15) + 10) * t * t * t) + 1;
+L03683   }
+L03684   sharpLerpW(t) {
+L03685     return 1 - t;
+L03686   }
+L03687   smoothLerpW(t) {
+L03688     return -1 * (3 - t * 2) * t * t + 1;
+L03689   }
+L03690 }
+L03691 const MD = "" + new URL("../assets/rock.94cc093e.obj", import.meta.url).href,
+L03692   Cs = class Cs extends $c {
+L03693     constructor(...e) {
+L03694       (super(...e), Cs.protoGeo === void 0 && ((Cs.protoGeo = null), Cs.loadProtoGeo()));
+L03695     }
+L03696     init(e) {
+L03697       if (((this.maxCount = Yd), (this.curIndex = 0), e && (this.parent = e), !Cs.protoGeo)) {
+L03698         Cs.loadQueue.push(() => this.init());
+L03699         return;
+L03700       }
+L03701       ((this.mesh = new iu(Cs.protoGeo.clone(), Gd, this.maxCount)),
+L03702         this.mesh.instanceMatrix.setUsage(rs),
+L03703         (this.mesh.receiveShadow = !0),
+L03704         (this.mesh.matrixAutoUpdate = !1),
+L03705         this.parent.add(this.mesh),
+L03706         this.reset(),
+L03707         this.postInit());
+L03708     }
+L03709     destroy() {
+L03710       var e;
+L03711       (super.destroy(),
+L03712         delete this.parent,
+L03713         (e = this.mesh) != null && e.geometry && this.mesh.geometry.dispose(),
+L03714         (Cs.loadQueue.length = 0),
+L03715         Cs.protoGeo && (Cs.protoGeo.dispose(), (Cs.protoGeo = void 0), (Cs.geoHasLoaded = !1)),
+L03716         (Cs.didDestroy = !0));
+L03717     }
+L03718   };
+L03719 (E(Cs, "protoGeo"),
+L03720   E(Cs, "geoHasLoaded", !1),
+L03721   E(Cs, "loadQueue", []),
+L03722   E(Cs, "didDestroy", !1),
+L03723   E(Cs, "loadProtoGeo", () => {
+L03724     new Lg().load(MD, (t) => {
+L03725       t.traverse((i) => {
+L03726         if (Cs.didDestroy) {
+L03727           ((Cs.didDestroy = !1), (Cs.geoHasLoaded = !1));
+L03728           return;
+L03729         }
+L03730         if (i.isMesh) {
+L03731           ((Cs.protoGeo = i.geometry), (Cs.didDestroy = !1), (Cs.geoHasLoaded = !0));
+L03732           for (let l of Cs.loadQueue) l();
+L03733         }
+L03734       });
+L03735     });
+L03736   }));
+L03737 let Zd = Cs;
+L03738 const Ur = new ef(Zd, 3, "rubble"),
+L03739   Bt = { vec: new Ki() },
+L03740   gp = 32,
+L03741   ID = 0.1,
+L03742   Ou = new fi("offworld", 101),
+L03743   AD = new fi("offword", 47, 0.5, -0.4),
+L03744   yD = () => {
+L03745     let s = [],
+L03746       e = new window.alea("bump"),
+L03747       t;
+L03748     for (let i = 0; i < gp; i++) {
+L03749       t = [];
+L03750       for (let l = 0; l < gp; l++) t.push(e() * ID);
+L03751       (t.push(t[0]), s.push(t));
+L03752     }
+L03753     return (s.push(s[0]), s);
+L03754   };
+L03755 yD();
+L03756 const Tl = class Tl extends vh {
+L03757   constructor() {
+L03758     super();
+L03759     E(this, "uvArr");
+L03760     (Tl.posRand == null &&
+L03761       ((Tl.posRand = new fi("offworld", 101, 1, 0.5)), (Tl.rotRand = new fi("offworld", 59, Math.TAU))),
+L03762       this.geo.setAttribute("roadUv", new us(new Float32Array(vh.bufferSize * 2), 2)),
+L03763       this.geo.attributes.roadUv.setUsage(rs),
+L03764       (this.uvArr = this.geo.attributes.roadUv.array));
+L03765   }
+L03766   customCellLoad(t, i, l, n, r, o, a, h) {
+L03767     a.d < rn
+L03768       ? ((this.uvArr[i * 2] = 0.5 - ((a.d / rn) * a.s) / 2), (this.uvArr[i * 2 + 1] = a.n.i + a.t))
+L03769       : ((this.uvArr[i * 2] = 0), (this.uvArr[i * 2 + 1] = 0));
+L03770   }
+L03771   customFinalise() {
+L03772     this.geo.attributes.roadUv.needsUpdate = !0;
+L03773   }
+L03774   customUpgrade() {
+L03775     Ur.update();
+L03776   }
+L03777   loadCustom1() {
+L03778     if (!Zd.geoHasLoaded) return !1;
+L03779     for (Bt.x = this.genCell.genRow, Bt.wx = this.genCell.worldX + Bt.x * ba, Bt.z = 0; Bt.z < ir; Bt.z += 2)
+L03780       Ou.next() > pD ||
+L03781         ((Bt.wz = this.genCell.worldZ + Bt.z * ba),
+L03782         (Bt.sink = 0.15),
+L03783         (Bt.rp = this.getRoadProxFromCell(this.genCell, Bt.x, Bt.z)),
+L03784         !(Bt.rp < 0.5 || Bt.rp > 20) &&
+L03785           (Ou.next() < Bt.rp / 20 ||
+L03786             ((Bt.cv = this.getCurvatureFromCell(this.genCell, Bt.x, Bt.z)),
+L03787             !(Bt.cv < 0 && -Bt.cv * 50 > Ou.next()) &&
+L03788               ((Bt.st = this.getSteepnessFromCell(this.genCell, Bt.x, Bt.z)),
+L03789               !(Bt.st > 0.1) &&
+L03790                 ((Bt.scale = AD.next()),
+L03791                 Bt.rp < 4
+L03792                   ? (Bt.scale *= 0.5 + (Bt.rp / 4) * 0.5)
+L03793                   : Bt.rp > 4 && (Bt.sink += ((Bt.rp - 4) / 30) * vD),
+L03794                 (Bt.sink *= Bt.scale),
+L03795                 (Bt.wy = this.getHeightFromCell(this.genCell, Bt.x, Bt.z) - Bt.sink),
+L03796                 Ur.addInstance(
+L03797                   Bt.wx + Tl.posRand.next(),
+L03798                   Bt.wy,
+L03799                   Bt.wz + Tl.posRand.next(),
+L03800                   Tl.rotRand.next(),
+L03801                   Tl.rotRand.next(),
+L03802                   Tl.rotRand.next(),
+L03803                   Bt.scale,
+L03804                   this.downgradeIndex,
+L03805                 ))))));
+L03806     if (((this.genCell.genRow += 2), this.genCell.genRow < ir)) return !1;
+L03807     if ((this.genCellIndex++, this.genCellIndex >= this.cellList.length)) return !0;
+L03808     ((this.genCell = this.cellList[this.genCellIndex]), (this.genCell.genRow = 0));
+L03809   }
+L03810 };
+L03811 (E(Tl, "posRand", null), E(Tl, "rotRand", null));
+L03812 let Uc = Tl;
+L03813 const SD = 0.4,
+L03814   _p = 2,
+L03815   bp = 1.5,
+L03816   wp = 0.4,
+L03817   Dp = 0.2,
+L03818   Mp = -1,
+L03819   kD = 5,
+L03820   CD = 0.1,
+L03821   so = 0.8;
+L03822 let io,
+L03823   Hu = 0.65,
+L03824   Gu = 0.9,
+L03825   Bu = null,
+L03826   Ip;
+L03827 const Ee = {};
+L03828 let ED = class Td extends tf {
+L03829     constructor(t = null) {
+L03830       super();
+L03831       E(this, "p", new Ki());
+L03832       E(this, "mesh");
+L03833       E(this, "posAtt");
+L03834       E(this, "posArr");
+L03835       E(this, "uvAtt");
+L03836       E(this, "uvArr");
+L03837       E(this, "mapSource", null);
+L03838       E(this, "normSource", null);
+L03839       E(this, "bounds", { maxX: 0, minX: 0, maxY: 0, minY: 0, maxZ: 0, minZ: 0 });
+L03840       E(this, "wallNodeCount", 0);
+L03841       ((io = au * kD + 1),
+L03842         (this.mesh = new Ti(Td.getGeo(), nf)),
+L03843         (this.mesh.matrixAutoUpdate = !1),
+L03844         this.mesh.geometry.setDrawRange(0, 0),
+L03845         (this.posAttribute = this.mesh.geometry.attributes.position),
+L03846         (this.posArr = this.posAttribute.array),
+L03847         (this.uvAttribute = this.mesh.geometry.attributes.uv),
+L03848         (this.uvArr = this.uvAttribute.array),
+L03849         t && this.drawSegment(t));
+L03850     }
+L03851     drawSegment(t) {
+L03852       return (
+L03853         (this.seg = t),
+L03854         (this.drawNode = this.seg.startNode),
+L03855         (this.pi = 0),
+L03856         (this.ui = 0),
+L03857         (this.ox = this.seg.startNode.p.x),
+L03858         (this.oz = this.seg.startNode.p.z),
+L03859         (this.side = Math.sign(t.distance)),
+L03860         (this.ni = 0),
+L03861         (this.wallNodeCount = 0),
+L03862         (this.uvDist = 0),
+L03863         this.drawNextNode()
+L03864       );
+L03865     }
+L03866     drawNextNode() {
+L03867       ((Ee.dnp = this.drawNode.p),
+L03868         this.ni > 0
+L03869           ? ((this.bounds.maxX = Math.max(this.bounds.maxX, Ee.dnp.x - this.ox)),
+L03870             (this.bounds.minX = Math.min(this.bounds.minX, Ee.dnp.x - this.ox)),
+L03871             (this.bounds.maxY = Math.max(this.bounds.maxY, Ee.dnp.y)),
+L03872             (this.bounds.minY = Math.min(this.bounds.minY, Ee.dnp.y)),
+L03873             (this.bounds.maxZ = Math.max(this.bounds.maxZ, Ee.dnp.z - this.oz)),
+L03874             (this.bounds.minZ = Math.min(this.bounds.minZ, Ee.dnp.z - this.oz)))
+L03875           : ((this.bounds.maxX = Ee.dnp.x - this.ox),
+L03876             (this.bounds.minX = Ee.dnp.x - this.ox),
+L03877             (this.bounds.maxY = Ee.dnp.y),
+L03878             (this.bounds.minY = Ee.dnp.y),
+L03879             (this.bounds.maxZ = Ee.dnp.z - this.oz),
+L03880             (this.bounds.minZ = Ee.dnp.z - this.oz)),
+L03881         (Ee.drawNodeI = this.drawNode.i),
+L03882         (Ee.fineSegs = 0),
+L03883         (Ee.actualSegs = 0),
+L03884         (Ee.nextNode = this.drawNode.next),
+L03885         (Ee.baseNode = this.drawNode));
+L03886       do
+L03887         ((Ee.bank *= this.side),
+L03888           Ee.fineSegs++,
+L03889           Ee.actualSegs++,
+L03890           this.wallNodeCount++,
+L03891           (Ee.pj = this.drawNode.p),
+L03892           (Ee.nj = this.drawNode.n),
+L03893           (Ee.njs = { x: Ee.nj.x * this.side, z: Ee.nj.z * this.side }),
+L03894           (Ee.x = Ee.pj.x + Ee.nj.x * this.seg.distance),
+L03895           (Ee.x1 = Ee.x + Ee.nj.x * 0.1 * this.side),
+L03896           (Ee.z = Ee.pj.z + Ee.nj.z * this.seg.distance),
+L03897           (Ee.z1 = Ee.z + Ee.nj.z * 0.1 * this.side),
+L03898           (Ee.elev = Fs.getRoadsideHeight(Ee.x, Ee.z, Ee.baseNode)),
+L03899           (Ee.elev = Ee.pj.y * 0.5 + 0.5 * Ee.elev),
+L03900           (this.posArr[this.pi++] = Ee.x1 - this.ox),
+L03901           (this.posArr[this.pi++] = Ee.elev),
+L03902           (this.posArr[this.pi++] = Ee.z1 - this.oz),
+L03903           (this.posArr[this.pi++] = Ee.x - this.ox),
+L03904           (this.posArr[this.pi++] = Ee.elev + so * Hu),
+L03905           (this.posArr[this.pi++] = Ee.z - this.oz),
+L03906           (this.posArr[this.pi++] = Ee.x - this.ox),
+L03907           (this.posArr[this.pi++] = Ee.elev + so * Gu),
+L03908           (this.posArr[this.pi++] = Ee.z - this.oz),
+L03909           (this.posArr[this.pi++] = Ee.x1 - this.ox),
+L03910           (this.posArr[this.pi++] = Ee.elev + so),
+L03911           (this.posArr[this.pi++] = Ee.z1 - this.oz),
+L03912           (this.drawNode = this.drawNode.nextFine),
+L03913           this.drawNode.i != Ee.nextNode.i &&
+L03914             !(Ee.fineSegs == 1 && this.drawNode.nextFine.i == Ee.nextNode.i) &&
+L03915             (Ee.actualSegs++, (this.drawNode = this.drawNode.nextFine)));
+L03916       while (this.drawNode.i != Ee.nextNode.i);
+L03917       for (
+L03918         Ee.uvDist = 4 / Ee.actualSegs,
+L03919           Ee.subsampledUVs = Ee.actualSegs != Ee.fineSegs,
+L03920           Ee.evenUVs = Ee.actualSegs % 2 == 0,
+L03921           Ee.i = 0;
+L03922         Ee.i < Ee.fineSegs;
+L03923         Ee.i++
+L03924       ) {
+L03925         for (Ee.uvCount = 4; Ee.uvCount > 0;)
+L03926           ((this.uvArr[this.ui] = this.uvDist), (this.ui += 2), Ee.uvCount--);
+L03927         ((this.uvDist += Ee.uvDist),
+L03928           Ee.subsampledUVs && (Ee.evenUVs || Ee.i < Ee.fineSegs - 1) && (this.uvDist += Ee.uvDist));
+L03929       }
+L03930       if ((this.ni++, this.drawNode.i < this.seg.endNode.i)) return !1;
+L03931       for (
+L03932         Ee.pj = this.drawNode.p,
+L03933           Ee.nj = this.drawNode.n,
+L03934           Ee.njs = { x: Ee.nj.x * this.side, z: Ee.nj.z * this.side },
+L03935           Ee.x = Ee.pj.x + Ee.nj.x * this.seg.distance,
+L03936           Ee.z = Ee.pj.z + Ee.nj.z * this.seg.distance,
+L03937           Ee.x1 = Ee.x + Ee.nj.x * 0.1 * this.side,
+L03938           Ee.z1 = Ee.z + Ee.nj.z * 0.1 * this.side,
+L03939           Ee.elev = Fs.getRoadsideHeight(Ee.x, Ee.z, Ee.baseNode),
+L03940           Ee.elev = Ee.pj.y * 0.5 + 0.5 * Ee.elev,
+L03941           this.posArr[this.pi++] = Ee.x1 - this.ox,
+L03942           this.posArr[this.pi++] = Ee.elev,
+L03943           this.posArr[this.pi++] = Ee.z1 - this.oz,
+L03944           this.posArr[this.pi++] = Ee.x - this.ox,
+L03945           this.posArr[this.pi++] = Ee.elev + so * Hu,
+L03946           this.posArr[this.pi++] = Ee.z - this.oz,
+L03947           this.posArr[this.pi++] = Ee.x - this.ox,
+L03948           this.posArr[this.pi++] = Ee.elev + so * Gu,
+L03949           this.posArr[this.pi++] = Ee.z - this.oz,
+L03950           this.posArr[this.pi++] = Ee.x1 - this.ox,
+L03951           this.posArr[this.pi++] = Ee.elev + so,
+L03952           this.posArr[this.pi++] = Ee.z1 - this.oz,
+L03953           Ee.uvCount = 4;
+L03954         Ee.uvCount > 0;
+L03955       )
+L03956         ((this.uvArr[this.ui] = this.uvDist), (this.ui += 2), Ee.uvCount--);
+L03957       return (
+L03958         this.wallNodeCount++,
+L03959         (Ee.drawCount = (this.wallNodeCount - 1) * (3 * 2) * 3),
+L03960         this.mesh.geometry.setDrawRange(0, Ee.drawCount),
+L03961         this.computeBoundingSphere(),
+L03962         (this.mesh.geometry.boundingSphere = this.boundingSphere),
+L03963         this.mesh.position.set(this.ox, -CD, this.oz),
+L03964         (this.posAttribute.needsUpdate = !0),
+L03965         (this.uvAttribute.needsUpdate = !0),
+L03966         (this.mesh.visible = !0),
+L03967         this.mesh.updateMatrix(),
+L03968         this.seg.contiguousStart ||
+L03969           ((this.p.x = this.posArr[0] + this.mesh.position.x),
+L03970           (this.p.y = this.posArr[1]),
+L03971           (this.p.z = this.posArr[2] + this.mesh.position.z),
+L03972           ol.addObject(
+L03973             "BarrierMarker",
+L03974             this.p,
+L03975             Math.TAU - this.seg.startNode.a - (Math.PI / 2) * this.side,
+L03976             this.seg.startNode.i,
+L03977           )),
+L03978         !0
+L03979       );
+L03980     }
+L03981     retire() {
+L03982       this.mesh.visible = !1;
+L03983     }
+L03984     static getUV() {
+L03985       let t = [];
+L03986       for (let i = 0; i < io; i++) t.push(i, 0, i, Hu, i, Gu, i, 0.99);
+L03987       return t;
+L03988     }
+L03989     static getGeo() {
+L03990       if (Bu !== null && Ip == io) return Bu.clone();
+L03991       let t = new Rn();
+L03992       (t.setIndex(Td.getIndex()),
+L03993         t.setAttribute("position", new us(new Float32Array(io * 3 * 4), 3)),
+L03994         t.attributes.position.setUsage(rs));
+L03995       let i = Td.getUV();
+L03996       return (
+L03997         t.setAttribute("uv", new us(new Float32Array(i), 2)),
+L03998         t.attributes.uv.setUsage(rs),
+L03999         (Bu = t),
+L04000         (Ip = io),
+L04001         t
+L04002       );
+L04003     }
+L04004     static getIndex() {
+L04005       let t = [],
+L04006         i,
+L04007         l,
+L04008         n,
+L04009         r,
+L04010         o,
+L04011         a,
+L04012         h,
+L04013         u;
+L04014       for (let c = 0; c < io; c++)
+L04015         ((i = c * 4),
+L04016           (l = i + 1),
+L04017           (n = i + 2),
+L04018           (r = i + 3),
+L04019           (o = (c + 1) * 4),
+L04020           (a = o + 1),
+L04021           (h = o + 2),
+L04022           (u = o + 3),
+L04023           t.push(i, l, o, l, a, o, l, n, a, n, h, a, n, r, h, r, u, h));
+L04024       return t;
+L04025     }
+L04026   },
+L04027   LD = class extends lu {
+L04028     constructor() {
+L04029       super(...arguments);
+L04030       E(this, "typeID", Pc.Barrier);
+L04031     }
+L04032     generate(t) {
+L04033       let i = t.prev;
+L04034       for (t = t.next; this.test(i) && i.prev && i.i > this.prev.endNode.i && t.i - i.i < cD;) i = i.prev;
+L04035       for (i.i - this.prev.endNode.i < T0 && (i = this.prev.endNode); this.test(t) && t.i - i.i < au;)
+L04036         t = t.next;
+L04037       let l = new nu(i, t, Pc.Barrier, (rn + SD) * this.side);
+L04038       return (
+L04039         this.prev.endNode.i == i.i &&
+L04040           this.prev.type == l.type &&
+L04041           ((this.prev.contiguousEnd = !0), (l.contiguousStart = !0), (l.distance = this.prev.distance)),
+L04042         l
+L04043       );
+L04044     }
+L04045     testGenLeft(t) {
+L04046       return (
+L04047         t.lWallDist == null &&
+L04048         t.i >= this.prevLeft.endNode.i &&
+L04049         t.h < 0 &&
+L04050         (t.g < -_p || (t.g < -1 && t.da > wp))
+L04051       );
+L04052     }
+L04053     testGenRight(t) {
+L04054       return (
+L04055         t.rWallDist == null &&
+L04056         t.i >= this.prevRight.endNode.i &&
+L04057         t.h < 0 &&
+L04058         (t.g > _p || (t.g > 1 && t.da < -wp))
+L04059       );
+L04060     }
+L04061     testLeft(t) {
+L04062       return (t.h < 0 && t.g < -bp) || (t.g < -0.5 && t.da < -Dp) || t.h < Mp;
+L04063     }
+L04064     testRight(t) {
+L04065       return (t.h < 0 && t.g > bp) || (t.g > 0.5 && t.da > Dp) || t.h < Mp;
+L04066     }
+L04067   };
+L04068 const Wu = new yg([0, 0]),
+L04069   TD = "" + new URL("../assets/snow_spray.03bb4bca.webp", import.meta.url).href,
+L04070   ND = `
+L04071     uniform float appTime;
+L04072     attribute float direction;
+L04073     attribute float intensity;
+L04074     attribute float time;
+L04075     attribute float rot;
+L04076 
+L04077     varying float vOpacity;
+L04078     varying float vFade;
+L04079     varying float vRot;
+L04080 `,
+L04081   VD = `
+L04082 
+L04083     vec4 wPos = modelMatrix * vec4( position, 1.0 );
+L04084 
+L04085     float vAge = (appTime - time);
+L04086     vRot = rot + appTime * (1.0 + intensity - rot);
+L04087 
+L04088     // float vSize = min(12.0, (0.1 + min(0.2, intensity)) + (vAge * 1.0 + intensity)) * (1.0 + rot * 0.2);
+L04089 
+L04090     float vSize = 0.8 + ((vAge) * 2.5) * (1.0 + intensity * 2.0);
+L04091 
+L04092     vFade = (1.0 - (min(1.0, (vAge / (3.0))))) * (0.5 + rot * 0.5) * intensity;
+L04093 
+L04094 
+L04095     transformed.x += cos(direction) * vAge * intensity;
+L04096     transformed.z += sin(direction) * vAge * intensity;
+L04097     // transformed.y += vSize/2.0;
+L04098 
+L04099     
+L04100     vAge = min(1.0, vAge);
+L04101     transformed.y += (sin(vAge * 3.14 / (1.0 + intensity))) * (0.5 + intensity * 0.5); // + vAge * intensity) * intensity ;
+L04102     // transformed.y = max(vSize/2.0, transformed.y);
+L04103 
+L04104     vec4 mvPosition = vec4( transformed, 1.0 );
+L04105 
+L04106     #ifdef USE_INSTANCING
+L04107 
+L04108         mvPosition = instanceMatrix * mvPosition;
+L04109 
+L04110     #endif
+L04111 
+L04112     mvPosition = modelViewMatrix * mvPosition;
+L04113 
+L04114     gl_Position = projectionMatrix * mvPosition;
+L04115 
+L04116 `,
+L04117   zD = `
+L04118 
+L04119     gl_PointSize = vSize * scale / -mvPosition.z;
+L04120     vAge = min(1.0, vAge);
+L04121 
+L04122 `,
+L04123   RD = `
+L04124 
+L04125     uniform float appTime;
+L04126 
+L04127     varying float vFade;
+L04128     varying float vRot;
+L04129 
+L04130     vec2 rotate2D(vec2 v, float a) {
+L04131         float s = sin(a);
+L04132         float c = cos(a);
+L04133         return mat2(c, -s, s, c) * v;
+L04134     }
+L04135 
+L04136 `,
+L04137   PD = `
+L04138 
+L04139     if(vFade == 0.0) {
+L04140         discard;
+L04141     }
+L04142 
+L04143     vec2 uv = gl_PointCoord - 0.5;
+L04144     float s = sin(-vRot);
+L04145     float c = cos(-vRot);
+L04146     uv = mat2(c, -s, s, c) * uv;
+L04147     uv += 0.5;
+L04148 
+L04149     if(uv.x < 0. || uv.y < 0. || uv.x > 1. || uv.y > 1.) {
+L04150         discard;
+L04151     }
+L04152 
+L04153     diffuseColor.a = 0.0;
+L04154     vec4 tex = texture2D(map, uv);
+L04155     diffuseColor *= tex;
+L04156     diffuseColor.a = tex.a * tex.a * vFade;
+L04157 
+L04158 
+L04159 `,
+L04160   nr = new E_({ size: 5, map: ii(TD), transparent: !0, depthWrite: !1, color: 11383491 });
+L04161 nr.needsCameraPosition = !0;
+L04162 nr.userData.appTime = { value: 0 };
+L04163 nr.onBeforeCompile = (s) => (
+L04164   (s.uniforms.appTime = nr.userData.appTime),
+L04165   (s.vertexShader = s.vertexShader.replace(
+L04166     "#include <fog_pars_vertex>",
+L04167     `#include <fog_pars_vertex>
+L04168 ` + ND,
+L04169   )),
+L04170   (s.vertexShader = s.vertexShader.replace("#include <project_vertex>", VD)),
+L04171   (s.vertexShader = s.vertexShader.replace(
+L04172     "#include <logdepthbuf_vertex>",
+L04173     zD +
+L04174       `
+L04175 #include <logdepthbuf_vertex>`,
+L04176   )),
+L04177   (s.fragmentShader = s.fragmentShader.replace(
+L04178     "#include <clipping_planes_pars_fragment>",
+L04179     `#include <clipping_planes_pars_fragment>
+L04180 ` + RD,
+L04181   )),
+L04182   (s.fragmentShader = s.fragmentShader.replace("#include <map_particle_fragment>", PD)),
+L04183   s
+L04184 );
+L04185 const lo = 1e3,
+L04186   ad = 0.15;
+L04187 class jD {
+L04188   constructor() {
+L04189     E(this, "geo");
+L04190     E(this, "nextIndex", 0);
+L04191     E(this, "spawnInterval", ad);
+L04192     E(this, "wheels", null);
+L04193     E(this, "wheelTrackers", [0, 0, 0, 0]);
+L04194     E(this, "onLiveConfig", (e) => {
+L04195       e &&
+L04196         an.liveConfig.addListener("any", (t) => {
+L04197           nr.color.setHex(ar.style[t.location][t.time].dust);
+L04198         });
+L04199     });
+L04200     E(this, "onVehicleChanged", () => {
+L04201       this.init();
+L04202     });
+L04203     E(this, "onGraphicsChanged", (e) => {
+L04204       this.points.visible = e;
+L04205     });
+L04206     E(this, "enabled", !0);
+L04207     E(this, "vec", new Ki());
+L04208     ((this.geo = new Rn()),
+L04209       this.geo.setAttribute("position", new us(new Float32Array(lo * 3), 3)),
+L04210       this.geo.attributes.position.setUsage(rs),
+L04211       (this.positions = this.geo.attributes.position.array),
+L04212       this.geo.setAttribute("direction", new us(new Float32Array(lo), 1)),
+L04213       this.geo.attributes.direction.setUsage(rs),
+L04214       (this.directions = this.geo.attributes.direction.array),
+L04215       this.geo.setAttribute("intensity", new us(new Float32Array(lo), 1)),
+L04216       this.geo.attributes.intensity.setUsage(rs),
+L04217       (this.intensities = this.geo.attributes.intensity.array),
+L04218       this.geo.setAttribute("time", new us(new Float32Array(lo), 1)),
+L04219       this.geo.attributes.time.setUsage(rs),
+L04220       (this.times = this.geo.attributes.time.array));
+L04221     let e = [];
+L04222     for (let t = 0; t < lo; t++) e.push(Math.random() * Math.PI);
+L04223     (this.geo.setAttribute("rot", new us(new Float32Array(e), 1)),
+L04224       (this.points = new L_(this.geo, nr)),
+L04225       (this.points.frustumCulled = !1),
+L04226       G.addListener(on.ModelChanged, this.onVehicleChanged),
+L04227       (this.points.visible = !0),
+L04228       an.addListener("liveConfig", this.onLiveConfig));
+L04229   }
+L04230   setEnabled(e) {
+L04231     ((this.points.visible = e), (this.enabled = e));
+L04232   }
+L04233   init() {
+L04234     this.wheels = G.controller.wheels;
+L04235     for (let e of this.wheels) this.wheelTrackers[e.i] = 0;
+L04236     this.reset();
+L04237   }
+L04238   update(e) {
+L04239     if (!this.enabled) {
+L04240       ((nr.userData.appTime.value += e), (this.geo.attributes.time.needsUpdate = !0));
+L04241       return;
+L04242     }
+L04243     if (
+L04244       (!this.wheels && G.controller.wheels && (this.wheels = G.controller.wheels),
+L04245       (nr.userData.appTime.value += e),
+L04246       !this.wheels || G.speedLerp < 0.01)
+L04247     )
+L04248       return;
+L04249     let t = !1;
+L04250     for (let i of this.wheels) {
+L04251       if (
+L04252         ((this.wheelTrackers[i.i] += i.dS),
+L04253         this.wheelTrackers[i.i] < ad ||
+L04254           ((this.wheelTrackers[i.i] = Math.max(i.dS - ad, 0)), i.downforce == 0))
+L04255       )
+L04256         continue;
+L04257       let l = i.worldPos,
+L04258         n = i.onRoad ? 0.15 : 0.3;
+L04259       ((this.positions[this.nextIndex * 3] = l.x),
+L04260         (this.positions[this.nextIndex * 3 + 1] = l.y + 0.1 + n / 2),
+L04261         (this.positions[this.nextIndex * 3 + 2] = l.z));
+L04262       let r = Math.atan2(i.accel.z, i.accel.x),
+L04263         o = Math.min(1, Math.max(0.25, n * 2)),
+L04264         a = Math.min(1, i.speed / 30) * i.downforce * o;
+L04265       ((a = Math.min(1, a)),
+L04266         (a = Math.max(a, i.slip * o)),
+L04267         this.vec.copy(G.com).sub(i.worldPos).normalize(),
+L04268         (a *= Math.max(0.5, (this.vec.dot(i.velocityDir) + 1) / 2)),
+L04269         i.locked && (a = Math.min(a + o, 1)),
+L04270         (this.intensities[this.nextIndex] = a),
+L04271         (this.directions[this.nextIndex] = r + Math.random() * 0.1),
+L04272         (this.times[this.nextIndex] = nr.userData.appTime.value),
+L04273         (this.nextIndex = (this.nextIndex + 1) % lo),
+L04274         (t = !0));
+L04275     }
+L04276     t &&
+L04277       ((this.geo.attributes.position.needsUpdate = !0),
+L04278       (this.geo.attributes.intensity.needsUpdate = !0),
+L04279       (this.geo.attributes.direction.needsUpdate = !0),
+L04280       (this.geo.attributes.time.needsUpdate = !0));
+L04281   }
+L04282   reset() {
+L04283     this.nextIndex = 0;
+L04284     for (let e = 0; e < this.positions.length; e++) this.positions[e] = 0;
+L04285     ((this.geo.attributes.position.needsUpdate = !0), (this.spawnInterval = ad));
+L04286   }
+L04287   destroy() {
+L04288     (this.geo.dispose(),
+L04289       this.points.removeFromParent(),
+L04290       G.removeEventListener(on.ModelChanged, this.onVehicleChanged),
+L04291       an.removeListener("liveConfig", this.onLiveConfig),
+L04292       delete this.points);
+L04293   }
+L04294 }
+L04295 const fs = {};
+L04296 class Oc extends Jg {
+L04297   constructor(...t) {
+L04298     super(...t);
+L04299     E(this, "sceneName", "OffWorld");
+L04300     E(this, "audio", { ambiance: null, wind: null });
+L04301     E(this, "styleFuture", []);
+L04302     E(this, "updateShadowRes", () => {
+L04303       ((this.sunLight.shadow.mapSize.width = Gr[tt.shadowDetail]),
+L04304         (this.sunLight.shadow.mapSize.height = Gr[tt.shadowDetail]),
+L04305         this.sunLight.shadow.map && (this.sunLight.shadow.map.dispose(), (this.sunLight.shadow.map = null)));
+L04306     });
+L04307     E(this, "onVehicleChangedBound", this.onVehicleChanged.bind(this));
+L04308     E(this, "onSceneSettingsChangedBound", this.onSceneSettingsChanged.bind(this));
+L04309     E(this, "curRoadWidth", 3);
+L04310     E(this, "t");
+L04311     E(this, "interiorVol");
+L04312     E(this, "windLerp", 0);
+L04313     E(this, "onHeightmapLayersChangedBound", this.onHeightmapLayersChanged.bind(this));
+L04314     (zw(),
+L04315       (this.liveSettings = new Tg(this.sceneName, {
+L04316         location: "mars",
+L04317         time: "day",
+L04318         ...an.savedConfigs[this.sceneName],
+L04319       })),
+L04320       this.liveSettings.addListener("any", this.onSceneSettingsChangedBound, !0),
+L04321       an.setMany({ liveConfig: this.liveSettings, metaConfig: ar.styleMeta }),
+L04322       this.styleHistory.push([this.liveSettings.location]),
+L04323       G.addListener(on.ModelChanged, this.onVehicleChangedBound),
+L04324       mc.set("sceneSupportsTraffic", !1));
+L04325   }
+L04326   setStyle(t, i) {
+L04327     this.liveSettings.setMany({ location: t, time: i });
+L04328   }
+L04329   nextStyle() {
+L04330     let t = eo.indexOf(this.liveSettings.location),
+L04331       i = to.indexOf(this.liveSettings.time) + 1;
+L04332     (i >= to.length && ((i = 0), t++, t >= eo.length && (t = 0)), this.setStyle(eo[t], to[i]));
+L04333   }
+L04334   prevStyle() {
+L04335     let t = eo.indexOf(this.liveSettings.location),
+L04336       i = to.indexOf(this.liveSettings.time) - 1;
+L04337     (i < 0 && ((i = to.length - 1), t--, t < 0 && (t = eo.length - 1)), this.setStyle(eo[t], to[i]));
+L04338   }
+L04339   loadGraphicsSettings() {
+L04340     (mD(tt.viewDistance, tt.detail),
+L04341       this.hasInit &&
+L04342         (this.updateShadowRes(),
+L04343         (this.clouds.visible = tt.detail > 0 && dh),
+L04344         this.clouds.scale.set(wa, wa, 1),
+L04345         this.dustSpray.setEnabled(tt.detail > 1)),
+L04346       this.hasInit && this.updateSky(),
+L04347       this.useFog ? (He.far = Math.max(qi, wa)) : (He.far = 1e5),
+L04348       Ur.init(Yd),
+L04349       Fd(He.fov, He.far, He.aspect),
+L04350       Ng.set(qi),
+L04351       He.updateProjectionMatrix());
+L04352   }
+L04353   onVehicleChanged(t, i = !1) {
+L04354     if (!this.hasInit && !i) return;
+L04355     let l = G.shadowMapSize;
+L04356     ((this.sunLight.shadow.camera.left = -l),
+L04357       (this.sunLight.shadow.camera.right = l),
+L04358       (this.sunLight.shadow.camera.top = l),
+L04359       (this.sunLight.shadow.camera.bottom = -l),
+L04360       this.sunLight.shadow.camera.updateProjectionMatrix());
+L04361   }
+L04362   onSceneSettingsChanged() {
+L04363     bD(this.liveSettings._value);
+L04364     for (let t in hh) {
+L04365       if (this.audio[t]) {
+L04366         if (this.audio[t].userData.id == hh[t].src) continue;
+L04367         this.audio[t].stop();
+L04368       }
+L04369       li.getAudio(hh[t].src, (i) => {
+L04370         (i.setLoop(!0), i.setVolume(0), i.play(), (i.userData.id = hh[t].src), (this.audio[t] = i));
+L04371       });
+L04372     }
+L04373     if (
+L04374       (this.hasInit &&
+L04375         (this.updateSky(),
+L04376         (Ur.container.visible = jc),
+L04377         (this.stars.container.visible = Ld),
+L04378         Ld && this.stars.setConfig(zc),
+L04379         (this.earthrise.visible = Rc),
+L04380         (this.earthrise.rotation.z = L0 * Math.PI),
+L04381         (this.clouds.visible = dh && tt.detail > 0)),
+L04382       gl.sceneBrightness)
+L04383     )
+L04384       Aa.set(gl.sceneBrightness);
+L04385     else {
+L04386       let t = (gl.sun.col / 16777215) * gl.sun.intensity,
+L04387         i = (gl.ambient.col / 16777215) * gl.ambient.intensity;
+L04388       Aa.set(t + i);
+L04389     }
+L04390     (G.updateEnvMap(),
+L04391       Nl.setMany({
+L04392         nominalDriveSide: oc.RIGHT,
+L04393         width: rn,
+L04394         lanes: 0,
+L04395         laneStyle: Ft.laneStyle,
+L04396         friction: Cc,
+L04397         cautionFactor: iD[Ft.laneStyle],
+L04398       }));
+L04399   }
+L04400   onGraphicsSettingsChanged() {
+L04401     (this.curViewDistance == tt.viewDistance && this.curDetail == tt.detail) || this.rebuildScene();
+L04402   }
+L04403   onRoadWidthChanged() {}
+L04404   rebuildScene() {
+L04405     ((this.update = () => {}),
+L04406       this.loadGraphicsSettings(),
+L04407       this.dustSpray.reset(),
+L04408       this.initTerrain(),
+L04409       this.container.add(this.wallController.container),
+L04410       Kt.addJob(() => this.wallController.initialise(), 0, "wallController", "loadScene", !0),
+L04411       (this.curViewDistance = tt.viewDistance),
+L04412       (this.curDetail = tt.detail),
+L04413       (this.update = this.updateLoad));
+L04414   }
+L04415   onWorldSettingsChanged() {
+L04416     ((this.update = () => {}),
+L04417       this.heightmap.destroy(),
+L04418       this.midlineGenerator.destroy(),
+L04419       this.tileTerrain.reset(),
+L04420       this.reinitialise());
+L04421   }
+L04422   updateSky() {
+L04423     ((this.sunLight.intensity = gl.sun.intensity),
+L04424       this.sunLight.color.setHex(gl.sun.col),
+L04425       (this.ambLight.intensity = gl.ambient.intensity),
+L04426       this.ambLight.color.setHex(gl.ambient.col),
+L04427       (this.sky.position.z = -qi + 0.1),
+L04428       this.sky.updateMatrixWorld(),
+L04429       this.useFog &&
+L04430         (S0
+L04431           ? (this.renderScene.fog = new dc(Ec, Lc, Tc, Wd, qd, Kd))
+L04432           : (this.renderScene.fog = new hc(Ec, Lc, Tc, qi, qi * Bd)),
+L04433         (this.renderScene.fog.near = Wd),
+L04434         (this.renderScene.fog.far = qd),
+L04435         (this.renderScene.fog.density = Kd),
+L04436         (this.renderScene.fog.hazeHeight = k0),
+L04437         (this.renderScene.fog.hazeIntensity = C0)));
+L04438   }
+L04439   initialise(t, i, l = !0) {
+L04440     ((this.onMidlineReady = t),
+L04441       (this.onSceneReady = i),
+L04442       (this.useFog = l),
+L04443       this.initLoad(),
+L04444       (this.sunLight = new Vg(16777215, 2.5)),
+L04445       this.container.add(this.sunLight),
+L04446       (this.ambLight = new zg(16777215, 1)),
+L04447       this.container.add(this.ambLight),
+L04448       (this.curViewDistance = tt.viewDistance),
+L04449       (this.curDetail = tt.detail),
+L04450       this.loadGraphicsSettings(),
+L04451       gD(Ft._value),
+L04452       (this.curRoadWidth = rn),
+L04453       Nl.setMany({
+L04454         nominalDriveSide: oc.LEFT,
+L04455         width: rn,
+L04456         lanes: Qc[Ft.laneStyle],
+L04457         laneWidth: f0,
+L04458         laneOffsets: c0,
+L04459         laneStyle: Ft.laneStyle,
+L04460       }),
+L04461       this.onSceneSettingsChanged(),
+L04462       (this.sky = new Ti(new Vn(1, 1, 1, 1), r0)),
+L04463       this.sky.scale.set(1e6, 1e5, 1e5),
+L04464       (this.sky.renderOrder = -10),
+L04465       (this.sky.frustumCulled = !1),
+L04466       (this.sky.position.z = qi - 0.1),
+L04467       (He.skyPlane = this.sky),
+L04468       l && He.add(this.sky),
+L04469       (this.clouds = new Ti(new Vn(1, 1, Vc, Vc), ns)),
+L04470       this.clouds.scale.set(wa, wa, 1),
+L04471       (this.clouds.frustumCulled = !1),
+L04472       (this.clouds.rotation.x = Math.PI / 2),
+L04473       (this.clouds.renderOrder = -9),
+L04474       (this.clouds.visible = dh && tt.detail > 0),
+L04475       this.container.add(this.clouds));
+L04476     let n = { seed: Ft.seed, ...a0, maxCached: o0 };
+L04477     ((this.heightmap = new Qd(n)),
+L04478       Wu.addListener(this.onHeightmapLayersChangedBound),
+L04479       tt.addListener("shadowDetail", this.updateShadowRes),
+L04480       (Fs.getGroundState = this.getGroundState.bind(this)),
+L04481       (Fs.getRoadsideHeight = this.getRoadsideHeight.bind(this)),
+L04482       (Fs.seaLevel = -1e5),
+L04483       (this.midlineGenerator = new pw(h0, n, Qd, Wu)),
+L04484       this.midlineGenerator.initialise(Ft.seed, Ft.startNode),
+L04485       Kt.addJob(
+L04486         this.midlineGenerator.load.bind(this.midlineGenerator),
+L04487         1,
+L04488         "Midline.load",
+L04489         "loadRoad",
+L04490         !0,
+L04491         !0,
+L04492       ),
+L04493       Kt.addJob(t, 1, "OnMidlineReady", "loadRoad", !0),
+L04494       Kt.addJob(this.initialiseLoad.bind(this), 1, "Scene.initialiseLoad", "loadScene", !0),
+L04495       Kt.addJob(i, 1, "OnSceneReady", "loadScene", !0));
+L04496   }
+L04497   initialiseLoad() {
+L04498     return (
+L04499       this.initTerrain(),
+L04500       this.initWalls(),
+L04501       ol.initialise(fD),
+L04502       this.container.add(ol.container),
+L04503       this.container.add(Ur.container),
+L04504       Ur.init(Yd),
+L04505       (Ur.container.visible = jc),
+L04506       (this.dustSpray = new jD()),
+L04507       this.dustSpray.setEnabled(tt.detail > 1),
+L04508       this.container.add(this.dustSpray.points),
+L04509       (this.stars = new xg(1e5, 3, zc)),
+L04510       (this.stars.container.visible = Ld),
+L04511       this.useFog && this.container.add(this.stars.container),
+L04512       (this.stars.renderOrder = -2),
+L04513       (this.earthrise = new Ti(new Vn(10, 10, 1, 1), jw)),
+L04514       (this.earthrise.renderOrder = -2),
+L04515       (this.earthrise.rotation.y = -Math.PI / 8),
+L04516       (this.earthrise.rotation.z = 0),
+L04517       (this.earthrise.visible = Rc),
+L04518       this.container.add(this.earthrise),
+L04519       this.updateSky(),
+L04520       (this.sunLight.castShadow = !0),
+L04521       (this.sunLight.shadow.radius = 5),
+L04522       (this.sunLight.shadow.camera.left = -4),
+L04523       (this.sunLight.shadow.camera.right = 4),
+L04524       (this.sunLight.shadow.camera.top = 4),
+L04525       (this.sunLight.shadow.camera.bottom = -4),
+L04526       this.sunLight.shadow.camera.updateProjectionMatrix(),
+L04527       this.onVehicleChanged(ts.type, !0),
+L04528       (this.sunLight.shadow.mapSize.width = Gr[tt.shadowDetail]),
+L04529       (this.sunLight.shadow.mapSize.height = Gr[tt.shadowDetail]),
+L04530       (this.sunLight.shadow.camera.near = 0.5),
+L04531       (this.sunLight.shadow.camera.far = 50),
+L04532       (this.sunLight.target = G),
+L04533       this.sunLight.position.copy(G.position).add(gl.sun.offset),
+L04534       Kt.addJob(() => ((this.hasLoaded = !0), !0), 1, "SceneHasLoaded", "loadScene", !0),
+L04535       (wt.userData.vehicleIndex.value = Ne.vehicleIndex),
+L04536       (this.hasInit = !0),
+L04537       !0
+L04538     );
+L04539   }
+L04540   initTerrain() {
+L04541     (this.tileTerrain && (this.tileTerrain.destroy(), this.container.remove(this.tileTerrain.container)),
+L04542       (this.tileTerrain = new $g({
+L04543         tileSize: v0,
+L04544         cellSize: p0,
+L04545         cellRes: m0,
+L04546         chunkSize: lD,
+L04547         lod1Horizon: _0,
+L04548         levels: 2,
+L04549         heightmap: this.heightmap,
+L04550         chunkClass: Uc,
+L04551         material: wt,
+L04552         roadWidth: rn,
+L04553         getRoadBlendedHeight: mp,
+L04554       })),
+L04555       this.container.add(this.tileTerrain.container),
+L04556       Kt.addJob(
+L04557         this.tileTerrain.init.bind(this.tileTerrain, Ne.head.p.x, Ne.head.p.z),
+L04558         1,
+L04559         "TileTerrain",
+L04560         "loadEnvironment",
+L04561         !0,
+L04562       ),
+L04563       (Fs.getXZ = this.tileTerrain.getXZ.bind(this.tileTerrain)));
+L04564   }
+L04565   initWalls() {
+L04566     this.wallController &&
+L04567       (this.wallController.destroy(), this.container.remove(this.wallController.container));
+L04568     let t = g0;
+L04569     ((this.wallController = new e0(
+L04570       { classes: [{ id: Pc.Barrier, label: "Barrier", class: ED }], generators: [LD] },
+L04571       t + au + 2,
+L04572       t,
+L04573       t * 0.25,
+L04574     )),
+L04575       this.container.add(this.wallController.container),
+L04576       Kt.addJob(() => this.wallController.initialise(), 0, "wallController", "loadScene", !0));
+L04577   }
+L04578   reinitialise() {}
+L04579   destroy() {
+L04580     var t, i, l, n, r, o, a, h, u;
+L04581     if (this.hasInit) {
+L04582       ((this.update = () => {}),
+L04583         this.heightmap.destroy(),
+L04584         (t = this.midlineGenerator) == null || t.destroy(),
+L04585         (i = this.tileTerrain) == null || i.destroy(),
+L04586         (l = this.wallController) == null || l.destroy(),
+L04587         (n = this.stars) == null || n.destroy(),
+L04588         (r = this.dustSpray) == null || r.destroy(),
+L04589         (o = this.clouds) == null || o.geometry.dispose(),
+L04590         (a = this.clouds) == null || a.material.dispose(),
+L04591         (h = this.earthrise) == null || h.geometry.dispose(),
+L04592         (u = this.earthrise) == null || u.material.dispose(),
+L04593         this.liveSettings.destroy(),
+L04594         (Fs.getXZ = () => {}),
+L04595         (Fs.getGroundState = () => {}),
+L04596         Ur.reset());
+L04597       for (let c in this.audio) this.audio[c] && this.audio[c].stop();
+L04598       ((this.audio.length = 0),
+L04599         G.removeListener(on.ModelChanged, this.onVehicleChangedBound),
+L04600         Wu.removeListener(this.onHeightmapLayersChangedBound),
+L04601         tt.removeListener("shadowDetail", this.updateShadowRes),
+L04602         ol.destroy(),
+L04603         this.container.clear(),
+L04604         He.remove(this.sky));
+L04605     }
+L04606   }
+L04607   getGroundState(t, i, l, n) {
+L04608     return (
+L04609       (n.f = b0),
+L04610       (n.g = y0),
+L04611       (n.k = I0),
+L04612       (n.r = !1),
+L04613       (n.w = !1),
+L04614       (n.h = 0),
+L04615       (n.b = nD),
+L04616       (n.s = D0),
+L04617       (n.n.x = 0),
+L04618       (n.n.y = 1),
+L04619       (n.n.y = 0),
+L04620       (fs.m = fh(t, i, l)),
+L04621       (n.ms = fs.m.s),
+L04622       (n.md = fs.m.d),
+L04623       fs.m.d < rn && ((n.r = !0), (n.f = Cc), (n.s = w0), (n.b = rD), (n.g = A0), (n.k = M0)),
+L04624       this.tileTerrain.getGroundState(t, i, l, n),
+L04625       n.c &&
+L04626         (fs.m.n.lWallDist &&
+L04627           fs.m.s == 1 &&
+L04628           ((n.w = !0),
+L04629           (n.wi = Math.floor(fs.m.n.lWallDist * 100)),
+L04630           n.insideWall === !0
+L04631             ? (n.wd = fs.m.d - (fs.m.n.lWallDist - 0.2))
+L04632             : n.insideWall === !1
+L04633               ? (n.wd = fs.m.d - (fs.m.n.lWallDist + 0.2))
+L04634               : (n.wd = fs.m.d - fs.m.n.lWallDist),
+L04635           (n.ws = fs.m.s),
+L04636           (n.wn = fs.m.n.n)),
+L04637         fs.m.n.rWallDist &&
+L04638           fs.m.s == -1 &&
+L04639           ((n.w = !0),
+L04640           (n.wi = Math.floor(fs.m.n.rWallDist * 100) * -1),
+L04641           n.insideWall === !0
+L04642             ? (n.wd = fs.m.d - (fs.m.n.rWallDist - 0.2))
+L04643             : n.insideWall === !1
+L04644               ? (n.wd = fs.m.d - (fs.m.n.rWallDist + 0.2))
+L04645               : (n.wd = fs.m.d - fs.m.n.rWallDist),
+L04646           (n.wn = fs.m.n.n),
+L04647           (n.ws = fs.m.s))),
+L04648       n
+L04649     );
+L04650   }
+L04651   getRoadsideHeight(t, i, l, n = !0) {
+L04652     return (n ? (fs.m = fh(t, i, l)) : (fs.m = Rg(t, i, l)), (fs.h = Fs.getXZ(t, i)), mp(fs.h, fs.m, t, i));
+L04653   }
+L04654   updateLive(t) {
+L04655     (this.midlineGenerator.update(),
+L04656       this.tileTerrain.update(),
+L04657       this.wallController.update(),
+L04658       this.updateAlways(t));
+L04659   }
+L04660   updateAlways(t) {
+L04661     (this.updateAudio(t),
+L04662       this.sunLight.position.copy(G.position).add(gl.sun.offset),
+L04663       this.stars.update(),
+L04664       this.earthrise.position.copy(He.worldPos).add(uD),
+L04665       (this.earthrise.position.y -= He.worldPos.y * 0.001),
+L04666       this.dustSpray.update(t),
+L04667       dh &&
+L04668         (this.clouds.position.copy(He.worldPos),
+L04669         (this.clouds.position.y += Nc),
+L04670         ns.userData.camPos.value.copy(He.worldPos),
+L04671         (ns.userData.time.value += t * 20)),
+L04672       Ne.vehicleNodeDidChange && (ol.update(), (wt.userData.vehicleIndex.value = Ne.vehicleIndex)));
+L04673   }
+L04674   updateAudio(t) {
+L04675     var i, l, n, r;
+L04676     ((this.t = Math.min(1, He.speed / hD)),
+L04677       (this.t *= this.t),
+L04678       (this.t *= Ys.wind),
+L04679       (this.interiorVol = bl.isInterior ? 0.33 : 1),
+L04680       (this.windLerp = 0.9 * this.windLerp + 0.1 * this.t),
+L04681       E0
+L04682         ? ((n = this.audio.ambiance) == null || n.setVolume(0),
+L04683           (r = this.audio.wind) == null || r.setVolume(0))
+L04684         : ((i = this.audio.ambiance) == null ||
+L04685             i.setVolume((1 - this.windLerp * 0.5) * this.interiorVol * Ys.ambient),
+L04686           (l = this.audio.wind) == null || l.setVolume(this.windLerp * dD * this.interiorVol * Ys.wind)));
+L04687   }
+L04688   onHeightmapLayersChanged(t) {
+L04689     this.heightmap.setLayers(t);
+L04690   }
+L04691 }
+L04692 (E(Oc, "defaultLaneStyle", nn.OffRoad), E(Oc, "offRoadOnly", !0));
+L04693 const Sn = new T_(),
+L04694   bh = class bh extends E2 {
+L04695     constructor(t) {
+L04696       super(t);
+L04697       E(this, "container", new zn());
+L04698       E(this, "treeMesh");
+L04699       E(this, "instanceVariant");
+L04700       E(this, "instanceOrientation");
+
+===== 2.c189d18b: 4989-5802 =====
+L04989 class WD extends L2 {
+L04990   constructor() {
+L04991     super();
+L04992     E(this, "sea0", null);
+L04993     E(this, "seaMesh", null);
+L04994     E(this, "seaDepth", null);
+L04995     E(this, "seaGenX", 0);
+L04996     E(this, "seaGenZ", 0);
+L04997     E(this, "hasSea", !1);
+L04998     E(this, "hasShore", !1);
+L04999     E(this, "hasTreeMaps", !1);
+L05000     E(this, "treeMaps", []);
+L05001     E(this, "treeMap", {});
+L05002     E(this, "treeArr");
+L05003     E(this, "imposterManager");
+L05004     E(this, "customDowngre");
+L05005     (this.makeSea(),
+L05006       this.geo.setAttribute("treeMask", new us(new Float32Array(T2.verts.length / 3), 1)),
+L05007       this.geo.attributes.treeMask.setUsage(rs),
+L05008       (this.treeArr = this.geo.attributes.treeMask.array),
+L05009       (this.imposterManager = new FD(Hc, "tree")),
+L05010       this.container.add(this.imposterManager.container));
+L05011   }
+L05012   makeSea() {
+L05013     let t = new Vn(bs, bs, Xa, Xa);
+L05014     (t.setAttribute("depth", new us(new Float32Array(ed * ed), 1)),
+L05015       t.attributes.depth.setUsage(rs),
+L05016       (this.seaDepth = t.attributes.depth.array),
+L05017       (this.seaMesh = new Ti(t, Od)),
+L05018       (this.seaMesh.position.x = bs / 2),
+L05019       (this.seaMesh.position.z = bs / 2),
+L05020       (this.seaMesh.rotation.x = -Math.PI / 2),
+L05021       this.seaMesh.updateMatrix(),
+L05022       (this.seaMesh.matrixAutoUpdate = !1));
+L05023     let i = 4,
+L05024       l = new Vn(bs, bs, i, i),
+L05025       n = [],
+L05026       r = (i + 1) ** 2;
+L05027     for (let o = 0; o < r; o++) n.push(Gv);
+L05028     (l.setAttribute("depth", new us(new Float32Array(n), 1)),
+L05029       (this.sea0 = new Ti(l, Od)),
+L05030       (this.sea0.position.x = bs / 2),
+L05031       (this.sea0.position.z = this.sea0.position.x),
+L05032       (this.sea0.rotation.x = -Math.PI / 2),
+L05033       this.sea0.updateMatrix(),
+L05034       (this.sea0.matrixAutoUpdate = !1));
+L05035   }
+L05036   customInit() {
+L05037     ((this.hasSea = !1),
+L05038       (this.hasShore = !1),
+L05039       this.container.remove(this.seaMesh),
+L05040       this.container.remove(this.sea0),
+L05041       (this.seaGenX = 0),
+L05042       (this.seaGenZ = 0),
+L05043       (this.hasTower = !1),
+L05044       this.imposterManager.init(),
+L05045       (this.hasTreeMaps = !1),
+L05046       delete this.treeMap,
+L05047       (this.treeMap = {}));
+L05048   }
+L05049   customGenHeights0(t, i, l, n, r, o) {
+L05050     o < 0 ? (this.hasSea = !0) : (this.hasShore = !0);
+L05051   }
+L05052   customGenNormals0(t, i, l, n, r, o, a, h) {
+L05053     if (a < Ov) {
+L05054       this.treeArr[r] = 0;
+L05055       return;
+L05056     }
+L05057     if (
+L05058       ((de.density = zl.getShadowDensityAt(l, n)),
+L05059       (this.treeArr[r] = de.density),
+L05060       !(t == Ll || i == Ll || t % 2 == 1 || i % 2 == 1))
+L05061     )
+L05062       for (de.xi = 0, de.xx = 0; de.xx <= td; de.xx += td) {
+L05063         for (de.zi = 0, de.zz = 0; de.zz <= td; de.zz += td) {
+L05064           if (((de.arrangement = zl.getTreesAt(l + de.xx, n + de.zz)), de.arrangement.c > 0)) {
+L05065             for (
+L05066               de.cx = t + de.xi,
+L05067                 de.cz = i + de.zi,
+L05068                 de.tm = {
+L05069                   a: de.arrangement.i,
+L05070                   c: de.arrangement.c,
+L05071                   y: de.arrangement.y,
+L05072                   v: de.arrangement.v,
+L05073                   k: [],
+L05074                   s: [],
+L05075                   i: [],
+L05076                   x: [],
+L05077                   d: 0,
+L05078                 },
+L05079                 de.ti = 0;
+L05080               de.ti < de.arrangement.c;
+L05081               de.ti++
+L05082             )
+L05083               if (
+L05084                 ((de.t = de.arrangement.a.t[de.ti]),
+L05085                 (de.p = de.arrangement.a.p[de.ti]),
+L05086                 (de.v = de.arrangement.v[de.ti]),
+L05087                 (de.y = de.arrangement.y),
+L05088                 (de.th = N2.getXZ(l + de.t[0] + de.xx, n + de.t[1] + de.zz)),
+L05089                 (de.s = Q2[de.y][de.v]),
+L05090                 de.arrangement.species == Hv.Oak
+L05091                   ? (de.arrangement.c < 3 ? (de.s *= BD.next()) : (de.s *= GD.next()),
+L05092                     (de.s *= 0.7 + (0.3 * de.arrangement.c) / 5))
+L05093                   : de.arrangement.species == Hv.Pine && (de.s *= 0.8 + (0.2 * de.arrangement.c) / 5),
+L05094                 (de.k = od.next() * 0.2 * de.s),
+L05095                 de.v == 0
+L05096                   ? (de.k += (0.2 + od.next() * 0.5) * ((5 - de.arrangement.c) / 5))
+L05097                   : de.v == 4
+L05098                     ? ((de.k = od.next()), (de.k *= 3))
+L05099                     : de.v == 5 && ((de.k = od.next()), (de.k *= de.k), (de.k *= 6)),
+L05100                 (de.tm.d = Math.sqrt(de.tm.d)),
+L05101                 de.th > i0)
+L05102               ) {
+L05103                 (de.tm.i.push(this.imposterManager.count), de.tm.s.push(de.s), de.tm.k.push(de.k));
+L05104                 let u = 0;
+L05105                 if (de.arrangement.c > 1) {
+L05106                   let c = 0.9 - (0.25 * (de.arrangement.c - 2)) / 3;
+L05107                   u = HD.next() > c ? 1 : 0;
+L05108                 }
+L05109                 this.imposterManager.addImposter(
+L05110                   l - this.ox + de.t[0] + de.xx,
+L05111                   de.th - de.k,
+L05112                   n - this.oz + de.t[1] + de.zz,
+L05113                   de.p[1] * de.s,
+L05114                   de.v,
+L05115                   de.p[0],
+L05116                   de.y,
+L05117                   0,
+L05118                   u,
+L05119                 );
+L05120               } else (de.tm.i.push(null), de.tm.s.push(null), de.tm.k.push(null));
+L05121             (this.treeMap[de.cx] || (this.treeMap[de.cx] = {}),
+L05122               this.treeMap[de.cx][de.cz]
+L05123                 ? (this.treeMap[de.cx][de.cz] = { ...de.tm, ...this.treeMap[de.cx][de.cz] })
+L05124                 : (this.treeMap[de.cx][de.cz] = de.tm));
+L05125           }
+L05126           de.zi++;
+L05127         }
+L05128         de.xi++;
+L05129       }
+L05130   }
+L05131   addExtraTree(t, i, l, n, r, o, a, h = 0) {
+L05132     return (
+L05133       (de.tx = Math.floor(t / bs)),
+L05134       (de.tz = Math.floor(l / bs)),
+L05135       de.tx != this.tileX || de.tz != this.tileZ
+L05136         ? -1
+L05137         : ((de.cx = Math.floor((t / bs - de.tx) * Ll)),
+L05138           (de.cz = Math.floor((l / bs - de.tz) * Ll)),
+L05139           this.treeMap[de.cx] || (this.treeMap[de.cx] = {}),
+L05140           this.treeMap[de.cx][de.cz] || (this.treeMap[de.cx][de.cz] = { x: [] }),
+L05141           (de.t = { x: t, y: i, z: l, r: n, s: r, t: o, v: a, i: this.imposterManager.count, d: h }),
+L05142           this.imposterManager.addImposter(t - this.ox, i, l - this.oz, r, a, n, o),
+L05143           this.treeMap[de.cx][de.cz].x.push(de.t),
+L05144           de.t.i)
+L05145     );
+L05146   }
+L05147   removeExtraTree(t, i, l) {
+L05148     var n, r;
+L05149     if (
+L05150       ((de.tx = Math.floor(t / bs)),
+L05151       (de.tz = Math.floor(i / bs)),
+L05152       (de.cx = Math.floor((t / bs - de.tx) * Ll)),
+L05153       (de.cz = Math.floor((i / bs - de.tz) * Ll)),
+L05154       (r = (n = this.treeMap[de.cx]) == null ? void 0 : n[de.cz]) != null && r.x)
+L05155     ) {
+L05156       let o = 0;
+L05157       for (let a of this.treeMap[de.cx][de.cz].x) {
+L05158         if (a.i == l) {
+L05159           this.treeMap[de.cx][de.cz].x.splice(o, 1);
+L05160           break;
+L05161         }
+L05162         o++;
+L05163       }
+L05164     }
+L05165     this.imposterManager.hideImposter(l);
+L05166   }
+L05167   customGenNormals1(t, i, l, n, r, o, a, h) {
+L05168     if (a < Ov) {
+L05169       this.treeArr[r] = 0;
+L05170       return;
+L05171     }
+L05172     this.treeArr[r] = zl.getShadowDensityAt(l, n);
+L05173   }
+L05174   customUpgrade() {
+L05175     (this.hasSea && ((this.seaMesh.visible = !0), (this.sea0.visible = !1)), this.imposterManager.upgrade());
+L05176   }
+L05177   genCustom0() {
+L05178     if (this.hasSea) {
+L05179       for (this.seaGenZ = 0; this.seaGenZ < ed; this.seaGenZ++)
+L05180         ((de.i = this.seaGenZ * ed + this.seaGenX),
+L05181           Xa <= 1
+L05182             ? (de.d = 0)
+L05183             : (de.d = this.lookupHeight(
+L05184                 this.ox + (this.seaGenX / Xa) * bs,
+L05185                 this.oz + (this.seaGenZ / Xa) * bs,
+L05186               )),
+L05187           (this.seaDepth[de.i] = de.d),
+L05188           de.d > Gv && (this.hasShore = !0));
+L05189       if (this.seaGenX < Xa) return (this.seaGenX++, !1);
+L05190     }
+L05191     return !0;
+L05192   }
+L05193   initUpgrade() {
+L05194     if (this.hasSea && !this.hasShore) {
+L05195       this.hasLod1 = !0;
+L05196       return;
+L05197     }
+L05198     super.initUpgrade();
+L05199   }
+L05200   customAttributeUpdate() {
+L05201     (this.hasSea && (this.seaMesh.geometry.attributes.depth.needsUpdate = !0),
+L05202       (this.geo.attributes.treeMask.needsUpdate = !0),
+L05203       this.imposterManager.setBoundingSphere(this.geo.boundingSphere),
+L05204       this.imposterManager.finalise());
+L05205   }
+L05206   customFinalise() {
+L05207     (this.hasSea &&
+L05208       (this.container.add(this.seaMesh),
+L05209       this.container.add(this.sea0),
+L05210       (this.seaMesh.visible = this.curLod == 1 || this.hasShore),
+L05211       (this.sea0.visible = !this.seaMesh.visible)),
+L05212       (this.mesh.visible = !this.hasSea || this.hasShore),
+L05213       this.didPrintTrees || (this.didPrintTrees = !0));
+L05214   }
+L05215   customDowngrade() {
+L05216     (this.hasSea && !this.hasShore && ((this.seaMesh.visible = !1), (this.sea0.visible = !0)),
+L05217       this.imposterManager.downgrade());
+L05218   }
+L05219   customRetire() {
+L05220     ((this.didPrintTrees = !1), this.customDowngrade());
+L05221   }
+L05222   customRepool() {
+L05223     (this.imposterManager.retire(), Nd.retireTile(this.tileX, this.tileZ));
+L05224   }
+L05225   customDestroy() {
+L05226     (delete this.treeArr,
+L05227       delete this.seaDepth,
+L05228       this.imposterManager && (this.imposterManager.destroy(), delete this.imposterManager));
+L05229   }
+L05230   addCellTree(t, i, l, n, r, o) {
+L05231     this.imposterManager.addImposter(t - this.ox, i, l - this.oz, n, r, o);
+L05232   }
+L05233   hideCellTree(t) {
+L05234     this.imposterManager.hideImposter(t);
+L05235   }
+L05236   prepCellTree(t, i, l = !0, n = !1) {
+L05237     this.imposterManager.prepCellTree(t, i, l, n);
+L05238   }
+L05239   showCellTree(t) {
+L05240     this.imposterManager.showImposter(t);
+L05241   }
+L05242   lookupTreeDensity(t, i) {
+L05243     return this.hasLod1
+L05244       ? ((de.rx = (t - this.ox) / bs),
+L05245         (de.rz = (i - this.oz) / bs),
+L05246         (de.dx = de.rx * Ll),
+L05247         (de.dz = de.rz * Ll),
+L05248         (de.xi = Math.floor(de.dx)),
+L05249         de.xi == Ll ? ((de.xi -= 1), (de.dx = 1)) : (de.dx -= de.xi),
+L05250         (de.zi = Math.floor(de.dz)),
+L05251         de.zi == Ll ? ((de.zi -= 1), (de.dz = 1)) : (de.dz -= de.zi),
+L05252         (de.tl = de.xi * Fv + de.zi),
+L05253         (de.tr = de.tl + 1),
+L05254         (de.bl = de.tl + Fv),
+L05255         (de.br = de.bl + 1),
+L05256         (de.b1 = this.treeArr[de.tl] * (1 - de.dz) + this.treeArr[de.tr] * de.dz),
+L05257         (de.b2 = this.treeArr[de.bl] * (1 - de.dz) + this.treeArr[de.br] * de.dz),
+L05258         de.b1 * (1 - de.dx) + de.b2 * de.dx)
+L05259       : zl.getShadowDensityAt(t, i);
+L05260   }
+L05261 }
+L05262 const lr = new V2(),
+L05263   zr = new zn();
+L05264 zr.rotation.order = "XZY";
+L05265 const Da = class Da extends $c {
+L05266   constructor() {
+L05267     super(...arguments);
+L05268     E(this, "matrixNeedsUpdate", !1);
+L05269   }
+L05270   init(t) {
+L05271     ((this.maxCount = ro),
+L05272       (this.mesh = new iu(Da.protoGeo.clone(), kd, ro)),
+L05273       this.mesh.layers.set(qc),
+L05274       (this.mesh.matrixAutoUpdate = !1),
+L05275       this.mesh.geometry.setAttribute("groundNormal", new Tn(new Float32Array(ro * 3), 3)),
+L05276       (this.instanceNormal = this.mesh.geometry.attributes.groundNormal),
+L05277       this.instanceNormal.setUsage(rs),
+L05278       this.mesh.geometry.setAttribute("shadow", new Tn(new Float32Array(ro * 1), 1)),
+L05279       (this.instanceShadow = this.mesh.geometry.attributes.shadow),
+L05280       this.instanceShadow.setUsage(rs),
+L05281       this.mesh.geometry.setAttribute("roadProx", new Tn(new Float32Array(ro * 1), 1)),
+L05282       (this.instanceRoadProx = this.mesh.geometry.attributes.roadProx),
+L05283       this.instanceRoadProx.setUsage(rs),
+L05284       this.mesh.instanceMatrix.setUsage(rs),
+L05285       (this.mesh.receiveShadow = !0),
+L05286       t.add(this.mesh),
+L05287       this.reset(),
+L05288       this.postInit());
+L05289   }
+L05290   addGrass(t, i, l, n, r, o, a, h, u, c, _) {
+L05291     (this.curIndex == 0 && ((this.matrixNeedsUpdate = !0), (this.ox = t), (this.oz = l)),
+L05292       _ > this.retireIndex && (this.retireIndex = _),
+L05293       zr.position.set(t - this.ox, i, l - this.oz),
+L05294       (this.instanceNormal.array[this.curIndex * 3] = n),
+L05295       (this.instanceNormal.array[this.curIndex * 3 + 1] = r),
+L05296       (this.instanceNormal.array[this.curIndex * 3 + 2] = o),
+L05297       (this.instanceShadow.array[this.curIndex] = u),
+L05298       (this.instanceRoadProx.array[this.curIndex] = c),
+L05299       (zr.rotation.y = a),
+L05300       (zr.rotation.z = -Math.asin(n)),
+L05301       (zr.rotation.x = Math.asin(o)),
+L05302       zr.scale.set(h, h, h),
+L05303       zr.updateMatrix(),
+L05304       this.mesh.setMatrixAt(this.curIndex, zr.matrix),
+L05305       this.curIndex++,
+L05306       (this.isFull = this.curIndex >= this.maxCount),
+L05307       this.updateBounds(t - this.ox, i, l - this.oz));
+L05308   }
+L05309   update() {
+L05310     (super.update(),
+L05311       (this.instanceNormal.needsUpdate = !0),
+L05312       (this.instanceShadow.needsUpdate = !0),
+L05313       (this.instanceRoadProx.needsUpdate = !0),
+L05314       this.matrixNeedsUpdate &&
+L05315         ((this.matrixNeedsUpdate = !1),
+L05316         (this.mesh.position.x = this.ox),
+L05317         (this.mesh.position.z = this.oz),
+L05318         this.mesh.updateMatrix()));
+L05319   }
+L05320   static makeProtoGeo() {
+L05321     let t = new Rn(),
+L05322       i = new Float32Array([
+L05323         -0.5, 0, 0, -0.5, 0.75, 0, 0.5, 0.75, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0.75, 0.5, 0, 0.75, -0.5, 0, 0,
+L05324         -0.5,
+L05325       ]);
+L05326     t.setAttribute("position", new us(i, 3));
+L05327     let l = new Float32Array([0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0]);
+L05328     t.setAttribute("normal", new us(l, 3));
+L05329     let n = new Float32Array([
+L05330       0.01, 0, 0.01, 0.99, 0.16, 0.99, 0.16, 0, 0.01, 0, 0.01, 0.99, 0.16, 0.99, 0.16, 0,
+L05331     ]);
+L05332     t.setAttribute("uv", new us(n, 2));
+L05333     let r = [0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7];
+L05334     return (
+L05335       t.setIndex(r),
+L05336       t.scale(Cd, Cd, Cd),
+L05337       (t.computeBoundingSphere = () => {}),
+L05338       (t.boundingSphere = new Zc()),
+L05339       t
+L05340     );
+L05341   }
+L05342   destroy() {
+L05343     (Da.protoGeo && Da.protoGeo.dispose(), this.mesh.geometry.dispose());
+L05344   }
+L05345 };
+L05346 E(Da, "protoGeo", Da.makeProtoGeo());
+L05347 let Gc = Da;
+L05348 class qD extends ef {
+L05349   addGrass(e, t, i, l, n, r, o, a, h, u, c) {
+L05350     (this.curInstance.addGrass(e, t, i, l, n, r, o, a, h, u, c), this.checkCycleInstances());
+L05351   }
+L05352 }
+L05353 const fo = new qD(Gc, 3, "grass"),
+L05354   KD =
+L05355     "data:model/obj;base64,IyBCbGVuZGVyIDQuNS4wCiMgd3d3LmJsZW5kZXIub3JnCm8gUGxhbmUKdiAwLjI5NDg3OSAtMC4wMzA5NDIgMC4wMDYyMTcKdiAtMC4yMzkyNDMgLTAuMDM0MTI2IDAuMDA2MjE3CnYgMC4yMDA0NTEgMS4wNTMyMjIgMC4wMDYyMTcKdiAtMC4xNTgxMzAgMS4wNTEwODUgMC4wMDYyMTcKdiAwLjQ3NjA4OSAwLjgyMTE4OCAwLjAwNjIxNwp2IC0wLjQzMDkwMCAwLjgxNTc4MiAwLjAwNjIxNwp2IDAuMTI1MTk1IDAuMDYyMTg1IDAuMTQzMDQwCnYgLTAuMTkzNTMyIC0wLjA2ODEzOSAtMC4xMzE5NDgKdiAtMC4xMjYzOTMgMC44OTU3MjUgLTAuMDc2NDMzCnYgLTAuMzQwMzY5IDAuODA4MjMyIC0wLjI2MTA0NQp2IDAuMDY5NTc5IDAuNzc0MTI5IDAuMDkzMTY1CnYgLTAuNDUwNTA5IDAuNTYxNDcxIC0wLjM1NTU1Mgp2IDAuMDMzNzIxIC0wLjA2NjE4NyAtMC4yNTc4MzIKdiAwLjAzMzcyMSAtMC4wNjkyNjkgMC4yNTg5ODEKdiAwLjAzMzcyMSAwLjk4Mjg0MiAtMC4xNjY0NjMKdiAwLjAzMzcyMSAwLjk4MDc3MyAwLjE4MDQ5Nwp2IDAuMDMzNzIxIDAuNzU4MzI3IC0wLjQzMzE2OQp2IDAuMDMzNzIxIDAuNzUzMDk2IDAuNDQ0NDI3CnYgMC4yMTE3MjUgMC4xMzQ5OTMgLTAuMTYwMzQxCnYgLTAuMDcxNzM0IC0wLjE2NjE1MyAwLjA1OTg1NQp2IC0wLjMxNzA1NiAwLjgxNDQ5OSAwLjI1MjA5Ngp2IC0wLjUwNzM1NSAwLjYxMjMyNiAwLjM5OTkyNAp2IC0wLjA3NzA1OCAwLjgwMjA3MCAwLjA2NTMwMgp2IC0wLjUzOTU5NyAwLjMxMDY2OSAwLjQyNDYwOQp2IDAuMjEwNDM0IC0wLjEzMzE1NCAwLjIwNDUzOAp2IC0wLjA3NDk3OCAwLjAxMjc4NyAtMC4xMzIyOTYKdiAwLjM1MzY1MiAwLjc4NzQ5MiAwLjM3NjU5Ngp2IDAuMTYyMDQxIDAuODg1NDcwIDAuMTUwNDY0CnYgMC40NDk3NTMgMC41MjQyNDUgMC40ODkzNTcKdiAtMC4wMTU5NzMgMC43NjIzODkgLTAuMDYwMjc2CnYgMC4xNjgyNTkgLTAuMTI0NDQ4IC0wLjE5NDQ4MAp2IC0wLjExNTg5OSAwLjA1MTYwNiAwLjA3ODk1OQp2IDAuMzc4NjgyIDAuNzA1NDA2IC0wLjM5ODAyNAp2IDAuMTg3OTE0IDAuODIzNjAwIC0wLjIxNDQ1Mwp2IDAuNDU5NzQ5IDAuNDQ4MzI1IC0wLjQ3NTgwNAp2IC0wLjAwMzkzMiAwLjczNTYwNCAtMC4wMjk2MTcKdm4gLTAuMDAwMCAtMC4wMDAwIDEuMDAwMAp2biAtMC42NTM3IDAuMDAxOSAwLjc1NjgKdm4gMS4wMDAwIC0wLjAwMDAgLTAuMDAwMAp2biAwLjYxNDIgLTAuMDAxMSAwLjc4OTIKdm4gLTAuNzYzNCAtMC4wMDIwIDAuNjQ2MAp2biAwLjY5MzYgMC4wMDA4IDAuNzIwMwp2dCAwLjE0NzkwOCAwLjY4MDU0Nwp2dCAwLjAwMTQyNiAwLjg2ODY4NAp2dCAwLjAwMDk3NCAwLjEwMDE5Mgp2dCAwLjA3NzM1OSAwLjAwMjA4NAp2dCAwLjExNDM5MyAwLjkzNTczNQp2dCAwLjA1NDg2OSAxLjAwNTcyOAp2dCAwLjExMTY4MiAwLjMwODI5NAp2dCAwLjI0ODkyOCAwLjEzMTAzMQp2dCAwLjI0ODgxNiAwLjgzMzYwMwp2dCAwLjE3NDEzMSAwLjkzMDA2NAp2dCAwLjE0NDQ2NyAwLjA2NjI0NAp2dCAwLjE5ODM4OCAwLjAwMDgxNQp2dCAwLjI0ODkyOCAwLjEzMTAzMQp2dCAwLjI0ODgxNiAwLjgzMzYwMwp2dCAwLjE0NDQ2NyAwLjA2NjI0NAp2dCAwLjE5ODM4OCAwLjAwMDgxNQpzIDEKZiA1LzEvMSA2LzIvMSAyLzMvMSAxLzQvMQpmIDMvNS8xIDQvNi8xIDYvMi8xIDUvMS8xCmYgMTEvNy8yIDEyLzgvMiA4LzkvMiA3LzEwLzIKZiA5LzExLzIgMTAvMTIvMiAxMi84LzIgMTEvNy8yCmYgMTcvMS8zIDE4LzIvMyAxNC8zLzMgMTMvNC8zCmYgMTUvNS8zIDE2LzYvMyAxOC8yLzMgMTcvMS8zCmYgMjMvNy80IDI0LzgvNCAyMC85LzQgMTkvMTAvNApmIDIxLzExLzQgMjIvMTIvNCAyNC84LzQgMjMvNy80CmYgMjkvNy81IDMwLzgvNSAyNi85LzUgMjUvMTAvNQpmIDI3LzExLzUgMjgvMTIvNSAzMC84LzUgMjkvNy81CmYgMzUvNy82IDM2LzEzLzYgMzIvMTQvNiAzMS8xMC82CmYgMzMvMTUvNiAzNC8xNi82IDM2LzEzLzYgMzUvNy82Cg==",
+L05356   oo = new zn();
+L05357 oo.rotation.order = "XZY";
+L05358 const YD = new Lg();
+L05359 let QD = 0;
+L05360 const ln = class ln extends $c {
+L05361   constructor() {
+L05362     super();
+L05363     E(this, "matrixNeedsUpdate", !1);
+L05364     E(this, "parent");
+L05365     E(this, "hasInit", !1);
+L05366     ((this.id = QD++), ln.protoGeo === void 0 && ln.makeProtoGeo());
+L05367   }
+L05368   init(t) {
+L05369     ((this.parent = t),
+L05370       this.hasInit &&
+L05371         ((this.maxCount = ao),
+L05372         (this.mesh = new iu(ln.protoGeo.clone(), Z2, ao)),
+L05373         (this.mesh.matrixAutoUpdate = !1),
+L05374         this.mesh.geometry.setAttribute("variant", new Tn(new Float32Array(ao), 1)),
+L05375         (this.instanceVariant = this.mesh.geometry.attributes.variant),
+L05376         this.instanceVariant.setUsage(rs),
+L05377         this.mesh.geometry.setAttribute("groundNormal", new Tn(new Float32Array(ao * 3), 3)),
+L05378         (this.instanceNormal = this.mesh.geometry.attributes.groundNormal),
+L05379         this.instanceNormal.setUsage(rs),
+L05380         this.mesh.geometry.setAttribute("shadow", new Tn(new Float32Array(ao * 1), 1)),
+L05381         (this.instanceShadow = this.mesh.geometry.attributes.shadow),
+L05382         this.instanceShadow.setUsage(rs),
+L05383         this.mesh.instanceMatrix.setUsage(rs),
+L05384         t.add(this.mesh),
+L05385         this.reset(),
+L05386         this.postInit()));
+L05387   }
+L05388   addBush(t, i, l, n, r, o, a, h, u, c, _ = 0) {
+L05389     (this.hasInit || ((this.hasInit = !0), this.init(this.parent)),
+L05390       this.curIndex == 0 &&
+L05391         ((this.matrixNeedsUpdate = !0), (this.initIndex = c), (this.ox = t), (this.oz = l)),
+L05392       c > this.retireIndex && (this.retireIndex = c),
+L05393       oo.position.set(t - this.ox, i, l - this.oz),
+L05394       (this.instanceNormal.array[this.curIndex * 3] = n),
+L05395       (this.instanceNormal.array[this.curIndex * 3 + 1] = r),
+L05396       (this.instanceNormal.array[this.curIndex * 3 + 2] = o),
+L05397       (this.instanceShadow.array[this.curIndex] = u),
+L05398       (this.instanceVariant.array[this.curIndex] = _),
+L05399       (oo.rotation.y = a),
+L05400       oo.scale.set(h, h, h),
+L05401       oo.updateMatrix(),
+L05402       this.mesh.setMatrixAt(this.curIndex, oo.matrix),
+L05403       this.curIndex++,
+L05404       (this.isFull = this.curIndex >= this.maxCount || this.retireIndex - this.initIndex > l0),
+L05405       this.updateBounds(t - this.ox, i, l - this.oz));
+L05406   }
+L05407   update() {
+L05408     this.hasInit &&
+L05409       ((this.instanceNormal.needsUpdate = !0),
+L05410       (this.instanceShadow.needsUpdate = !0),
+L05411       (this.instanceVariant.needsUpdate = !0),
+L05412       this.matrixNeedsUpdate &&
+L05413         ((this.matrixNeedsUpdate = !1),
+L05414         (this.mesh.position.x = this.ox),
+L05415         (this.mesh.position.z = this.oz),
+L05416         this.mesh.updateMatrix()),
+L05417       super.update());
+L05418   }
+L05419   static makeProtoGeo() {
+L05420     ln.protoGeo === void 0 &&
+L05421       ((ln.protoGeo = null),
+L05422       YD.load(KD, (t) => {
+L05423         let i = t.children[0].geometry;
+L05424         (i.computeBoundingSphere(), (ln.protoGeo = i));
+L05425       }));
+L05426   }
+L05427   destroy() {
+L05428     (ln.protoGeo && ln.protoGeo.dispose(), this.mesh && this.mesh.geometry.dispose());
+L05429   }
+L05430 };
+L05431 E(ln, "protoGeo");
+L05432 let Xd = ln;
+L05433 class ZD extends ef {
+L05434   constructor() {
+L05435     super(...arguments);
+L05436     E(this, "bushesAwaiting", []);
+L05437     E(this, "addBush", this.addBushLoading);
+L05438   }
+L05439   addBushLoading(...t) {
+L05440     if ((this.bushesAwaiting.push(t), Xd.protoGeo)) {
+L05441       this.addBush = this.addBushLive;
+L05442       for (let i of this.bushesAwaiting) this.addBush(...i);
+L05443       delete this.bushesAwaiting;
+L05444     }
+L05445   }
+L05446   addBushLive(t, i, l, n, r, o, a, h, u, c, _) {
+L05447     (this.curInstance.addBush(t, i, l, n, r, o, a, h, u, c, _), this.checkCycleInstances());
+L05448   }
+L05449 }
+L05450 const vo = new ZD(Xd, 3, "bush"),
+L05451   Ku = new fi(Ft.seed, 251),
+L05452   q = {},
+L05453   Ap = new fi(),
+L05454   ds = class ds extends vh {
+L05455     constructor() {
+L05456       super();
+L05457       E(this, "treeArr");
+L05458       E(this, "trees", []);
+L05459       E(this, "hasRegisteredTrees", !1);
+L05460       E(this, "hasDestroyedTrees", !0);
+L05461       (this.geo.setAttribute("treeMask", new us(new Float32Array(vh.bufferSize), 1)),
+L05462         this.geo.attributes.treeMask.setUsage(rs),
+L05463         (this.treeArr = this.geo.attributes.treeMask.array),
+L05464         this.geo.setAttribute("roadUv", new us(new Float32Array(vh.bufferSize * 2), 2)),
+L05465         this.geo.attributes.roadUv.setUsage(rs),
+L05466         (this.roadUvArr = this.geo.attributes.roadUv.array));
+L05467     }
+L05468     step(t, i) {
+L05469       return i > t ? 1 : 0;
+L05470     }
+L05471     customDestroy() {
+L05472       (delete this.treeArr, delete this.trees);
+L05473     }
+L05474     static reset() {
+L05475       ((ds.posRand = new fi("slowroads", 101, ba, ba / 2)),
+L05476         (ds.rotRand = new fi("slowroads", 59, Math.TAU)),
+L05477         (ds.randStep = ba),
+L05478         (ds.scaleRand = new fi("slowroads", 101, 0.4, -0.8)),
+L05479         (ds.grassScaleRand = new fi("slowroads", 101, 0.4, -0.8)),
+L05480         (ds.slopeRand = new fi("slowroads", 59, 0.1, 0.05)),
+L05481         (ds.sinkRand = new fi("slowroads", 101, 0.15, 0.05)),
+L05482         (ds.elevRand = new fi("elev", 101, 25)),
+L05483         (ds.bushPerlin = new Bv(3, 9)),
+L05484         (ds.bushPerlin2 = new Bv(3, 3)));
+L05485     }
+L05486     customInit() {
+L05487       ((this.trees.length = 0), (this.updateImposters = {}), (this.hasRegisteredTrees = !1));
+L05488     }
+L05489     customCellInit(t) {
+L05490       var i, l;
+L05491       ((t.hasTreeCorners = !1),
+L05492         (t.tTL = zl.getShadowDensityAt(t.worldX, t.worldZ)),
+L05493         (t.tileX = Math.floor(t.worldX / bs) + jr),
+L05494         (t.tileZ = Math.floor(t.worldZ / bs) + jr),
+L05495         (t.tile = (i = this.tileMap[t.tileX]) == null ? void 0 : i[t.tileZ]),
+L05496         (t.cellXTile = Math.round((t.worldX - t.tile.ox) / Qa)),
+L05497         (t.cellZTile = Math.round((t.worldZ - t.tile.oz) / Qa)),
+L05498         t.tile && (l = t.tile.treeMap[t.cellXTile]) != null && l[t.cellZTile]
+L05499           ? (t.trees = t.tile.treeMap[t.cellXTile][t.cellZTile])
+L05500           : (t.trees = null));
+L05501     }
+L05502     customGenCellInit(t) {
+L05503       ((t.tTR = t.cellRight ? t.cellRight.tTL : zl.getShadowDensityAt(t.worldX + Qa, t.worldZ)),
+L05504         (t.tBL = t.cellDown ? t.cellDown.tTL : zl.getShadowDensityAt(t.worldX, t.worldZ + Qa)),
+L05505         (t.tBR = t.cellDownRight ? t.cellDownRight.tTL : zl.getShadowDensityAt(t.worldX + Qa, t.worldZ + Qa)),
+L05506         (t.hasTreeCorners = !0));
+L05507     }
+L05508     customCellLoad(t, i, l, n, r, o, a, h) {
+L05509       if (
+L05510         ((q.rd = a.rd - Za),
+L05511         (q.td = ds.bilerpTreeDensity(t, l / ir, n / ir)),
+L05512         a.d < Za && h - a.y < -0.2 && (this.roadArr[i] = Math.max(-0.001, q.rd)),
+L05513         a.nf.nextFine
+L05514           ? ((q.shadowLeft = a.nf.nextFine.shadowLeft * a.t1 + a.nf.shadowLeft * (1 - a.t1)),
+L05515             (q.shadowRight = a.nf.nextFine.shadowRight * a.t1 + a.nf.shadowRight * (1 - a.t1)))
+L05516           : ((q.shadowLeft = 0), (q.shadowRight = 0)),
+L05517         q.rd < 8 &&
+L05518           (q.rd < 0
+L05519             ? ((q.tdl = (Za + q.rd) / Za / 2),
+L05520               a.s > 0
+L05521                 ? (q.td = q.shadowLeft * (0.5 + q.tdl) + q.shadowRight * (0.5 - q.tdl))
+L05522                 : (q.td = q.shadowRight * (0.5 + q.tdl) + q.shadowLeft * (0.5 - q.tdl)))
+L05523             : ((q.tdl = q.rd / 8),
+L05524               a.s > 0
+L05525                 ? (q.td = q.td * q.tdl + q.shadowLeft * (1 - q.tdl))
+L05526                 : (q.td = q.td * q.tdl + q.shadowRight * (1 - q.tdl)))),
+L05527         (q.wd = 0),
+L05528         a.n.dswl && a.s > 0
+L05529           ? a.d < -a.n.dswl + 1 &&
+L05530             a.d > -a.n.dswl - 1 &&
+L05531             ((q.wd = 1 - Math.abs(-a.n.dswl - a.d) / 1),
+L05532             (q.wd = Math.min(1, q.wd * 1.1)),
+L05533             (q.td = Math.max(q.td, q.wd)))
+L05534           : a.n.dswr &&
+L05535             a.s < 0 &&
+L05536             a.d < a.n.dswr + 1 &&
+L05537             a.d > a.n.dswr - 1 &&
+L05538             ((q.wd = 1 - Math.abs(a.n.dswr - a.d) / 1),
+L05539             (q.wd = Math.min(1, q.wd * 1.1)),
+L05540             (q.td = Math.max(q.td, q.wd))),
+L05541         (this.treeArr[i] = q.td),
+L05542         Yr)
+L05543       ) {
+L05544         let u = a.rd;
+L05545         (Ma || (u *= 1.05),
+L05546           u < Za * 2
+L05547             ? ((this.roadUvArr[i * 2] = 0.5 - ((u / (Za * 2)) * a.s) / 2),
+L05548               (this.roadUvArr[i * 2 + 1] = a.n.i + a.t))
+L05549             : ((this.roadUvArr[i * 2] = 0), (this.roadUvArr[i * 2 + 1] = 0)));
+L05550       }
+L05551     }
+L05552     customFinalise() {
+L05553       ((this.geo.attributes.treeMask.needsUpdate = !0), (this.geo.attributes.roadUv.needsUpdate = !0));
+L05554     }
+L05555     customUpgrade() {
+L05556       for (q.tx in this.updateImposters)
+L05557         for (q.tz in this.updateImposters[q.tx]) this.tileMap[q.tx][q.tz].imposterManager.finaliseChunk();
+L05558       if (this.hasLod1 && !this.hasRegisteredTrees && rh) {
+L05559         for (q.t of this.trees) q.t.name = lr.addTree(q.t, !1);
+L05560         (lr.update(), (this.hasRegisteredTrees = !0), (this.hasDestroyedTrees = !1), lr.registerChunk(this));
+L05561       }
+L05562       (fo.update(), vo.update());
+L05563     }
+L05564     customDowngrade() {
+L05565       (this.disposeTrees(), lr.unregisterChunk(this));
+L05566     }
+L05567     disposeTrees() {
+L05568       if (!this.hasDestroyedTrees && rh) {
+L05569         this.updateImposters = {};
+L05570         for (let t of this.trees)
+L05571           (lr.removeTree(t.name, t.t, t.v, !1), this.tileMap[t.tx][t.tz].prepCellTree(t.i, t.y, !1, !0));
+L05572         (lr.update(), (this.hasDestroyedTrees = !0));
+L05573       }
+L05574     }
+L05575     customRetire() {
+L05576       this.curLod == 1 && this.customDowngrade();
+L05577     }
+L05578     getNormalStride(t) {
+L05579       return t > 16 ? (t > 32 ? ir : 1 + ((t - 16) / 32) * (ir - 1)) : 1;
+L05580     }
+L05581     loadCustom0() {
+L05582       if ((this.loadTrees(), this.genCellIndex++, this.genCellIndex >= this.cellList.length)) return !0;
+L05583       ((this.genCell = this.cellList[this.genCellIndex]), (this.genCell.genRow = 0));
+L05584     }
+L05585     loadTrees() {
+L05586       var t;
+L05587       if (
+L05588         ((q.tx = this.genCell.tileX),
+L05589         (q.tz = this.genCell.tileZ),
+L05590         (q.hasTrees = !1),
+L05591         (q.lookup = { h: 0, r: 0, n: 1 }),
+L05592         (this.genCell.trees =
+L05593           (t = this.genCell.tile.treeMap[this.genCell.cellXTile]) == null
+L05594             ? void 0
+L05595             : t[this.genCell.cellZTile]),
+L05596         this.genCell.trees)
+L05597       ) {
+L05598         for (
+L05599           q.arrangement = zl.getArrangement(this.genCell.trees.a), this.genCell.trees.h = [], q.ti = 0;
+L05600           q.ti < this.genCell.trees.c;
+L05601           q.ti++
+L05602         ) {
+L05603           if (this.genCell.trees.i[q.ti] == null) continue;
+L05604           if (
+L05605             ((q.hasTrees = !0),
+L05606             (q.t = q.arrangement.t[q.ti]),
+L05607             (q.s = this.genCell.trees.s[q.ti]),
+L05608             this.lookupHeightAndRoadProx(
+L05609               this.genCell.worldX + q.t[0],
+L05610               this.genCell.worldZ + q.t[1],
+L05611               q.lookup,
+L05612             ),
+L05613             q.lookup.h < i0 || q.lookup.r < X2 + 2 * q.s || q.lookup.n < J2)
+L05614           ) {
+L05615             this.tileMap[q.tx][q.tz].hideCellTree(this.genCell.trees.i[q.ti]);
+L05616             continue;
+L05617           }
+L05618           ((q.p = q.arrangement.p[q.ti]),
+L05619             (q.v = this.genCell.trees.v[q.ti]),
+L05620             (q.y = this.genCell.trees.y),
+L05621             (q.lookup.h -= this.genCell.trees.k[q.ti]),
+L05622             this.tileMap[q.tx][q.tz].prepCellTree(this.genCell.trees.i[q.ti], q.lookup.h, rh),
+L05623             (this.genCell.trees.h[q.ti] = q.lookup.h));
+L05624           let i = {};
+L05625           ((i.x = q.t[0] + this.genCell.worldX),
+L05626             (i.y = q.lookup.h),
+L05627             (i.z = q.t[1] + this.genCell.worldZ),
+L05628             (i.r = q.p[0]),
+L05629             (i.s = q.p[1] * q.s),
+L05630             (i.t = q.y),
+L05631             (i.v = q.v),
+L05632             (i.i = this.genCell.trees.i[q.ti]),
+L05633             (i.tx = q.tx),
+L05634             (i.tz = q.tz),
+L05635             (i.d = this.genCell.trees.d),
+L05636             this.trees.push(i));
+L05637         }
+L05638         q.ti = 0;
+L05639         for (q.extraTree of this.genCell.trees.x)
+L05640           ((q.hasTrees = !0),
+L05641             this.tileMap[q.tx][q.tz].prepCellTree(q.extraTree.i, q.extraTree.y, rh),
+L05642             this.trees.push({ ...q.extraTree, tx: q.tx, tz: q.tz }));
+L05643         q.hasTrees &&
+L05644           (this.updateImposters[q.tx] || (this.updateImposters[q.tx] = {}),
+L05645           (this.updateImposters[q.tx][q.tz] = !0));
+L05646       }
+L05647     }
+L05648     loadCustom1() {
+L05649       if (x2) return !0;
+L05650       if (
+L05651         ((q.x = this.genCell.genRow),
+L05652         (q.wx = this.genCell.worldX + q.x * ba),
+L05653         (q.lookup = { h: 0, r: 0, n: 1 }),
+L05654         (q.norm = { x: 0, y: 1, z: 0 }),
+L05655         this.genCell.isInner || q.x % 2 == 0)
+L05656       ) {
+L05657         for (q.z = 0; q.z < ir && !(!this.genCell.isInner && q.z > 0 && (q.z++, q.z >= ir)); q.z++) {
+L05658           if (
+L05659             ((q.wz = this.genCell.worldZ + q.z * ba),
+L05660             (q.sink = 0),
+L05661             (q.rp = this.getRoadProxFromCell(this.genCell, q.x, q.z)),
+L05662             Yr)
+L05663           ) {
+L05664             if (q.rp < 2) continue;
+L05665           } else if (q.rp < 2) continue;
+L05666           if (
+L05667             ((q.wy = this.getHeightFromCell(this.genCell, q.x, q.z)),
+L05668             q.wy < $2 ||
+L05669               (this.getNormalFromCell(this.genCell, q.x, q.z, q.norm), q.norm.y + ds.slopeRand.next() < eb))
+L05670           )
+L05671             continue;
+L05672           if (
+L05673             ((q.tm = this.getTreeDensityFromCell(this.genCell, q.x, q.z)),
+L05674             (q.checkForBush = q.rp > 3 && q.wy > 4),
+L05675             (q.variant = Ku.next()),
+L05676             q.variant < 0.35
+L05677               ? (q.variant = 0)
+L05678               : q.variant < 0.7
+L05679                 ? (q.variant = 2)
+L05680                 : q.variant < 0.9
+L05681                   ? (q.variant = 1)
+L05682                   : (q.variant = 3),
+L05683             (q.scale = 1),
+L05684             (q.sink = 0.04),
+L05685             (q.bushProb = 0),
+L05686             q.checkForBush)
+L05687           ) {
+L05688             let l = 1 - q.wy / 200;
+L05689             if (
+L05690               ((q.bushProb = this.step(0.5, l * ds.bushPerlin.get(q.wx / 200, q.wz / 200))),
+L05691               (q.bushProb *= this.step(0.8, ds.bushPerlin2.get(q.wx / 1e3, q.wz / 1e3))),
+L05692               q.bushProb > 0)
+L05693             ) {
+L05694               let n = ds.bushPerlin.get(q.wx / 1e3, q.wz / 1e3);
+L05695               (n < 0.55 * l
+L05696                 ? (q.variant = 3)
+L05697                 : n < 0.75 * l
+L05698                   ? (q.variant = 1)
+L05699                   : n < 0.9
+L05700                     ? (q.variant = 2)
+L05701                     : (q.variant = 0),
+L05702                 (q.scale = 1.5 + Math.random()),
+L05703                 (q.checkForBush = !1),
+L05704                 (q.sink = Math.random() * 0.2));
+L05705             }
+L05706           }
+L05707           (q.checkForBush &&
+L05708             ((q.bushPerlin = ds.bushPerlin.get(q.wx / 1e3, q.wz / 1e3)),
+L05709             (q.bushProb = 0.3 * q.bushPerlin + q.tm * 0.3),
+L05710             q.bushProb > 0 && ((q.scale = ds.scaleRand.next() + q.tm / 4), (q.scale *= 1.8))),
+L05711             (q.bushProb *= q.bushProb),
+L05712             (q.bushProb *= 1 - q.wy / 600),
+L05713             q.rp > 2
+L05714               ? q.rp > 30
+L05715                 ? (q.bushProb = 0)
+L05716                 : q.rp > 15 && (q.bushProb *= (q.rp - 15) / 15)
+L05717               : (q.bushProb *= q.rp / 2));
+L05718           let t = !1;
+L05719           if (
+L05720             (Ku.next() < q.bushProb * Ed * Ed &&
+L05721               ((q.ox = ds.posRand.next() * Math.min(q.rp + 0.3, 1)),
+L05722               (q.oz = ds.posRand.next() * Math.min(q.rp + 0.3, 1)),
+L05723               (q.wy -= q.sink * q.scale),
+L05724               vo.addBush(
+L05725                 q.wx + q.ox,
+L05726                 q.wy - q.ox * q.norm.x - q.oz * q.norm.z,
+L05727                 q.wz + q.oz,
+L05728                 q.norm.x,
+L05729                 q.norm.y,
+L05730                 q.norm.z,
+L05731                 ds.rotRand.next(),
+L05732                 q.scale,
+L05733                 q.tm,
+L05734                 this.downgradeIndex,
+L05735                 q.variant,
+L05736               ),
+L05737               (t = !0)),
+L05738             q.rp > Wv || (q.rp > 0 && Ku.next() > Ed))
+L05739           )
+L05740             continue;
+L05741           let i = this.genCell.isInner ? tb : sb;
+L05742           t && (i -= 2);
+L05743           for (let l = 0; l < i; l++) {
+L05744             if (
+L05745               ((q.scale = 1.5),
+L05746               (q.scale *= ds.grassScaleRand.next()),
+L05747               (q.ox = ds.posRand.next() * Math.min(q.rp + 0.3, 1)),
+L05748               (q.oz = ds.posRand.next() * Math.min(q.rp + 0.3, 1)),
+L05749               this.genCell.isInner || ((q.ox *= 2), (q.oz *= 2)),
+L05750               (q.sink = 0),
+L05751               q.rp < 6)
+L05752             ) {
+L05753               let n = 1 - q.rp / 6;
+L05754               ((q.sink = n * 0.15), (q.scale *= 1 - n * 0.4));
+L05755             } else if (
+L05756               ((q.rpl = (q.rp - 6) / (Wv - 6)),
+L05757               (q.scale += q.rpl * (1 - q.tm)),
+L05758               (q.sink = q.rpl * q.scale * 0.7),
+L05759               q.rpl > Ap.next())
+L05760             )
+L05761               continue;
+L05762             q.tm * Math.min(1, (q.rp - 2) / 5) > Ap.next() ||
+L05763               (Ts.bigGrass > 0 && (q.scale = 1 + Ts.bigGrass * 5),
+L05764               fo.addGrass(
+L05765                 q.wx + q.ox,
+L05766                 q.wy - q.ox * q.norm.x - q.oz * q.norm.z - q.sink * Cd + ds.sinkRand.next(),
+L05767                 q.wz + q.oz,
+L05768                 q.norm.x,
+L05769                 q.norm.y,
+L05770                 q.norm.z,
+L05771                 ds.rotRand.next(),
+L05772                 q.scale,
+L05773                 q.tm,
+L05774                 q.rp,
+L05775                 this.downgradeIndex,
+L05776               ));
+L05777           }
+L05778         }
+L05779         if ((this.genCell.genRow++, this.genCell.isInner || this.genCell.genRow++, this.genCell.genRow < ir))
+L05780           return !1;
+L05781       }
+L05782       if ((this.genCellIndex++, this.genCellIndex >= this.cellList.length)) return !0;
+L05783       ((this.genCell = this.cellList[this.genCellIndex]), (this.genCell.genRow = 0));
+L05784     }
+L05785     getTreeDensityFromCell(t, i, l) {
+L05786       return this.treeArr[t.bufferIndexEntry + i * z2 + l];
+L05787     }
+L05788     static bilerpTreeDensity(t, i, l) {
+L05789       return (
+L05790         (q.t1 = t.tTL * (1 - i) + t.tTR * i),
+L05791         (q.t2 = t.tBL * (1 - i) + t.tBR * i),
+L05792         q.t1 * (1 - l) + q.t2 * l
+L05793       );
+L05794     }
+L05795   };
+L05796 (E(ds, "randStep", null),
+L05797   E(ds, "posRand", null),
+L05798   E(ds, "rotRand", null),
+L05799   E(ds, "scaleRand", null),
+L05800   E(ds, "slopeRand", null));
+L05801 let Jd = ds;
+L05802 class XD extends R2 {}
+
+===== 2.c189d18b: 6745-7140 =====
+L06745 class iM extends lu {
+L06746   constructor() {
+L06747     super(...arguments);
+L06748     E(this, "typeID", Ia.Barrier);
+L06749   }
+L06750   generate(t) {
+L06751     let i = t;
+L06752     for (; this.test(i) && i.prev && i.i > this.prev.endNode.i && t.i - i.i < ru;) i = i.prev;
+L06753     for (i.i - this.prev.endNode.i < lf && (i = this.prev.endNode); this.test(t) && t.i - i.i < ko;)
+L06754       t = t.next;
+L06755     if (t.i - i.i < nb) return null;
+L06756     let l = this.typeID,
+L06757       n = new nu(i, t, l, (Ss + rb) * this.side);
+L06758     return (
+L06759       this.prev.endNode.i == i.i &&
+L06760         this.prev.type == n.type &&
+L06761         ((this.prev.contiguousEnd = !0), (n.contiguousStart = !0), (n.distance = this.prev.distance)),
+L06762       n
+L06763     );
+L06764   }
+L06765   testGenLeft(t) {
+L06766     return (
+L06767       !Ma &&
+L06768       !t.bridge &&
+L06769       t.p.y > ah &&
+L06770       t.i >= this.prevLeft.endNode.i &&
+L06771       (t.g < -qv || (t.g < 0 && t.da < -Kv && t.h < 0.6))
+L06772     );
+L06773   }
+L06774   testGenRight(t) {
+L06775     return (
+L06776       !Ma &&
+L06777       !t.bridge &&
+L06778       t.p.y > ah &&
+L06779       t.i >= this.prevRight.endNode.i &&
+L06780       (t.g > qv || (t.g > 0 && t.da > Kv && t.h < 0.6))
+L06781     );
+L06782   }
+L06783   testLeft(t) {
+L06784     return (
+L06785       !Ma && !t.bridge && t.p.y > ah && t.p.y > Sp && (t.g < -Yv || (t.g < 0.1 && t.da < -Qv && t.h < 0.6))
+L06786     );
+L06787   }
+L06788   testRight(t) {
+L06789     return (
+L06790       !Ma && !t.bridge && t.p.y > ah && t.p.y > Sp && (t.g > Yv || (t.g > -0.1 && t.da > Qv && t.h < 0.6))
+L06791     );
+L06792   }
+L06793 }
+L06794 const lM = 0.2,
+L06795   Vr = 1,
+L06796   fa = 0.25,
+L06797   er = 0.15,
+L06798   nM = 5;
+L06799 let va,
+L06800   Ju = null,
+L06801   Lp;
+L06802 const Tp = 0.3,
+L06803   rM = 2.5,
+L06804   xu = 1,
+L06805   Le = {};
+L06806 class Io extends tf {
+L06807   constructor(t = null) {
+L06808     super();
+L06809     E(this, "p", new Ki());
+L06810     E(this, "mesh");
+L06811     E(this, "posAttribute");
+L06812     E(this, "posArr");
+L06813     E(this, "normAttribute");
+L06814     E(this, "normArr");
+L06815     E(this, "uvAttribute");
+L06816     E(this, "uvArr");
+L06817     E(this, "shadowAttribute");
+L06818     E(this, "shadowArr");
+L06819     E(this, "mapSource", null);
+L06820     E(this, "normSource", null);
+L06821     E(this, "bounds", { maxX: 0, minX: 0, maxY: 0, minY: 0, maxZ: 0, minZ: 0 });
+L06822     E(this, "wallNodeCount", 0);
+L06823     ((va = ko * nM + 1),
+L06824       (this.mesh = new Ti(Io.getGeo(), ab)),
+L06825       (this.mesh.matrixAutoUpdate = !1),
+L06826       this.mesh.geometry.setDrawRange(0, 0),
+L06827       (this.posAttribute = this.mesh.geometry.attributes.position),
+L06828       (this.posArr = this.posAttribute.array),
+L06829       (this.uvAttribute = this.mesh.geometry.attributes.uv),
+L06830       (this.uvArr = this.uvAttribute.array),
+L06831       (this.shadowAttribute = this.mesh.geometry.attributes.shadow),
+L06832       (this.shadowArr = this.shadowAttribute.array),
+L06833       t && this.drawSegment(t));
+L06834   }
+L06835   drawSegment(t) {
+L06836     return (
+L06837       (this.seg = t),
+L06838       (this.drawNode = this.seg.startNode),
+L06839       (this.pi = 0),
+L06840       (this.ni = 0),
+L06841       (this.ui = 0),
+L06842       (this.si = 0),
+L06843       (this.ox = this.seg.startNode.p.x),
+L06844       (this.oz = this.seg.startNode.p.z),
+L06845       (this.side = Math.sign(t.distance)),
+L06846       (this.wallNodeCount = 0),
+L06847       (this.lOffset = this.seg.distance < 0 ? fa : 0),
+L06848       (this.uvDist = 0),
+L06849       this.drawNextNode()
+L06850     );
+L06851   }
+L06852   drawNextNode() {
+L06853     ((Le.dnp = this.drawNode.p),
+L06854       this.ni > 0
+L06855         ? ((this.bounds.maxX = Math.max(this.bounds.maxX, Le.dnp.x - this.ox)),
+L06856           (this.bounds.minX = Math.min(this.bounds.minX, Le.dnp.x - this.ox)),
+L06857           (this.bounds.maxY = Math.max(this.bounds.maxY, Le.dnp.y)),
+L06858           (this.bounds.minY = Math.min(this.bounds.minY, Le.dnp.y)),
+L06859           (this.bounds.maxZ = Math.max(this.bounds.maxZ, Le.dnp.z - this.oz)),
+L06860           (this.bounds.minZ = Math.min(this.bounds.minZ, Le.dnp.z - this.oz)))
+L06861         : ((this.bounds.maxX = Le.dnp.x - this.ox),
+L06862           (this.bounds.minX = Le.dnp.x - this.ox),
+L06863           (this.bounds.maxY = Le.dnp.y),
+L06864           (this.bounds.minY = Le.dnp.y),
+L06865           (this.bounds.maxZ = Le.dnp.z - this.oz),
+L06866           (this.bounds.minZ = Le.dnp.z - this.oz)),
+L06867       (Le.drawNodeI = this.drawNode.i),
+L06868       (Le.fineSegs = 0),
+L06869       (Le.actualSegs = 0),
+L06870       (Le.nextNode = this.drawNode.next));
+L06871     do
+L06872       (Le.fineSegs++,
+L06873         Le.actualSegs++,
+L06874         this.wallNodeCount++,
+L06875         (Le.pj = this.drawNode.p),
+L06876         (Le.nj = this.drawNode.n),
+L06877         (Le.njs = { x: Le.nj.x * this.side, z: Le.nj.z * this.side }),
+L06878         (Le.x = Le.pj.x + Le.nj.x * (this.seg.distance - this.lOffset)),
+L06879         (Le.xw = Le.x + Le.nj.x * fa),
+L06880         (Le.z = Le.pj.z + Le.nj.z * (this.seg.distance - this.lOffset)),
+L06881         (Le.zw = Le.z + Le.nj.z * fa),
+L06882         (this.posArr[this.pi++] = Le.x - this.ox - Le.nj.x * er),
+L06883         (this.posArr[this.pi++] = Le.pj.y),
+L06884         (this.posArr[this.pi++] = Le.z - this.oz - Le.nj.z * er),
+L06885         (this.posArr[this.pi++] = Le.x - this.ox),
+L06886         (this.posArr[this.pi++] = Le.pj.y + Vr),
+L06887         (this.posArr[this.pi++] = Le.z - this.oz),
+L06888         (this.posArr[this.pi++] = Le.xw - this.ox),
+L06889         (this.posArr[this.pi++] = Le.pj.y + Vr),
+L06890         (this.posArr[this.pi++] = Le.zw - this.oz),
+L06891         (this.posArr[this.pi++] = Le.xw - this.ox + Le.nj.x * er),
+L06892         (this.posArr[this.pi++] = Le.pj.y),
+L06893         (this.posArr[this.pi++] = Le.zw - this.oz + Le.nj.z * er),
+L06894         this.side < 0
+L06895           ? ((this.shadowArr[this.si++] = this.drawNode.shadowLeft),
+L06896             (this.shadowArr[this.si++] = this.drawNode.shadowLeft),
+L06897             (this.shadowArr[this.si++] = this.drawNode.shadowLeft),
+L06898             (this.shadowArr[this.si++] = this.drawNode.shadowLeft))
+L06899           : ((this.shadowArr[this.si++] = this.drawNode.shadowRight),
+L06900             (this.shadowArr[this.si++] = this.drawNode.shadowRight),
+L06901             (this.shadowArr[this.si++] = this.drawNode.shadowRight),
+L06902             (this.shadowArr[this.si++] = this.drawNode.shadowRight)),
+L06903         (this.drawNode = this.drawNode.nextFine),
+L06904         this.drawNode.i != Le.nextNode.i &&
+L06905           !(Le.fineSegs == 1 && this.drawNode.nextFine.i == Le.nextNode.i) &&
+L06906           (Le.actualSegs++, (this.drawNode = this.drawNode.nextFine)));
+L06907     while (this.drawNode.i != Le.nextNode.i);
+L06908     for (
+L06909       Le.uvDist = rM / Le.actualSegs,
+L06910         Le.subsampledUVs = Le.actualSegs != Le.fineSegs,
+L06911         Le.evenUVs = Le.actualSegs % 2 == 0,
+L06912         Le.i = 0;
+L06913       Le.i < Le.fineSegs;
+L06914       Le.i++
+L06915     ) {
+L06916       for (Le.uvCount = 4; Le.uvCount > 0;)
+L06917         ((this.uvArr[this.ui] = this.uvDist), (this.ui += 2), Le.uvCount--);
+L06918       ((this.uvDist += Le.uvDist),
+L06919         Le.subsampledUVs && (Le.evenUVs || Le.i < Le.fineSegs - 1) && (this.uvDist += Le.uvDist));
+L06920     }
+L06921     if ((this.ni++, this.drawNode.i < this.seg.endNode.i)) return !1;
+L06922     for (
+L06923       Le.pj = this.drawNode.p,
+L06924         Le.nj = this.drawNode.n,
+L06925         Le.njs = { x: Le.nj.x * this.side, z: Le.nj.z * this.side },
+L06926         Le.x = Le.pj.x + Le.nj.x * (this.seg.distance - this.lOffset),
+L06927         Le.xw = Le.x + Le.nj.x * fa,
+L06928         Le.z = Le.pj.z + Le.nj.z * (this.seg.distance - this.lOffset),
+L06929         Le.zw = Le.z + Le.nj.z * fa,
+L06930         this.posArr[this.pi++] = Le.x - this.ox - Le.nj.x * er,
+L06931         this.posArr[this.pi++] = Le.pj.y,
+L06932         this.posArr[this.pi++] = Le.z - this.oz - Le.nj.z * er,
+L06933         this.posArr[this.pi++] = Le.x - this.ox,
+L06934         this.posArr[this.pi++] = Le.pj.y + Vr,
+L06935         this.posArr[this.pi++] = Le.z - this.oz,
+L06936         this.posArr[this.pi++] = Le.xw - this.ox,
+L06937         this.posArr[this.pi++] = Le.pj.y + Vr,
+L06938         this.posArr[this.pi++] = Le.zw - this.oz,
+L06939         this.posArr[this.pi++] = Le.xw - this.ox + Le.nj.x * er,
+L06940         this.posArr[this.pi++] = Le.pj.y,
+L06941         this.posArr[this.pi++] = Le.zw - this.oz + Le.nj.z * er,
+L06942         this.side < 0
+L06943           ? ((this.shadowArr[this.si++] = this.drawNode.shadowLeft),
+L06944             (this.shadowArr[this.si++] = this.drawNode.shadowLeft),
+L06945             (this.shadowArr[this.si++] = this.drawNode.shadowLeft),
+L06946             (this.shadowArr[this.si++] = this.drawNode.shadowLeft))
+L06947           : ((this.shadowArr[this.si++] = this.drawNode.shadowRight),
+L06948             (this.shadowArr[this.si++] = this.drawNode.shadowRight),
+L06949             (this.shadowArr[this.si++] = this.drawNode.shadowRight),
+L06950             (this.shadowArr[this.si++] = this.drawNode.shadowRight)),
+L06951         Le.uvCount = 4;
+L06952       Le.uvCount > 0;
+L06953     )
+L06954       ((this.uvArr[this.ui] = this.uvDist), (this.ui += 2), Le.uvCount--);
+L06955     if (
+L06956       (this.wallNodeCount++,
+L06957       (Le.drawCount = (this.wallNodeCount - 1) * (3 * 2) * 3),
+L06958       this.mesh.geometry.setDrawRange(0, Le.drawCount),
+L06959       this.computeBoundingSphere(),
+L06960       (this.mesh.geometry.boundingSphere = this.boundingSphere),
+L06961       this.mesh.position.set(this.ox, -lM, this.oz),
+L06962       (this.posAttribute.needsUpdate = !0),
+L06963       (this.uvAttribute.needsUpdate = !0),
+L06964       (this.shadowAttribute.needsUpdate = !0),
+L06965       (this.mesh.visible = !0),
+L06966       this.mesh.updateMatrix(),
+L06967       !this.seg.contiguousStart)
+L06968     )
+L06969       for (
+L06970         this.seg.type == Ia.BridgeWall &&
+L06971           ((this.p.x = (this.posArr[0] + this.posArr[9]) / 2 + this.mesh.position.x),
+L06972           (this.p.y = this.posArr[1]),
+L06973           (this.p.z = (this.posArr[2] + this.posArr[11]) / 2 + this.mesh.position.z),
+L06974           ol.addObject(
+L06975             "Reflector",
+L06976             this.p,
+L06977             Math.PI + Math.PI / 2 - this.seg.startNode.a,
+L06978             this.seg.startNode.i,
+L06979           )),
+L06980           Le.ii = 0;
+L06981         Le.ii < 4;
+L06982         Le.ii++
+L06983       )
+L06984         this.posArr[Le.ii * 3 + 1] -= Vr;
+L06985     if (!this.seg.contiguousEnd)
+L06986       for (Le.ii = 0; Le.ii < 4; Le.ii++) this.posArr[this.pi - (Le.ii * 3 + 2)] -= Vr;
+L06987     return !0;
+L06988   }
+L06989   retire() {
+L06990     this.mesh.visible = !1;
+L06991   }
+L06992   static getGeo() {
+L06993     if (Ju !== null && Lp == va) return Ju.clone();
+L06994     let t = new Rn();
+L06995     (t.setIndex(Io.getIndex()),
+L06996       t.setAttribute("position", new us(new Float32Array(va * 3 * 4), 3)),
+L06997       t.attributes.position.setUsage(rs));
+L06998     let i = Io.getUV();
+L06999     return (
+L07000       t.setAttribute("uv", new us(new Float32Array(i), 2)),
+L07001       t.attributes.uv.setUsage(rs),
+L07002       t.setAttribute("shadow", new us(new Float32Array(va * 4), 1)),
+L07003       t.attributes.shadow.setUsage(rs),
+L07004       (Ju = t),
+L07005       (Lp = va),
+L07006       t
+L07007     );
+L07008   }
+L07009   static getUV() {
+L07010     let t = [],
+L07011       i = Vr;
+L07012     i = Math.atan(Vr / er);
+L07013     let l = i + fa + i,
+L07014       n = i / l,
+L07015       r = fa / l;
+L07016     for (let o = 0; o < va; o++) t.push(0, 1 * xu * 2, 0, (1 - n) * xu * 2, 0, (1 - n - r) * xu * 2, 0, 0);
+L07017     return t;
+L07018   }
+L07019   static getIndex() {
+L07020     let t = [],
+L07021       i,
+L07022       l,
+L07023       n,
+L07024       r,
+L07025       o,
+L07026       a,
+L07027       h,
+L07028       u;
+L07029     for (let c = 0; c < va; c++)
+L07030       ((i = c * 4),
+L07031         (l = i + 1),
+L07032         (n = i + 2),
+L07033         (r = i + 3),
+L07034         (o = (c + 1) * 4),
+L07035         (a = o + 1),
+L07036         (h = o + 2),
+L07037         (u = o + 3),
+L07038         t.push(i, l, o, l, a, o, l, n, a, n, h, a, n, r, h, r, u, h));
+L07039     return t;
+L07040   }
+L07041 }
+L07042 class aM extends lu {
+L07043   constructor() {
+L07044     super(...arguments);
+L07045     E(this, "typeID", Ia.SeaWall);
+L07046   }
+L07047   generate(t) {
+L07048     let i = t;
+L07049     for (; this.test(i) && i.prev && i.i > this.prev.endNode.i && t.i - i.i < ru;) i = i.prev;
+L07050     for (i.i - this.prev.endNode.i < lf && (i = this.prev.endNode); this.test(t) && t.i - i.i < ko;)
+L07051       t = t.next;
+L07052     let l = new nu(i, t, this.typeID, (Ss + ob) * this.side);
+L07053     return (
+L07054       this.prev.endNode.i == i.i &&
+L07055         this.prev.type == l.type &&
+L07056         ((this.prev.contiguousEnd = !0), (l.contiguousStart = !0), (l.distance = this.prev.distance)),
+L07057       l
+L07058     );
+L07059   }
+L07060   testGenLeft(t) {
+L07061     return this.testLeft(t) && this.testGen(t);
+L07062   }
+L07063   testGenRight(t) {
+L07064     return this.testRight(t) && this.testGen(t);
+L07065   }
+L07066   testGen(t) {
+L07067     return !t.bridge && !Ma && t.p.y < ah;
+L07068   }
+L07069   testLeft(t) {
+L07070     return t.g < -Tp;
+L07071   }
+L07072   testRight(t) {
+L07073     return t.g > Tp;
+L07074   }
+L07075 }
+L07076 class oM extends lu {
+L07077   constructor() {
+L07078     super(...arguments);
+L07079     E(this, "typeID", Ia.BridgeWall);
+L07080   }
+L07081   generate(t) {
+L07082     let i = t.prev;
+L07083     for (t = t.next; this.test(i) && i.prev && i.i > this.prev.endNode.i && t.i - i.i < ru;) i = i.prev;
+L07084     for (i.i - this.prev.endNode.i < lf && (i = this.prev.endNode); this.test(t) && t.i - i.i < ko;)
+L07085       t = t.next;
+L07086     let l = new nu(i, t, this.typeID, Ss * this.side);
+L07087     return (
+L07088       this.prev.endNode.i == i.i &&
+L07089         this.prev.type == l.type &&
+L07090         ((this.prev.contiguousEnd = !0), (l.contiguousStart = !0), (l.distance = this.prev.distance)),
+L07091       l
+L07092     );
+L07093   }
+L07094   testGenLeft(t) {
+L07095     return t.bridge;
+L07096   }
+L07097   testGenRight(t) {
+L07098     return t.bridge;
+L07099   }
+L07100   testLeft(t) {
+L07101     return t.bridge; //!n.bridge && n.p.y < SEAWALL_ELEV && (n.g < -GRADIENT_THRESHOLD || n.h < -H_THRESHOLD)
+L07102   }
+L07103   testRight(t) {
+L07104     return t.bridge; //!n.bridge && n.p.y < SEAWALL_ELEV && (n.g > GRADIENT_THRESHOLD || n.h < -H_THRESHOLD)
+L07105   }
+L07106 }
+L07107 const ge = {},
+L07108   Np = 0.01,
+L07109   dd = 0.1,
+L07110   sh = 0.6,
+L07111   ih = -1,
+L07112   $u = 1.75,
+L07113   Vp = 0.3,
+L07114   hM = 1,
+L07115   dM = 3;
+L07116 let z0;
+L07117 const ho = [],
+L07118   ga = [];
+L07119 class zp {
+L07120   constructor() {
+L07121     E(this, "container", new zn());
+L07122     E(this, "lookaheadNode");
+L07123     E(this, "hasInit", !1);
+L07124     E(this, "toDisplay", []);
+L07125     E(this, "toUpgrade", []);
+L07126     E(this, "toDowngrade", []);
+L07127     E(this, "toRetire", []);
+L07128     E(this, "activeBridges", 0);
+L07129     E(this, "nextBridge", null);
+L07130     ((this.lookaheadNode = Ne.head),
+L07131       (this.container.matrixAutoUpdate = !1),
+L07132       Kt.addJob(this.load.bind(this), 0, "bridgeControllerInit", "loadScene", !0),
+L07133       (z0 = (mh + 1) * 2 + 4),
+L07134       this.generateProtoArchIndex());
+L07135   }
+L07136   generateProtoArchIndex() {
+L07137     ((ho.length = 0), (ga.length = 0));
+L07138     let e = mh / 2,
+L07139       t;
+L07140     for (let i = 0; i < mh; i++)
+
+===== 2.c189d18b: 7300-8210 =====
+L07300   }
+L07301   load() {
+L07302     if (this.destroyed) return !0;
+L07303     if (!this.hasDeck) {
+L07304       this.makeDeckVerts(this.head);
+L07305       do
+L07306         (this.prepLoad(),
+L07307           this.makeDeckVerts(ge.nb),
+L07308           (this.dv = this.vertI),
+L07309           this.deckIndex.push(
+L07310             this.dv,
+L07311             this.dv + 4,
+L07312             this.dv + 1,
+L07313             this.dv + 1,
+L07314             this.dv + 4,
+L07315             this.dv + 5,
+L07316             this.dv + 1,
+L07317             this.dv + 5,
+L07318             this.dv + 2,
+L07319             this.dv + 2,
+L07320             this.dv + 5,
+L07321             this.dv + 6,
+L07322             this.dv + 2,
+L07323             this.dv + 6,
+L07324             this.dv + 3,
+L07325             this.dv + 3,
+L07326             this.dv + 6,
+L07327             this.dv + 7,
+L07328           ),
+L07329           (this.vertI += 4),
+L07330           this.shadowIndex.push(this.sv, this.sv + 2, this.sv + 1, this.sv + 1, this.sv + 2, this.sv + 3),
+L07331           (this.sv += 2),
+L07332           (this.genNode = ge.nb));
+L07333       while (ge.nb.i < this.tail.i);
+L07334       return ((this.genNode = this.head), (this.hasDeck = !0), (this.vertI += 4), !1);
+L07335     }
+L07336     return (
+L07337       this.prepLoad(),
+L07338       this.genArches && this.makeArch(ge.na, ge.nb),
+L07339       ge.nb.i < this.tail.i && this.makePylon(ge.nb),
+L07340       (this.genNode = ge.nb),
+L07341       this.genNode.i < this.tail.i ? !1 : (this.finalise(), !0)
+L07342     );
+L07343   }
+L07344   finalise() {
+L07345     ((ge.index = this.deckIndex.concat(this.archIndex0).concat(this.pylonIndex).concat(this.archIndex1)),
+L07346       (this.index0Count = this.deckIndex.length + this.archIndex0.length + this.pylonIndex.length),
+L07347       (this.index1Start = this.deckIndex.length + this.archIndex0.length),
+L07348       (this.index1Count = ge.index.length - this.index1Start),
+L07349       (this.geo = new Rn()),
+L07350       this.geo.setAttribute("position", new us(this.posArr, 3)),
+L07351       this.geo.setAttribute("uv", new us(this.uvArr, 2)),
+L07352       this.geo.setIndex(ge.index),
+L07353       this.geo.setDrawRange(0, this.index0Count),
+L07354       (this.mesh = new Ti(this.geo, db)),
+L07355       (this.mesh.boundingSphere = this.boundingSphere),
+L07356       (this.mesh.matrixAutoUpdate = !1),
+L07357       this.container.add(this.mesh));
+L07358     let e = new Rn();
+L07359     ((e.boundingSphere = this.boundingSphere),
+L07360       e.setAttribute("position", new us(this.shadowArr, 3)),
+L07361       e.setIndex(this.shadowIndex),
+L07362       (this.shadow = new Ti(e, ub)),
+L07363       (this.shadow.matrixAutoUpdate = !1),
+L07364       (this.shadow.boundingSphere = this.boundingSphere),
+L07365       (this.shadow.visible = !1),
+L07366       (this.loading = !1),
+L07367       this.doDisplay && this.display());
+L07368   }
+L07369   display() {
+L07370     if (this.loading) {
+L07371       this.doDisplay = !0;
+L07372       return;
+L07373     }
+L07374     (this.doUpgrade && this.upgrade(), (this.container.visible = !0));
+L07375   }
+L07376   upgrade() {
+L07377     if (this.loading) {
+L07378       this.doUpgrade = !0;
+L07379       return;
+L07380     }
+L07381     (this.geo.setDrawRange(this.index1Start, this.index1Count), (this.shadow.visible = !0));
+L07382   }
+L07383   downgrade() {
+L07384     if (this.loading) {
+L07385       this.doUpgrade = !1;
+L07386       return;
+L07387     }
+L07388     (this.geo.setDrawRange(0, this.index0Count), (this.shadow.visible = !1));
+L07389   }
+L07390   destroy() {
+L07391     (this.geo && (this.geo.dispose(), this.shadow.geometry.dispose()),
+L07392       this.container.clear(),
+L07393       (this.destroyed = !0));
+L07394   }
+L07395   makeDeckVerts(e) {
+L07396     ((ge.nx = Ss * e.n.x),
+L07397       (ge.nz = Ss * e.n.z),
+L07398       (this.posArr[this.vi++] = e.p.x + ge.nx - this.ox),
+L07399       (this.posArr[this.vi++] = e.p.y + Zv),
+L07400       (this.posArr[this.vi++] = e.p.z + ge.nz - this.oz),
+L07401       (this.uvArr[this.ui++] = e.i - this.head.i),
+L07402       (this.uvArr[this.ui++] = 0.8),
+L07403       (this.posArr[this.vi] = e.p.x + ge.nx - this.ox),
+L07404       (this.shadowArr[this.si++] = this.posArr[this.vi++]),
+L07405       (this.posArr[this.vi++] = e.p.y),
+L07406       (this.shadowArr[this.si++] = Np),
+L07407       (this.posArr[this.vi] = e.p.z + ge.nz - this.oz),
+L07408       (this.shadowArr[this.si++] = this.posArr[this.vi++]),
+L07409       (this.uvArr[this.ui++] = e.i - this.head.i),
+L07410       (this.uvArr[this.ui++] = 0.6),
+L07411       (this.posArr[this.vi] = e.p.x - ge.nx - this.ox),
+L07412       (this.shadowArr[this.si++] = this.posArr[this.vi++]),
+L07413       (this.posArr[this.vi++] = e.p.y),
+L07414       (this.shadowArr[this.si++] = Np),
+L07415       (this.posArr[this.vi] = e.p.z - ge.nz - this.oz),
+L07416       (this.shadowArr[this.si++] = this.posArr[this.vi++]),
+L07417       (this.uvArr[this.ui++] = e.i - this.head.i),
+L07418       (this.uvArr[this.ui++] = 0.6),
+L07419       (this.posArr[this.vi++] = e.p.x - ge.nx - this.ox),
+L07420       (this.posArr[this.vi++] = e.p.y + Zv),
+L07421       (this.posArr[this.vi++] = e.p.z - ge.nz - this.oz),
+L07422       (this.uvArr[this.ui++] = e.i - this.head.i),
+L07423       (this.uvArr[this.ui++] = 0.8));
+L07424   }
+L07425   makePylon(e) {
+L07426     ((ge.nx = (Ss + Vp) * e.n.x),
+L07427       (ge.nz = (Ss + Vp) * e.n.z),
+L07428       (ge.fx = -e.n.z * sh),
+L07429       (ge.fz = e.n.x * sh),
+L07430       (ge.fxf = ge.fx * $u),
+L07431       (ge.fzf = ge.fz * $u),
+L07432       (ge.uvDist = (sh * $u) / (Ss * 2 + sh)),
+L07433       (ge.uvWidth = ((e.p.y - ih) / (Ss * 2 + sh)) * 2),
+L07434       (ge.uvWidth = 1 / ge.uvWidth),
+L07435       (ge.uvDist *= 2),
+L07436       (this.posArr[this.vi++] = e.p.x + ge.nx * 0.95 + ge.fx - this.ox),
+L07437       (this.posArr[this.vi++] = e.p.y - dd),
+L07438       (this.posArr[this.vi++] = e.p.z + ge.nz * 0.95 + ge.fz - this.oz),
+L07439       (this.uvArr[this.ui++] = 0),
+L07440       (this.uvArr[this.ui++] = 0.5),
+L07441       (this.posArr[this.vi++] = e.p.x + ge.nx + ge.fxf - this.ox),
+L07442       (this.posArr[this.vi++] = ih),
+L07443       (this.posArr[this.vi++] = e.p.z + ge.nz + ge.fzf - this.oz),
+L07444       (this.uvArr[this.ui++] = 0),
+L07445       (this.uvArr[this.ui++] = 1),
+L07446       (this.posArr[this.vi++] = e.p.x + ge.nx * 0.95 - ge.fx - this.ox),
+L07447       (this.posArr[this.vi++] = e.p.y - dd),
+L07448       (this.posArr[this.vi++] = e.p.z + ge.nz * 0.95 - ge.fz - this.oz),
+L07449       (this.uvArr[this.ui++] = ge.uvDist * ge.uvWidth),
+L07450       (this.uvArr[this.ui++] = 0.5),
+L07451       (this.posArr[this.vi++] = e.p.x + ge.nx - ge.fxf - this.ox),
+L07452       (this.posArr[this.vi++] = ih),
+L07453       (this.posArr[this.vi++] = e.p.z + ge.nz - ge.fzf - this.oz),
+L07454       (this.uvArr[this.ui++] = ge.uvDist * ge.uvWidth),
+L07455       (this.uvArr[this.ui++] = 1),
+L07456       (this.posArr[this.vi++] = e.p.x - ge.nx * 0.95 - ge.fx - this.ox),
+L07457       (this.posArr[this.vi++] = e.p.y - dd),
+L07458       (this.posArr[this.vi++] = e.p.z - ge.nz * 0.95 - ge.fz - this.oz),
+L07459       (this.uvArr[this.ui++] = ge.uvWidth),
+L07460       (this.uvArr[this.ui++] = 0.5),
+L07461       (this.posArr[this.vi++] = e.p.x - ge.nx - ge.fxf - this.ox),
+L07462       (this.posArr[this.vi++] = ih),
+L07463       (this.posArr[this.vi++] = e.p.z - ge.nz - ge.fzf - this.oz),
+L07464       (this.uvArr[this.ui++] = ge.uvWidth),
+L07465       (this.uvArr[this.ui++] = 1),
+L07466       (this.posArr[this.vi++] = e.p.x - ge.nx * 0.95 + ge.fx - this.ox),
+L07467       (this.posArr[this.vi++] = e.p.y - dd),
+L07468       (this.posArr[this.vi++] = e.p.z - ge.nz * 0.95 + ge.fz - this.oz),
+L07469       (this.uvArr[this.ui++] = (1 - ge.uvDist) * ge.uvWidth),
+L07470       (this.uvArr[this.ui++] = 0.5),
+L07471       (this.posArr[this.vi++] = e.p.x - ge.nx + ge.fxf - this.ox),
+L07472       (this.posArr[this.vi++] = ih),
+L07473       (this.posArr[this.vi++] = e.p.z - ge.nz + ge.fzf - this.oz),
+L07474       (this.uvArr[this.ui++] = (1 - ge.uvDist) * ge.uvWidth),
+L07475       (this.uvArr[this.ui++] = 1),
+L07476       this.pylonIndex.push(
+L07477         this.vertI,
+L07478         this.vertI + 1,
+L07479         this.vertI + 3,
+L07480         this.vertI,
+L07481         this.vertI + 3,
+L07482         this.vertI + 2,
+L07483         this.vertI + 2,
+L07484         this.vertI + 3,
+L07485         this.vertI + 5,
+L07486         this.vertI + 2,
+L07487         this.vertI + 5,
+L07488         this.vertI + 4,
+L07489         this.vertI + 4,
+L07490         this.vertI + 5,
+L07491         this.vertI + 7,
+L07492         this.vertI + 4,
+L07493         this.vertI + 7,
+L07494         this.vertI + 6,
+L07495         this.vertI + 6,
+L07496         this.vertI + 7,
+L07497         this.vertI + 1,
+L07498         this.vertI + 6,
+L07499         this.vertI + 1,
+L07500         this.vertI + 0,
+L07501       ),
+L07502       (this.vertI += 8));
+L07503   }
+L07504   makeArch(e, t) {
+L07505     for (
+L07506       ge.nx = Ss * e.n.x,
+L07507         ge.nz = Ss * e.n.z,
+L07508         ge.sx = t.p.x - e.p.x,
+L07509         ge.sy = t.p.y - e.p.y,
+L07510         ge.sz = t.p.z - e.p.z,
+L07511         this.posArr[this.vi++] = e.p.x + ge.nx - this.ox,
+L07512         this.posArr[this.vi++] = e.p.y,
+L07513         this.posArr[this.vi++] = e.p.z + ge.nz - this.oz,
+L07514         this.uvArr[this.ui++] = 0,
+L07515         this.uvArr[this.ui++] = 0.5,
+L07516         this.posArr[this.vi++] = e.p.x - ge.nx - this.ox,
+L07517         this.posArr[this.vi++] = e.p.y,
+L07518         this.posArr[this.vi++] = e.p.z - ge.nz - this.oz,
+L07519         this.uvArr[this.ui++] = 0,
+L07520         this.uvArr[this.ui++] = -0.5,
+L07521         this.posArr[this.vi++] = t.p.x + ge.nx - this.ox,
+L07522         this.posArr[this.vi++] = t.p.y,
+L07523         this.posArr[this.vi++] = t.p.z + ge.nz - this.oz,
+L07524         this.uvArr[this.ui++] = 2,
+L07525         this.uvArr[this.ui++] = 0.5,
+L07526         this.posArr[this.vi++] = t.p.x - ge.nx - this.ox,
+L07527         this.posArr[this.vi++] = t.p.y,
+L07528         this.posArr[this.vi++] = t.p.z - ge.nz - this.oz,
+L07529         this.uvArr[this.ui++] = 2,
+L07530         this.uvArr[this.ui++] = -0.5,
+L07531         ge.i = 0;
+L07532       ge.i <= mh;
+L07533       ge.i++
+L07534     )
+L07535       ((ge.l = ge.i / mh),
+L07536         (ge.x = e.p.x + ge.sx * ge.l),
+L07537         (ge.y = e.p.y + ge.sy * ge.l - hM - dM * yu[ge.i]),
+L07538         (ge.z = e.p.z + ge.sz * ge.l),
+L07539         (this.posArr[this.vi++] = ge.x + ge.nx - this.ox),
+L07540         (this.posArr[this.vi++] = ge.y),
+L07541         (this.posArr[this.vi++] = ge.z + ge.nz - this.oz),
+L07542         (this.uvArr[this.ui++] = ge.l * 2),
+L07543         (this.uvArr[this.ui++] = 0.5 - (yu[ge.i] * 0.25 + 0.15)),
+L07544         (this.posArr[this.vi++] = ge.x - ge.nx - this.ox),
+L07545         (this.posArr[this.vi++] = ge.y),
+L07546         (this.posArr[this.vi++] = ge.z - ge.nz - this.oz),
+L07547         (this.uvArr[this.ui++] = ge.l * 2),
+L07548         (this.uvArr[this.ui++] = -0.5 + (yu[ge.i] * 0.25 + 0.15)));
+L07549     for (ge.i of ho) this.archIndex1.push(ge.i + this.vertI);
+L07550     for (ge.i of ga) this.archIndex0.push(ge.i + this.vertI);
+L07551     this.vertI += z0;
+L07552   }
+L07553 }
+L07554 const _i = {};
+L07555 class cM extends $g {
+L07556   constructor(...e) {
+L07557     (super(...e),
+L07558       Jd.reset(),
+L07559       (zl.addExtraTree = this.addExtraTree.bind(this)),
+L07560       (zl.removeExtraTree = this.removeExtraTree.bind(this)));
+L07561   }
+L07562   lookupTreeDensity(e, t) {
+L07563     var i;
+L07564     return (
+L07565       (_i.tx = Math.floor(e / bs) + jr),
+L07566       (_i.tz = Math.floor(t / bs) + jr),
+L07567       (i = this.tiles[_i.tx]) != null && i[_i.tz] ? this.tiles[_i.tx][_i.tz].lookupTreeDensity(e, t) : 0
+L07568     );
+L07569   }
+L07570   addExtraTree(e, t, i, l, n, r, o, a = 0) {
+L07571     var h;
+L07572     return (
+L07573       (_i.tx = Math.floor(e / bs) + jr),
+L07574       (_i.tz = Math.floor(i / bs) + jr),
+L07575       (h = this.tiles[_i.tx]) != null && h[_i.tz]
+L07576         ? this.tiles[_i.tx][_i.tz].addExtraTree(e, t, i, l, n, r, o, a)
+L07577         : -1
+L07578     );
+L07579   }
+L07580   removeExtraTree(e, t, i) {
+L07581     var l;
+L07582     return (
+L07583       (_i.tx = Math.floor(e / bs) + jr),
+L07584       (_i.tz = Math.floor(t / bs) + jr),
+L07585       (l = this.tiles[_i.tx]) != null && l[_i.tz] ? this.tiles[_i.tx][_i.tz].removeExtraTree(e, t, i) : !1
+L07586     );
+L07587   }
+L07588 }
+L07589 const is = {},
+L07590   jt = {},
+L07591   fM = new su(0);
+L07592 class vM extends Jg {
+L07593   constructor(...t) {
+L07594     super(...t);
+L07595     E(this, "hasInit", !1);
+L07596     E(this, "hasLoaded", !1);
+L07597     E(this, "remainingLoadJobs", 0);
+L07598     E(this, "totalLoadJobs", 0);
+L07599     E(this, "seenJobs", 0);
+L07600     E(this, "curViewDistance");
+L07601     E(this, "curDetail");
+L07602     E(this, "sceneName", "Cali");
+L07603     E(this, "styleHistory", []);
+L07604     E(this, "styleFuture", []);
+L07605     E(this, "autoSettingsCounter", 0);
+L07606     E(this, "onSceneReady", () => {});
+L07607     E(this, "curPreset", 0);
+L07608     E(this, "underwater", !1);
+L07609     E(this, "audio", { ambiance: null, weather: null, wind: null });
+L07610     E(this, "styleFuture", []);
+L07611     E(this, "updateShadowRes", () => {
+L07612       ((this.sunLight.shadow.mapSize.width = Gr[tt.shadowDetail]),
+L07613         (this.sunLight.shadow.mapSize.height = Gr[tt.shadowDetail]),
+L07614         this.sunLight.shadow.map && (this.sunLight.shadow.map.dispose(), (this.sunLight.shadow.map = null)));
+L07615     });
+L07616     E(this, "onVehicleChangedBound", this.onVehicleChanged.bind(this));
+L07617     E(this, "audioIndex", 0);
+L07618     E(this, "onSceneSettingsChangedBound", this.onSceneSettingsChanged.bind(this));
+L07619     E(this, "onPresetChangedBound", this.onPresetChanged.bind(this));
+L07620     E(this, "onSeasonChangedBound", this.onSeasonChanged.bind(this));
+L07621     E(this, "onTimeChangedBound", this.onTimeChanged.bind(this));
+L07622     E(this, "onWeatherChangedBound", this.onWeatherChanged.bind(this));
+L07623     E(this, "updateLoad", (t) => {
+L07624       (Kt.noneQueued &&
+L07625         ((Kt.distribute = !0),
+L07626         gs.add("CALI: Load complete in " + (Date.now() - this.initTime)),
+L07627         this.updateSky(),
+L07628         (this.update = this.updateLive)),
+L07629         this.updateAlways(t));
+L07630     });
+L07631     E(this, "onLoadProgress", (t) => {
+L07632       t == 1 && this.updateOriginOffset(!0);
+L07633     });
+L07634     E(this, "curDetailTrees", tt.detailTrees);
+L07635     E(this, "curRoadWidth", 3.2);
+L07636     E(this, "curVehicleShadow", 0);
+L07637     E(this, "inHaze", !1);
+L07638     E(this, "checkedMidlineIndex", -5);
+L07639     E(this, "audioTimer", 0);
+L07640     E(this, "originUpdateTimer", 0);
+L07641     E(this, "greenCol", new su(5471792));
+L07642     E(this, "t");
+L07643     E(this, "interiorVol");
+L07644     E(this, "audioLerp", 0);
+L07645     E(this, "onHeightmapLayersChangedBound", this.onHeightmapLayersChanged.bind(this));
+L07646     (iw(),
+L07647       (this.liveSettings = new Tg(
+L07648         this.sceneName,
+L07649         { season: "summer", time: "day", weather: "clear", ...an.savedConfigs[this.sceneName] },
+L07650         (i, l) => !0,
+L07651       )),
+L07652       da.includes(this.liveSettings.season) || this.liveSettings.set("season", "summer"),
+L07653       ua.includes(this.liveSettings.time) || this.liveSettings.set("time", "day"),
+L07654       ca.includes(this.liveSettings.weather) || this.liveSettings.set("weather", "clear"),
+L07655       this.liveSettings.addListener("any", this.onSceneSettingsChangedBound, !0),
+L07656       an.setMany({ liveConfig: this.liveSettings, metaConfig: cb.styleMeta }),
+L07657       G.addListener(on.ModelChanged, this.onVehicleChangedBound),
+L07658       this.container.add(lr.container),
+L07659       this.container.add(fo.container),
+L07660       this.container.add(vo.container),
+L07661       mc.set("sceneSupportsTraffic", !0),
+L07662       Zh.set(!1));
+L07663   }
+L07664   setStyle(t, i, l) {
+L07665     this.liveSettings.setMany({ season: t, time: i, weather: l });
+L07666   }
+L07667   nextStyle() {
+L07668     if (this.styleFuture.length) {
+L07669       let t = this.styleFuture.pop();
+L07670       (this.setStyle(t[0], t[1], t[2]), this.styleFuture.unshift(t));
+L07671     } else {
+L07672       let t = da.indexOf(this.liveSettings.season),
+L07673         i = ua.indexOf(this.liveSettings.time),
+L07674         l = ca.indexOf(this.liveSettings.weather) + 1;
+L07675       (l >= ca.length && ((l = 0), i++, i >= ua.length && ((i = 0), t++, t >= da.length && (t = 0))),
+L07676         this.setStyle(da[t], ua[i], ca[l]));
+L07677     }
+L07678   }
+L07679   prevStyle() {
+L07680     if (this.styleHistory.length) {
+L07681       let t = this.styleHistory.pop();
+L07682       this.setStyle(t[0], t[1], t[2]);
+L07683     } else {
+L07684       let t = da.indexOf(this.liveSettings.season),
+L07685         i = ua.indexOf(this.liveSettings.time),
+L07686         l = ca.indexOf(this.liveSettings.weather) - 1;
+L07687       (l < 0 && ((l = ca.length - 1), i--, i < 0 && ((i = ua.length - 1), t--, t < 0 && (t = da.length - 1))),
+L07688         this.setStyle(da[t], ua[i], ca[l]));
+L07689     }
+L07690   }
+L07691   loadGraphicsSettings() {
+L07692     (fb(tt.viewDistance, tt.detail),
+L07693       this.hasInit &&
+L07694         (this.updateShadowRes(),
+L07695         (this.clouds.visible = id && tt.detail > 0),
+L07696         this.clouds.scale.set(Ko, Ko, 1)),
+L07697       this.hasInit && this.updateSky(),
+L07698       rh ? lr.init([vb[0]], [pb[0]], mb) : lr.reset(),
+L07699       fo.reset(),
+L07700       fo.init(ro),
+L07701       (fo.container.visible = Ed > 0),
+L07702       vo.reset(),
+L07703       vo.init(ao),
+L07704       (vo.container.visible = gb > 0),
+L07705       (He.far = Math.max(Nr, Ko)),
+L07706       Fd(He.fov, He.far, He.aspect),
+L07707       Ng.set(Nr),
+L07708       He.updateProjectionMatrix(),
+L07709       mc.set("spawnHorizon", _b));
+L07710   }
+L07711   onVehicleChanged(t = !1) {
+L07712     if (!this.hasInit && !t) return;
+L07713     let i = G.shadowMapSize;
+L07714     ((this.sunLight.shadow.camera.left = -i),
+L07715       (this.sunLight.shadow.camera.right = i),
+L07716       (this.sunLight.shadow.camera.top = i),
+L07717       (this.sunLight.shadow.camera.bottom = -i),
+L07718       this.sunLight.shadow.camera.updateProjectionMatrix());
+L07719   }
+L07720   onSceneSettingsChanged() {
+L07721     var l;
+L07722     (bb(this.liveSettings._value), this.audioIndex++);
+L07723     let t = this.audioIndex;
+L07724     for (let n in Yo) {
+L07725       if (this.audio[n]) {
+L07726         if (this.audio[n].userData.id == Yo[n]) continue;
+L07727         this.audio[n].stop();
+L07728       }
+L07729       try {
+L07730         li.getAudio(Yo[n], (r) => {
+L07731           if (t !== this.audioIndex) {
+L07732             (r.stop(), li.deleteInteriorFilter(r.filter));
+L07733             return;
+L07734           }
+L07735           (r.setLoop(!0),
+L07736             (r.offset = Math.random() * r.buffer.duration),
+L07737             (r.filter = li.getInteriorFilter()),
+L07738             r.setFilter(r.filter),
+L07739             r.setVolume(0),
+L07740             r.play(),
+L07741             (r.userData.id = Yo[n]),
+L07742             (this.audio[n] = r));
+L07743         });
+L07744       } catch {
+L07745         gs.add(
+L07746           "AUDIO: Failed to initialise audio with source " +
+L07747             Yo[n] +
+L07748             ", listener context is " +
+L07749             !!((l = li.listener) != null && l.context),
+L07750         );
+L07751       }
+L07752     }
+L07753     if (
+L07754       (this.hasInit &&
+L07755         (this.updateSky(),
+L07756         (this.stars.container.visible = Qo && !this.underwater),
+L07757         Qo && this.stars.setConfig(xv),
+L07758         (this.snow.container.visible = Ja && !this.underwater),
+L07759         Ja && this.snow.setConfig(hp),
+L07760         (this.clouds.visible = id && tt.detail > 0 && !this.underwater)),
+L07761       di.sceneBrightness)
+L07762     )
+L07763       Aa.set(di.sceneBrightness);
+L07764     else {
+L07765       let n = (di.sun.col / 16777215) * di.sun.intensity,
+L07766         r = (di.ambient.col / 16777215) * di.ambient.intensity;
+L07767       Aa.set(n + r);
+L07768     }
+L07769     let i = (1 - xa / $a) / 1.25;
+L07770     (V_.set(i), G.updateEnvMap(), Nl.set("friction", Su));
+L07771   }
+L07772   updateSky() {
+L07773     ((this.sunLight.intensity = di.sun.intensity),
+L07774       this.sunLight.color.setHex(di.sun.col),
+L07775       (this.ambLight.intensity = di.ambient.intensity),
+L07776       this.ambLight.color.setHex(di.ambient.col),
+L07777       (this.hemiLight.intensity = di.ambient.intensity),
+L07778       this.hemiLight.color.setHex(di.sun.col),
+L07779       this.hemiLight.groundColor.setHex(di.ambient.col),
+L07780       (this.sky.position.z = -Nr + 0.1),
+L07781       this.sky.updateMatrixWorld(),
+L07782       this.useFog &&
+L07783         (dp
+L07784           ? (this.renderScene.fog = new dc(Zo, Xo, ld, xa, $a, Jo))
+L07785           : (this.renderScene.fog = new hc(Zo, Xo, ld, Nr, Nr * Xv)),
+L07786         (this.renderScene.fog.near = xa),
+L07787         (this.renderScene.fog.far = $a),
+L07788         (this.renderScene.fog.density = Jo),
+L07789         (this.renderScene.fog.hazeHeight = yn),
+L07790         (this.renderScene.fog.hazeIntensity = wb)),
+L07791       this.updateHDR());
+L07792   }
+L07793   loadFog() {
+L07794     (this.renderScene.fog ||
+L07795       (dp
+L07796         ? (this.renderScene.fog = new dc(Zo, Xo, ld, xa, $a, Jo))
+L07797         : (this.renderScene.fog = new hc(Zo, Xo, ld, Nr, Nr * Xv))),
+L07798       (this.renderScene.fog.near = 0),
+L07799       (this.renderScene.fog.far = 10),
+L07800       (this.renderScene.fog.density = Math.sqrt(5 / (this.renderScene.fog.far * this.renderScene.fog.far))));
+L07801   }
+L07802   onPresetChanged(t) {}
+L07803   onSeasonChanged(t) {}
+L07804   onTimeChanged(t) {}
+L07805   onWeatherChanged(t) {}
+L07806   onLoadProgress(t, i) {
+L07807     return (
+L07808       gs.add("CALI: Loaded " + t + " (" + (Date.now() - this.initTime) + ")"),
+L07809       (this.initTime = Date.now()),
+L07810       ci.set(i),
+L07811       !0
+L07812     );
+L07813   }
+L07814   initialise(t, i, l = !0) {
+L07815     ((this.onMidlineReady = t),
+L07816       (this.onSceneReady = i),
+L07817       (this.useFog = l),
+L07818       this.initLoad(),
+L07819       (this.sunLight = new Vg(16777215, 2.5)),
+L07820       (this.sunOffset = new Ki(0, 10, 0)),
+L07821       this.container.add(this.sunLight),
+L07822       (this.ambLight = new zg(16777215, 1)),
+L07823       this.container.add(this.ambLight),
+L07824       (this.hemiLight = new z_(16777215, 0, 1)),
+L07825       this.container.add(this.hemiLight),
+L07826       (this.curViewDistance = tt.viewDistance),
+L07827       (this.curDetail = tt.detail),
+L07828       (this.curDetailTrees = tt.detailTrees),
+L07829       (this.curTreeDensity = tt.treeDensity),
+L07830       (this.curGrassDensity = tt.grassDensity),
+L07831       Db(Ft._value),
+L07832       this.loadGraphicsSettings(),
+L07833       (this.curRoadWidth = Ss),
+L07834       Nl.setMany({
+L07835         nominalDriveSide: oc.RIGHT,
+L07836         width: Ss,
+L07837         lanes: Qc[Ft.laneStyle],
+L07838         laneWidth: Mb,
+L07839         laneOffsets: Ib,
+L07840         laneStyle: Ft.laneStyle,
+L07841         cautionFactor: Ab[Ft.laneStyle],
+L07842       }),
+L07843       this.onSceneSettingsChanged(),
+L07844       (this.sky = new Ti(new Vn(1, 1, 1, 1), yb)),
+L07845       this.sky.scale.set(1e6, 1e5, 1e5),
+L07846       (this.sky.renderOrder = -10),
+L07847       (this.sky.frustumCulled = !1),
+L07848       (this.sky.position.z = Nr - 0.1),
+L07849       (He.skyPlane = this.sky),
+L07850       l && He.add(this.sky),
+L07851       (this.clouds = new Ti(new Vn(1, 1, Jv, Jv), ku)),
+L07852       this.clouds.scale.set(Ko, Ko, 1),
+L07853       (this.clouds.frustumCulled = !1),
+L07854       (this.clouds.rotation.x = Math.PI / 2),
+L07855       (this.clouds.renderOrder = -9),
+L07856       (this.clouds.visible = id && tt.detail > 0),
+L07857       this.useFog && this.container.add(this.clouds),
+L07858       (this.snow = new P2(Sb, kb)),
+L07859       (this.snow.container.visible = Ja),
+L07860       Ja && this.snow.setConfig(hp),
+L07861       this.container.add(this.snow.container),
+L07862       (this.stars = new xg(4e3, 2, xv)),
+L07863       this.useFog && ((this.stars.container.visible = Qo), this.container.add(this.stars.container)),
+L07864       (this.stars.renderOrder = -2));
+L07865     let n = { seed: Ft.seed, ...Cb, maxCached: $v };
+L07866     ((this.heightmap = new ep(n)),
+L07867       nd.set([0, 0]),
+L07868       nd.addListener(this.onHeightmapLayersChangedBound),
+L07869       tt.addListener("shadowDetail", this.updateShadowRes),
+L07870       (Fs.getGroundState = this.getGroundState.bind(this)),
+L07871       (Fs.getRoadsideHeight = this.getRoadsideHeight.bind(this)),
+L07872       (Fs.seaLevel = 0),
+L07873       zl.init(Ft.seed, { ...Eb, maxCached: $v }),
+L07874       (this.midlineGenerator = new Lb(Tb, n, ep, nd)),
+L07875       this.midlineGenerator.initialise(Ft.seed, Ft.startNode),
+L07876       Kt.addJob(
+L07877         this.midlineGenerator.load.bind(this.midlineGenerator),
+L07878         1,
+L07879         "Midline.load",
+L07880         "loadRoad",
+L07881         !0,
+L07882         !0,
+L07883       ),
+L07884       Kt.addJob(t, 1, "OnMidlineReady", "loadRoad", !0),
+L07885       Kt.addJob(this.initialiseLoad.bind(this), 1, "Scene.initialiseLoad", "loadScene", !0),
+L07886       Kt.addJob(i, 1, "OnSceneReady", "loadScene", !0),
+L07887       Kt.addJob(
+L07888         () => (gs.add("CALI: Scene ready in " + (Date.now() - this.initTime)), !0),
+L07889         1,
+L07890         "AfterSceneReady",
+L07891         "loadScene",
+L07892         !0,
+L07893       ),
+L07894       ci.removeListener(this.onLoadProgress),
+L07895       ci.addListener(this.onLoadProgress));
+L07896   }
+L07897   initialiseLoad() {
+L07898     return (
+L07899       Nd.initialise(tp),
+L07900       this.initTerrain(),
+L07901       this.initWalls(),
+L07902       (this.bridgeController = new zp()),
+L07903       this.container.add(this.bridgeController.container),
+L07904       (this.catsEyesController = new j2({ eyeSep: 0.3, col: 16759083, size: 0.12, offset: 0.01 })),
+L07905       this.container.add(this.catsEyesController.container),
+L07906       Kt.addJob(() => this.catsEyesController.initialise(Ss * 2), 0, "catsEyes", "loadScene", !0),
+L07907       this.catsEyesController.setEnabled(sp),
+L07908       ol.initialise(Nb),
+L07909       this.container.add(ol.container),
+L07910       (this.signController = new yp()),
+L07911       Kt.addJob(() => this.signController.initialise(), 0, "signController", "loadScene", !0),
+L07912       this.updateSky(),
+L07913       (this.sunLight.castShadow = !0),
+L07914       (this.sunLight.shadow.radius = 5),
+L07915       (this.sunLight.shadow.camera.left = -4),
+L07916       (this.sunLight.shadow.camera.right = 4),
+L07917       (this.sunLight.shadow.camera.top = 4),
+L07918       (this.sunLight.shadow.camera.bottom = -4),
+L07919       this.sunLight.shadow.camera.updateProjectionMatrix(),
+L07920       G.hasInit && this.onVehicleChanged(!0),
+L07921       (this.sunLight.shadow.mapSize.width = Gr[tt.shadowDetail]),
+L07922       (this.sunLight.shadow.mapSize.height = Gr[tt.shadowDetail]),
+L07923       (this.sunLight.shadow.camera.near = 0.5),
+L07924       (this.sunLight.shadow.camera.far = 50),
+L07925       (this.sunLight.target = G),
+L07926       this.sunLight.position.copy(G.position).add(this.sunOffset),
+L07927       this.initRoad(),
+L07928       Kt.addJob(() => ((this.hasLoaded = !0), !0), 1, "SceneHasLoaded", "loadScene", !0),
+L07929       (Cu.userData.vehicleIndex.value = Ne.vehicleIndex),
+L07930       (this.hasInit = !0),
+L07931       !0
+L07932     );
+L07933   }
+L07934   initRoad() {
+L07935     (this.road && (this.road.destroy(), this.container.remove(this.road.container)),
+L07936       (this.road = new F2(Vb, zb)),
+L07937       this.container.add(this.road.container),
+L07938       (this.road.container.frustumCulled = !1),
+L07939       Kt.addJob(this.road.init.bind(this.road), 1, "SimpleRoad.init", "loadScene", !0),
+L07940       Kt.addJob(this.road.load.bind(this.road), 1, "SimpleRoad.load", "loadScene"));
+L07941   }
+L07942   initTerrain() {
+L07943     (this.tileTerrain &&
+L07944       (this.tileTerrain.destroy(), this.container.remove(this.tileTerrain.container), gc.reset()),
+L07945       (this.tileTerrain = new cM({
+L07946         tileSize: Fr,
+L07947         cellSize: Rb,
+L07948         cellRes: Pb,
+L07949         chunkSize: void 0,
+L07950         lod0Horizon: ip,
+L07951         lod1Horizon: l0,
+L07952         levels: 2,
+L07953         heightmap: this.heightmap,
+L07954         tileClass: WD,
+L07955         cellClass: XD,
+L07956         chunkClass: Jd,
+L07957         material: Cu,
+L07958         roadWidth: Ss,
+L07959         getRoadBlendedHeight: Eu,
+L07960       })),
+L07961       this.container.add(this.tileTerrain.container),
+L07962       Kt.addJob(
+L07963         this.tileTerrain.init.bind(this.tileTerrain, Ne.head.p.x, Ne.head.p.z),
+L07964         1,
+L07965         "TileTerrain",
+L07966         "loadEnvironment",
+L07967         !0,
+L07968       ),
+L07969       (Fs.getXZ = this.tileTerrain.getXZ.bind(this.tileTerrain)));
+L07970   }
+L07971   initWalls() {
+L07972     this.wallController &&
+L07973       (this.container.remove(this.wallController.container), this.wallController.destroy());
+L07974     let t = ip;
+L07975     ((this.wallController = new e0(
+L07976       {
+L07977         classes: [
+L07978           { id: Ia.BridgeWall, label: "BridgeWall", class: Io },
+L07979           { id: Ia.SeaWall, label: "SeaWall", class: Io },
+L07980           { id: Ia.Barrier, label: "Barrier", class: Wc },
+L07981         ],
+L07982         generators: [oM, aM, iM],
+L07983       },
+L07984       t + ko + ru + 2,
+L07985       t,
+L07986       t * 0.25,
+L07987     )),
+L07988       this.container.add(this.wallController.container),
+L07989       Kt.addJob(() => this.wallController.initialise(), 0, "wallController", "loadScene", !0));
+L07990   }
+L07991   onGraphicsSettingsChanged() {
+L07992     (this.curViewDistance == tt.viewDistance &&
+L07993       this.curDetail == tt.detail &&
+L07994       this.curDetailTrees == tt.detailTrees &&
+L07995       this.curTreeDensity == tt.treeDensity &&
+L07996       this.curGrassDensity == tt.grassDensity) ||
+L07997       this.rebuildScene();
+L07998   }
+L07999   onRoadWidthChanged() {}
+L08000   rebuildScene() {
+L08001     (this.initLoad(),
+L08002       (this.hasInit = !0),
+L08003       this.loadGraphicsSettings(),
+L08004       Nd.initialise(tp),
+L08005       this.resetMidline(),
+L08006       this.initTerrain(),
+L08007       this.initWalls(),
+L08008       this.initRoad(),
+L08009       this.bridgeController.destroy(),
+L08010       this.container.remove(this.bridgeController.container),
+L08011       (this.bridgeController = new zp()),
+L08012       this.container.add(this.bridgeController.container),
+L08013       this.signController.reset(),
+L08014       (this.signController = new yp()),
+L08015       Kt.addJob(() => this.signController.initialise(), 0, "signController", "loadScene", !0),
+L08016       this.catsEyesController.reset(),
+L08017       Kt.addJob(() => this.catsEyesController.initialise(Ss * 2), 0, "catsEyes", "loadScene", !0),
+L08018       this.catsEyesController.setEnabled(sp),
+L08019       ol.reset(),
+L08020       (this.curViewDistance = tt.viewDistance),
+L08021       (this.curDetail = tt.detail),
+L08022       (this.curDetailTrees = tt.detailTrees),
+L08023       (this.curTreeDensity = tt.treeDensity),
+L08024       (this.curGrassDensity = tt.grassDensity),
+L08025       Kt.addJob(
+L08026         () => ((this.hasLoaded = !0), gs.add("CALI: Scene ready in " + (Date.now() - this.initTime)), !0),
+L08027         1,
+L08028         "AfterSceneReady",
+L08029         "loadScene",
+L08030         !0,
+L08031       ));
+L08032   }
+L08033   resetMidline() {
+L08034     let t = Ne.head;
+L08035     for (; t.i < Ne.tail.i;) {
+L08036       for (
+L08037         delete t.dswl,
+L08038           delete t.dswr,
+L08039           delete t.rWallDist,
+L08040           delete t.lWallDist,
+L08041           delete t.wallSide,
+L08042           t.shadowLeft = 0,
+L08043           t.shadowRight = 0;
+L08044         t.nextFine && t.nextFine != t.next;
+L08045       )
+L08046         ((t = t.nextFine), (t.shadowLeft = 0), (t.shadowRight = 0));
+L08047       t = t.next;
+L08048     }
+L08049     this.midlineGenerator.rebuildFine(jb);
+L08050   }
+L08051   initLoad() {
+L08052     ((this.initTime = Date.now()),
+L08053       ci.set(0),
+L08054       Kt.clear(),
+L08055       (Kt.distribute = !1),
+L08056       (this.hasInit = !1),
+L08057       (this.hasLoaded = !1),
+L08058       (this.update = this.updateLoad),
+L08059       (Fs.getXZ = () => 0));
+L08060   }
+L08061   destroy() {
+L08062     var t, i, l, n, r, o, a, h;
+L08063     ((this.update = () => {}),
+L08064       Kt.clear(),
+L08065       this.heightmap.destroy(),
+L08066       this.midlineGenerator.destroy(),
+L08067       (t = this.road) == null || t.destroy(),
+L08068       (i = this.tileTerrain) == null || i.destroy(),
+L08069       (l = this.wallController) == null || l.destroy(),
+L08070       (n = this.bridgeController) == null || n.destroy(),
+L08071       (r = this.signController) == null || r.destroy(),
+L08072       (o = this.catsEyesController) == null || o.destroy(),
+L08073       (a = this.stars) == null || a.destroy(),
+L08074       (h = this.snow) == null || h.destroy(),
+L08075       this.liveSettings.destroy(),
+L08076       (Fs.getXZ = () => {}),
+L08077       (Fs.getGroundState = () => {}),
+L08078       this.unsetVehicleShadow(),
+L08079       Zh.set(!1),
+L08080       gc.reset());
+L08081     for (let u in this.audio) this.audio[u] && this.audio[u].stop();
+L08082     ((this.audio = {}),
+L08083       ol.destroy(),
+L08084       nd.removeListener(this.onHeightmapLayersChangedBound),
+L08085       ci.removeListener(this.onLoadProgress),
+L08086       tt.removeListener("shadowDetail", this.updateShadowRes),
+L08087       G.removeListener(on.ModelChanged, this.onVehicleChangedBound),
+L08088       He.remove(this.sky),
+L08089       (He.visibilityFactor = 1),
+L08090       this.container.clear());
+L08091   }
+L08092   getRoadsideHeight(t, i, l, n = !0) {
+L08093     return (
+L08094       n ? (jt.m = fh(t, i, l)) : (jt.m = Rg(t, i, l)),
+L08095       (!Yr || jt.m.n.bridge) && jt.m.d < Ss
+L08096         ? jt.m.y
+L08097         : ((jt.h = Fs.getXZ(t, i)), !Lu && jt.h < 0 ? 0 : Eu(jt.h, jt.m, t, i))
+L08098     );
+L08099   }
+L08100   getGroundState(t, i, l, n, r = !1) {
+L08101     return (
+L08102       (n.f = Fb),
+L08103       (n.k = Ub),
+L08104       (n.g = Ob),
+L08105       (n.r = !1),
+L08106       (n.w = !1),
+L08107       (n.h = 0),
+L08108       (n.b = Hb),
+L08109       (n.n.x = 0),
+L08110       (n.n.y = 1),
+L08111       (n.n.y = 0),
+L08112       (jt.m = fh(t, i, l)),
+L08113       (n.ms = jt.m.s),
+L08114       (n.md = jt.m.d),
+L08115       jt.m.n.lWallDist &&
+L08116         jt.m.s == 1 &&
+L08117         ((n.w = !0),
+L08118         (n.wi = Math.floor(jt.m.n.lWallDist * 100)),
+L08119         n.insideWall === !0
+L08120           ? (n.wd = jt.m.d - (jt.m.n.lWallDist - 0.2))
+L08121           : n.insideWall === !1
+L08122             ? (n.wd = jt.m.d - (jt.m.n.lWallDist + 0.2))
+L08123             : (n.wd = jt.m.d - jt.m.n.lWallDist),
+L08124         (n.ws = jt.m.s),
+L08125         (n.wn = jt.m.n.n)),
+L08126       jt.m.n.rWallDist &&
+L08127         jt.m.s == -1 &&
+L08128         ((n.w = !0),
+L08129         (n.wi = Math.floor(jt.m.n.rWallDist * 100) * -1),
+L08130         n.insideWall === !0
+L08131           ? (n.wd = jt.m.d - (jt.m.n.rWallDist - 0.2))
+L08132           : n.insideWall === !1
+L08133             ? (n.wd = jt.m.d - (jt.m.n.rWallDist + 0.2))
+L08134             : (n.wd = jt.m.d - jt.m.n.rWallDist),
+L08135         (n.wn = jt.m.n.n),
+L08136         (n.ws = jt.m.s)),
+L08137       jt.m.d < Ss && (n.r = !0),
+L08138       !Yr && jt.m.d < Ss
+L08139         ? ((n.h = jt.m.y), (n.f = Su), (n.b = lp), (n.s = np), (n.k = rp), (n.g = ap), jt.m.n.s)
+L08140         : ((n.s = op),
+L08141           this.tileTerrain.getGroundState(t, i, l, n),
+L08142           n.c && jt.m.d < Ss + Gb && ((n.f = Bb), (n.b = Wb), (n.k = qb), (n.g = Kb)),
+L08143           Yr && jt.m.n.bridge && jt.m.d < Ss
+L08144             ? jt.m.y > n.h && ((n.h = jt.m.y), (n.f = Su), (n.b = lp), (n.s = np), (n.k = rp), (n.g = ap))
+L08145             : r && (n.h = Eu(Fs.getXZ(t, i), jt.m, t, i)),
+L08146           !Lu &&
+L08147             n.h < 0 &&
+L08148             ((n.h = 0),
+L08149             (n.n.x = 0),
+L08150             (n.n.y = 1),
+L08151             (n.n.z = 0),
+L08152             (n.s = op),
+L08153             (n.f = $b),
+L08154             (n.b = ew),
+L08155             (n.k = tw),
+L08156             (n.g = sw))),
+L08157       n
+L08158     );
+L08159   }
+L08160   update() {}
+L08161   updateLive(t) {
+L08162     (this.midlineGenerator.update() && Nd.update(),
+L08163       this.tileTerrain.update(),
+L08164       this.road && this.road.update(),
+L08165       this.wallController.update(),
+L08166       this.catsEyesController.update(),
+L08167       this.updateAlways(t));
+L08168   }
+L08169   updateAlways(t) {
+L08170     var i;
+L08171     if (
+L08172       ((this.audioTimer += t),
+L08173       this.audioTimer > 0.02 && (this.updateAudio(0.02), (this.audioTimer = 0)),
+L08174       this.sunLight.position.copy(G.position).add(this.sunOffset),
+L08175       Qo && this.stars.update(),
+L08176       Ja && this.snow.update(),
+L08177       (i = this.clouds) != null &&
+L08178         i.visible &&
+L08179         (this.clouds.position.copy(He.worldPos),
+L08180         (this.clouds.position.y = Yb),
+L08181         ku.userData.camPos.value.copy(He.worldPos),
+L08182         (ku.userData.time.value += t * 2)),
+L08183       Od.userData.camPos.value.copy(He.worldPos),
+L08184       kd.userData.vehiclePos.value.copy(G.cockPosition),
+L08185       kd.userData.flatten.value !== G.isInterior && (kd.userData.flatten.value = G.isInterior),
+L08186       Lu && (Od.userData.time.value += t),
+L08187       this.hasLoaded)
+L08188     ) {
+L08189       if (this.checkedMidlineIndex < Ne.vehicleIndex) {
+L08190         if (
+L08191           (ol.update(),
+L08192           this.bridgeController.update(),
+L08193           this.signController.update(),
+L08194           Ne.vehicleNode.shadowLeft > 0.95 && Ne.vehicleNode.shadowRight > 0.95)
+L08195         ) {
+L08196           let l = Ne.vehicleNode.next.next.next.next;
+L08197           l.shadowLeft > 0.95 && l.shadowRight > 0.95
+L08198             ? (He.visibilityFactor = 0.6)
+L08199             : (He.visibilityFactor = 1);
+L08200         } else He.visibilityFactor = 1;
+L08201         this.checkedMidlineIndex = Ne.vehicleIndex;
+L08202       }
+L08203       (this.catsEyesController.updateAlways(),
+L08204         this.updateVehicleShadow(),
+L08205         (Cu.userData.vehicleIndex.value = Ne.vehicleIndexFine));
+L08206     }
+L08207     if (
+L08208       this.useFog &&
+L08209       this.hasInit &&
+L08210       (He.worldPos.y < 0

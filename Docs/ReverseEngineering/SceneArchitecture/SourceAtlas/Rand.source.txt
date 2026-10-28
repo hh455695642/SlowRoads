@@ -1,0 +1,41 @@
+Source: C:/Users/ruze/OneDrive/Desktop/Slow Roads/extracted_correct/build/_app/immutable/chunks/QuickRandInt.76880ff2.js
+Raw SHA-256: 7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073
+Formatting: Prettier only; Acorn AST verified equivalent after flattening associative logical expressions.
+Prefix Lxxxxx refers to formatted module line, not minified raw line.
+
+===== QuickRandInt.76880ff2: 1-35 =====
+L00001 var h = Object.defineProperty;
+L00002 var e = (s, i, n) =>
+L00003   i in s ? h(s, i, { enumerable: !0, configurable: !0, writable: !0, value: n }) : (s[i] = n);
+L00004 var t = (s, i, n) => (e(s, typeof i != "symbol" ? i + "" : i, n), n);
+L00005 import "./DevMidlineGenerator.6316d1a7.js";
+L00006 class c {
+L00007   constructor(i = "a", n = 101, d = 1, a = 0) {
+L00008     t(this, "rand");
+L00009     t(this, "rands", []);
+L00010     t(this, "index", 0);
+L00011     t(this, "count");
+L00012     this.rand = new window.alea(i);
+L00013     for (let r = 0; r < n; r++) this.rands.push(this.rand() * d - a);
+L00014     ((this.count = n), (this.index = 0));
+L00015   }
+L00016   next() {
+L00017     return (this.index >= this.count && (this.index = 0), this.rands[this.index++]);
+L00018   }
+L00019 }
+L00020 class u {
+L00021   constructor(i = "a", n = 101, d = 3) {
+L00022     t(this, "rand");
+L00023     t(this, "rands", []);
+L00024     t(this, "index", 0);
+L00025     t(this, "count");
+L00026     this.rand = new window.alea(i);
+L00027     for (let a = 0; a < n; a++) this.rands.push(Math.floor(this.rand() * d));
+L00028     ((this.count = n), (this.index = 0));
+L00029   }
+L00030   next() {
+L00031     return (this.index >= this.count && (this.index = 0), this.rands[this.index++]);
+L00032   }
+L00033 }
+L00034 export { c as Q, u as a };
+L00035 

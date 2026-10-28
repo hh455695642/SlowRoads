@@ -1,0 +1,2 @@
+# Reference textures are binary assets; keep their contents in Git LFS.
+*.png filter=lfs diff=lfs merge=lfs -text
