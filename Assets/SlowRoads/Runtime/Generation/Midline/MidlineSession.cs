@@ -40,6 +40,7 @@ namespace SlowRoads.Generation.Midline
         bool fineChanged;
         readonly string heightSeed;
         readonly bool ownsHeight;
+        readonly bool recordObserverInputs;
         readonly List<MidlineObserverInput> observerInputs=new List<MidlineObserverInput>();
         string seedInput;
         int startNodeInput;
@@ -48,14 +49,15 @@ namespace SlowRoads.Generation.Midline
         public int AttributeDirtyFrom {get;private set;}=int.MaxValue;
 
         public MidlineSession(MidlineConfig config, string heightSeed,
-            IMidlineHeightSource height, Action<int, int> headLayerChanged = null,bool ownsHeight=false)
+            IMidlineHeightSource height, Action<int, int> headLayerChanged = null,bool ownsHeight=false,bool recordObserverInputs=true)
         {
             this.config = config ?? throw new ArgumentNullException(nameof(config));
             this.height = height ?? throw new ArgumentNullException(nameof(height));
             this.heightSeed=heightSeed;this.ownsHeight=ownsHeight;
+            this.recordObserverInputs=recordObserverInputs;
             this.headLayerChanged=headLayerChanged;
             shadowSource=new HillsShadowDensitySource(config.Style,heightSeed);
-            attributes=new HillsMidlineAttributes(shadowSource.GetShadowDensityAt,3.7);
+            attributes=new HillsMidlineAttributes(shadowSource.GetShadowDensityAt,config.RoadHalfWidth);
             initialisation = new MidlineInitialization(config, heightSeed, height, NotifyHeadLayers,
                 beforeRetire:()=>nodes.PinRestartReferences(markings?.Node,state.Head?.NextFine));
             state = initialisation.State;
@@ -70,6 +72,16 @@ namespace SlowRoads.Generation.Midline
         public int AllocatedCoarseNodeCount {get{ThrowIfDisposed();return nodes.AllocatedCount;}}
         public MidlineMarkingsState Markings {get{ThrowIfDisposed();return markings;}}
         public bool AtUpdateBoundary=>phase==MidlineUpdatePhase.Prepare;
+        public CoarseNode FindCoarse(int index)=>nodes.Find(index,state.Generation);
+        public int AttributeReadyExclusive=>Math.Max(state.Head.Index,Math.Min(state.FineTail.Index,
+            (markings?.Node.Index??state.Head.Index)-(int)Math.Ceiling(11+config.MarkingsMargin/2)));
+        public MidlineReadView CaptureWindow(int first,int last)
+        {
+            ThrowIfDisposed();if(!AtUpdateBoundary)throw new InvalidOperationException("Window requires completed update");
+            var node=FindCoarse(first);if(node==null)throw new ArgumentOutOfRangeException(nameof(first));
+            return new MidlineReadView(state,markings,bridge,Revision,GeometryDirtyFrom,AttributeDirtyFrom,
+                (int)Math.Ceiling(11+config.MarkingsMargin/2),node,last);
+        }
         public bool IsCurrent(MidlineReadView view)=>!disposed && AtUpdateBoundary && view!=null &&
             view.Generation==state.Generation && view.Revision==Revision;
         public MidlineReadView CaptureReadView()
@@ -86,9 +98,9 @@ namespace SlowRoads.Generation.Midline
             if(index<state.Head.Index || index>state.Tail.Index)
                 throw new ArgumentOutOfRangeException(nameof(index),"Observer progress must be inside the retained coarse path.");
             state.ObserverIndex=index;
-            var observer=state.Head;
-            while(observer.Next!=null && observer.Next.Index<=index)observer=observer.Next;
+            var observer=FindCoarse(index)??throw new InvalidOperationException("Observer node is not retained");
             state.ObserverNode=observer;
+            if(!recordObserverInputs)return;
             if(observerInputs.Count>0 && observerInputs[observerInputs.Count-1].UpdateOrdinal==updateOrdinal)
                 observerInputs[observerInputs.Count-1]=new MidlineObserverInput(updateOrdinal,index);
             else observerInputs.Add(new MidlineObserverInput(updateOrdinal,index));
@@ -99,6 +111,7 @@ namespace SlowRoads.Generation.Midline
         public MidlineReplayCheckpoint CreateReplayCheckpoint()
         {
             ThrowIfDisposed();if(!AtUpdateBoundary)throw new InvalidOperationException("Checkpoint requires completed update.");
+            if(!recordObserverInputs)throw new InvalidOperationException("Replay history recording is disabled for this streaming session");
             return new MidlineReplayCheckpoint(config,seedInput,heightSeed,startNodeInput,updateOrdinal,
                 observerInputs.ToArray(),ComputeDigest());
         }
@@ -421,6 +434,7 @@ namespace SlowRoads.Generation.Midline
             }
             previous.Next = node;
             node.Previous = previous;
+            nodes.Register(node);
             state.Tail = node;
             state.MaxRetractIndex = Math.Max(state.MaxRetractIndex, node.Index - 500);
             UpdateTargetDirection(node);

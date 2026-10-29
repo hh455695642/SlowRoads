@@ -1,36 +1,45 @@
 using UnityEngine;
+using SlowRoads.Scene.Road;
+using SlowRoads.Generation.Midline;
 
 namespace SlowRoads.Debugging
 {
-    // 仅沿弧长观察场景：没有 Rigidbody、输入、转向、动力或车辆状态。
+    // Observer commits distance only after the streaming source returns Ready.
     public sealed class RouteObserver : MonoBehaviour
     {
         public bool paused;
-        public float Distance { get; private set; }
+        public double DistanceMetres {get;private set;}
+        public MidlineDistanceResult QueryStatus {get;private set;}
+        double requestedDistance;
+        int generation;
+        bool hasSample;
         IRouteSource route;
-        HillsDebugSettings settings;
-        public void Initialize(IRouteSource source, HillsDebugSettings config)
+        HillsSceneSettings settings;
+        public void Initialize(IRouteSource source,HillsSceneSettings config)
         {
-            route = source;
-            settings = config;
-            Distance = 0f;
-            Move(0f);
+            route=source;settings=config;DistanceMetres=requestedDistance=0;
+            generation=route.Generation;Move(0);
         }
         void Update()
         {
-            if (settings != null && settings.movementEnabled && !paused)
-                Move(Mathf.Max(0f, settings.speed) * Time.deltaTime);
+            if(generation!=route.Generation){generation=route.Generation;DistanceMetres=requestedDistance=0;hasSample=false;}
+            if(!hasSample){ApplySample();if(!hasSample)return;}
+            if(settings.movementEnabled&&!paused)requestedDistance+=System.Math.Max(0,settings.speed)*Time.deltaTime;
+            if(requestedDistance>DistanceMetres)ApplySample();
         }
         public void Move(float metres)
         {
-            if (route == null) return;
-            Distance += Mathf.Max(0f, metres);
-            if(route is IBoundedRouteSource finite && Distance>=finite.MaximumDistance)
-            {Distance=finite.MaximumDistance;paused=true;}
-            route.EnsureAhead(Distance + 1f);
-            route.Sample(Distance, out var position, out var forward);
-            transform.SetPositionAndRotation(position + Vector3.up * 0.65f,
-                Quaternion.LookRotation(forward, Vector3.up));
+            if(route==null)return;
+            requestedDistance+=Mathf.Max(0,metres);ApplySample();
+        }
+        void ApplySample()
+        {
+            // Bounded manual progress: never synchronously generate a large request.
+            double target=System.Math.Min(requestedDistance,DistanceMetres+10);
+            QueryStatus=route.TrySample(target,out var position,out var forward);
+            if(QueryStatus!=MidlineDistanceResult.Ready){if(!hasSample)GetComponent<Renderer>().enabled=false;return;}
+            DistanceMetres=target;hasSample=true;GetComponent<Renderer>().enabled=true;
+            transform.SetPositionAndRotation(position+Vector3.up*.65f,Quaternion.LookRotation(forward,Vector3.up));
         }
     }
 }

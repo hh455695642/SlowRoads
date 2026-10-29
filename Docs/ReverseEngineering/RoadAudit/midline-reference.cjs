@@ -125,7 +125,7 @@ function createReference(style='style3',seed='a',observe=true,scenario='archive-
     if(ctx.shadowProvider)ctx.shadowProvider.onHeightmapLayersChanged(v);}};
   const heightConfig={seed,...profile.heightmap,maxCached:20};
   // Se changes maxCached to 8 on its private heightmap config, exactly as source.
-  ctx.midlineConfig={...profile.midline};ctx.heightConfig=heightConfig;ctx.layerState=layerState;
+  ctx.midlineConfig={...profile.midline,...(options.oneDir===undefined?{}:{oneDir:options.oneDir})};ctx.heightConfig=heightConfig;ctx.layerState=layerState;
   const generator=vm.runInContext('new B7(midlineConfig,heightConfig,Pl,layerState)',ctx,{timeout:1000});
   if(scenario==='explicit'||scenario==='retry-low'||steeringScenario){
     let syntheticCalls=0;

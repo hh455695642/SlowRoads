@@ -139,4 +139,4 @@ function run(createReference){
   else assert.equal(fs.readFileSync(file,'utf8'),json,'Road mesh reference drift');
   console.log(JSON.stringify({schema:1,cases:cases.length,builds:cases.reduce((s,c)=>s+c.generations.length,0)}));
 }
-module.exports={run};
+module.exports={run,install};

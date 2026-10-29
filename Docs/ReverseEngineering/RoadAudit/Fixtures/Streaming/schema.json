@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Slow Roads v1.0.2 Se/B7 -> Ca -> xi pinned archive execution",
+  "description": "Read-only oracle from Slow Roads/resources/app.asar. Normal: 96000 ticks, observer=-17+floor(tick/16). Fast: 24000 ticks, observer=-17+floor(tick/4). Warmup uses original load conditions. Unity standalone tile retirement (lastSeen<observer-100) is explicitly applied to both references. spatialProbe is a separate synthetic negative-coordinate Ca input.",
+  "type": "object",
+  "required": ["schema", "ticksPerNode", "seed", "style", "oneDir", "lane", "detail", "intervals", "tileSize", "margin", "hashes", "sections", "ticks", "events", "queries", "spatialProbe", "reverts"],
+  "properties": {
+    "schema": {"const": 1},
+    "ticksPerNode": {"enum": [4, 16]},
+    "seed": {"const": "a"}, "style": {"const": 3}, "oneDir": {"const": true},
+    "lane": {"const": 4}, "detail": {"const": 2}, "intervals": {"const": 30},
+    "tileSize": {"const": 840}, "margin": {"const": 180},
+    "hashes": {"type": "object", "required": ["Dev", "Hills", "Settings", "Rand", "Normals"], "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "sections": {"type": "object", "required": ["xi", "ca"], "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "ticks": {"type": "array", "items": {"type": "object", "required": ["head", "tail", "fine", "index", "lookahead", "prev", "cur", "next", "swap"]}},
+    "events": {"type": "array", "items": {"type": "object", "required": ["tick", "id", "head", "tail", "phase", "hash", "paint"], "properties": {"hash": {"type": "integer", "minimum": 0, "maximum": 4294967295}}}},
+    "queries": {"type": "array", "items": {"type": "object", "required": ["tick", "x", "z", "index", "d", "segments"]}}
+  },
+  "$comment": "events.hash is FNV-1a-style uint32 accumulation over Float32 words in position,normal,uv,bridge,shadow,paintSolid,paintSolidLeft,paintSolidRight,paintMergeLeft,paintMergeRight order. Indices are covered by P4 tests. Exact discrete IDs/order/hash; phase tolerance 1e-10; squared distance tolerance 1e-8. Fast raw source can build incomplete segments: Unity's whole-segment backpressure intentionally diverges from that mesh schedule; only path output is compared there. reverts counts original non-extension updates, not necessarily Restarted. Terrain/vehicle/rendering are not executed."
+}

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5807de2449065e74b8d7b28521f03246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlowRoads.Debugging.HillsDebugSession
-  settings: {fileID: 11400000, guid: 6855b396ffa82fd44acd251fb50c2fc4, type: 2}
+  settings: {fileID: 11400000, guid: 8bea3558c310c4d46811e1b727bcc1fd, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

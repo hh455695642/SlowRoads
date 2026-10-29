@@ -73,6 +73,9 @@ namespace SlowRoads.Generation.Midline
         public MidlineFineSample GetFine(int index)=>fine[index];
         internal MidlineReadView(MidlineState state,MidlineMarkingsState markings,BridgeCandidate bridge,
             long revision,int geometryDirty,int attributeDirty,int attributeGuard)
+            :this(state,markings,bridge,revision,geometryDirty,attributeDirty,attributeGuard,null,int.MaxValue) { }
+        internal MidlineReadView(MidlineState state,MidlineMarkingsState markings,BridgeCandidate bridge,
+            long revision,int geometryDirty,int attributeDirty,int attributeGuard,CoarseNode first,int last)
         {
             Generation=state.Generation;Revision=revision;HeadIndex=state.Head.Index;
             GeometryReadyExclusive=NormalReadyExclusive=state.FineTail.Index;
@@ -80,10 +83,11 @@ namespace SlowRoads.Generation.Midline
                 (markings?.Node.Index??HeadIndex)-attributeGuard));
             GeometryDirtyFrom=geometryDirty;AttributeDirtyFrom=attributeDirty;
             var c=new List<MidlineCoarseSample>();
-            for(var n=state.Head;n!=null;n=n.Next)c.Add(new MidlineCoarseSample(n));
+            for(var n=first??state.Head;n!=null&&n.Index<=last;n=n.Next)c.Add(new MidlineCoarseSample(n));
             coarse=c.ToArray();
             var f=new List<MidlineFineSample>();
-            for(MidlinePathNode n=state.Head;n!=null;n=n.NextFine)f.Add(new MidlineFineSample(n));
+            for(MidlinePathNode n=first??state.Head;n!=null;n=n.NextFine)
+            {var sample=new MidlineFineSample(n);if(sample.CoarseIndex>last)break;f.Add(sample);}
             fine=f.ToArray();
             int earliest=HeadIndex;
             void Keep(CoarseNode n){if(n!=null)earliest=Math.Min(earliest,n.Index);}

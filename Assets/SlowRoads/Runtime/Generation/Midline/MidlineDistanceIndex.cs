@@ -8,8 +8,9 @@ namespace SlowRoads.Generation.Midline
     {
         public readonly Double3 Position,Forward;
         public readonly MidlineSampleKey From,To;
-        public MidlineDistanceSample(Double3 p,Double3 forward,MidlineSampleKey from,MidlineSampleKey to)
-        {Position=p;Forward=forward;From=from;To=to;}
+        public readonly int FromCoarseIndex,ToCoarseIndex;
+        public MidlineDistanceSample(Double3 p,Double3 forward,MidlineSampleKey from,MidlineSampleKey to,int fromIndex=0,int toIndex=0)
+        {Position=p;Forward=forward;From=from;To=to;FromCoarseIndex=fromIndex;ToCoarseIndex=toIndex;}
     }
     /// <summary>Unity extension: sequential double chord-length accumulation, not D's UV.
     /// Update is explicit; sampling uses binary search and allocates nothing.</summary>
@@ -22,6 +23,7 @@ namespace SlowRoads.Generation.Midline
         bool invalidated;
         public int Count=>points.Count-first;
         public int Generation=>generation;
+        public int LastCoarseIndex=>Count==0?int.MinValue:points[points.Count-1].Sample.CoarseIndex;
         public double MinimumDistance=>Count==0?0:points[first].Distance;
         public double MaximumDistance=>points.Count==0?0:points[points.Count-1].Distance;
         public void Clear(){points.Clear();first=0;generation=-1;invalidated=false;}
@@ -108,7 +110,7 @@ namespace SlowRoads.Generation.Midline
             double t=(distance-a.Distance)/length;
             var delta=new Double3(b.Sample.Position.X-a.Sample.Position.X,b.Sample.Position.Y-a.Sample.Position.Y,
                 b.Sample.Position.Z-a.Sample.Position.Z);
-            sample=new MidlineDistanceSample(a.Sample.Position.Lerp(b.Sample.Position,t),delta.Normalize(),a.Sample.Key,b.Sample.Key);
+            sample=new MidlineDistanceSample(a.Sample.Position.Lerp(b.Sample.Position,t),delta.Normalize(),a.Sample.Key,b.Sample.Key,a.Sample.CoarseIndex,b.Sample.CoarseIndex);
             return MidlineDistanceResult.Ready;
         }
     }

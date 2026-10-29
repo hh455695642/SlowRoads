@@ -273,8 +273,10 @@ namespace SlowRoads.Generation.Midline
             var position = new Double3(candidateX, elevation - config.RoadSink, candidateZ);
             double angle = MidlineTrig.Atan2(heading.Z, heading.X);
             CoarseNode head = state.Head ?? nodes.Acquire(state.Generation);
+            nodes.Unregister(head); // A restart can reuse an active head with a different logical index.
             head.Generation = state.Generation;
             head.Index = -17;
+            nodes.Register(head);
             head.Position = position;
             head.Normal = new Double3(-heading.Z, 0, heading.X);
             head.Heading = angle;

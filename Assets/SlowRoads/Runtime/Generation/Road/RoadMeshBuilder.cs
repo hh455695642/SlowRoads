@@ -160,6 +160,16 @@ namespace SlowRoads.Generation.Road
             // Attributes can affect the previous interval; P5 must invalidate dependent following segments.
             Buffers.Complete=false;return State.Result=RoadBuildResult.Invalidated;
         }
+        // Streaming content validation, once for EVERY producer revision. The immutable
+        // window can survive unrelated tail changes; skipped dirty journals are rejected.
+        public bool ValidateProducer(int generation,long revision,int geometryDirty,int attributeDirty,int observer)
+        {
+            var r=Buffers.Request;
+            if(path==null||generation!=r.Generation||revision<r.Revision||revision>r.Revision+1)return false;
+            if(revision!=r.Revision&&Math.Min(geometryDirty,attributeDirty)<=tail+2)return false;
+            Buffers.Request=new RoadSegmentRequest(r.SegmentId,generation,revision,r.HeadCoarseIndex,r.ConfigurationId,r.InitialPhase,observer);
+            return true;
+        }
         public int RegenerateShadows()
         {
             if(!Buffers.Complete||Buffers.Config.BaseOnly)throw new InvalidOperationException("A completed Nl segment is required");

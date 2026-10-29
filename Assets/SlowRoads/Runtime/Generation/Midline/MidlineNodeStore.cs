@@ -7,6 +7,10 @@ namespace SlowRoads.Generation.Midline
     public sealed class MidlineNodeStore
     {
         readonly List<CoarseNode> slots = new List<CoarseNode>();
+        readonly Dictionary<int,CoarseNode> byIndex=new();
+        internal void Register(CoarseNode node)=>byIndex[node.Index]=node;
+        internal void Unregister(CoarseNode node){if(byIndex.TryGetValue(node.Index,out var current)&&ReferenceEquals(current,node))byIndex.Remove(node.Index);}
+        public CoarseNode Find(int index,int generation)=>byIndex.TryGetValue(index,out var n)&&n.IsActive&&n.Generation==generation&&n.Index==index?n:null;
         readonly Stack<int> free = new Stack<int>();
         readonly List<CoarseNode> deferred=new List<CoarseNode>();
         readonly HashSet<CoarseNode> coarsePins=new HashSet<CoarseNode>(),finePins=new HashSet<CoarseNode>();
@@ -64,6 +68,7 @@ namespace SlowRoads.Generation.Midline
             if (node == null) throw new ArgumentNullException(nameof(node));
             if (node.Slot < 0 || node.Slot >= slots.Count || slots[node.Slot] != node || !node.IsActive)
                 throw new ArgumentException("Node does not belong to this store.", nameof(node));
+            if(byIndex.TryGetValue(node.Index,out var current)&&ReferenceEquals(node,current))byIndex.Remove(node.Index);
             // Release invalidates outstanding handles immediately, even before slot reuse.
             node.SlotVersion++;
             node.IsActive = false;
@@ -110,7 +115,7 @@ namespace SlowRoads.Generation.Midline
         {
             foreach(var n in slots)
             {n.SlotVersion++;n.IsActive=false;n.Previous=n.Next=null;n.PreviousFine=n.NextFine=null;}
-            slots.Clear();free.Clear();deferred.Clear();coarsePins.Clear();finePins.Clear();
+            slots.Clear();byIndex.Clear();free.Clear();deferred.Clear();coarsePins.Clear();finePins.Clear();
             pinnedCoarseHead=null;pinnedFineStart=null;RetainReference=null;
         }
     }

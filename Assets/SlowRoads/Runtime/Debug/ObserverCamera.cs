@@ -1,12 +1,13 @@
 using UnityEngine;
+using SlowRoads.Scene.Road;
 
 namespace SlowRoads.Debugging
 {
     public sealed class ObserverCamera : MonoBehaviour
     {
         Transform target;
-        HillsDebugSettings settings;
-        public void Initialize(Transform observer, HillsDebugSettings config)
+        HillsSceneSettings settings;
+        public void Initialize(Transform observer, HillsSceneSettings config)
         {
             target = observer;
             settings = config;

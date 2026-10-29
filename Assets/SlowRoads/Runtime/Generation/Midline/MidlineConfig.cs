@@ -31,6 +31,8 @@ namespace SlowRoads.Generation.Midline
         public double CurvatureHeightFactor { get; }
         public int MinFineSegments { get; }
         public int FineHorizon { get; }
+        // Hills xl supplies the road-edge sampling offset to B7; not a steering parameter.
+        public double RoadHalfWidth {get;}
         public double SolidLineThreshold { get; }
         public double SolidLineCrestThreshold { get; }
         public double MarkingsMargin { get; }
@@ -49,7 +51,7 @@ namespace SlowRoads.Generation.Midline
         public double GenDeviation { get; } = 0;
 
         MidlineConfig(HillsStyle style, Double3? startPosition, Double3? startHeading,
-            Double3? direction, bool oneDir,int fineHorizon=400)
+            Double3? direction, bool oneDir,int fineHorizon=400,double roadHalfWidth=3.7)
         {
             Style = style;
             StartPosition = startPosition;
@@ -58,6 +60,8 @@ namespace SlowRoads.Generation.Midline
             OneDir = oneDir;
             if(fineHorizon<1)throw new System.ArgumentOutOfRangeException(nameof(fineHorizon));
             FineHorizon=fineHorizon;
+            if(!(roadHalfWidth>0)||double.IsInfinity(roadHalfWidth))throw new System.ArgumentOutOfRangeException(nameof(roadHalfWidth));
+            RoadHalfWidth=roadHalfWidth;
             IsStraight = style == HillsStyle.Straight;
             Spiralise = !direction.HasValue && !IsStraight;
             SmoothWindow = IsStraight ? 9 : 7;
@@ -80,9 +84,13 @@ namespace SlowRoads.Generation.Midline
         // Test and later configuration extension point. A supplied start Y is intentionally
         // ignored by Se.getNextStartingPose; the source samples it from the heightmap.
         public MidlineConfig WithStart(Double3? position, Double3? heading) =>
-            new MidlineConfig(Style, position, heading, Direction, OneDir,FineHorizon);
+            new MidlineConfig(Style, position, heading, Direction, OneDir,FineHorizon,RoadHalfWidth);
         public MidlineConfig WithFineHorizon(int value)=>
-            new MidlineConfig(Style,StartPosition,StartHeading,Direction,OneDir,value);
+            new MidlineConfig(Style,StartPosition,StartHeading,Direction,OneDir,value,RoadHalfWidth);
+        public MidlineConfig WithOneDir(bool value)=>
+            new MidlineConfig(Style,StartPosition,StartHeading,Direction,value,FineHorizon,RoadHalfWidth);
+        public MidlineConfig WithRoadHalfWidth(double value)=>
+            new MidlineConfig(Style,StartPosition,StartHeading,Direction,OneDir,FineHorizon,value);
 
         public HillsHeightfieldConfig CreateHeightfieldConfig(string seed)
         {
