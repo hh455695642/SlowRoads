@@ -18,7 +18,7 @@ namespace SlowRoads.Generation.Midline
         public readonly NodeHandle Handle;
         public readonly int Index,FineSegments;
         public readonly Double3 Position,Side;
-        public readonly double Blend,Bank,HeightCorrection,Grade,GradeFiltered,GradeForwardAverage,
+        public readonly double Blend,Bank,HeightCorrection,Grade,GradeFiltered,GradeForwardAverage,HeadingDelta,
             ShadowLeft,ShadowRight,PaintLeft,PaintRight;
         public readonly bool Bridge,HasBridge,HasBlend,HasBank,HasFineSegments,HasShadowLeft,HasShadowRight,
             HasPaintLeft,HasPaintRight,HasMergeLeft,HasMergeRight,MergeLeft,MergeRight;
@@ -26,7 +26,7 @@ namespace SlowRoads.Generation.Midline
         {
             Handle=n.Handle;Index=n.Index;FineSegments=n.FineSegments;Position=n.Position;Side=n.Normal;
             Blend=n.Blend;Bank=n.Bank;HeightCorrection=n.HeightCorrection;Grade=n.Grade;
-            GradeFiltered=n.GradeFiltered;GradeForwardAverage=n.GradeForwardAverage;Bridge=n.Bridge;HasBridge=n.HasBridge;
+            GradeFiltered=n.GradeFiltered;GradeForwardAverage=n.GradeForwardAverage;HeadingDelta=n.HeadingDelta;Bridge=n.Bridge;HasBridge=n.HasBridge;
             HasBlend=n.HasBlend;HasBank=n.HasBank;HasFineSegments=n.HasFineSegments;
             ShadowLeft=n.ShadowLeft;ShadowRight=n.ShadowRight;HasShadowLeft=n.HasShadowLeft;HasShadowRight=n.HasShadowRight;
             PaintLeft=n.PaintSolidLeftWeight;PaintRight=n.PaintSolidRightWeight;

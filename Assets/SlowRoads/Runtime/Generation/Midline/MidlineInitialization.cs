@@ -14,10 +14,17 @@ namespace SlowRoads.Generation.Midline
     public sealed class HillsMidlineHeightSource : IMidlineHeightSource, IDisposable
     {
         readonly HillsHeightfield field;
+        public int NegativeXLayer=>field.NegativeXLayer;
+        public int NonNegativeXLayer=>field.NonNegativeXLayer;
+        public long LayerRevision {get;private set;}
         public HillsMidlineHeightSource(HillsHeightfieldConfig config) => field = new HillsHeightfield(config);
         public double GetXZ(double x, double z) => field.GetXZ(x, z);
-        public void SetLayers(int negativeX, int nonNegativeX, bool force = false) =>
+        public void SetLayers(int negativeX, int nonNegativeX, bool force = false)
+        {
+            bool changed=force||negativeX!=NegativeXLayer||nonNegativeX!=NonNegativeXLayer;
             field.SetLayers(negativeX, nonNegativeX, force);
+            if(changed)LayerRevision++;
+        }
         public void Dispose() => field.Dispose();
     }
 

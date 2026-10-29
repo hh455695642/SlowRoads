@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "T0/T1 U.getCompleteHeight / $u / Ll reference (gzip UTF-8 JSON)",
+  "type": "object",
+  "required": ["schema", "kind", "groups", "evidence"],
+  "properties": {
+    "schema": {"const": 1},
+    "kind": {"const": "U.getCompleteHeight/$u/Ll"},
+    "evidence": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "groups": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "required": ["lane", "style", "seed", "label", "midlineConfig", "configuration", "sections", "nodes", "queries"],
+      "properties": {
+        "lane": {"type": "integer", "minimum": 0, "maximum": 4},
+        "seed": {"type": "string"}, "style": {"enum": ["style0", "style3"]},
+        "nodes": {"type": "array", "items": {"type": "object", "required": ["i", "bits", "fine"], "properties": {
+          "bits": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/bits"}},
+          "fine": {"type": "array", "items": {"type": "object", "required": ["bits"], "properties": {"bits": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/bits"}}}}}
+        }}},
+        "queries": {"type": "array", "items": {"type": "object", "required": ["input", "baseHeight", "resolution", "candidates", "fine", "bilinear", "index", "fineIndex", "ordinal", "present", "calls", "trace"], "properties": {
+          "input": {"type": "array", "minItems": 26, "maxItems": 26, "items": {"$ref": "#/$defs/bits"}},
+          "baseHeight": {"$ref": "#/$defs/bits"}, "resolution": {"enum": [10,16,20,24]},
+          "fine": {"type": "boolean"}, "bilinear": {"type": "boolean"},
+          "index": {"type": "integer"}, "fineIndex": {"type": "integer"}, "ordinal": {"type": "integer", "minimum": 0},
+          "calls": {"type": "array", "items": {"type": "object", "required": ["bits"], "properties": {"bits": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/bits"}}}}},
+          "trace": {"type": "object", "required": ["rm", "widthLerp", "weight", "inside", "center", "bridge"], "properties": {
+            "rm": {"type": "number"}, "widthLerp": {"type": "number"}, "weight": {"type": "number"},
+            "inside": {"type": "boolean"}, "center": {"type": "boolean"}, "bridge": {"type": "boolean"}
+          }},
+          "candidates": {"type": "array", "minItems": 1, "items": {"type": "integer"}},
+          "present": {"type": "array", "minItems": 10, "maxItems": 10, "items": {"type": "boolean"}}
+        }}}
+      }
+    }}
+  },
+  "$defs": {"bits": {"type": "string", "pattern": "^[0-9a-f]{16}$"}},
+  "description": "input order: worldX,Z,localX,Z,TL,TR,BL,BR,finalHeight, projected d,y,da,side,g,t,t1, then h,gfa,gt,ga,rd,w,d,y,blend,slope. Original Pl calls retain input/output bit strings. Trace rm/widthLerp/lt are read from original scratch; inactive weight is classified separately. Evidence pins archive modules, supplementary statement line map and graphics settings. Normal runs are read-only; --terrain-query --write is the explicit generation path."
+}

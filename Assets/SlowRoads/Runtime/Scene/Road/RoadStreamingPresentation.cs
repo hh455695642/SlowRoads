@@ -26,7 +26,7 @@ namespace SlowRoads.Scene.Road
         public void Initialize(HillsSceneSettings configuration)
         {
             settings=configuration??throw new ArgumentNullException(nameof(configuration));
-            Core=new RoadStreamingSession(settings.seed,new RoadStreamingConfig(settings.detail,settings.retainedBehindNodes,settings.LaneStyle));
+            Core=new RoadStreamingSession(settings.seed,new RoadStreamingConfig(settings.detail,settings.retainedBehindNodes,settings.LaneStyle,settings.terrainDetail));
             for(int i=0;i<3;i++)
             {
                 var go=new GameObject("Streamed road slot "+i,typeof(MeshFilter),typeof(MeshRenderer));go.transform.SetParent(transform,false);targets[i]=go.transform;
@@ -62,7 +62,9 @@ namespace SlowRoads.Scene.Road
                 watch.Restart();int remaining=Math.Max(1,settings.operationsPerFrame);
                 while(remaining>0)
                 {
-                    int chunk=Math.Min(16,remaining);remaining-=Core.Advance(chunk);
+                    int chunk=Math.Min(16,remaining);int used=Core.Advance(chunk);
+                    if(used==0)break; // Terrain phase barrier: do not spin while a finite job owns the producer.
+                    remaining-=used;
                     if(settings.cpuBudgetMilliseconds>0&&watch.Elapsed.TotalMilliseconds>=settings.cpuBudgetMilliseconds)break;
                 }
                 watch.Stop();

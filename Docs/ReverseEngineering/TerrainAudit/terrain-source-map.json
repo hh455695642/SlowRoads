@@ -1,0 +1,229 @@
+{
+  "schema": 1,
+  "version": "1.0.2",
+  "archiveSHA256": "074cb382594ea30166e71787c163d609fb1bff395789b955f8f3679cd52c6383",
+  "hashes": {
+    "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+    "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+    "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+    "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+    "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+  },
+  "graphics": {
+    "expanded": [
+      {
+        "viewDistance": 0,
+        "tileSize": 240,
+        "cellSize": 20,
+        "cellWidth": 10,
+        "fineHorizon": 200,
+        "B4": 13,
+        "l2": 61.96773353931867,
+        "H4": 77.45966692414834,
+        "Mt": 52,
+        "s5": -6,
+        "W4": -24.78709341572747
+      },
+      {
+        "viewDistance": 1,
+        "tileSize": 480,
+        "cellSize": 20,
+        "cellWidth": 10,
+        "fineHorizon": 300,
+        "B4": 16,
+        "l2": 87.63560920082658,
+        "H4": 109.54451150103323,
+        "Mt": 64,
+        "s5": -6.4,
+        "W4": -35.054243680330636
+      },
+      {
+        "viewDistance": 2,
+        "tileSize": 840,
+        "cellSize": 20,
+        "cellWidth": 10,
+        "fineHorizon": 400,
+        "B4": 19,
+        "l2": 115.9310139695155,
+        "H4": 144.9137674618944,
+        "Mt": 76,
+        "s5": -7.6000000000000005,
+        "W4": -46.372405587806206
+      },
+      {
+        "viewDistance": 3,
+        "tileSize": 1500,
+        "cellSize": 20,
+        "cellWidth": 10,
+        "fineHorizon": 500,
+        "B4": 22,
+        "l2": 154.91933384829667,
+        "H4": 193.64916731037084,
+        "Mt": 88,
+        "s5": -8.8,
+        "W4": -61.96773353931867
+      },
+      {
+        "viewDistance": 4,
+        "tileSize": 2000,
+        "cellSize": 20,
+        "cellWidth": 10,
+        "fineHorizon": 600,
+        "B4": 25,
+        "l2": 178.88543819998318,
+        "H4": 223.60679774997897,
+        "Mt": 100,
+        "s5": -10,
+        "W4": -71.55417527999327
+      },
+      {
+        "viewDistance": 5,
+        "tileSize": 2500,
+        "cellSize": 20,
+        "cellWidth": 10,
+        "fineHorizon": 600,
+        "B4": 28,
+        "l2": 200,
+        "H4": 250,
+        "Mt": 112,
+        "s5": -11.200000000000001,
+        "W4": -80
+      }
+    ],
+    "cellRes": [
+      10,
+      16,
+      20,
+      20,
+      20
+    ],
+    "offroadCellRes": 24,
+    "order": "xl(world), then _l(viewDistance,detail); Settings L50077-L50078 / L49942"
+  },
+  "geometryContext": {
+    "fixture": "terrain-context-smoke.json",
+    "command": "road-blend-reference.cjs --terrain-context",
+    "symbols": {
+      "f0": "Settings L41004-L41194",
+      "U": "Settings L41203-L41782",
+      "Dt": "Settings L42616-L43040",
+      "i7": "Settings L44973-L45050",
+      "s0": "Settings L46126-L46217"
+    },
+    "contract": "Constructors and minimal height/normal/index execution only. Content managers and sea storage are explicit constructor stubs; no full mesh acceptance. Native genRow & !1 preserved. Cell registration including prevChunk must finish before capturing a batch; parent Tile must be Staged before full U generation."
+  },
+  "formatter": "terrain-semicolon-map-v1 (raw statements, quoted strings preserved)",
+  "lineNamespace": "supplementary TQ-L; not SourceAtlas L",
+  "mappings": [
+    {
+      "symbol": "$u",
+      "offset": 638125,
+      "sha256": "968b9d37f354df0cb00db1a62e766412ba6765d29fc772e476b6f566d3baa094",
+      "lines": [
+        {
+          "line": 1,
+          "start": 638125,
+          "end": 638165,
+          "text": "$u=(a,e,t)=>{for(x.n=t,x.n0=t,x.fine=!1;"
+        },
+        {
+          "line": 2,
+          "start": 638165,
+          "end": 638169,
+          "text": "x.n;"
+        },
+        {
+          "line": 3,
+          "start": 638169,
+          "end": 638346,
+          "text": ")if(x.t=x.n.n.x*(e-x.n.p.z)-x.n.n.z*(a-x.n.p.x),x.t<=0&&x.n.nextFine)if(x.fine){if(x.t1=x.n.nextFine.n.x*(e-x.n.nextFine.p.z)-x.n.nextFine.n.z*(a-x.n.nextFine.p.x),x.t1>0)break;"
+        },
+        {
+          "line": 4,
+          "start": 638346,
+          "end": 638463,
+          "text": "x.n=x.n.nextFine}else{if(x.t1=x.n.next.n.x*(e-x.n.next.p.z)-x.n.next.n.z*(a-x.n.next.p.x),x.t1>0){x.n0=x.n,x.fine=!0;"
+        },
+        {
+          "line": 5,
+          "start": 638463,
+          "end": 638500,
+          "text": "continue}if(!x.n.next){x.n0=x.n.prev;"
+        },
+        {
+          "line": 6,
+          "start": 638500,
+          "end": 638584,
+          "text": "break}x.n=x.n.next}else if(x.t>0&&x.n.prevFine)x.fine?x.n=x.n.prevFine:x.n=x.n.prev;"
+        },
+        {
+          "line": 7,
+          "start": 638584,
+          "end": 638624,
+          "text": "else{x.n.i==null?x.n0=x.n.prev:x.n0=x.n;"
+        },
+        {
+          "line": 8,
+          "start": 638624,
+          "end": 639134,
+          "text": "break}if(x.n0.next||(x.n0=t.prev.prev,x.n=t.prev.prev),x.x1=x.n0.p.x,x.z1=x.n0.p.z,x.x2=x.n0.next.p.x,x.z2=x.n0.next.p.z,x.len=(x.x2-x.x1)*(x.x2-x.x1)+(x.z2-x.z1)*(x.z2-x.z1),x.t0=((a-x.x1)*(x.x2-x.x1)+(e-x.z1)*(x.z2-x.z1))/x.len,x.t0>1?x.t0=1:x.t0<0&&(x.t0=0),x.x1=x.n.p.x,x.z1=x.n.p.z,x.nf=x.n.nextFine,!x.nf){if(Math.floor(Math.sqrt((x.n.p.x-a)**2+(x.n.p.z-e)**2))<100&&!Ve.isRing&&!xd)throw new Error(\"Midline failed to generate beyond tail \"+Ve.tail.i+\" with vehicle/head \"+Ve.vehicleIndex+\"/\"+Ve.head.i);"
+        },
+        {
+          "line": 9,
+          "start": 639134,
+          "end": 639740,
+          "text": "return x.x1=x.x1-a,x.z1=x.z1-e,{d:Math.sqrt(x.x1*x.x1+x.z1*x.z1),y:x.n.p.y,da:x.n.da,s:x.side<0?-1:1,g:x.n.g,t:0,n:x.n,nf:x.n,t1:0}}return x.x2=x.nf.p.x,x.z2=x.nf.p.z,x.len=(x.x2-x.x1)*(x.x2-x.x1)+(x.z2-x.z1)*(x.z2-x.z1),x.t1=((a-x.x1)*(x.x2-x.x1)+(e-x.z1)*(x.z2-x.z1))/x.len,x.t1>1?x.t1=1:x.t1<0&&(x.t1=0),x.x3=x.x1+x.t1*(x.x2-x.x1),x.z3=x.z1+x.t1*(x.z2-x.z1),x.x1=x.x3-a,x.z1=x.z3-e,x.side=x.x1*x.n.n.x+x.z1*x.n.n.z,{d:Math.sqrt(x.x1*x.x1+x.z1*x.z1),y:x.n.p.y+x.t1*(x.nf.p.y-x.n.p.y),da:x.n0.da+x.t0*(x.n0.next.da-x.n0.da),s:x.side<0?-1:1,g:x.n0.g+x.t0*(x.n0.next.g-x.n0.g),t:x.t0,n:x.n0,nf:x.n,t1:x.t1}}"
+        }
+      ]
+    },
+    {
+      "symbol": "i_",
+      "offset": 639741,
+      "sha256": "94ac480045e75b8ba87b0ef857ad4a41f656e74b1903c0dc93c1f1f851b4f4e0",
+      "lines": [
+        {
+          "line": 1,
+          "start": 639741,
+          "end": 639760,
+          "text": "i_=(a,e,t)=>{var i;"
+        },
+        {
+          "line": 2,
+          "start": 639760,
+          "end": 639770,
+          "text": "for(x.n=t;"
+        },
+        {
+          "line": 3,
+          "start": 639770,
+          "end": 639774,
+          "text": "x.n;"
+        },
+        {
+          "line": 4,
+          "start": 639774,
+          "end": 639920,
+          "text": ")if(x.t=x.n.n.x*(e-x.n.p.z)-x.n.n.z*(a-x.n.p.x),x.t<0&&x.n.next){if(x.t1=x.n.next.n.x*(e-x.n.next.p.z)-x.n.next.n.z*(a-x.n.next.p.x),x.t1>0)break;"
+        },
+        {
+          "line": 5,
+          "start": 639920,
+          "end": 639970,
+          "text": "x.n=x.n.next}else if(x.t>0&&x.n.prev)x.n=x.n.prev;"
+        },
+        {
+          "line": 6,
+          "start": 639970,
+          "end": 639981,
+          "text": "else break;"
+        },
+        {
+          "line": 7,
+          "start": 639981,
+          "end": 640500,
+          "text": "return(i=x.n)!=null&&i.next||(x.n=t.prev.prev),x.x1=x.n.p.x,x.z1=x.n.p.z,x.x2=x.n.next.p.x,x.z2=x.n.next.p.z,x.len=(x.x2-x.x1)*(x.x2-x.x1)+(x.z2-x.z1)*(x.z2-x.z1),x.t=((a-x.x1)*(x.x2-x.x1)+(e-x.z1)*(x.z2-x.z1))/x.len,x.t>1?x.t=1:x.t<0&&(x.t=0),x.x3=x.x1+x.t*(x.x2-x.x1),x.z3=x.z1+x.t*(x.z2-x.z1),x.x1=x.x3-a,x.z1=x.z3-e,x.side=x.x1*x.n.n.x+x.z1*x.n.n.z,{d:Math.sqrt(x.x1*x.x1+x.z1*x.z1),y:x.n.p.y+x.t*(x.n.next.p.y-x.n.p.y),da:x.n.da+x.t*(x.n.next.da-x.n.da),s:x.side<0?-1:1,g:x.n.g+x.t*(x.n.next.g-x.n.g),t:x.t,n:x.n}}"
+        }
+      ]
+    }
+  ]
+}

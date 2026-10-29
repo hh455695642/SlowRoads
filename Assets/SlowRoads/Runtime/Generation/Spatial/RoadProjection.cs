@@ -15,19 +15,24 @@ namespace SlowRoads.Generation.Spatial
         public bool Bridge,NextBridge,NextNextBridge,PreviousBridge;
         public double GradeAdjustment,OriginalDistance,Width,Slope;
         public bool HasSlope;
+        public bool IsFine;
+        public MidlineSampleKey FineKey;
+        public int FineCoarseIndex;
+        public double FineT;
 
-        public static bool TryCreate(double x,double z,CoarseNode start,out RoadProjection p)
+        public static bool TryCreate(double x,double z,CoarseNode start,out RoadProjection p,bool requireComplete=false,int supportFirst=int.MinValue,int supportLast=int.MaxValue)
         {
             p=default;if(start==null)return false;
             var n=start;
             // This is the original side-of-normal walk, not a global closest-segment search.
             while(n!=null)
             {
+                if(n.Index<=supportFirst||n.Index>=supportLast-1)return false;
                 double side=n.Normal.X*(z-n.Position.Z)-n.Normal.Z*(x-n.Position.X);
                 if(side<0&&n.Next!=null){var b=n.Next;double s=b.Normal.X*(z-b.Position.Z)-b.Normal.Z*(x-b.Position.X);if(s>0)break;n=b;}
                 else if(side>0&&n.Previous!=null)n=n.Previous;else break;
             }
-            if(n?.Next==null)n=start.Previous?.Previous;
+            if(n?.Next==null){if(requireComplete)return false;n=start.Previous?.Previous;}
             if(n?.Next==null)return false;
             var next=n.Next;
             if(n.Bridge&&next.Bridge&&next.Next==null)return false;

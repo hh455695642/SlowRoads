@@ -5,6 +5,11 @@ using SlowRoads.Generation.Spatial;
 
 namespace SlowRoads.Generation.Terrain
 {
+    public struct RoadBlendTrace
+    {
+        public double Radius,WidthLerp,Weight;
+        public bool InsideInfluence,CenterReturn,BridgeBlend;
+    }
     /// <summary>Hills Ll, L06045–L06162. CPU data query; no rendering pass or RT.</summary>
     public sealed class HillsRoadBlend
     {
@@ -26,7 +31,10 @@ namespace SlowRoads.Generation.Terrain
         // Extension point for near-road terrain: caller supplies H (e.g. corner bilerp).
         // Preserve Ll write-back semantics in p, including its perturbed distance and Y.
         public double Evaluate(double h,ref RoadProjection p,double x,double z)
+            =>Evaluate(h,ref p,x,z,out _);
+        public double Evaluate(double h,ref RoadProjection p,double x,double z,out RoadBlendTrace trace)
         {
+            trace=default;
             if(!double.IsFinite(h)||!double.IsFinite(x)||!double.IsFinite(z))throw new ArgumentOutOfRangeException();
             double ga=p.Side==Math.Sign(p.Grade)?Math.Max(0,Math.Abs(p.InterpolatedGrade)-1)/3:0;
             p.OriginalDistance=p.Distance;double widthLerp=1;
@@ -35,11 +43,13 @@ namespace SlowRoads.Generation.Terrain
             else p.Width=width+verge+.25+ga;
             p.Y-=.01+.01*p.ForwardGrade;ga=Math.Pow(Math.Min(1,Math.Max(0,ga)),2);p.GradeAdjustment=ga;
             double rm=(20-width)*(.4+.6*p.Blend),l=(p.Distance-p.Width)/16;
+            trace.Radius=rm;trace.WidthLerp=widthLerp;trace.Weight=1;
             l=Math.Max(0,Math.Min(1,l));l=Math.Pow(1-l,2);
             if(l>0){h+=l*bl.GetXZ(x,z);if(ga>0)h+=ml.GetXZ(x,z)*l*ga;}
             if(p.Distance<p.Width+rm)
             {
-                if(!offRoad&&p.Distance<width/2&&!p.Bridge)return p.Y;
+                trace.InsideInfluence=true;
+                if(!offRoad&&p.Distance<width/2&&!p.Bridge){trace.CenterReturn=true;trace.Weight=0;return p.Y;}
                 double lt=RoadLerp(Math.Max(0,Math.Min(1,(p.Distance-p.Width)/rm)));
                 if(offRoad)
                 {
@@ -54,10 +64,11 @@ namespace SlowRoads.Generation.Terrain
                 }
                 if(p.Bridge&&p.NextBridge)
                 {
+                    trace.BridgeBlend=true;
                     if(p.NextNextBridge)lt=p.PreviousBridge?1:Math.Max(p.T,lt);else lt=Math.Max(1-p.T,lt);
                     if(p.Distance<width+verge+4&&h>p.Y){double m=1-Math.Max(0,(width+verge+4-p.Distance)/4),c=lt*.33;lt=(m-c)*(1/(1-c));}
                 }
-                return h*lt+p.Y*(1-lt);
+                trace.Weight=lt;return h*lt+p.Y*(1-lt);
             }
             return h;
         }

@@ -1,7 +1,7 @@
 // Hash-pinned Ll/i_ oracle. SourceAtlas is evidence, never executable input.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const base=require('./heightfield-reference.cjs'),mid=require('./midline-reference.cjs'),road=require('./road-mesh-reference.cjs');
-const crypto=require('node:crypto');const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
+const crypto=require('node:crypto'),zlib=require('node:zlib');const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
 const fields=['h','gfa','gt','ga','rd','w','d','y','blend','slope'];
 const bits=v=>{const b=Buffer.alloc(8);b.writeDoubleBE(v);return b.toString('hex');};
 function install(runtime,lane,installed=null){
@@ -14,7 +14,7 @@ function install(runtime,lane,installed=null){
  // Execute xl itself, including N/F/We/Ve/me; do not derive oracle flags from C#.
  vm.runInContext('globalThis.blend=(function(){const be=Gradient;let N=false,F=false,We=3,Ve=2,me=.2,O,re=.4,Lt,yt,ra,Ea,pe,na,la,Oe,He,xl;'+
   'const te={roads:{style:{3:roadProfile},laneWidth}},Cr=laneCounts,z=laneEnum,Mt=400,cr=()=>{yt=20-O;};'+width+';xl({roadStyle:3,laneStyle:blendLane});'+source+
-  ';return {evaluate:Ll,curve:gr,noise:(x,z)=>[wl,jt,bl,Ml].map(n=>n.getXZ(x,z)),config:{N,F,We,Ve,me,O,re,Lt,yt}};})()',ctx);
+  ';return {evaluate:Ll,diagnostics:()=>({...u}),curve:gr,noise:(x,z)=>[wl,jt,bl,Ml].map(n=>n.getXZ(x,z)),config:{N,F,We,Ve,me,O,re,Lt,yt}};})()',ctx);
  vm.runInContext('globalThis.project=(function(){const x={};const '+project+';return i_;})()',ctx);
  return {configuration:JSON.parse(JSON.stringify(ctx.blend.config)),sections:{Ll:sha(source),projection:sha(project),width:sha(width)}};
 }
@@ -54,9 +54,203 @@ function build(){return mid.createReference('style3','a',false,'archive-heightfi
  }
  return {schema:1,hashes:runtime.sourceHashes,sections,fields,cases,curve:[0,.3333-1e-7,.3333,.3333+1e-7,1].map(t=>({t,value:ctx.blend.curve(t)}))};
 }});}
-if(require.main===module){
+if(require.main===module&&process.argv.includes('--terrain-context')){terrainContextMain();}
+else if(require.main===module&&process.argv.includes('--terrain-query')){terrainMain();}
+else if(require.main===module){
  if(process.argv.includes('--self-test')){const a=base.readArchive(['Normals']);base.verifyHashes(a.sources,['Dev','Hills','Settings','Rand','Normals']);const bad={...a.sources,Hills:Buffer.from('bad')};assert.throws(()=>base.verifyHashes(bad));for(const s of ['none','start end start','end start'])assert.throws(()=>base.section(s,'start','end'));console.log('blend extraction rejection self-test PASS');process.exit(0);}
  const file=path.join(__dirname,'Fixtures/RoadBlend/hills-road-blend.json');const value=build(),json=JSON.stringify(value)+'\n';
  if(process.argv.includes('--write')){fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,json);}else assert.equal(fs.readFileSync(file,'utf8'),json,'Road blend reference drift');
  console.log(JSON.stringify({cases:value.cases.length,queries:value.cases.reduce((s,c)=>s+c.queries.length,0),sections:value.sections}));}
 module.exports={install,query,link,encode,fields};
+
+
+// T0/T1 extension: same archive, VM, Pl, midline and Ll. No translated JS oracle.
+function terrainInstall(runtime,lane){
+ const info=install(runtime,lane),{ctx,input}=runtime;
+ const normals=input.sources.Normals.toString(),settings=input.sources.Settings.toString();
+ const fine=base.section(normals,'$u=(a,e,t)=>',',i_=(a,e,t)=>');
+ const uSource=mid.classSection(settings,'class U{').source;
+ const bilerp=base.section(uSource,'static bilerpHeight(e,t,a){','static bilerpCurvature(');
+ const complete=base.section(uSource,'static getCompleteHeight(e,t,a,n,d,p=!0,u=!1){','loadCustom0(){');
+ const addCell=base.section(uSource,'addCell(e,t,a){','hasCell(e,t){');
+ const cellClass=mid.classSection(settings,'class At{').source;
+ vm.runInContext('globalThis.terrain=(function(){const x={},Ve=shared,xd=false;const '+fine+';const m2=$u,Z4=project,S1={},d0={};let t0=20;'+
+ 'const calls=[],a0={getXZ:(x,z)=>{const v=terrainHeight(x,z);calls.push([x,z,v]);return v;}},Tt=(h,p,x,z)=>{before={...p};inputHeight=h;return blend.evaluate(h,p,x,z);};let before,inputHeight;'+
+ 'class U{'+bilerp+complete+'}const C=10,H=840,_=0,h1=10000,k1=100,g={},s=(o,k,v)=>o[k]=v;'+cellClass+
+ ';const It=At;class Chunk{'+addCell+'}return {project:$u,complete:(cell,lx,lz,x,z,p,u,res)=>{t0=res;calls.length=0;const height=U.getCompleteHeight(cell,lx,lz,x,z,p,u);return {height,baseHeight:inputHeight,projection:d0.m,before,trace:blend.diagnostics(),calls:calls.slice()};},'+
+ 'candidates:(nodes,indices,cx,cz)=>{const chunk={parentTileMap:{},lastSeenIndex:-1,cellMap:{},prevChunk:{cellMap:{}},cellPool:[],bounds:{},cellCount:0};'+
+ 'for(const i of indices)Chunk.prototype.addCell.call(chunk,cx,cz,nodes[i]);const c=chunk.cellMap[cx+h1][cz+h1];return {closest:c.closestNode.i,others:c.closeNodes.map(n=>n.i)};}};})()',ctx);
+ const tail={i:0,p:{x:0,y:0,z:0},n:{x:0,z:1},next:{p:{x:10,z:0}}};
+ assert.throws(()=>ctx.terrain.project(0,0,tail),/Midline failed to generate beyond tail/);
+ const far=ctx.terrain.project(1000,0,tail);assert.equal(far.t1,0); // Original far-tail fallback; production rejects incomplete support.
+ return {...info,terrainSections:{fine:sha(fine),bilerp:sha(bilerp),complete:sha(complete),addCell:sha(addCell),cell:sha(cellClass)},source:{fine,bilerp,complete,addCell}};
+}
+function terrainBuild(){
+ const groups=[];
+ function collect(runtime,lane,style,label,seed='a'){
+  const {ctx,generator}=runtime,info=terrainInstall(runtime,lane);
+  ctx.terrainHeight=(x,z)=>generator.heightmap.getXZ(x,z);
+  const all=[];for(let n=ctx.shared.head;n;n=n.next)all.push(n);
+  const head=all[0].i,tail=ctx.shared.fineTail.i;
+  const usable=all.filter(n=>n.i>=head+5&&n.i<tail-8),sharp=usable.reduce((a,n)=>!a||Math.abs(n.da)>Math.abs(a.da)?n:a,null);
+  const crest=usable.find(n=>n.prev?.g>0&&n.next?.g<=0),trough=usable.find(n=>n.prev?.g<0&&n.next?.g>=0);
+  const targets=[head+12,head+25,...[sharp,crest,trough].filter(Boolean).map(n=>n.i),...all.filter(n=>n.bridge&&n.i<tail-4).map(n=>n.i)];
+  const queries=[];const used=new Set();
+  for(const target of targets){
+   if(target>=tail-4||target<head+3)continue;
+   // Include bridge approach and departure; bounded natural data, not whole history.
+   for(const offset of [-2,0,1,2]){
+    const n=all.find(n=>n.i===target+offset);if(!n?.nextFine?.nextFine||n.i>=tail-3||used.has(n.i))continue;used.add(n.i);
+    for(const lateral of [-25,-4,-.0000001,0,.0000001,4,25])for(const location of (lateral===0?['sample','tl','tr','bl','br','outside']:['sample'])){
+     let x=n.p.x+(n.nextFine.p.x-n.p.x)*.43+n.n.x*lateral,z=n.p.z+(n.nextFine.p.z-n.p.z)*.43+n.n.z*lateral;
+     const cx=Math.floor(x/10),cz=Math.floor(z/10),ox=cx*10,oz=cz*10;
+     if(location!=='sample'){x=ox+(location==='tr'||location==='br'?10:location==='outside'?-0.5:0);z=oz+(location==='bl'||location==='br'?10:0);}
+     const order=[n.i-1,n.i+1,n.i-1]; // Actual addCell consumes and preserves this order.
+     const candidates=ctx.terrain.candidates(Object.fromEntries(all.map(n=>[n.i,n])),order,cx,cz);
+     const corners=[generator.heightmap.getXZ(ox,oz),generator.heightmap.getXZ(ox+10,oz),generator.heightmap.getXZ(ox,oz+10),generator.heightmap.getXZ(ox+10,oz+10)];
+     const cell={closestNode:all.find(n=>n.i===candidates.closest),closeNodes:candidates.others.map(i=>all.find(n=>n.i===i)),hTL:corners[0],hTR:corners[1],hBL:corners[2],hBR:corners[3]};
+     for(const fine of [false,true])for(const bilinear of [false,true]){
+      const resolution=location==='outside'?16:info.configuration.N?24:style==='style0'?10:20;
+      const lx=(x-ox)*resolution/10,lz=(z-oz)*resolution/10;
+      const r=ctx.terrain.complete(cell,lx,lz,x,z,bilinear,fine,resolution),p=r.projection,b=r.before;
+      const nf=p.nf??p.n;const fi=nf.i??nf.prev.i,ordinal=nf.i!=null?0:(()=>{let j=0;for(let a=nf.prev;a&&a!==nf;a=a.nextFine)j++;return j;})();
+      const nums=[x,z,lx,lz,...corners,r.height,b.d,b.y,b.da,b.s,b.g,b.t,b.t1??0,...fields.map(k=>p[k]??0)];
+      const inside=p.d<p.w+r.trace.rm,center=!info.configuration.N&&p.d<info.configuration.Lt&&!p.n.bridge;
+      queries.push({resolution,baseHeight:bits(r.baseHeight),trace:{rm:r.trace.rm,widthLerp:info.configuration.N?r.trace.widthLerp:1,weight:inside?(center?0:r.trace.lt):1,inside,center:inside&&center,bridge:inside&&!center&&!!p.n.bridge&&!!p.n.next.bridge},input:nums.map(bits),candidates:[candidates.closest,...candidates.others],fine,bilinear,index:p.n.i,fineIndex:fi,ordinal,present:fields.map(k=>Object.hasOwn(p,k)),calls:r.calls.map(v=>({bits:v.map(bits)}))});
+     }
+    }
+   }
+  }
+  // Export only the referenced bounded chain, including exact IEEE input bits.
+  const nodes=all.filter(n=>n.i>=head&&n.i<=Math.max(...used)+4).map(n=>({...encode(n),fine:[]}));
+  for(const n of nodes){let original=all.find(a=>a.i===n.i);for(let f=original.nextFine;f&&f.i==null;f=f.nextFine)n.fine.push({bits:[f.p.x,f.p.y,f.p.z,f.n.x,f.n.y,f.n.z].map(bits)});}
+  groups.push({lane,style,label,seed,classification:{maxAbsHeadingDelta:Math.abs(sharp?.da??0),sharp:sharp?.i??null,crest:crest?.i??null,trough:trough?.i??null},midlineConfig:JSON.parse(JSON.stringify(generator.config)),configuration:info.configuration,sections:info.terrainSections,nodes,queries});
+ }
+ for(const lane of [4,1,0]){
+ for(const style of ['style3','style0'])mid.createReference(style,'a',false,'archive-heightfield',{updates:4100,full:true,halfWidth:lane===4?3.7:lane===1?1.8:3.6,consumeRuntime:r=>collect(r,lane,style,'initial')});
+ mid.createReference('style3','a',false,'archive-heightfield',{updates:0,full:true,oneDir:true,fineHorizon:400,halfWidth:lane===4?3.7:lane===1?1.8:3.6,consumeRuntime:r=>{
+ const {ctx,generator}=r;
+ function warm(){let k=0;for(;k<60000&&(ctx.shared.tail.i<ctx.shared.vehicleIndex+2500||ctx.shared.fineTail.i<ctx.shared.vehicleIndex+400);k++)generator.update();assert(k<60000,'terrain reference warmup limit');}
+ warm();for(const observer of [2300,4950]){while(ctx.shared.vehicleIndex<observer){const next=Math.min(observer,ctx.shared.vehicleIndex+32);ctx.shared.vehicleIndex=next;let at=ctx.shared.head;while(at.next&&at.next.i<=next)at=at.next;ctx.shared.vehicleNode=at;warm();}assert(ctx.shared.head.i>=observer-30,'unexpected generation restart');collect(r,lane,'style3','oneDir-observer-'+observer);}
+ }});
+ }
+ // Supplemental natural seeds and paved widths, without repeating the long bridge trace.
+ for(const seed of ['1337','hills-c4'])for(const lane of [2,3,4])
+  mid.createReference('style3',seed,false,'archive-heightfield',{updates:4100,full:true,halfWidth:lane===2?1.8:lane===3?3.6:3.7,
+   consumeRuntime:r=>collect(r,lane,'style3','C4-natural',seed)});
+ return {schema:1,kind:'U.getCompleteHeight/$u/Ll',groups};
+}
+function terrainEvidence(){
+ const input=base.readArchive(['Normals']);const hashes=base.verifyHashes(input.sources,['Dev','Hills','Settings','Rand','Normals']);assert.equal(input.version,'1.0.2');
+ // Supplementary line map: break after each semicolon outside quoted strings.
+ // It is intentionally NOT the historical full-module formatter/Atlas line numbering.
+ const text=input.sources.Normals.toString();const mappings=[];
+ for(const [symbol,start,end] of [['$u','$u=(a,e,t)=>',',i_=(a,e,t)=>'],['i_','i_=(a,e,t)=>',',Lx=']]){
+  const source=base.section(text,start,end),offset=base.uniqueIndex?base.uniqueIndex(text,start):text.indexOf(start);
+  let quote=null,escaped=false,line='',rawStart=offset,lines=[];
+  for(let i=0;i<source.length;i++){const c=source[i];line+=c;if(quote){if(escaped)escaped=false;else if(c==='\\')escaped=true;else if(c===quote)quote=null;}else if(c==='"'||c==="'"||c==='`')quote=c;else if(c===';'){lines.push({line:lines.length+1,start:rawStart,end:offset+i+1,text:line});line='';rawStart=offset+i+1;}}
+  if(line)lines.push({line:lines.length+1,start:rawStart,end:offset+source.length,text:line});
+  assert.equal(lines.map(l=>l.text).join(''),source);mappings.push({symbol,offset,sha256:sha(source),lines});
+ }
+ const hills=input.sources.Hills.toString(),settings=input.sources.Settings.toString();
+ const graphics=base.literal(hills,'{viewDistance:[{tileSize:240');
+ assert(settings.includes('$e(I0._value),this.loadGraphicsSettings()'));
+ assert(settings.includes('loadGraphicsSettings(){Xe(R.viewDistance,R.detail)'));
+ const expanded=graphics.viewDistance.map((r,viewDistance)=>{const H=r.tileSize,B4=r.lod1Horizon,l2=Math.max(40,Math.sqrt(H)*4),H4=l2*1.25;
+ return {viewDistance,tileSize:H,cellSize:20,cellWidth:10,fineHorizon:r.midlineFineHorizon,B4,l2,H4,Mt:B4*4,s5:Math.min(-6,-.4*B4),W4:Math.min(-12,-.4*l2)};});
+ const archiveHash=crypto.createHash('sha256'),fd=fs.openSync(path.join(__dirname,'../../../Slow Roads/resources/app.asar'),'r'),chunk=Buffer.alloc(1024*1024);try{let n;while((n=fs.readSync(fd,chunk,0,chunk.length,null))>0)archiveHash.update(chunk.subarray(0,n));}finally{fs.closeSync(fd);}
+ return {schema:1,version:input.version,archiveSHA256:archiveHash.digest('hex'),hashes,graphics:{expanded,cellRes:graphics.detail.map(d=>d.cellRes),offroadCellRes:24,order:'xl(world), then _l(viewDistance,detail); Settings L50077-L50078 / L49942'},
+ geometryContext:{fixture:'terrain-context-smoke.json',command:'road-blend-reference.cjs --terrain-context',symbols:{f0:'Settings L41004-L41194',U:'Settings L41203-L41782',Dt:'Settings L42616-L43040',i7:'Settings L44973-L45050',s0:'Settings L46126-L46217'},
+ contract:'Constructors and minimal height/normal/index execution only. Content managers and sea storage are explicit constructor stubs; no full mesh acceptance. Native genRow & !1 preserved. Cell registration including prevChunk must finish before capturing a batch; parent Tile must be Staged before full U generation.'},
+ formatter:'terrain-semicolon-map-v1 (raw statements, quoted strings preserved)',lineNamespace:'supplementary TQ-L; not SourceAtlas L',mappings};
+}
+function terrainMain(){
+ const evidence=terrainEvidence();const evidenceFile=path.join(__dirname,'../TerrainAudit/terrain-source-map.json');
+ const evidenceJson=JSON.stringify(evidence,null,2)+'\n';
+ if(process.argv.includes('--write'))fs.writeFileSync(evidenceFile,evidenceJson);else assert.equal(fs.readFileSync(evidenceFile,'utf8'),evidenceJson);
+ if(process.argv.includes('--evidence-only')){console.log('terrain identity/line-map PASS');return;}
+ const result=terrainBuild();result.evidence=sha(evidenceJson);
+ validateTerrainFixture(result,result.evidence);
+ const sample={...result,groups:[result.groups[0]]};
+ for(const mutate of [v=>v.schema=99,v=>delete v.groups[0].queries[0].input,v=>v.groups[0].queries[0].input[0]='bad',v=>v.groups[0].sections.fine='0'.repeat(64),v=>v.evidence='0'.repeat(64)]){
+  const bad=JSON.parse(JSON.stringify(sample));mutate(bad);assert.throws(()=>validateTerrainFixture(bad,result.evidence));
+ }
+ const file=path.join(__dirname,'Fixtures/RoadBlend/terrain-query.json.gz'),json=JSON.stringify(result)+'\n';
+ if(process.argv.includes('--write'))fs.writeFileSync(file,zlib.gzipSync(json));else assert.equal(zlib.gunzipSync(fs.readFileSync(file)).toString(),json,'Terrain reference drift');
+ console.log(JSON.stringify({groups:result.groups.length,queries:result.groups.reduce((s,g)=>s+g.queries.length,0),evidence:result.evidence}));
+}
+
+function validateTerrainFixture(value,evidence){
+ const schema=JSON.parse(fs.readFileSync(path.join(__dirname,'Fixtures/RoadBlend/terrain-query.schema.json'),'utf8'));
+ function check(v,s){
+  if(s.$ref)s=schema.$defs[s.$ref.split('/').pop()];
+  if(s.const!==undefined)assert.equal(v,s.const);
+  if(s.enum)assert(s.enum.includes(v));
+  if(s.type==='object'){assert(v&&typeof v==='object'&&!Array.isArray(v));for(const k of s.required??[])assert(Object.hasOwn(v,k),'missing '+k);for(const [k,p]of Object.entries(s.properties??{}))if(Object.hasOwn(v,k))check(v[k],p);}
+  if(s.type==='array'){assert(Array.isArray(v));if(s.minItems!==undefined)assert(v.length>=s.minItems);if(s.maxItems!==undefined)assert(v.length<=s.maxItems);if(s.items)for(const a of v)check(a,s.items);}
+  if(s.type==='string'){assert.equal(typeof v,'string');if(s.pattern)assert(new RegExp(s.pattern).test(v));}
+  if(s.type==='integer'){assert(Number.isInteger(v));if(s.minimum!==undefined)assert(v>=s.minimum);if(s.maximum!==undefined)assert(v<=s.maximum);}
+  if(s.type==='number')assert(Number.isFinite(v));
+  if(s.type==='boolean')assert.equal(typeof v,'boolean');
+ }
+ check(value,schema);assert.equal(value.evidence,evidence);
+ const a=base.readArchive(['Normals']),s=a.sources.Settings.toString(),n=a.sources.Normals.toString(),u=mid.classSection(s,'class U{').source;
+ const sections={fine:sha(base.section(n,'$u=(a,e,t)=>',',i_=(a,e,t)=>')),bilerp:sha(base.section(u,'static bilerpHeight(e,t,a){','static bilerpCurvature(')),complete:sha(base.section(u,'static getCompleteHeight(e,t,a,n,d,p=!0,u=!1){','loadCustom0(){')),addCell:sha(base.section(u,'addCell(e,t,a){','hasCell(e,t){')),cell:sha(mid.classSection(s,'class At{').source)};
+ for(const g of value.groups)assert.deepEqual(g.sections,sections,'section identity');
+}
+
+// C1: executable geometry-context smoke in the existing oracle. Containers store
+// native typed arrays only; all geometry arithmetic and vector operations are original.
+function terrainContextBuild(){
+ return mid.createReference('style3','a',false,'archive-heightfield',{updates:4100,full:true,consumeRuntime:runtime=>{
+  const {ctx,input,generator}=runtime;terrainInstall(runtime,4);
+  ctx.contextHeight=generator.heightmap;
+  const source=input.sources.Settings.toString(),pieces={};
+  for(const [name,marker] of Object.entries({grid:'class f0 extends D0{',tile:'class Dt{',cell:'class At{',chunk:'class U{',hillsTile:'class i7 extends Dt{',hillsChunk:'class s0 extends v2{'}))pieces[name]=mid.classSection(source,marker).source;
+  const code=`(function(){
+   const s=(o,k,v)=>o[k]=v,q=Vec3,G=0,I5={},x0={Dead:0};
+   class B{constructor(array,itemSize){this.array=array;this.itemSize=itemSize;}setUsage(){}setXYZ(i,x,y,z){this.array[i*3]=x;this.array[i*3+1]=y;this.array[i*3+2]=z;}}
+   class D0{constructor(){this.attributes={};}setAttribute(k,v){this.attributes[k]=v;}setIndex(a){this.index={array:new Uint16Array(a)};}setDrawRange(start,count){this.drawRange={start,count};}}
+   class c0{constructor(){this.position=new q();}add(){}}
+   class P0{constructor(geometry){this.geometry=geometry;this.position=new q();this.rotation=new q();}updateMatrix(){}}
+   class B0{constructor(){this.center=new q();}}
+   let A3=1,w3=0;const H=840,Nt=Math.round(H/20),F=Nt*2,Z=F+1,C=10,i5=20,O0=F-1;
+   const t0=20,k0=t0+1,k1=Math.min(100,20+H/10),m0=C/t0,y1=3.7;
+   const a0=contextHeight,o={vecV:new q(),vecH:new q()},g={},D={},S1={},d0={},E0={vecX:new q(),vecZ:new q()};
+   const m2=terrain.project,Z4=project,Tt=blend.evaluate,r={},l1=true;
+   ${pieces.grid};const w1=f0;${pieces.tile};${pieces.chunk};const v2=U;${pieces.hillsChunk};
+   const Z3=D0,i2=1,x4=2,$3={},d5={};class e7{constructor(){this.container=new c0();}}class Ka extends e7{}
+   ${pieces.hillsTile};
+   f0.reset();const tile=new Dt();tile.init(-1,0,0);while(!tile.genHeights0()){}tile.genRow=0;tile.genNormals0();
+   const hillsTile=new i7();
+   // The base classes do not require contents. s0 hook is executed on explicit
+   // zero tree-density corners and absent wall marks, not advertised as full content parity.
+   const chunk=new s0();let n=shared.head;for(let i=0;i<20;i++)n=n.next;
+   const wx=Math.floor(n.p.x/C)*C,wz=Math.floor(n.p.z/C)*C;
+   const cell={worldX:wx,worldZ:wz,offsetX:0,offsetZ:0,bufferIndexEntry:0,indexIndex0:0,indexIndex1:U.index0Size,genRow:0,closestNode:n,closeNodes:[],hTL:a0.getXZ(wx,wz),cTL:0,tTL:0,tTR:0,tBL:0,tBR:0};
+   U.generateCellCorners(cell);chunk.worldX=wx;chunk.worldZ=wz;chunk.cellList=[cell];chunk.genCell=cell;
+   while(!chunk.loadPositions()){}cell.genRow=0;chunk.genCellIndex=0;chunk.loadNormals0();
+   if(n.dswl||n.dswr)throw Error('Unsupported wall-mark context');
+   const arrays=c=>Object.fromEntries(Object.entries(c.geo.attributes).map(([k,v])=>[k,{type:v.array.constructor.name,length:v.array.length,first:Array.from(v.array.slice(0,Math.max(6,k0*v.itemSize)))}]));
+   return {config:{H,Nt,F,Z,C,t0,k0,k1,m0,y1},tile:arrays(tile),hillsTile:arrays(hillsTile),chunk:arrays(chunk),tileIndex:Array.from(tile.geo.index.array.slice(0,24)),chunkIndex:Array.from(chunk.indexArr.slice(0,24)),height:tile.heights[0],quantizedHeight:tile.geo.attributes.position.array[1],rows:{tile:tile.genRow,chunk:cell.genRow}};
+  })()`;
+  const result=vm.runInContext(code,ctx,{timeout:20000});
+  for(const object of [result.tile,result.chunk])for(const attribute of Object.values(object))assert(attribute.first.every(Number.isFinite),'Missing geometry context');
+  assert(result.tile.normal.first.some(x=>x!==0));assert(result.chunk.normal.first.some(x=>x!==0));
+  assert.equal(result.quantizedHeight,Math.fround(result.height));
+  assert(pieces.tile.includes('o.isEven=this.genRow&!1'),'Original row expression changed');
+  return {schema:1,kind:'C1 context smoke, not T2/T3 mesh acceptance',hashes:runtime.sourceHashes,sections:Object.fromEntries(Object.entries(pieces).map(([k,v])=>[k,sha(v)])),result,
+   scope:{executed:'f0/Dt/i7/U/s0 constructors; Dt heights0 + first normals0 row; U complete cell positions + first normals0 rows; s0 customCellLoad/customCellElev no-wall branch',
+    deferred:'i7 content initialization, shadow-density provider and staged parent scheduling; full mesh fixtures belong to T2/T3',
+    dependencies:'a0 is the same natural original Pl; m2/$u and Z4/i_ original; Tt/Ll original; geometry containers only store Uint16/Float32/Int8; Vec3 original. i7 constructor-only: e7/Ka storage containers; sea plane empty storage with explicit synthetic i2=1/x4=2, no sea geometry or content stages asserted',
+    rounding:'Dt keeps double heights[] for normals/lookup; position/normal/curvature/roadProximity/treeMask/roadUv Float32; overlap Int8; U normals read quantized roadProximity',
+    hooks:'s0 tree corners explicitly synthetic zero, nf shadows original; dswl/dswr absent required, future nonzero input needs independent wall-elevation oracle; no content RNG invoked'}};
+ }});
+}
+function terrainContextMain(){
+ const value=terrainContextBuild(),json=JSON.stringify(value,null,2)+'\n';
+ assert.equal(JSON.stringify(terrainContextBuild()),JSON.stringify(value),'Context is not repeatable');
+ const file=path.join(__dirname,'../TerrainAudit/terrain-context-smoke.json');
+ if(process.argv.includes('--write'))fs.writeFileSync(file,json);else assert.equal(fs.readFileSync(file,'utf8'),json,'Context reference drift');
+ console.log('terrain context constructors/height/normal/index repeatability PASS');
+}

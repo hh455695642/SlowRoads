@@ -25,6 +25,7 @@ public sealed class HillsDebugSessionEditor : Editor
         using(new EditorGUI.DisabledScope(Application.isPlaying))
         {
             Field(data,"seed","地图种子");Field(data,"detail","道路视距档位","0–5，影响前方生成范围；重新生成生效。");
+            Field(data,"terrainDetail","地形采样细度","0–4，与道路视距独立；重新生成生效。");
         }
         Field(data,"season","季节");Field(data,"visible","显示道路");Field(data,"generationEnabled","持续生成","关闭时停止补路，观察者等待可用道路。");
         EditorGUILayout.Space();Field(data,"movementEnabled","自动前进");Field(data,"speed","前进速度（米/秒）");Field(data,"stepMetres","单步距离（米）");

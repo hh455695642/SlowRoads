@@ -24,6 +24,8 @@ namespace SlowRoads.Generation.Spatial
         public int LookaheadIndex {get;private set;}
         public int TileCount=>tiles.Count;
         public int CachedNodes=>positions.Count;
+        // Conservative invalidation for consumer snapshots; never affects Ca selection order.
+        public long ResidencyRevision {get;private set;}
         public RoadSpatialIndex(int tileSize,int margin,Func<int,Double3?> source,int head)
         {
             if(tileSize<1||margin<1)throw new ArgumentOutOfRangeException();
@@ -64,13 +66,13 @@ namespace SlowRoads.Generation.Spatial
         }
         public IReadOnlyList<Segment> GetSegmentsForTile(int x,int z)=>tiles.TryGetValue((x,z),out var t)?t.Segments:null;
         public int? GetLastSeenIndexForTile(int x,int z)=>tiles.TryGetValue((x,z),out var t)?t.LastSeen:(int?)null;
-        public void RetireTile(int x,int z)=>tiles.Remove((x,z));
+        public void RetireTile(int x,int z){if(tiles.Remove((x,z)))ResidencyRevision++;}
         // Standalone road residency. Terrain later owns explicit RetireTile calls instead.
         public void RetireBefore(int index)
         {
             retire.Clear();int first=LookaheadIndex;
             foreach(var pair in tiles)if(pair.Value.LastSeen<index)retire.Add(pair.Key);else foreach(var seg in pair.Value.Segments)first=Math.Min(first,seg.Head);
-            foreach(var key in retire)tiles.Remove(key);
+            foreach(var key in retire)if(tiles.Remove(key))ResidencyRevision++;
             prune.Clear();foreach(var pair in positions)if(pair.Key<first-2)prune.Add(pair.Key);
             foreach(int key in prune)positions.Remove(key);
         }

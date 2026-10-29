@@ -15,6 +15,7 @@ MonoBehaviour:
   seed: a
   roadType: 2
   detail: 2
+  terrainDetail: 2
   season: 3
   visible: 1
   generationEnabled: 1

@@ -26,6 +26,7 @@ namespace SlowRoads.Scene.Road
         [InspectorName("地图种子")] public string seed="a";
         [InspectorName("道路类型")] public HillsRoadType roadType=HillsRoadType.Standard;
         [InspectorName("道路视距档位"),Range(0,5)] public int detail=2;
+        [InspectorName("地形采样细度"),Range(0,4)] public int terrainDetail=2;
         [InspectorName("季节")] public HillsRoadSeason season;
         [InspectorName("显示道路")] public bool visible=true;
         [InspectorName("持续生成")] public bool generationEnabled=true;

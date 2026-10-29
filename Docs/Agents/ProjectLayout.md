@@ -13,8 +13,8 @@ Assets/
       Generation/Heightfield/         Hills Pl 高度场与 tile 缓存
       Generation/Midline/             Se/B7、精链/属性、发布快照、米制索引与重放
       Generation/Road/                D/Nl 纯网格、版本/ready 消费、属性 overlay 与有限段构建
-      Generation/Spatial/             Ca索引、i_道路投影与显式退役
-      Generation/Terrain/             Ll路基混合求值（尚无地形网格）
+      Generation/Spatial/             Ca索引、i_粗投影/$u精投影与显式退役
+      Generation/Terrain/             Ll/U地表求值、有限消费窗口（尚无地形网格）
       Generation/Streaming/           Ni顺序分步、xi三对象轮转、发布/重放与驻留调度
       Scene/Road/                     三Mesh上传/LOD/释放、流式装配、唯一HillsSceneSettings
     Editor/Debug/                     调试 Inspector，无顶层菜单
