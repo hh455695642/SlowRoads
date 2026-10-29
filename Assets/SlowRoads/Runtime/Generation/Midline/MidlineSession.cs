@@ -41,6 +41,7 @@ namespace SlowRoads.Generation.Midline
         readonly string heightSeed;
         readonly bool ownsHeight;
         readonly bool recordObserverInputs;
+        readonly bool resetMarkingsOnRestart;
         readonly List<MidlineObserverInput> observerInputs=new List<MidlineObserverInput>();
         string seedInput;
         int startNodeInput;
@@ -49,12 +50,13 @@ namespace SlowRoads.Generation.Midline
         public int AttributeDirtyFrom {get;private set;}=int.MaxValue;
 
         public MidlineSession(MidlineConfig config, string heightSeed,
-            IMidlineHeightSource height, Action<int, int> headLayerChanged = null,bool ownsHeight=false,bool recordObserverInputs=true)
+            IMidlineHeightSource height, Action<int, int> headLayerChanged = null,bool ownsHeight=false,bool recordObserverInputs=true,bool resetMarkingsOnRestart=false)
         {
             this.config = config ?? throw new ArgumentNullException(nameof(config));
             this.height = height ?? throw new ArgumentNullException(nameof(height));
             this.heightSeed=heightSeed;this.ownsHeight=ownsHeight;
             this.recordObserverInputs=recordObserverInputs;
+            this.resetMarkingsOnRestart=resetMarkingsOnRestart;
             this.headLayerChanged=headLayerChanged;
             shadowSource=new HillsShadowDensitySource(config.Style,heightSeed);
             attributes=new HillsMidlineAttributes(shadowSource.GetShadowDensityAt,config.RoadHalfWidth);
@@ -152,6 +154,10 @@ namespace SlowRoads.Generation.Midline
                         if (initialisation.Advance(1))
                         {
                             phase = MidlineUpdatePhase.Prepare;
+                            // Compatibility fix authorized for the production stream: native B7
+                            // retains old-generation markings and eventually dereferences null.
+                            // Raw algorithm fixtures keep the original contract via the default false.
+                            if(restarting&&resetMarkingsOnRestart){markings?.Clear();markings=null;}
                             if(markings==null)markings=new MidlineMarkingsState(config,state.Head);
                             if (restarting)
                             {

@@ -13,7 +13,8 @@ Assets/
       Generation/Heightfield/         Hills Pl 高度场与 tile 缓存
       Generation/Midline/             Se/B7、精链/属性、发布快照、米制索引与重放
       Generation/Road/                D/Nl 纯网格、版本/ready 消费、属性 overlay 与有限段构建
-      Generation/Spatial/             Ca tile/segment 索引、原语义查询与显式退役
+      Generation/Spatial/             Ca索引、i_道路投影与显式退役
+      Generation/Terrain/             Ll路基混合求值（尚无地形网格）
       Generation/Streaming/           Ni顺序分步、xi三对象轮转、发布/重放与驻留调度
       Scene/Road/                     三Mesh上传/LOD/释放、流式装配、唯一HillsSceneSettings
     Editor/Debug/                     调试 Inspector，无顶层菜单
@@ -31,7 +32,8 @@ Docs/
     RoadAudit/Fixtures/Heightfield/    从本地 app.asar 校验后生成的确定性样本
     RoadAudit/Fixtures/RoadMesh/       原 D/Nl 冻结输入/全数组/续状态及 schema
                                       路面材质来源身份与独立表面算术样本
-    RoadAudit/Fixtures/Streaming/      原 Se/B7→Ca→xi 正常/快速输入 trace、负坐标探针及schema
+    RoadAudit/Fixtures/Streaming/      原 Se/B7→Ca→xi trace与Functional/Recovery全数组矩阵
+    RoadAudit/Fixtures/RoadBlend/      i_投影、ze扰动、Ll逐点与分支边界样本
 ```
 
 SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移除。原 SampleSceneProfile 被 PC/Mobile 管线引用，故保留并更名 SceneVolumeProfile，GUID 不变；已失效的输入配置注册已清除。参考模型/场景贴图以 Docs/Assets/HillsAssetManifest.json 为准。禁止重新导入车辆或其他场景资源。非运行资料放 Docs，不放 Assets 或 Resources。
@@ -47,7 +49,7 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 
 ## 清理状态（2026-10-28）
 
-P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit/P6_道路专项验收记录.md`；原 `p6-scene-probe.cs` 已在后续清退中删除，仅保留历史结果。主场景与生产目录未改写；道路功能/有限长跑已验证，路基混合求值及设备验收缺口尚未关闭。
+P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit/P6_道路专项验收记录.md`；原 `p6-scene-probe.cs` 已在后续清退中删除，仅保留历史结果。道路功能补齐结果见该记录第10节：新增正式路基求值、配置/桥头/恢复对照，全集368/368及主场景验证通过；用户授权的B7代际标记兼容修复与原版失败证据分别保存。设备性能延期，地形网格尚未开始。
 
 - 已删除 316 个未使用资源文件（不计 .meta，约 66.4 MiB）：未接入的音频、字体/许可证、UI 图标与 SampleScene。
 - 已删除旧根目录算法总结、全量资产清单、两份旧验证文档、重复 JSON、一次性文本迁移脚本及可重新生成的 IDE 项目文件。有效资产来源与验证信息已合并到 HillsAssetManifest.json。

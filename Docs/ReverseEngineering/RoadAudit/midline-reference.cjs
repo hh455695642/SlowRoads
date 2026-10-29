@@ -67,6 +67,38 @@ function scratch(g){
   };
 }
 
+// Synthetic inputs only; the pinned original methods still perform recovery.
+function injectFault(generator,ctx,name){
+      if(name==='restart-boundary'){generator.restartGeneration();return;}
+      generator.bridge.spawnNode=null;generator.bridge.quality=0;
+      generator.accumulatedOverflow=0;
+      for(const tr of generator.turnTrackers)tr.da=0;
+      if(name.startsWith('tracker-')) generator.turnTrackers[Number(name.slice(-1))].da=10;
+      if(name==='priority'||name==='restart')for(const tr of generator.turnTrackers)tr.da=10;
+      if(name.startsWith('overflow')){
+        generator.accumulatedOverflow=1000;
+        if(name==='overflow-repeat'){
+          generator.antiTarget.copy(ctx.shared.tail.p);generator.antiTarget.x+=10;
+          generator.antiTargetRange=1e8;generator.antiTargetRevert=475;
+        }
+      }
+      if(name==='layer-revert'){
+        generator.turnTrackers[0].da=10;
+        generator.tailHeightmap.prevSwitchNode=ctx.shared.tail.i-2;
+        generator.tailHeightmap.layers=[1,1];generator.tailHeightmap.curSide=0;
+        generator.heightmap.setLayers([1,1],true);
+      }
+      if(name==='bridge-overrun'){
+        generator.bridging=true;generator.onBridgeApproach=false;
+        generator.bridge.spawnNode=ctx.shared.head.next;
+        generator.bridge.distance=10;generator.bridge.height=3;
+        generator.bridge.landing.copy(ctx.shared.tail.p);
+      }
+      if(name==='post-fine-restart'){
+        for(const tr of generator.turnTrackers)tr.da=10;
+        ctx.shared.vehicleIndex=ctx.shared.tail.i;ctx.shared.vehicleNode=ctx.shared.tail;
+      }
+}
 function createReference(style='style3',seed='a',observe=true,scenario='archive-heightfield',options={}){
   assert(['style0','style3'].includes(style),'Only Hills style0/style3 are supported');
   const steeringScenario=scenario.startsWith('steering-');
@@ -117,15 +149,16 @@ function createReference(style='style3',seed='a',observe=true,scenario='archive-
     'const i={generation:0},y={add:()=>{}};Math.TAU=Math.PI*2;'+
     'globalThis.shared=i;globalThis.logs=y;';
   vm.runInContext('globalThis.Se=(function(){'+setup+pieces.midline.source+';return Se})()',ctx,{timeout:1000});
-  const hillsSetup='const E8=Se,k5=Gradient,I=shared,s=n,$=3.7;'+
+  ctx.referenceRoadHalfWidth=options.halfWidth??3.7;
+  const hillsSetup='const E8=Se,k5=Gradient,I=shared,s=n,$=referenceRoadHalfWidth;'+
     'const p0={getShadowDensityAt:(x,z)=>{if(!globalThis.shadowProvider)throw Error("B7 shadow dependency requires real source");return globalThis.shadowProvider.getShadowDensityAt(x,z)}};';
-  vm.runInContext('globalThis.B7=(function(){'+hillsSetup+pieces.hillsMidline.source+';globalThis.referenceBlend=H7;return B7;})()',ctx,{timeout:1000});
+  vm.runInContext('globalThis.B7=(function(){'+hillsSetup+pieces.hillsMidline.source+';globalThis.referenceBlend=H7;globalThis.clearReferenceMarkingsScratch=()=>{for(const key of Object.keys(M))delete M[key];};return B7;})()',ctx,{timeout:1000});
   const layerEvents=[],queryEvents=[];
   const layerState={value:[0,0],set(v){this.value=[...v];layerEvents.push({layers:[...v]});
     if(ctx.shadowProvider)ctx.shadowProvider.onHeightmapLayersChanged(v);}};
   const heightConfig={seed,...profile.heightmap,maxCached:20};
   // Se changes maxCached to 8 on its private heightmap config, exactly as source.
-  ctx.midlineConfig={...profile.midline,...(options.oneDir===undefined?{}:{oneDir:options.oneDir})};ctx.heightConfig=heightConfig;ctx.layerState=layerState;
+  ctx.midlineConfig={...profile.midline,...(options.fineHorizon===undefined?{}:{fineHorizon:options.fineHorizon}),...(options.oneDir===undefined?{}:{oneDir:options.oneDir})};ctx.heightConfig=heightConfig;ctx.layerState=layerState;
   const generator=vm.runInContext('new B7(midlineConfig,heightConfig,Pl,layerState)',ctx,{timeout:1000});
   if(scenario==='explicit'||scenario==='retry-low'||steeringScenario){
     let syntheticCalls=0;
@@ -382,35 +415,7 @@ function createReference(style='style3',seed='a',observe=true,scenario='archive-
     }
     if(options.fault && ordinal===(options.faultOrdinal??(options.fault==='restart'?4:64))){
       // Labeled synthetic checkpoints exercise original methods, never a JS rewrite.
-      const name=options.fault;
-      generator.bridge.spawnNode=null;generator.bridge.quality=0;
-      generator.accumulatedOverflow=0;
-      for(const tr of generator.turnTrackers)tr.da=0;
-      if(name.startsWith('tracker-')) generator.turnTrackers[Number(name.slice(-1))].da=10;
-      if(name==='priority'||name==='restart')for(const tr of generator.turnTrackers)tr.da=10;
-      if(name.startsWith('overflow')){
-        generator.accumulatedOverflow=1000;
-        if(name==='overflow-repeat'){
-          generator.antiTarget.copy(ctx.shared.tail.p);generator.antiTarget.x+=10;
-          generator.antiTargetRange=1e8;generator.antiTargetRevert=475;
-        }
-      }
-      if(name==='layer-revert'){
-        generator.turnTrackers[0].da=10;
-        generator.tailHeightmap.prevSwitchNode=ctx.shared.tail.i-2;
-        generator.tailHeightmap.layers=[1,1];generator.tailHeightmap.curSide=0;
-        generator.heightmap.setLayers([1,1],true);
-      }
-      if(name==='bridge-overrun'){
-        generator.bridging=true;generator.onBridgeApproach=false;
-        generator.bridge.spawnNode=ctx.shared.head.next;
-        generator.bridge.distance=10;generator.bridge.height=3;
-        generator.bridge.landing.copy(ctx.shared.tail.p);
-      }
-      if(name==='post-fine-restart'){
-        for(const tr of generator.turnTrackers)tr.da=10;
-        ctx.shared.vehicleIndex=ctx.shared.tail.i;ctx.shared.vehicleNode=ctx.shared.tail;
-      }
+      injectFault(generator,ctx,options.fault);
     }
     const beforeQueries=queryEvents.length,beforeLayers=layerEvents.length;
     const didExtend=generator.update();
@@ -768,5 +773,5 @@ function main(){
       result.restart?.state.queryCount??result.initial.queryCount,
     selfTest:process.argv.includes('--self-test')}));
 }
-module.exports={createReference,classSection,checkedSection};
+module.exports={createReference,classSection,checkedSection,injectFault};
 if(require.main===module)main();

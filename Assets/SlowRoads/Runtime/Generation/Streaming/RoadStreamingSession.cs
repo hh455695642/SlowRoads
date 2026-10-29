@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SlowRoads.Generation.Midline;
 using SlowRoads.Generation.Road;
 using SlowRoads.Generation.Spatial;
+using SlowRoads.Generation.Terrain;
 
 namespace SlowRoads.Generation.Streaming
 {
@@ -64,12 +65,14 @@ namespace SlowRoads.Generation.Streaming
         int stage,phase,lastFine=int.MinValue,generation=-1,requestedObserver=int.MinValue,retiredAt;
         double roadPhase;
         bool disposed;
+        HillsRoadBlend roadBlend;
+        readonly object roadBlendOwner=new();
         readonly List<StreamingRoadSlot> repairs=new(3);
         int repairIndex;
         public RoadStreamingSession(string seed,RoadStreamingConfig config=null)
         {
             Config=config??new RoadStreamingConfig();var c=MidlineConfig.ForHills(MidlineConfig.HillsStyle.Hills).WithOneDir(true).WithFineHorizon(Config.FineHorizon).WithRoadHalfWidth(Config.Mesh.HalfWidth);
-            Midline=new MidlineSession(c,seed,new HillsMidlineHeightSource(c.CreateHeightfieldConfig(seed)),ownsHeight:true,recordObserverInputs:false);
+            Midline=new MidlineSession(c,seed,new HillsMidlineHeightSource(c.CreateHeightfieldConfig(seed)),ownsHeight:true,recordObserverInputs:false,resetMarkingsOnRestart:true);
             Midline.Begin(seed,0);var mesh=Config.Mesh;
             Slots=new[]{new StreamingRoadSlot(0,mesh),new StreamingRoadSlot(1,mesh),new StreamingRoadSlot(2,mesh)};
         }
@@ -79,7 +82,11 @@ namespace SlowRoads.Generation.Streaming
             var s=Midline.State;
             if(s.Generation!=generation)
             {
-                if(generation>=0){Invalidated?.Invoke();foreach(var slot in Slots){slot.Builder.Cancel();slot.Input=null;slot.Overlay=null;slot.BeforePaint=null;slot.PendingBoundary=null;slot.PublishedHead=int.MaxValue;slot.PublishedTail=int.MinValue;}repairs.Clear();stage=0;phase=0;Spatial=null;}
+                if(generation>=0){Invalidated?.Invoke();foreach(var slot in Slots){slot.Builder.Cancel();
+                    // Native xi recreates D buffers on an epoch reset. Reuse the three
+                    // Unity buffers, but reset unused indices to the same constructor state.
+                    Array.Clear(slot.Builder.Buffers.Indices,0,slot.Builder.Buffers.Indices.Length);
+                    slot.Input=null;slot.Overlay=null;slot.BeforePaint=null;slot.PendingBoundary=null;slot.PublishedHead=int.MaxValue;slot.PublishedTail=int.MinValue;}repairs.Clear();stage=0;phase=0;Spatial=null;}
                 generation=s.Generation;Distance.Clear();lastFine=int.MinValue;MaxPublishedTail=int.MinValue;requestedObserver=int.MinValue;
                 retiredAt=s.ObserverIndex;
             }
@@ -219,6 +226,23 @@ namespace SlowRoads.Generation.Streaming
             return budget;
         }
         public bool AtTickBoundary=>Ready&&phase==0&&Midline.AtUpdateBoundary;
+        // Pure world-coordinate query. No producer advance, random consumption or render-origin input.
+        public RoadQueryStatus TryRoadBlendedHeight(double x,double z,double baseHeight,out double height,out RoadProjection projection)
+        {
+            height=default;projection=default;
+            if(disposed||!Ready||Spatial==null||Midline.State.Generation!=generation||!Midline.AtUpdateBoundary)return RoadQueryStatus.NotResident;
+            if(!double.IsFinite(x)||!double.IsFinite(z)||!double.IsFinite(baseHeight))throw new ArgumentOutOfRangeException();
+            var status=Spatial.GetClosestNode(x,z,out int index,out _);if(status!=RoadQueryStatus.Ready)return status;
+            if(!RoadProjection.TryCreate(x,z,Midline.FindCoarse(index),out projection))return RoadQueryStatus.NotResident;
+            if(projection.Index<Midline.State.Head.Index+1||projection.Index+2>=Midline.AttributeReadyExclusive)return RoadQueryStatus.NotResident;
+            projection.Revision=Midline.Revision;
+            projection.Owner=roadBlendOwner;
+            roadBlend??=new HillsRoadBlend(Config.Mesh.LaneStyle);
+            height=roadBlend.Evaluate(baseHeight,ref projection,x,z);return RoadQueryStatus.Ready;
+        }
+        public bool IsRoadProjectionCurrent(in RoadProjection p)=>ReferenceEquals(p.Owner,roadBlendOwner)&&!disposed&&Ready&&Midline.AtUpdateBoundary&&p.Generation==Midline.State.Generation&&
+            p.Index>=Midline.State.Head.Index+1&&p.Index+2<Midline.AttributeReadyExclusive&&
+            (p.Revision==Midline.Revision||(p.Revision==Midline.Revision-1&&p.Index+2<Math.Min(Midline.GeometryDirtyFrom,Midline.AttributeDirtyFrom)));
         public MidlineDistanceResult TrySample(double metres,out MidlineDistanceSample sample)
         {
             if(!Ready||Midline.State.Generation!=Distance.Generation){sample=default;return MidlineDistanceResult.NotReady;}
