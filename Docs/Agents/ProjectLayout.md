@@ -51,6 +51,8 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 
 ## 清理状态（2026-10-28）
 
+2026-10-30 T6最终状态：唯一场景/唯一HillsSceneSettings与正式道路—地形链未变，Editor/桌面范围九类验收全部PASS，第二目标已结项；技术结果见TerrainAudit/T6计划§9，最终清理与清理后回归见§13。联合测试位于Tests/EditMode/RoadUnity，显式采集/复算脚本位于Docs/ReverseEngineering/TerrainAudit，证据合并于Docs/Agents/Artifacts/HillsTerrainT6。用户已手动清理清单17项，1004个保护文件核验及清理后主场景推进/重置/退出回归通过，历史拒绝记录保留。旧Temp只读审计已合并进现有t6-joint-probe.cs的AuditClosure/SampleClosure，不恢复临时脚本。未向Assets加入诊断Feature/菜单/第二场景，退出诊断Feature为0；Legacy树Shader仍有八套材质实际依赖。全部有效原版证据、用户暂存/未跟踪成果保留；本结论不延伸到移动端性能或整个S1，不自动进入下一目标。
+
 P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit/P6_道路专项验收记录.md`；原 `p6-scene-probe.cs` 已在后续清退中删除，仅保留历史结果。道路功能补齐结果见该记录第10节：新增正式路基求值、配置/桥头/恢复对照，全集368/368及主场景验证通过；用户授权的B7代际标记兼容修复与原版失败证据分别保存。设备性能延期。2026-10-30已实现并补全T2/T3无内容几何，Terrain 73/73通过；T4/T5已在同一主场景装配地形流式和四季材质。续验通过48组正式固定图像、48组诊断图像和实际Frame Debugger提交；地形范围门禁通过，实际测试及完整光照/雾/内容的边界见T4/T5计划第9–10节。
 
 - 已删除 316 个未使用资源文件（不计 .meta，约 66.4 MiB）：未接入的音频、字体/许可证、UI 图标与 SampleScene。

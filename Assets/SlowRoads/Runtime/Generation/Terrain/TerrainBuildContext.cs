@@ -43,6 +43,8 @@ namespace SlowRoads.Generation.Terrain
         public readonly long Revision,LayerRevision;
         public TerrainBuildState State {get;private set;}=TerrainBuildState.Building;
         public int CompletedSamples {get;private set;}
+        internal long MeasuredRawTicks,MeasuredMixedTicks;
+        internal int MeasuredRawCalls,MeasuredMixedCalls;
         public int PlannedSamples {get;private set;}
         public int SampleCount=>requests.Length;
         public int FirstSupportIndex=>Window?.FirstIndex??int.MinValue;

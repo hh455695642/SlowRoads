@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using SlowRoads.Generation.Midline;
 using SlowRoads.Generation.Streaming;
 
 namespace SlowRoads.Generation.Terrain
 {
+    public enum TerrainWorkKind { FarInitialization, NearInitialization, FarRow, NearRow, Upload, Coverage, Retirement }
     /// <summary>Resource adapter around Ma's logical schedule. Reuses T2/T3 builders
     /// and the single P5 producer barrier; never generates roads synchronously.
     /// All callbacks execute on the session thread. Upload must complete before
@@ -45,6 +47,11 @@ namespace SlowRoads.Generation.Terrain
         public event Action<TerrainRegionState> Released;
         public event Action Reset;
         public event Action<TerrainRegionState,TerrainOverlapState> CoverageChanged;
+        // Optional block measurements. Null subscribers incur no clock reads;
+        // the pure generator remains independent of Unity's profiling assembly.
+        public event Action<TerrainWorkKind,long> WorkMeasured;
+        long BeginMeasure()=>WorkMeasured==null?0:Stopwatch.GetTimestamp();
+        void EndMeasure(TerrainWorkKind kind,long start){if(start!=0)WorkMeasured?.Invoke(kind,Stopwatch.GetTimestamp()-start);}
         public TerrainStreamingSession(RoadStreamingSession road,Func<TerrainRegionState,TerrainMeshData,TerrainResidency> upload)
         {this.road=road??throw new ArgumentNullException(nameof(road));this.upload=upload??throw new ArgumentNullException(nameof(upload));}
         Double3? Position(int i)=>i>=road.Midline.State.Head.Index&&i<road.Midline.State.FineTail.Index-2?road.Midline.FindCoarse(i)?.Position:null;
@@ -97,13 +104,31 @@ namespace SlowRoads.Generation.Terrain
             {
                 if(building!=null)
                 {
+                    bool isFar=far!=null;long measured=BeginMeasure();
                     if(far!=null)far.Advance(1);else near.Advance(1);used++;
+                    EndMeasure(isFar?TerrainWorkKind.FarRow:TerrainWorkKind.NearRow,measured);
                     bool cancelled=far?.Stage==FarTerrainStage.Cancelled||near?.Stage==NearTerrainStage.Cancelled;
                     if(cancelled)throw new InvalidOperationException("Terrain task invalidated while holding producer barrier");
                     var data=far?.Data??near?.Data;
                     if(data!=null)
                     {
-                        var receipt=upload(building,data);if(receipt==null||!receipt.IsCurrent)throw new InvalidOperationException("Terrain upload did not commit");
+                        TerrainResidency receipt=null;
+                        try
+                        {
+                            measured=BeginMeasure();
+                            receipt=upload(building,data);
+                            if(receipt==null||!receipt.IsCurrent)throw new InvalidOperationException("Terrain upload did not commit");
+                            EndMeasure(TerrainWorkKind.Upload,measured);
+                        }
+                        catch
+                        {
+                            // A completed builder transferred its arrays to Data. Disposing
+                            // only the builder does not invalidate this unpublished product.
+                            // Failed transactions must never leave a publishable CPU lease.
+                            receipt?.Retire();data.Dispose();
+                            far?.Dispose();near?.Dispose();far=null;near=null;building=null;
+                            throw;
+                        }
                         var resident=new Resident{Receipt=receipt};layer=data.LayerRevision;
                         if(!building.Chunk){resident.Tile=data;resident.Overlap=new(data.Config.TileFineResolution);ActiveTiles++;}
                         else {foreach(var c in data.Cells)cells[(c.X,c.Z)]=building;ActiveChunks++;data.Dispose();}
@@ -115,7 +140,7 @@ namespace SlowRoads.Generation.Terrain
                 if(work.Count>0)
                 {
                     var r=work[0];work.RemoveAt(0);if(r.Retired||r.Uploaded)continue;
-                    if(!r.Chunk){building=r;far=new FarTerrainTileBuilder(road,r.X,r.Z);}
+                    if(!r.Chunk){long measured=BeginMeasure();building=r;far=new FarTerrainTileBuilder(road,r.X,r.Z);EndMeasure(TerrainWorkKind.FarInitialization,measured);}
                     else
                     {
                         if(!ParentsReady(r)){work.Add(r);NeedsWork=false;return used;}
@@ -123,12 +148,13 @@ namespace SlowRoads.Generation.Terrain
                         int first=Math.Max(road.Midline.State.Head.Index+1,min-64),last=Math.Min(Math.Min(road.Midline.AttributeReadyExclusive,road.Midline.State.FineTail.Index)-1,max+64);
                         if(min<=first||max>=last-2||last-first>=256)throw new InvalidOperationException($"Chunk support outside P5 ready window: {min}..{max}, {first}..{last}");
                         var parents=new List<TerrainMeshData>();foreach(var key in r.Layout.ParentTiles)parents.Add(residents[Schedule.Tiles[key]].Tile);
-                        building=r;near=new NearTerrainChunkBuilder(road,r.Layout,first,last,parents);
+                        long measured=BeginMeasure();building=r;near=new NearTerrainChunkBuilder(road,r.Layout,first,last,parents);EndMeasure(TerrainWorkKind.NearInitialization,measured);
                     }
                     used++;continue;
                 }
                 bool step=Schedule.Step(road.Midline.State.ObserverIndex);used++;
-                FlushCoverage();ReleaseRetired();
+                long coverageStart=BeginMeasure();FlushCoverage();EndMeasure(TerrainWorkKind.Coverage,coverageStart);
+                long retirementStart=BeginMeasure();ReleaseRetired();EndMeasure(TerrainWorkKind.Retirement,retirementStart);
                 if(!step&&work.Count==0){used--;NeedsWork=false;break;}
             }
             return used;
@@ -183,6 +209,8 @@ namespace SlowRoads.Generation.Terrain
         }
         void Clear()
         {
+            // Cancel the completed-but-uncommitted product as well as active work.
+            far?.Data?.Dispose();near?.Data?.Dispose();
             far?.Dispose();near?.Dispose();far=null;near=null;building=null;
             foreach(var r in residents.Values){r.Tile?.Dispose();r.Receipt.Retire();}
             residents.Clear();work.Clear();release.Clear();cells.Clear();coverage.Clear();Schedule=null;generation=-1;layer=-1;ActiveTiles=ActiveChunks=0;Reset?.Invoke();

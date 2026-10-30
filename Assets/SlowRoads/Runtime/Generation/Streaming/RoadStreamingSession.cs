@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using SlowRoads.Generation.Midline;
 using SlowRoads.Generation.Road;
 using SlowRoads.Generation.Spatial;
@@ -53,6 +54,9 @@ namespace SlowRoads.Generation.Streaming
         public event Action<StreamingRoadSlot> Published;
         public event Action<StreamingRoadSlot,RoadLod> LodChanged;
         public event Action Invalidated;
+        // Optional diagnostics: per-context totals, not a per-vertex callback.
+        // Mixed time includes projection, Ll and any conditional Pl fallback.
+        public event Action<long,int,long,int> TerrainHeightMeasured;
         public int PreviousSlot {get;private set;}=0;
         public int CurrentSlot {get;private set;}=1;
         public int NextSlot {get;private set;}=2;
@@ -255,19 +259,30 @@ namespace SlowRoads.Generation.Streaming
             !disposed&&AtTickBoundary&&context.Generation==Midline.State.Generation&&context.Revision==Midline.Revision&&
             context.LayerRevision==terrainHeightSource.LayerRevision&&
             (context.Window==null||IsTerrainWindowCurrent(context.Window));
-        internal void ReleaseTerrainBuild(TerrainBuildContext context){if(ReferenceEquals(terrainBuild,context))terrainBuild=null;}
+        internal void ReleaseTerrainBuild(TerrainBuildContext context)
+        {
+            if(!ReferenceEquals(terrainBuild,context))return;
+            terrainBuild=null;
+            TerrainHeightMeasured?.Invoke(context.MeasuredRawTicks,context.MeasuredRawCalls,context.MeasuredMixedTicks,context.MeasuredMixedCalls);
+        }
         internal bool IsTerrainDataCurrent(int gen,long revision,long layer,bool roads)=>!disposed&&
             Midline.State.Generation==gen&&terrainHeightSource.LayerRevision==layer&&(!roads||(AtTickBoundary&&Midline.Revision==revision));
         internal double ReadTerrainRaw(TerrainBuildContext context,double x,double z)
         {
             if(!IsTerrainBuildCurrent(context))throw new InvalidOperationException("Stale terrain height context");
-            return terrainHeight(x,z);
+            if(TerrainHeightMeasured==null)return terrainHeight(x,z);
+            long start=Stopwatch.GetTimestamp();
+            try{return terrainHeight(x,z);}
+            finally{context.MeasuredRawTicks+=Stopwatch.GetTimestamp()-start;context.MeasuredRawCalls++;}
         }
         internal RoadQueryStatus EvaluateTerrain(TerrainBuildContext context,in TerrainHeightInput input,out TerrainHeightResult result)
         {
             result=default;if(!IsTerrainBuildCurrent(context)||context.Window==null)return RoadQueryStatus.NotResident;
             roadBlend??=new HillsRoadBlend(Config.Mesh.LaneStyle);
-            return TerrainHeightQuery.TryEvaluate(input,context.Window.Candidates,terrainHeight,roadBlend,out result,context.Window.FirstIndex,context.Window.LastIndex);
+            if(TerrainHeightMeasured==null)return TerrainHeightQuery.TryEvaluate(input,context.Window.Candidates,terrainHeight,roadBlend,out result,context.Window.FirstIndex,context.Window.LastIndex);
+            long start=Stopwatch.GetTimestamp();
+            try{return TerrainHeightQuery.TryEvaluate(input,context.Window.Candidates,terrainHeight,roadBlend,out result,context.Window.FirstIndex,context.Window.LastIndex);}
+            finally{context.MeasuredMixedTicks+=Stopwatch.GetTimestamp()-start;context.MeasuredMixedCalls++;}
         }
         // Extension point for T3: ordered candidates come from cell registration, not a new nearest-road algorithm.
         // One bounded copy per build batch; no producer advance or complete-history snapshot.
