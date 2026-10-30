@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HillsTerrain_summer
+  m_Shader: {fileID: 4800000, guid: 837567b813086c74ca12f08cd6dcf484, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - detailFarMap:
+        m_Texture: {fileID: 2800000, guid: 9ab02c773ddaa4b4f9fb27ec4cdc493b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - detailNearMap:
+        m_Texture: {fileID: 2800000, guid: df64352fdbf8bbd48bc93bbdaaaa1e92, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - displacementMap:
+        m_Texture: {fileID: 2800000, guid: 2d1bd296795283b4483a9d63f6bcd3ad, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - fadeFine:
+        m_Texture: {fileID: 2800000, guid: a81edd4665bbaf04fa9dca1556c4504b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - forestMap:
+        m_Texture: {fileID: 2800000, guid: 1874dad35e7110d45a6b4d79b74236e8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - grassMap:
+        m_Texture: {fileID: 2800000, guid: f6d88d81b22b8c74abfca2d786b1857f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - grassVariationMap:
+        m_Texture: {fileID: 2800000, guid: 1c009c255c788f542b5feef54714954c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - gravelMap:
+        m_Texture: {fileID: 2800000, guid: 1a5f2d017e05f7847a19c9e789895bda, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - heatherMap:
+        m_Texture: {fileID: 2800000, guid: ca416368ed5ecdb4fbf735b23c914116, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - offroadMap:
+        m_Texture: {fileID: 2800000, guid: 3cc7eec20c50adc4c9c3dc665e12d75b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - rockMap:
+        m_Texture: {fileID: 2800000, guid: 7ff590c3b1c0a6f4a89fb5598991aa16, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - rockMapBump:
+        m_Texture: {fileID: 2800000, guid: 2d1bd296795283b4483a9d63f6bcd3ad, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - sandMap:
+        m_Texture: {fileID: 2800000, guid: ab1430924c7879c46925da54f28d0cbd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Cull: 2
+    - _SurfaceOnly: 0
+    - fresnelIntensity: 0.6
+    - greenlane: 0
+    - offroad: 0
+    - radiance: 0
+    - seasonIndex: 0
+    - shadowFactor: 0.9
+    - sinkDist: 400
+    - vehicleIndex: 0
+    m_Colors:
+    - _RenderOrigin: {r: 0, g: 0, b: 0, a: 0}
+    - _SourceOrigin: {r: 4020, g: 8240, b: 0, a: 0}
+    - fieldDiscolouration: {r: 0.18039216, g: 0.03529412, b: 0.019607844, a: 1}
+    - grassColA: {r: 0.060031608, g: 0.14799802, b: 0.03561437, a: 1}
+    - grassColB: {r: 0.32038155, g: 0.34886482, b: 0.119264014, a: 1}
+    - peakColA: {r: 0.5054325, g: 0.43681276, b: 0.2631747, a: 1}
+    - peakColB: {r: 0.7592996, g: 0.20835966, b: 0.060031608, a: 1}
+    - roadCol: {r: 0.1036341, g: 0.09387587, b: 0.086901255, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

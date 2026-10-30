@@ -57,11 +57,17 @@ namespace SlowRoads.Generation.Terrain
     public sealed class TerrainResidency
     {
         readonly RoadStreamingSession owner;
-        readonly long layer;
         public readonly TerrainRegionKey Key;
+        // Retain value metadata after near-field CPU arrays are released. T6 and
+        // consumers can inspect a committed region without reopening road data.
+        public readonly TerrainWorldBounds WorldBounds;
+        public readonly long Revision,LayerRevision;
+        public readonly int FirstSupportIndex,LastSupportIndex,CoarseCount,FineStart,FineCount;
         bool retired;
-        internal TerrainResidency(RoadStreamingSession owner,TerrainMeshData data){this.owner=owner;Key=data.Key;layer=data.LayerRevision;}
-        public bool IsCurrent=>!retired&&owner.IsTerrainDataCurrent(Key.Generation,0,layer,false);
+        internal TerrainResidency(RoadStreamingSession owner,TerrainMeshData data)
+        {this.owner=owner;Key=data.Key;WorldBounds=data.WorldBounds;Revision=data.Revision;LayerRevision=data.LayerRevision;
+            FirstSupportIndex=data.FirstSupportIndex;LastSupportIndex=data.LastSupportIndex;CoarseCount=data.CoarseCount;FineStart=data.FineStart;FineCount=data.FineCount;}
+        public bool IsCurrent=>!retired&&owner.IsTerrainDataCurrent(Key.Generation,0,LayerRevision,false);
         public void Retire(){retired=true;}
     }
 

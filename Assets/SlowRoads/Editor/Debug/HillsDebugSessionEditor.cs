@@ -19,7 +19,7 @@ public sealed class HillsDebugSessionEditor : Editor
         var width=new SlowRoads.Generation.Road.RoadMeshConfig((SlowRoads.Generation.Road.HillsLaneStyle)selected,1).HalfWidth;
         EditorGUILayout.LabelField("路面宽度",$"全宽 {width*2:0.##} 米 / 半宽 {width:0.##} 米");
         if(selected==SlowRoads.Scene.Road.HillsRoadType.OffRoad||selected==SlowRoads.Scene.Road.HillsRoadType.OffRoadWide)
-            EditorGUILayout.HelpBox("越野按原版隐藏普通铺装路面，仅桥区显示路面。当前场景尚无地形，普通越野区会显示背景。",MessageType.Info);
+            EditorGUILayout.HelpBox("越野按原版隐藏普通铺装路面，仅桥区显示路面。普通越野区通过近路地形表现。",MessageType.Info);
         if(Application.isPlaying&&session.Streaming?.Core!=null&&(int)session.Streaming.Core.Config.Mesh.LaneStyle!=(int)selected)
             EditorGUILayout.HelpBox("道路类型已更改，点击下方“应用道路设置并重新生成”生效。",MessageType.Info);
         using(new EditorGUI.DisabledScope(Application.isPlaying))
@@ -27,6 +27,7 @@ public sealed class HillsDebugSessionEditor : Editor
             Field(data,"seed","地图种子");Field(data,"detail","道路视距档位","0–5，影响前方生成范围；重新生成生效。");
             Field(data,"terrainDetail","地形采样细度","0–4，与道路视距独立；重新生成生效。");
         }
+        Field(data,"terrainVisible","显示丘陵地形");Field(data,"terrainDebug","地形边界调试","远景绿/青、近路黄/橙表示细/粗，红色待显示，灰色驻留退役；浅绿框为近路内圈。");
         Field(data,"season","季节");Field(data,"visible","显示道路");Field(data,"generationEnabled","持续生成","关闭时停止补路，观察者等待可用道路。");
         EditorGUILayout.Space();Field(data,"movementEnabled","自动前进");Field(data,"speed","前进速度（米/秒）");Field(data,"stepMetres","单步距离（米）");
         cameraSettings=EditorGUILayout.Foldout(cameraSettings,"相机",true);
@@ -47,6 +48,7 @@ public sealed class HillsDebugSessionEditor : Editor
         if(resources)
         {
             EditorGUILayout.PropertyField(data.FindProperty("cubeMaterial"));
+            Field(data,"terrainMaterials","地形季节材质（夏/春/秋/冬）");
             if(selected==SlowRoads.Scene.Road.HillsRoadType.Standard)
                 foreach(var name in new[]{"summerMaterial","springMaterial","autumnMaterial","winterMaterial"})
                     EditorGUILayout.PropertyField(data.FindProperty(name));
@@ -65,6 +67,8 @@ public sealed class HillsDebugSessionEditor : Editor
         if(session.Streaming?.Core!=null)
         {
             EditorGUILayout.LabelField("道路状态",session.Streaming.Fault!=null?"生成失败":session.Streaming.Core.Ready?"可通行":"正在生成起始道路，请稍候");
+            var terrain=session.Streaming.Terrain?.Core;
+            if(terrain!=null)EditorGUILayout.LabelField("地形状态",$"驻留 Tile {terrain.ActiveTiles} / Chunk {terrain.ActiveChunks} / 回收 {terrain.RetiredCount} / {(terrain.Building?"生成中":"等待下一需求")}");
             if(session.Streaming.Fault!=null)EditorGUILayout.HelpBox(session.Streaming.Fault,MessageType.Error);
         }
         if(Application.isPlaying)Repaint();

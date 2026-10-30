@@ -41,12 +41,12 @@ namespace SlowRoads.Generation.Midline
         public readonly int CoarseIndex,NextCoarseIndex,Ordinal;
         public readonly bool IsCoarse,HasShadowLeft,HasShadowRight;
         public readonly Double3 Position,Side;
-        public readonly double ShadowLeft,ShadowRight;
+        public readonly double ShadowLeft,ShadowRight,Progress;
         internal MidlineFineSample(MidlinePathNode n)
         {
             var c=n as CoarseNode;var f=n as FineNode;var owner=c??f.PreviousCoarse;
             CoarseIndex=owner.Index;NextCoarseIndex=c!=null?c.Next?.Index??c.Index:f.NextCoarse.Index;
-            Ordinal=f?.Ordinal??0;IsCoarse=c!=null;Key=new MidlineSampleKey(owner.Handle,Ordinal);
+            Ordinal=f?.Ordinal??0;Progress=owner.Index+(c!=null?0:Ordinal/(double)owner.FineSegments);IsCoarse=c!=null;Key=new MidlineSampleKey(owner.Handle,Ordinal);
             Position=n.Position;Side=n.Normal;ShadowLeft=n.ShadowLeft;ShadowRight=n.ShadowRight;
             HasShadowLeft=n.HasShadowLeft;HasShadowRight=n.HasShadowRight;
         }

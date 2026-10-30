@@ -1,0 +1,708 @@
+# Raw archive excerpts. L labels below are THIS material excerpt sequence, not historical prettier lines.
+# symbol=bo rawUtf16Offset=53450 sha256=26aeb2629e72133e896e90819d195fd83d65ed0f240c199c975e7987e819b1a8
+L00001 
+L00002 
+L00003 attribute float roadProximity;
+L00004 attribute float treeMask;
+L00005 attribute float overlap;
+L00006 attribute float fieldCol;
+L00007 attribute vec2 roadUv;
+L00008 
+L00009 varying float height;
+L00010 varying float steepness;
+L00011 varying float roadProx;
+L00012 varying float hasRoadProx;
+L00013 varying float vTreeMask;
+L00014 varying vec2 vUv;
+L00015 varying vec2 vUUv;
+L00016 varying vec2 vWv;
+L00017 varying vec2 vWWv;
+L00018 varying vec2 vRoadUv;
+L00019 varying float vLightGrass;
+L00020 varying float vDarkGrass;
+L00021 varying float vField;
+L00022 varying float vHeather;
+L00023 varying float vShadow;
+L00024 varying float vCamDepth;
+L00025 
+L00026 float wuvSize = 500.0;
+L00027 
+L00028 uniform sampler2D displacementMap;
+L00029 uniform sampler2D fadeFine;
+L00030 uniform float sinkDist;
+L00031 uniform float vehicleIndex;
+L00032 uniform float shadowFactor;
+L00033 uniform int seasonIndex;
+L00034 uniform vec2 originOffset;
+L00035 
+L00036 float map(float value, float min1, float max1, float min2, float max2) {
+L00037   return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
+L00038 }
+L00039 
+L00040 float screen(float a, float b) {
+L00041   return 1.0 - ((1.0 - a) * (1.0 - b));
+L00042 }
+L00043 
+L00044 float distSquared( vec3 A, vec3 B ) {
+L00045     vec3 C = A - B;
+L00046     return dot( C, C );
+L00047 }
+L00048 
+L00049 vec3 upvec = vec3(0.0,1.0,0.0);
+L00050 
+L00051 
+# symbol=Mo rawUtf16Offset=54511 sha256=03f45142eb9a81b2f25856ea674510dda61e5e5bbfa82e3eec1f23d56f89efa4
+L00052 
+L00053 
+L00054 vec4 wPos = modelMatrix * vec4( position, 1.0 );
+L00055 
+L00056 // ORIGIN OFFSET HARD-CODED FOR NOW
+L00057 // ALSO NEED TO HANDLE CAMERA OFFSET IN FRESNEL FRAG BELOW
+L00058 // AND THE SAME THING IN GRASS SHADER
+L00059 wPos.x -= originOffset.x;
+L00060 wPos.z -= originOffset.y;
+L00061 
+L00062 vFresnelPos = wPos.xyz;
+L00063 vFresnelNorm = normalize( vec3( vec4( normal, 0.0) * modelMatrix ) );
+L00064 
+L00065 height = wPos.y;
+L00066 
+L00067 // Set UVs from world pos
+L00068 vUv.x = wPos.x / 10.0;
+L00069 vUv.y = wPos.z / 10.0;
+L00070 
+L00071 vUUv.x = vUv.x / 10.0;
+L00072 vUUv.y = vUv.y / 10.0;
+L00073 
+L00074 // 0 is perfectly flat, 1 is 90 degrees
+L00075 steepness = 0.98 - dot(normal, upvec);
+L00076 steepness = clamp(steepness * 1.4, 0.0, 1.0); // was multiplied by 2 before..?
+L00077 
+L00078 vWv.x = wPos.x / wuvSize;
+L00079 vWv.y = wPos.z / wuvSize;
+L00080 
+L00081 vWWv.x = vWv.x / 8.0;
+L00082 vWWv.y = vWv.y / 8.0;
+L00083 
+L00084 vRoadUv = roadUv;
+L00085 
+L00086 //// GET FADES
+L00087 
+L00088 float fade0 = texture2D(fadeFine, vWv).r;
+L00089 float fade1 = texture2D(fadeFine, vWWv).r;
+L00090 
+L00091 // Reduce  vWWv for more utility in the fragment shader
+L00092 vWWv *= 2.0;
+L00093 // Same for uvs? Does this create issues for the origin offset?
+L00094 vUv *= 1.4;
+L00095 
+L00096 //// HEATHER
+L00097 
+L00098 vHeather = smoothstep(0.4, 1.0, ((height + fade1 * 350.0) - 60.0) / 500.0);
+L00099 
+L00100 vHeather *= screen(fade1, fade0);
+L00101 
+L00102 vHeather = smoothstep(0.3, 0.6, vHeather);
+L00103 
+L00104 
+L00105 //// GRASSES
+L00106 
+L00107 float heightVal = min(1.0, max(0.0, (height - (30.0 + fade1 * 40.0))/150.0));
+L00108 
+L00109 vLightGrass = min(1.0, heightVal * (fade0 + heightVal * 0.5));
+L00110 
+L00111 // Keep it green close to road?
+L00112 if(roadProximity > 0.0 && roadProximity < 0.5 + fade0) {
+L00113 
+L00114   vHeather *= roadProximity / (0.5 + fade0);
+L00115 
+L00116   if(seasonIndex < 3) {
+L00117     vLightGrass *= roadProximity / (0.5 + fade0);
+L00118   }
+L00119 }  
+L00120 
+L00121 vDarkGrass = min(max(0.0,(fade1 - 0.25) * 2.0), 1.0);
+L00122 
+L00123 vField = fieldCol;
+L00124 
+L00125 //// ROAD PROX
+L00126 
+L00127 roadProx = roadProximity;
+L00128 // Not safe but sets a flag for the frag shader to exit road-relative shading
+L00129 hasRoadProx = step(0.00001, abs(roadProximity));
+L00130 
+L00131 // Prevent rocks forming below the road, e.g. at bridges.
+L00132 float underRoadFactor = 1.0 - step(0.000001, -roadProx);
+L00133 steepness *= underRoadFactor;
+L00134 vHeather *= underRoadFactor;
+L00135 
+L00136 // if(roadProx < 0.0) {
+L00137 //   steepness = 0.0;
+L00138 //   vHeather = 0.0;
+L00139 // }
+L00140 
+L00141 
+L00142 //// SHADOW
+L00143 
+L00144 vShadow = min(1.0, treeMask * min(1.0, max(0.0, height / 4.0)));
+L00145 
+L00146 
+L00147 //// TREE MASK
+L00148 
+L00149 vTreeMask = vShadow;
+L00150 
+L00151 if(vTreeMask > 0.1) {
+L00152   vTreeMask = max(0.2, vTreeMask);
+L00153 } else {
+L00154   vTreeMask = 0.0;
+L00155 }
+L00156 
+L00157 // Road-dependent factors
+L00158 if(hasRoadProx > 0.5) {
+L00159 
+L00160   vTreeMask *= clamp(roadProx / 2.0, 0.0, 1.0);
+L00161 
+L00162   float intensity = clamp((16.0 - roadProx) / 6.0, 0.0, 1.0);
+L00163 
+L00164   intensity *= 0.8; // Scale it a bit
+L00165 
+L00166   transformed += normalize( objectNormal ) * ( (texture2D( displacementMap, vUUv ).x - 0.4) * min(1.0, steepness * 3.0) ) * intensity;
+L00167 
+L00168 }
+L00169 
+L00170 //// MV POSITION
+L00171 
+L00172 vec4 mvPosition = modelViewMatrix * vec4( transformed, 1.0 );
+L00173 
+L00174 //// OVERLAP SINK
+L00175 
+L00176 // TODO Use actual distance probably?
+L00177 
+L00178 //// Curvature
+L00179 // float ddist = -mvPosition.z;
+L00180 // float ssink = ddist / 1000.0;
+L00181 // ssink *= ssink;
+L00182 // transformed.y -= ssink * 50.0;
+L00183 // // Recalc mvPosition
+L00184 //   mvPosition = modelViewMatrix * vec4( transformed, 1.0 );
+L00185 
+L00186 if(overlap > 0.0) {
+L00187 
+L00188     float overlapDist = overlap - vehicleIndex;
+L00189 
+L00190     if(overlapDist > 0.0) {
+L00191 
+L00192       if(overlapDist < sinkDist) {
+L00193 
+L00194           float halfSinkDist = sinkDist * 0.75;
+L00195 
+L00196           if(overlapDist < halfSinkDist) {
+L00197             transformed.y -= 20.0;
+L00198           } else {
+L00199             transformed.y -= 20.0 * (sinkDist - overlapDist) / (sinkDist - halfSinkDist);
+L00200           }
+L00201       }
+L00202 
+L00203     } else {
+L00204 
+L00205       float fSinkDist = -sinkDist/2.0;
+L00206 
+L00207       if(overlapDist > fSinkDist) {
+L00208 
+L00209         float halfSinkDist = fSinkDist / 2.0;
+L00210 
+L00211         if(overlapDist > halfSinkDist) {
+L00212           transformed.y -= 20.0;
+L00213         } else {
+L00214           transformed.y -= 20.0 * (fSinkDist - overlapDist) / halfSinkDist;
+L00215         }
+L00216 
+L00217       }
+L00218 
+L00219     }
+L00220 
+L00221     // Recalc mvPosition
+L00222     mvPosition = modelViewMatrix * vec4( transformed, 1.0 );
+L00223 }
+L00224 
+L00225 gl_Position = projectionMatrix * mvPosition;
+L00226 
+L00227 vCamDepth = -mvPosition.z;
+L00228 
+L00229 // vLightGrass = 0.0;
+L00230 // vDarkGrass = 0.0;
+L00231 
+L00232 vShadow *= shadowFactor;
+L00233 
+L00234 
+# symbol=Lo rawUtf16Offset=58416 sha256=8bfe4359759eee572d41143cfe2a7b81533b6bf31ff74c4b184779d7c2cec7cc
+L00235 
+L00236 
+L00237 varying float height;
+L00238 varying float steepness;
+L00239 varying float roadProx;
+L00240 varying float hasRoadProx;
+L00241 varying float vTreeMask;
+L00242 varying vec2 vUv;
+L00243 varying vec2 vUUv;
+L00244 varying vec2 vWv;
+L00245 varying vec2 vWWv;
+L00246 varying float vLightGrass;
+L00247 varying float vDarkGrass;
+L00248 varying float vField;
+L00249 varying float vHeather;
+L00250 varying float vShadow;
+L00251 varying float vCamDepth;
+L00252 varying vec2 vRoadUv;
+L00253 
+L00254 uniform int seasonIndex;
+L00255 
+L00256 uniform sampler2D grassMap;
+L00257 uniform sampler2D sandMap;
+L00258 uniform sampler2D rockMap;
+L00259 uniform sampler2D rockMapBump;
+L00260 uniform sampler2D gravelMap;
+L00261 uniform sampler2D forestMap;
+L00262 uniform sampler2D heatherMap;
+L00263 
+L00264 uniform sampler2D detailNearMap;
+L00265 uniform sampler2D detailFarMap;
+L00266 uniform sampler2D grassVariationMap;
+L00267 
+L00268 uniform sampler2D offroadMap;
+L00269 
+L00270 uniform sampler2D fadeFine;
+L00271 
+L00272 uniform vec3 roadCol;
+L00273 
+L00274 uniform vec3 grassColA;
+L00275 uniform vec3 grassColB;
+L00276 uniform vec3 peakColA;
+L00277 uniform vec3 peakColB;
+L00278 
+L00279 uniform vec3 fieldDiscolouration;
+L00280 
+L00281 uniform float radiance;
+L00282 
+L00283 uniform float offroad;
+L00284 uniform float greenlane;
+L00285 
+L00286 vec4 rockTex;
+L00287 
+L00288 vec4 terrainBlend(vec4 tx1, float w1, vec4 tx2, float w2, float depth) {
+L00289 
+L00290   // Perform the blending
+L00291 
+L00292   float ma = max(tx1.a + w1, tx2.a + w2) - depth;
+L00293   float b1 = max(tx1.a + w1 - ma, 0.0);
+L00294   float b2 = max(tx2.a + w2 - ma, 0.0);
+L00295 
+L00296   return ((tx1 * b1) + (tx2 * b2)) / (b1 + b2);
+L00297 }
+L00298 
+L00299 // the ws are the height of that texture; biggest w wins
+L00300 // The depth is the transition between them? maybe?
+L00301 
+L00302 // The height goes in the alpha channel of the textures 1 and 2
+L00303 // the w is the weight? the weight should be the transition?
+L00304 // depth is.. I don't know, a weird offset? No idea tbh
+L00305 
+L00306 float screen(float a, float b) {
+L00307   return 1.0 - ((1.0 - a) * (1.0 - b));
+L00308 }
+L00309 
+L00310 
+# symbol=yo rawUtf16Offset=60075 sha256=e15b1fdeb0eeb3abb40950334fc59158302ae63397f17a707a3b564909d5eb4e
+L00311 
+L00312 
+L00313 float fade0 = texture2D(fadeFine, vUv).r;
+L00314 float fade1 = texture2D(fadeFine, vUUv).r;
+L00315 float fade2 = texture2D(fadeFine, vWv).r;
+L00316 
+L00317 //// PREP MAP
+L00318 
+L00319 vec4 texelColor = texture2D( grassMap, vUv ); 
+L00320 
+L00321 //// DETAIL TEXTURING
+L00322 
+L00323 float blendVal  = (1.0 - texture2D( detailFarMap, vWWv ).r);
+L00324 float blendValB = (1.0 - texture2D( detailFarMap, vWv ).r);
+L00325 float blendValC = (1.0 - texture2D( detailFarMap, vUUv).r);
+L00326 
+L00327 
+L00328 blendValB = screen(blendValC, blendValB);
+L00329 blendValB *= min(1.0, blendVal * 10.0);
+L00330 
+L00331 // Reduce on winter?
+L00332 if(seasonIndex == 3) {
+L00333   blendValB *= 0.7;
+L00334 }
+L00335 
+L00336 // Elevation alteration to large-scale blend
+L00337 blendVal *= (0.6 + 0.4 * vLightGrass);
+L00338 
+L00339 // Enhance the distant intensity relative to medium/close range
+L00340 blendVal *= 2.0;
+L00341 
+L00342 // Blend from large-scale to medium-scale
+L00343 float depthLerpFar = saturate(vCamDepth / 800.0);
+L00344 blendVal = blendVal * depthLerpFar + (1.0 - depthLerpFar) * blendValB;
+L00345 
+L00346 // Large-scale texture toned down for fields
+L00347 float fieldFactor = ceil(abs(vField));
+L00348 // blendVal *= 1.0 - fieldFactor * 0.25;
+L00349 
+L00350 // Depth for far
+L00351 blendVal *= saturate(0.4 + 0.6 * (vCamDepth / 300.0));
+L00352 
+L00353 // Dotty noisy...
+L00354 blendVal += (1.0 - texture2D( detailNearMap, vUUv ).r ) * (0.7 + vLightGrass * 0.3);
+L00355 
+L00356 //// GRASS COLOUR MIX
+L00357 
+L00358 // Blend them into two colours
+L00359 
+L00360 float variationVal = texture2D(grassVariationMap, vWWv).r - 0.5;
+L00361 float closeVariation = ((1.0 - texture2D(grassVariationMap, vWv).r) - 0.5);
+L00362 
+L00363 float grassBlend = (screen(fade1, fade0) + vDarkGrass) / 2.0;
+L00364 
+L00365 // Square for more effect?
+L00366 grassBlend = grassBlend * grassBlend;
+L00367 
+L00368 grassBlend = saturate(grassBlend + variationVal + closeVariation);
+L00369 
+L00370 float lightGrassFactor = saturate(vLightGrass + variationVal - closeVariation);
+L00371 
+L00372 // Colour the grass tips versus base
+L00373 lightGrassFactor = saturate(lightGrassFactor * 2.0 * texelColor.r);
+L00374 
+L00375 vec3 grassCol = mix(
+L00376   mix(grassColA, grassColB, grassBlend),
+L00377   mix(peakColA, peakColB, grassBlend),
+L00378   lightGrassFactor
+L00379 );
+L00380 
+L00381 //// APPLY GRASS COLOUR
+L00382 
+L00383 texelColor.rgb *= grassCol;
+L00384 
+L00385 //// FIELDS
+L00386 
+L00387 if(vField != 0.0) {
+L00388 
+L00389   // Rough lines using noise
+L00390   // Note that we step on vField for simplicity - should consider a separate varying for field mow dir though
+L00391   float fadeField = texture2D(
+L00392     fadeFine,
+L00393     vec2(
+L00394       vWv.x * 2.0 * step(0.001, vField),
+L00395       vWv.y * 2.0 * (1.0 - step(0.001, vField))
+L00396     )
+L00397   ).r;
+L00398 
+L00399   texelColor.rgb += vField * fieldDiscolouration * fadeField;
+L00400 
+L00401 }
+L00402 
+L00403 //// HEATHER
+L00404 
+L00405 
+L00406 if(vHeather > 0.0) {
+L00407 
+L00408   vec4 heatherCol = texture2D(heatherMap, vUv);
+L00409 
+L00410   float depthLerp = 0.25 + 0.75 * min(1.0, vCamDepth / 400.0);
+L00411   heatherCol = mix(heatherCol, texture2D( heatherMap, vWv ), depthLerp);
+L00412   
+L00413   heatherCol = mix(texelColor, heatherCol, min(1.0, vHeather));
+L00414   heatherCol.a = heatherCol.r;
+L00415   texelColor.a = texelColor.g;
+L00416   texelColor = terrainBlend(
+L00417       texelColor,
+L00418       1.0 - vHeather,
+L00419       heatherCol,
+L00420       vHeather,
+L00421       0.1
+L00422   );
+L00423   
+L00424 }
+L00425   
+L00426 // Apply detail texture
+L00427 texelColor *= 1.0 - blendVal;
+L00428 
+L00429 
+L00430 //// TREE MASK
+L00431 
+L00432 vec4 forestCol = texture2D(forestMap, vUv / (1.25 - offroad * 0.25)); // larger scale looks better?
+L00433 forestCol.a = forestCol.r * 2.0 * fade2;
+L00434 
+L00435 float fTreeMask = min(1.0, vTreeMask);
+L00436 
+L00437 if(fTreeMask > 0.0) {
+L00438 
+L00439   texelColor = terrainBlend(
+L00440     texelColor,
+L00441     1.0-fTreeMask,
+L00442     forestCol,
+L00443     fTreeMask,
+L00444     0.1 + (1.0 - fTreeMask) * fade0 * 0.9
+L00445   );
+L00446 
+L00447   texelColor.a = 1.0;
+L00448 }
+L00449 
+L00450 
+L00451 //// SAND BLEND
+L00452 
+L00453 float vHeight = height + min(1.0, height+0.5) * (fade2 * 2.0 + (fade0 + fade2) * 0.5);
+L00454 
+L00455 if(vHeight < 4.0 && seasonIndex < 3) {
+L00456 
+L00457   float dark = 1.0;
+L00458 
+L00459   if(vHeight < 0.0) {
+L00460     texelColor = texture2D(sandMap, vUv) * 0.75;
+L00461   } else {
+L00462 
+L00463     if(vHeight < 2.0) {
+L00464 
+L00465       // Darken toward water
+L00466       dark = min(dark, 1.0 - (2.0 - vHeight) / 4.0);
+L00467 
+L00468     } else if(vHeight > 2.5) {
+L00469 
+L00470       // Darken into the grass
+L00471       dark = 1.0 - (vHeight-2.5) / 2.0;
+L00472 
+L00473     }
+L00474 
+L00475     // Lerp from grass to thingy
+L00476     float lerp = max(0.0, (vHeight - 1.0) / 3.0);
+L00477 
+L00478     vec4 sandCol = texture2D(sandMap, vUv);
+L00479 
+L00480     texelColor.a = texelColor.r;
+L00481 
+L00482     sandCol.a = sandCol.r;
+L00483 
+L00484     // Apply shading based on water/grass proximity
+L00485     sandCol.rgb *= dark;
+L00486 
+L00487     texelColor = terrainBlend(
+L00488       texelColor,
+L00489       lerp,
+L00490       sandCol,
+L00491       1.0 - lerp,
+L00492       0.05
+L00493     );
+L00494 
+L00495     // texelColor = mix(texture2D(sandMap, vUv) * dark, texelColor, height / 4.0);
+L00496 
+L00497     // texelColor = terrainBlend(
+L00498     //   texture2D(sandMap, vUv) * dark,
+L00499     //   dark,
+L00500     //   texelColor,
+L00501     //   texelColor.g,
+L00502     //   height / 4.0
+L00503     // );
+L00504   }
+L00505 }
+L00506 
+L00507 //// ROADSIDE GRAVEL
+L00508 
+L00509 if((seasonIndex < 3 || offroad > 0.5) && hasRoadProx > 0.5) {
+L00510 
+L00511   if(offroad < 0.5 && roadProx < -0.2 && (vCamDepth > 100.0 || seasonIndex == 1)) {
+L00512 
+L00513     texelColor.rgb = roadCol;
+L00514 
+L00515   } else if(roadProx + fade2 * 0.1 < 0.5 * fade0) {
+L00516 
+L00517     float rp = saturate(1.0 - (roadProx + fade2 * 0.1) / (0.5 * fade0));    
+L00518 
+L00519     //// GREENLANE CENTER
+L00520     // NOTE - could inject this at attribute level instead?
+L00521     
+L00522     if(greenlane > 0.5) {
+L00523       if(roadProx < -0.7) { // Lower values = narrower strip in middle
+L00524         if(roadProx < -1.1) {
+L00525           rp = 0.0;
+L00526         } else {
+L00527           // needs to be 0 when -1.2, 1 when -0.8
+L00528           rp = 1.0 - (-roadProx - 0.7) / 0.4;
+L00529         }
+L00530       }
+L00531     } else if(offroad > 0.5) {
+L00532 
+L00533       // Off-road a bit noisier along grass edges
+L00534       rp = saturate((1.0 * fade0) - (roadProx + fade2 * 0.1) / (1.0 * fade0));    
+L00535 
+L00536     }
+L00537 
+L00538     // Mix into forest colour if we're under trees
+L00539     if(offroad > 0.5) {
+L00540 
+L00541       float edgeness = 1.0 - saturate(-roadProx/(2.0 - greenlane));
+L00542 
+L00543       vec4 gravelCol = texture2D(gravelMap, vUv) * (0.75 + rp * rp * 0.75);
+L00544 
+L00545       // texelColor.rgb = vec3(rp);
+L00546       texelColor = mix(
+L00547 
+L00548       
+L00549       mix(
+L00550 
+L00551         gravelCol,
+L00552           forestCol,
+L00553           min(0.8 - greenlane * 0.2, vShadow * 2.0) * edgeness
+L00554         ),
+L00555         
+L00556         texelColor,
+L00557 
+L00558         smoothstep(
+L00559           0.0, 
+L00560           rp,
+L00561           texelColor.g / rp
+L00562         )
+L00563         
+L00564 
+L00565       );
+L00566 
+L00567       // OFFROAD TEXTURE
+L00568       if((greenlane < 0.5 || seasonIndex == 3) && roadProx < 1.0) {
+L00569           vec4 roadMaskCol = texture2D(offroadMap, vRoadUv);
+L00570           texelColor.rgb *= 1.0 - roadMaskCol.r * 0.5 * ((1.0 - greenlane) + (greenlane * rp));
+L00571           
+L00572       }  
+L00573 
+L00574     } else if(seasonIndex != 1 && vShadow > 0.0) {
+L00575 
+L00576       float gravelBrightness = 1.3;
+L00577       // if(seasonIndex == 2) {
+L00578       //   gravelBrightness = 1.3;
+L00579       // }
+L00580 
+L00581       texelColor = mix(
+L00582 
+L00583         mix(
+L00584           texture2D(
+L00585             gravelMap,
+L00586             vUv
+L00587           ),
+L00588           forestCol * gravelBrightness,
+L00589           min(1.0, vShadow * 2.0)
+L00590         ),
+L00591 
+L00592         texelColor,
+L00593 
+L00594         smoothstep(
+L00595           0.0, 
+L00596           rp,
+L00597           texelColor.g / rp
+L00598         )
+L00599       );
+L00600 
+L00601     } else {
+L00602 
+L00603       texelColor = mix(
+L00604         texture2D(gravelMap, vUv) * (0.75 + rp * rp * 0.75),
+L00605         texelColor,
+L00606         smoothstep(
+L00607           0.0, 
+L00608           rp,
+L00609           texelColor.g / rp
+L00610         )
+L00611       );      
+L00612     }
+L00613 
+L00614   }
+L00615 
+L00616 }
+L00617 
+L00618 //// STEEPNESS CLIFF
+L00619 
+L00620 // Note we do a branch here since cliffs take up such a small portion of the space; worthwhile
+L00621 if(steepness > 0.1) {
+L00622 
+L00623   float steepBlend = 1.0 - steepness;
+L00624   rockTex = mix(
+L00625     texture2D(rockMap, vUv),
+L00626     texture2D(rockMap, vUUv),
+L00627     saturate((vCamDepth - 20.0) / 130.0) // Blend by proximity
+L00628   );
+L00629   
+L00630   // Gradual distance-based blend
+L00631   rockTex.a = texture2D(rockMapBump, vUv).r * texture2D(rockMapBump, vUUv).r;
+L00632   
+L00633   // Blend according to steepness etc.
+L00634   texelColor.a = 0.2 + fade2 * 0.2;
+L00635   
+L00636   // Lower steep blend is more snow?
+L00637   // float steepBlend = 1.0 - steepness; // Reduce steepess factor to reduce rockiness
+L00638   // Reduce the depth value to increase sharp transition from snow to rock
+L00639   texelColor = terrainBlend(texelColor, steepBlend, rockTex, (1.0 - steepBlend), 0.08);
+L00640   texelColor.a = 1.0;
+L00641 }
+L00642 
+L00643 //// PREVENT GLITTERING PIXELS
+L00644 
+L00645 texelColor.r = saturate(texelColor.r);
+L00646 texelColor.g = saturate(texelColor.g);
+L00647 texelColor.b = saturate(texelColor.b);
+L00648 
+L00649 //// PREP EMISSIVE?
+L00650 
+L00651 // NOTE this must match the grass sprites. Ideally share a chunk?
+L00652 
+L00653 totalEmissiveRadiance = texelColor.rgb * radiance;
+L00654 
+L00655 //// FINAL COMPOSITION
+L00656 
+L00657 diffuseColor *= texelColor;
+L00658 
+L00659 // DEBUG COLOURS
+L00660 // diffuseColor = vec4(vHeather, vCurvature, 0.0, 1.0);
+L00661 // diffuseColor.rgb = vNormal.rgb;
+L00662 // diffuseColor = vec4(vec3(vLightGrass), 1.0);
+L00663 
+L00664 // Clamp to reduce glittering pixels? Needs a better fix though... this is a last resort
+L00665 
+L00666 /*
+L00667 
+L00668 This is a commercial project owned and developed solely by Topograph Interactive Ltd.
+L00669 No derivatives or modifications are permitted 
+L00670 
+L00671 */
+L00672 
+L00673 
+L00674 
+# symbol=Co rawUtf16Offset=68432 sha256=6f75294eb96c72948215ce95d25fed8fa86224d0e5f83913bef04e95c6c75c17
+L00675 
+L00676 
+L00677     // TODO ORIGIN OFFSET USE OFFSET CAM POS
+L00678     vec3 offsetCameraPosition = vec3(
+L00679       cameraPosition.x - originOffset.x,
+L00680       cameraPosition.y,
+L00681       cameraPosition.z - originOffset.y
+L00682     );
+L00683     // REPLACE BELOW WITH cameraPosition WHEN DISABLING ORIGIN OFFSET
+L00684     
+L00685     float fresnel = 1.0 - max( 0.0, dot( normalize(offsetCameraPosition - vFresnelPos), vFresnelNorm ) );
+L00686 
+L00687     float lightFresnel = max(0.0, (fresnel - 0.75)) * 4.0 * (1.0 - blendVal * 0.5);
+L00688     lightFresnel *= lightFresnel;
+L00689     lightFresnel *= (1.0 - vShadow);
+L00690     lightFresnel *= fresnelIntensity;
+L00691     
+L00692     float darkFresnel = 1.0 - min(1.0, fresnel * 1.3333);
+L00693     darkFresnel *= fresnelIntensity;
+L00694     darkFresnel = 0.25 + min(0.25, max(0.0, darkFresnel - 0.25) * 0.5);
+L00695 
+L00696     diffuseColor.rgb *= 1.0 + lightFresnel - darkFresnel;
+L00697 
+L00698 
+# symbol=ls rawUtf16Offset=128220 sha256=c6ee3b8d9de7ef9f43b7fe8bd5fd666dca1987e40438b0fa67dc1149630716a5
+L00699 function ls(t,a){var n;Mr({colors:{sky:a.fog.colB,horizon:a.fog.colA,ground:a.ground.grassColA,road:a.colours.road},lights:{sun:a.lights.sun,ambient:a.lights.ambient}}),Bt.length==2&&t=="winter"?i.userData.seasonIndex.value=3:i.userData.seasonIndex.value=Bt.indexOf(t),i.userData.grassMap.value=s(a.maps.grass,4,void 0,void 0),i.userData.forestMap.value=s(a.maps.forest),i.userData.heatherMap.value=s(a.maps.heather),i.userData.gravelMap.value=s(a.maps.gravel),i.userData.sandMap.value=s(a.maps.sand),i.userData.rockMap.value=s(a.maps.rock),i.userData.rockMapBump.value=s(a.maps.rockBump,4,P,R),i.userData.detailNearMap.value=s(a.maps.detailNear,4,P,R),i.userData.detailFarMap.value=s(a.maps.detailFar,4,P,R),i.userData.grassVariationMap.value=s(a.maps.grassVariation,4,P,R),N&&(i.userData.offroadMap.value=s(a.maps.offroadMap,16)),i.userData.grassColA.value=le(a.ground.grassColA),i.userData.grassColB.value=le(a.ground.grassColB),i.userData.peakColA.value=le(a.ground.peakColA),i.userData.peakColB.value=le(a.ground.peakColB),i.userData.fieldDiscolouration.value=Lr(a.ground.fieldDiscolouration),i.userData.radiance.value=a.lights.radiance??0,i.displacementMap=i.userData.rockMapBump.value,i.userData.roadCol.value=le(a.colours.road),i.userData.fresnelIntensity.value=a.lights.fresnelFactor??1,i.userData.offroad.value=N?1:0,i.userData.greenlane.value=F?1:0,D.map=s(a.maps.grassSprites,4,H),y.map=s(a.maps.bushes,2,H);
+# symbol=XE/Wu rawUtf16Offset=587871 sha256=40e464246c4c2ff2058d50ed80d0910d98ae23e3498e1c9bbcd925724acb9e7a
+L00700 XE=(a,e=!1)=>{const t=a>>16&255,i=a>>8&255,n=a&255;if(e){let s=Wu([t/255,i/255,n/255]);return s.push(1),s}return Wu([t/255,i/255,n/255])},Wu=a=>[Math.pow(a[0],2.2),Math.pow(a[1],2.2),Math.pow(a[2],2.2)]

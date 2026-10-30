@@ -21,7 +21,7 @@ namespace SlowRoads.Scene.Terrain
             new(VertexAttribute.TexCoord1,VertexAttributeFormat.Float32,3,3)};
         const MeshUpdateFlags Flags=MeshUpdateFlags.DontRecalculateBounds;
         ushort[] indices;
-        float[] positions,uv,coarseNormals,fineNormals;
+        float[] positions,uv,coarseNormals,fineNormals,overlap;
         SurfaceChannels[] channels;
         int coarseCount,fineStart,fineCount,vertices;
         bool fine=true,enabled=true;
@@ -43,7 +43,7 @@ namespace SlowRoads.Scene.Terrain
             if(vertices!=count||indices==null||indices.Length!=data.Indices.Length)
             {
                 Mesh.Clear(false);Mesh.SetVertexBufferParams(count,Layout);
-                indices=new ushort[data.Indices.Length];uv=new float[count*2];positions=new float[count*3];
+                indices=new ushort[data.Indices.Length];overlap=new float[count];uv=new float[count*2];positions=new float[count*3];
                 coarseNormals=new float[count*3];fineNormals=new float[count*3];
                 channels=new SurfaceChannels[count];
                 Mesh.SetIndexBufferParams(indices.Length,IndexFormat.UInt16);Mesh.subMeshCount=1;
@@ -62,10 +62,13 @@ namespace SlowRoads.Scene.Terrain
             var min=new Vector3(float.MaxValue,float.MaxValue,float.MaxValue);var max=-min;
             for(int i=0;i<count;i++){var p=new Vector3(data.Positions[i*3],data.Positions[i*3+1],data.Positions[i*3+2]);min=Vector3.Min(min,p);max=Vector3.Max(max,p);}
             var pad=new Vector3(Mathf.Max(1,Mathf.Max(Mathf.Abs(min.x),Mathf.Abs(max.x))),Mathf.Max(1,Mathf.Max(Mathf.Abs(min.y),Mathf.Abs(max.y))),Mathf.Max(1,Mathf.Max(Mathf.Abs(min.z),Mathf.Abs(max.z))))*1e-6f;
-            var bounds=new Bounds();bounds.SetMinMax(min-pad,max+pad);Mesh.bounds=bounds;
+            var bounds=new Bounds();bounds.SetMinMax(min-pad-new Vector3(1,21,1),max+pad+Vector3.one);Mesh.bounds=bounds;
             SetRenderOrigin(target,renderOrigin);ApplyRange();
             var receipt=data.CommitUpload(owner);Residency?.Retire();Residency=receipt;UploadCount++;LastUploadedBytes=count*44+indices.Length*2;return true;
         }
+        // Only the coverage stream changes; positions, normals and indices stay resident.
+        public void UpdateOverlap(TerrainOverlapState state)
+        {Check();if(vertices==0)return;state.CopyTo(overlap);for(int i=0;i<vertices;i++)channels[i].overlap=overlap[i];Mesh.SetVertexBufferData(channels,0,0,vertices,3,Flags);}
         public void SetRenderOrigin(Transform target,Double3 renderOrigin)
         {Check();if(target!=null)target.position=new Vector3((float)(Origin.X-renderOrigin.X),(float)-renderOrigin.Y,(float)(Origin.Z-renderOrigin.Z));}
         public void SetFine(bool value)
@@ -78,7 +81,7 @@ namespace SlowRoads.Scene.Terrain
         public void Dispose()
         {
             if(Mesh!=null){if(Application.isPlaying)UnityEngine.Object.Destroy(Mesh);else UnityEngine.Object.DestroyImmediate(Mesh);Mesh=null;}
-            Residency?.Retire();Residency=null;indices=null;channels=null;positions=uv=coarseNormals=fineNormals=null;vertices=0;
+            Residency?.Retire();Residency=null;indices=null;channels=null;positions=uv=coarseNormals=fineNormals=overlap=null;vertices=0;
         }
     }
 }

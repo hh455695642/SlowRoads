@@ -3,6 +3,7 @@ using System.Diagnostics;
 using SlowRoads.Generation.Midline;
 using SlowRoads.Generation.Road;
 using SlowRoads.Generation.Streaming;
+using SlowRoads.Scene.Terrain;
 using UnityEngine;
 
 namespace SlowRoads.Scene.Road
@@ -11,6 +12,8 @@ namespace SlowRoads.Scene.Road
     public sealed class RoadStreamingPresentation : MonoBehaviour
     {
         public RoadStreamingSession Core {get;private set;}
+        public TerrainStreamingPresentation Terrain {get;private set;}
+        public double ObserverProgress {get;private set;}
         public Double3 RenderOrigin {get;private set;}
         public string Fault {get;private set;}
         public int OriginShiftCount {get;private set;}
@@ -22,7 +25,8 @@ namespace SlowRoads.Scene.Road
         readonly bool[] publishedVisible=new bool[3];
         readonly Stopwatch watch=new();
         Material lastMaterial;
-        bool hasOrigin,disposed;
+        bool hasOrigin,disposed,hasStart;
+        double startDistance;
         public void Initialize(HillsSceneSettings configuration)
         {
             settings=configuration??throw new ArgumentNullException(nameof(configuration));
@@ -34,8 +38,10 @@ namespace SlowRoads.Scene.Road
                 renderers[i]=go.GetComponent<MeshRenderer>();renderers[i].enabled=false;renderers[i].shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;renderers[i].receiveShadows=false;
             }
             Core.Published+=Publish;Core.LodChanged+=(s,l)=>{if(uploads[s.Id].LiveVertexCount>0)uploads[s.Id].SetLod(l);};
-            Core.Invalidated+=()=>{foreach(var r in renderers)r.enabled=false;hasOrigin=false;};
+            Core.Invalidated+=()=>{foreach(var r in renderers)r.enabled=false;hasOrigin=false;hasStart=false;};
             BindMaterial();
+            Core.YieldAtTickBoundary=true;
+            Terrain=gameObject.AddComponent<TerrainStreamingPresentation>();Terrain.Initialize(this,settings);
         }
         void BindMaterial()
         {
@@ -62,7 +68,7 @@ namespace SlowRoads.Scene.Road
                 watch.Restart();int remaining=Math.Max(1,settings.operationsPerFrame);
                 while(remaining>0)
                 {
-                    int chunk=Math.Min(16,remaining);int used=Core.Advance(chunk);
+                    int chunk=Math.Min(16,remaining);int used=Terrain.Coordinate(chunk);
                     if(used==0)break; // Terrain phase barrier: do not spin while a finite job owns the producer.
                     remaining-=used;
                     if(settings.cpuBudgetMilliseconds>0&&watch.Elapsed.TotalMilliseconds>=settings.cpuBudgetMilliseconds)break;
@@ -76,7 +82,12 @@ namespace SlowRoads.Scene.Road
             position=default;forward=Vector3.forward;
             if(Fault!=null)return MidlineDistanceResult.Invalidated;
             if(Core==null||!settings.generationEnabled)return MidlineDistanceResult.NotReady;
-            var result=Core.TrySample(distance,out var sample);if(result!=MidlineDistanceResult.Ready)return result;
+            // P5 keeps a short negative-index generation halo. Start the scene at
+            // original coarse index zero so T3's fine projection has both neighbours.
+            if(!hasStart){if(!Core.Distance.TryGetCoarseDistance(0,out startDistance))return MidlineDistanceResult.NotReady;hasStart=true;Core.SetObserverIndex(0);}
+            var result=Core.TrySample(startDistance+distance,out var sample);if(result!=MidlineDistanceResult.Ready)return result;
+            if(!Terrain.Core.CanTraverse(sample.Position,sample.FromCoarseIndex))return MidlineDistanceResult.NotReady;
+            ObserverProgress=sample.Progress;
             ShiftOriginIfNeeded(sample.Position);
             var p=sample.Position;position=new Vector3((float)(p.X-RenderOrigin.X),(float)(p.Y+.02),(float)(p.Z-RenderOrigin.Z));
             forward=new Vector3((float)sample.Forward.X,(float)sample.Forward.Y,(float)sample.Forward.Z);
@@ -94,7 +105,7 @@ namespace SlowRoads.Scene.Road
         }
         public void Release()
         {
-            if(disposed)return;disposed=true;Core?.Dispose();Core=null;
+            if(disposed)return;disposed=true;Terrain?.Release();Terrain=null;Core?.Dispose();Core=null;
             foreach(var upload in uploads)upload?.Dispose();
         }
         void OnDestroy()=>Release();

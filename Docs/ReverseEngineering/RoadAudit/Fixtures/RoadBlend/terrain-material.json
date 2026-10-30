@@ -1,0 +1,3100 @@
+{
+  "schema": 1,
+  "hashes": {
+    "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+    "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+    "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+    "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+    "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+  },
+  "shaders": {
+    "bo": {
+      "text": "\n\nattribute float roadProximity;\nattribute float treeMask;\nattribute float overlap;\nattribute float fieldCol;\nattribute vec2 roadUv;\n\nvarying float height;\nvarying float steepness;\nvarying float roadProx;\nvarying float hasRoadProx;\nvarying float vTreeMask;\nvarying vec2 vUv;\nvarying vec2 vUUv;\nvarying vec2 vWv;\nvarying vec2 vWWv;\nvarying vec2 vRoadUv;\nvarying float vLightGrass;\nvarying float vDarkGrass;\nvarying float vField;\nvarying float vHeather;\nvarying float vShadow;\nvarying float vCamDepth;\n\nfloat wuvSize = 500.0;\n\nuniform sampler2D displacementMap;\nuniform sampler2D fadeFine;\nuniform float sinkDist;\nuniform float vehicleIndex;\nuniform float shadowFactor;\nuniform int seasonIndex;\nuniform vec2 originOffset;\n\nfloat map(float value, float min1, float max1, float min2, float max2) {\n  return min2 + (value - min1) * (max2 - min2) / (max1 - min1);\n}\n\nfloat screen(float a, float b) {\n  return 1.0 - ((1.0 - a) * (1.0 - b));\n}\n\nfloat distSquared( vec3 A, vec3 B ) {\n    vec3 C = A - B;\n    return dot( C, C );\n}\n\nvec3 upvec = vec3(0.0,1.0,0.0);\n\n",
+      "sha256": "26aeb2629e72133e896e90819d195fd83d65ed0f240c199c975e7987e819b1a8",
+      "utf16Offset": 53450,
+      "lines": [
+        {
+          "line": "TM-bo-0001",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0002",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0003",
+          "text": "attribute float roadProximity;"
+        },
+        {
+          "line": "TM-bo-0004",
+          "text": "attribute float treeMask;"
+        },
+        {
+          "line": "TM-bo-0005",
+          "text": "attribute float overlap;"
+        },
+        {
+          "line": "TM-bo-0006",
+          "text": "attribute float fieldCol;"
+        },
+        {
+          "line": "TM-bo-0007",
+          "text": "attribute vec2 roadUv;"
+        },
+        {
+          "line": "TM-bo-0008",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0009",
+          "text": "varying float height;"
+        },
+        {
+          "line": "TM-bo-0010",
+          "text": "varying float steepness;"
+        },
+        {
+          "line": "TM-bo-0011",
+          "text": "varying float roadProx;"
+        },
+        {
+          "line": "TM-bo-0012",
+          "text": "varying float hasRoadProx;"
+        },
+        {
+          "line": "TM-bo-0013",
+          "text": "varying float vTreeMask;"
+        },
+        {
+          "line": "TM-bo-0014",
+          "text": "varying vec2 vUv;"
+        },
+        {
+          "line": "TM-bo-0015",
+          "text": "varying vec2 vUUv;"
+        },
+        {
+          "line": "TM-bo-0016",
+          "text": "varying vec2 vWv;"
+        },
+        {
+          "line": "TM-bo-0017",
+          "text": "varying vec2 vWWv;"
+        },
+        {
+          "line": "TM-bo-0018",
+          "text": "varying vec2 vRoadUv;"
+        },
+        {
+          "line": "TM-bo-0019",
+          "text": "varying float vLightGrass;"
+        },
+        {
+          "line": "TM-bo-0020",
+          "text": "varying float vDarkGrass;"
+        },
+        {
+          "line": "TM-bo-0021",
+          "text": "varying float vField;"
+        },
+        {
+          "line": "TM-bo-0022",
+          "text": "varying float vHeather;"
+        },
+        {
+          "line": "TM-bo-0023",
+          "text": "varying float vShadow;"
+        },
+        {
+          "line": "TM-bo-0024",
+          "text": "varying float vCamDepth;"
+        },
+        {
+          "line": "TM-bo-0025",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0026",
+          "text": "float wuvSize = 500.0;"
+        },
+        {
+          "line": "TM-bo-0027",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0028",
+          "text": "uniform sampler2D displacementMap;"
+        },
+        {
+          "line": "TM-bo-0029",
+          "text": "uniform sampler2D fadeFine;"
+        },
+        {
+          "line": "TM-bo-0030",
+          "text": "uniform float sinkDist;"
+        },
+        {
+          "line": "TM-bo-0031",
+          "text": "uniform float vehicleIndex;"
+        },
+        {
+          "line": "TM-bo-0032",
+          "text": "uniform float shadowFactor;"
+        },
+        {
+          "line": "TM-bo-0033",
+          "text": "uniform int seasonIndex;"
+        },
+        {
+          "line": "TM-bo-0034",
+          "text": "uniform vec2 originOffset;"
+        },
+        {
+          "line": "TM-bo-0035",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0036",
+          "text": "float map(float value, float min1, float max1, float min2, float max2) {"
+        },
+        {
+          "line": "TM-bo-0037",
+          "text": "  return min2 + (value - min1) * (max2 - min2) / (max1 - min1);"
+        },
+        {
+          "line": "TM-bo-0038",
+          "text": "}"
+        },
+        {
+          "line": "TM-bo-0039",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0040",
+          "text": "float screen(float a, float b) {"
+        },
+        {
+          "line": "TM-bo-0041",
+          "text": "  return 1.0 - ((1.0 - a) * (1.0 - b));"
+        },
+        {
+          "line": "TM-bo-0042",
+          "text": "}"
+        },
+        {
+          "line": "TM-bo-0043",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0044",
+          "text": "float distSquared( vec3 A, vec3 B ) {"
+        },
+        {
+          "line": "TM-bo-0045",
+          "text": "    vec3 C = A - B;"
+        },
+        {
+          "line": "TM-bo-0046",
+          "text": "    return dot( C, C );"
+        },
+        {
+          "line": "TM-bo-0047",
+          "text": "}"
+        },
+        {
+          "line": "TM-bo-0048",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0049",
+          "text": "vec3 upvec = vec3(0.0,1.0,0.0);"
+        },
+        {
+          "line": "TM-bo-0050",
+          "text": ""
+        },
+        {
+          "line": "TM-bo-0051",
+          "text": ""
+        }
+      ],
+      "excerpt": {
+        "first": 1,
+        "last": 51
+      }
+    },
+    "Mo": {
+      "text": "\n\nvec4 wPos = modelMatrix * vec4( position, 1.0 );\n\n// ORIGIN OFFSET HARD-CODED FOR NOW\n// ALSO NEED TO HANDLE CAMERA OFFSET IN FRESNEL FRAG BELOW\n// AND THE SAME THING IN GRASS SHADER\nwPos.x -= originOffset.x;\nwPos.z -= originOffset.y;\n\nvFresnelPos = wPos.xyz;\nvFresnelNorm = normalize( vec3( vec4( normal, 0.0) * modelMatrix ) );\n\nheight = wPos.y;\n\n// Set UVs from world pos\nvUv.x = wPos.x / 10.0;\nvUv.y = wPos.z / 10.0;\n\nvUUv.x = vUv.x / 10.0;\nvUUv.y = vUv.y / 10.0;\n\n// 0 is perfectly flat, 1 is 90 degrees\nsteepness = 0.98 - dot(normal, upvec);\nsteepness = clamp(steepness * 1.4, 0.0, 1.0); // was multiplied by 2 before..?\n\nvWv.x = wPos.x / wuvSize;\nvWv.y = wPos.z / wuvSize;\n\nvWWv.x = vWv.x / 8.0;\nvWWv.y = vWv.y / 8.0;\n\nvRoadUv = roadUv;\n\n//// GET FADES\n\nfloat fade0 = texture2D(fadeFine, vWv).r;\nfloat fade1 = texture2D(fadeFine, vWWv).r;\n\n// Reduce  vWWv for more utility in the fragment shader\nvWWv *= 2.0;\n// Same for uvs? Does this create issues for the origin offset?\nvUv *= 1.4;\n\n//// HEATHER\n\nvHeather = smoothstep(0.4, 1.0, ((height + fade1 * 350.0) - 60.0) / 500.0);\n\nvHeather *= screen(fade1, fade0);\n\nvHeather = smoothstep(0.3, 0.6, vHeather);\n\n\n//// GRASSES\n\nfloat heightVal = min(1.0, max(0.0, (height - (30.0 + fade1 * 40.0))/150.0));\n\nvLightGrass = min(1.0, heightVal * (fade0 + heightVal * 0.5));\n\n// Keep it green close to road?\nif(roadProximity > 0.0 && roadProximity < 0.5 + fade0) {\n\n  vHeather *= roadProximity / (0.5 + fade0);\n\n  if(seasonIndex < 3) {\n    vLightGrass *= roadProximity / (0.5 + fade0);\n  }\n}  \n\nvDarkGrass = min(max(0.0,(fade1 - 0.25) * 2.0), 1.0);\n\nvField = fieldCol;\n\n//// ROAD PROX\n\nroadProx = roadProximity;\n// Not safe but sets a flag for the frag shader to exit road-relative shading\nhasRoadProx = step(0.00001, abs(roadProximity));\n\n// Prevent rocks forming below the road, e.g. at bridges.\nfloat underRoadFactor = 1.0 - step(0.000001, -roadProx);\nsteepness *= underRoadFactor;\nvHeather *= underRoadFactor;\n\n// if(roadProx < 0.0) {\n//   steepness = 0.0;\n//   vHeather = 0.0;\n// }\n\n\n//// SHADOW\n\nvShadow = min(1.0, treeMask * min(1.0, max(0.0, height / 4.0)));\n\n\n//// TREE MASK\n\nvTreeMask = vShadow;\n\nif(vTreeMask > 0.1) {\n  vTreeMask = max(0.2, vTreeMask);\n} else {\n  vTreeMask = 0.0;\n}\n\n// Road-dependent factors\nif(hasRoadProx > 0.5) {\n\n  vTreeMask *= clamp(roadProx / 2.0, 0.0, 1.0);\n\n  float intensity = clamp((16.0 - roadProx) / 6.0, 0.0, 1.0);\n\n  intensity *= 0.8; // Scale it a bit\n\n  transformed += normalize( objectNormal ) * ( (texture2D( displacementMap, vUUv ).x - 0.4) * min(1.0, steepness * 3.0) ) * intensity;\n\n}\n\n//// MV POSITION\n\nvec4 mvPosition = modelViewMatrix * vec4( transformed, 1.0 );\n\n//// OVERLAP SINK\n\n// TODO Use actual distance probably?\n\n//// Curvature\n// float ddist = -mvPosition.z;\n// float ssink = ddist / 1000.0;\n// ssink *= ssink;\n// transformed.y -= ssink * 50.0;\n// // Recalc mvPosition\n//   mvPosition = modelViewMatrix * vec4( transformed, 1.0 );\n\nif(overlap > 0.0) {\n\n    float overlapDist = overlap - vehicleIndex;\n\n    if(overlapDist > 0.0) {\n\n      if(overlapDist < sinkDist) {\n\n          float halfSinkDist = sinkDist * 0.75;\n\n          if(overlapDist < halfSinkDist) {\n            transformed.y -= 20.0;\n          } else {\n            transformed.y -= 20.0 * (sinkDist - overlapDist) / (sinkDist - halfSinkDist);\n          }\n      }\n\n    } else {\n\n      float fSinkDist = -sinkDist/2.0;\n\n      if(overlapDist > fSinkDist) {\n\n        float halfSinkDist = fSinkDist / 2.0;\n\n        if(overlapDist > halfSinkDist) {\n          transformed.y -= 20.0;\n        } else {\n          transformed.y -= 20.0 * (fSinkDist - overlapDist) / halfSinkDist;\n        }\n\n      }\n\n    }\n\n    // Recalc mvPosition\n    mvPosition = modelViewMatrix * vec4( transformed, 1.0 );\n}\n\ngl_Position = projectionMatrix * mvPosition;\n\nvCamDepth = -mvPosition.z;\n\n// vLightGrass = 0.0;\n// vDarkGrass = 0.0;\n\nvShadow *= shadowFactor;\n\n",
+      "sha256": "03f45142eb9a81b2f25856ea674510dda61e5e5bbfa82e3eec1f23d56f89efa4",
+      "utf16Offset": 54511,
+      "lines": [
+        {
+          "line": "TM-Mo-0001",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0002",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0003",
+          "text": "vec4 wPos = modelMatrix * vec4( position, 1.0 );"
+        },
+        {
+          "line": "TM-Mo-0004",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0005",
+          "text": "// ORIGIN OFFSET HARD-CODED FOR NOW"
+        },
+        {
+          "line": "TM-Mo-0006",
+          "text": "// ALSO NEED TO HANDLE CAMERA OFFSET IN FRESNEL FRAG BELOW"
+        },
+        {
+          "line": "TM-Mo-0007",
+          "text": "// AND THE SAME THING IN GRASS SHADER"
+        },
+        {
+          "line": "TM-Mo-0008",
+          "text": "wPos.x -= originOffset.x;"
+        },
+        {
+          "line": "TM-Mo-0009",
+          "text": "wPos.z -= originOffset.y;"
+        },
+        {
+          "line": "TM-Mo-0010",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0011",
+          "text": "vFresnelPos = wPos.xyz;"
+        },
+        {
+          "line": "TM-Mo-0012",
+          "text": "vFresnelNorm = normalize( vec3( vec4( normal, 0.0) * modelMatrix ) );"
+        },
+        {
+          "line": "TM-Mo-0013",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0014",
+          "text": "height = wPos.y;"
+        },
+        {
+          "line": "TM-Mo-0015",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0016",
+          "text": "// Set UVs from world pos"
+        },
+        {
+          "line": "TM-Mo-0017",
+          "text": "vUv.x = wPos.x / 10.0;"
+        },
+        {
+          "line": "TM-Mo-0018",
+          "text": "vUv.y = wPos.z / 10.0;"
+        },
+        {
+          "line": "TM-Mo-0019",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0020",
+          "text": "vUUv.x = vUv.x / 10.0;"
+        },
+        {
+          "line": "TM-Mo-0021",
+          "text": "vUUv.y = vUv.y / 10.0;"
+        },
+        {
+          "line": "TM-Mo-0022",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0023",
+          "text": "// 0 is perfectly flat, 1 is 90 degrees"
+        },
+        {
+          "line": "TM-Mo-0024",
+          "text": "steepness = 0.98 - dot(normal, upvec);"
+        },
+        {
+          "line": "TM-Mo-0025",
+          "text": "steepness = clamp(steepness * 1.4, 0.0, 1.0); // was multiplied by 2 before..?"
+        },
+        {
+          "line": "TM-Mo-0026",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0027",
+          "text": "vWv.x = wPos.x / wuvSize;"
+        },
+        {
+          "line": "TM-Mo-0028",
+          "text": "vWv.y = wPos.z / wuvSize;"
+        },
+        {
+          "line": "TM-Mo-0029",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0030",
+          "text": "vWWv.x = vWv.x / 8.0;"
+        },
+        {
+          "line": "TM-Mo-0031",
+          "text": "vWWv.y = vWv.y / 8.0;"
+        },
+        {
+          "line": "TM-Mo-0032",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0033",
+          "text": "vRoadUv = roadUv;"
+        },
+        {
+          "line": "TM-Mo-0034",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0035",
+          "text": "//// GET FADES"
+        },
+        {
+          "line": "TM-Mo-0036",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0037",
+          "text": "float fade0 = texture2D(fadeFine, vWv).r;"
+        },
+        {
+          "line": "TM-Mo-0038",
+          "text": "float fade1 = texture2D(fadeFine, vWWv).r;"
+        },
+        {
+          "line": "TM-Mo-0039",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0040",
+          "text": "// Reduce  vWWv for more utility in the fragment shader"
+        },
+        {
+          "line": "TM-Mo-0041",
+          "text": "vWWv *= 2.0;"
+        },
+        {
+          "line": "TM-Mo-0042",
+          "text": "// Same for uvs? Does this create issues for the origin offset?"
+        },
+        {
+          "line": "TM-Mo-0043",
+          "text": "vUv *= 1.4;"
+        },
+        {
+          "line": "TM-Mo-0044",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0045",
+          "text": "//// HEATHER"
+        },
+        {
+          "line": "TM-Mo-0046",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0047",
+          "text": "vHeather = smoothstep(0.4, 1.0, ((height + fade1 * 350.0) - 60.0) / 500.0);"
+        },
+        {
+          "line": "TM-Mo-0048",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0049",
+          "text": "vHeather *= screen(fade1, fade0);"
+        },
+        {
+          "line": "TM-Mo-0050",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0051",
+          "text": "vHeather = smoothstep(0.3, 0.6, vHeather);"
+        },
+        {
+          "line": "TM-Mo-0052",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0053",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0054",
+          "text": "//// GRASSES"
+        },
+        {
+          "line": "TM-Mo-0055",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0056",
+          "text": "float heightVal = min(1.0, max(0.0, (height - (30.0 + fade1 * 40.0))/150.0));"
+        },
+        {
+          "line": "TM-Mo-0057",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0058",
+          "text": "vLightGrass = min(1.0, heightVal * (fade0 + heightVal * 0.5));"
+        },
+        {
+          "line": "TM-Mo-0059",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0060",
+          "text": "// Keep it green close to road?"
+        },
+        {
+          "line": "TM-Mo-0061",
+          "text": "if(roadProximity > 0.0 && roadProximity < 0.5 + fade0) {"
+        },
+        {
+          "line": "TM-Mo-0062",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0063",
+          "text": "  vHeather *= roadProximity / (0.5 + fade0);"
+        },
+        {
+          "line": "TM-Mo-0064",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0065",
+          "text": "  if(seasonIndex < 3) {"
+        },
+        {
+          "line": "TM-Mo-0066",
+          "text": "    vLightGrass *= roadProximity / (0.5 + fade0);"
+        },
+        {
+          "line": "TM-Mo-0067",
+          "text": "  }"
+        },
+        {
+          "line": "TM-Mo-0068",
+          "text": "}  "
+        },
+        {
+          "line": "TM-Mo-0069",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0070",
+          "text": "vDarkGrass = min(max(0.0,(fade1 - 0.25) * 2.0), 1.0);"
+        },
+        {
+          "line": "TM-Mo-0071",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0072",
+          "text": "vField = fieldCol;"
+        },
+        {
+          "line": "TM-Mo-0073",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0074",
+          "text": "//// ROAD PROX"
+        },
+        {
+          "line": "TM-Mo-0075",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0076",
+          "text": "roadProx = roadProximity;"
+        },
+        {
+          "line": "TM-Mo-0077",
+          "text": "// Not safe but sets a flag for the frag shader to exit road-relative shading"
+        },
+        {
+          "line": "TM-Mo-0078",
+          "text": "hasRoadProx = step(0.00001, abs(roadProximity));"
+        },
+        {
+          "line": "TM-Mo-0079",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0080",
+          "text": "// Prevent rocks forming below the road, e.g. at bridges."
+        },
+        {
+          "line": "TM-Mo-0081",
+          "text": "float underRoadFactor = 1.0 - step(0.000001, -roadProx);"
+        },
+        {
+          "line": "TM-Mo-0082",
+          "text": "steepness *= underRoadFactor;"
+        },
+        {
+          "line": "TM-Mo-0083",
+          "text": "vHeather *= underRoadFactor;"
+        },
+        {
+          "line": "TM-Mo-0084",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0085",
+          "text": "// if(roadProx < 0.0) {"
+        },
+        {
+          "line": "TM-Mo-0086",
+          "text": "//   steepness = 0.0;"
+        },
+        {
+          "line": "TM-Mo-0087",
+          "text": "//   vHeather = 0.0;"
+        },
+        {
+          "line": "TM-Mo-0088",
+          "text": "// }"
+        },
+        {
+          "line": "TM-Mo-0089",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0090",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0091",
+          "text": "//// SHADOW"
+        },
+        {
+          "line": "TM-Mo-0092",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0093",
+          "text": "vShadow = min(1.0, treeMask * min(1.0, max(0.0, height / 4.0)));"
+        },
+        {
+          "line": "TM-Mo-0094",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0095",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0096",
+          "text": "//// TREE MASK"
+        },
+        {
+          "line": "TM-Mo-0097",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0098",
+          "text": "vTreeMask = vShadow;"
+        },
+        {
+          "line": "TM-Mo-0099",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0100",
+          "text": "if(vTreeMask > 0.1) {"
+        },
+        {
+          "line": "TM-Mo-0101",
+          "text": "  vTreeMask = max(0.2, vTreeMask);"
+        },
+        {
+          "line": "TM-Mo-0102",
+          "text": "} else {"
+        },
+        {
+          "line": "TM-Mo-0103",
+          "text": "  vTreeMask = 0.0;"
+        },
+        {
+          "line": "TM-Mo-0104",
+          "text": "}"
+        },
+        {
+          "line": "TM-Mo-0105",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0106",
+          "text": "// Road-dependent factors"
+        },
+        {
+          "line": "TM-Mo-0107",
+          "text": "if(hasRoadProx > 0.5) {"
+        },
+        {
+          "line": "TM-Mo-0108",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0109",
+          "text": "  vTreeMask *= clamp(roadProx / 2.0, 0.0, 1.0);"
+        },
+        {
+          "line": "TM-Mo-0110",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0111",
+          "text": "  float intensity = clamp((16.0 - roadProx) / 6.0, 0.0, 1.0);"
+        },
+        {
+          "line": "TM-Mo-0112",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0113",
+          "text": "  intensity *= 0.8; // Scale it a bit"
+        },
+        {
+          "line": "TM-Mo-0114",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0115",
+          "text": "  transformed += normalize( objectNormal ) * ( (texture2D( displacementMap, vUUv ).x - 0.4) * min(1.0, steepness * 3.0) ) * intensity;"
+        },
+        {
+          "line": "TM-Mo-0116",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0117",
+          "text": "}"
+        },
+        {
+          "line": "TM-Mo-0118",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0119",
+          "text": "//// MV POSITION"
+        },
+        {
+          "line": "TM-Mo-0120",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0121",
+          "text": "vec4 mvPosition = modelViewMatrix * vec4( transformed, 1.0 );"
+        },
+        {
+          "line": "TM-Mo-0122",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0123",
+          "text": "//// OVERLAP SINK"
+        },
+        {
+          "line": "TM-Mo-0124",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0125",
+          "text": "// TODO Use actual distance probably?"
+        },
+        {
+          "line": "TM-Mo-0126",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0127",
+          "text": "//// Curvature"
+        },
+        {
+          "line": "TM-Mo-0128",
+          "text": "// float ddist = -mvPosition.z;"
+        },
+        {
+          "line": "TM-Mo-0129",
+          "text": "// float ssink = ddist / 1000.0;"
+        },
+        {
+          "line": "TM-Mo-0130",
+          "text": "// ssink *= ssink;"
+        },
+        {
+          "line": "TM-Mo-0131",
+          "text": "// transformed.y -= ssink * 50.0;"
+        },
+        {
+          "line": "TM-Mo-0132",
+          "text": "// // Recalc mvPosition"
+        },
+        {
+          "line": "TM-Mo-0133",
+          "text": "//   mvPosition = modelViewMatrix * vec4( transformed, 1.0 );"
+        },
+        {
+          "line": "TM-Mo-0134",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0135",
+          "text": "if(overlap > 0.0) {"
+        },
+        {
+          "line": "TM-Mo-0136",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0137",
+          "text": "    float overlapDist = overlap - vehicleIndex;"
+        },
+        {
+          "line": "TM-Mo-0138",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0139",
+          "text": "    if(overlapDist > 0.0) {"
+        },
+        {
+          "line": "TM-Mo-0140",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0141",
+          "text": "      if(overlapDist < sinkDist) {"
+        },
+        {
+          "line": "TM-Mo-0142",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0143",
+          "text": "          float halfSinkDist = sinkDist * 0.75;"
+        },
+        {
+          "line": "TM-Mo-0144",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0145",
+          "text": "          if(overlapDist < halfSinkDist) {"
+        },
+        {
+          "line": "TM-Mo-0146",
+          "text": "            transformed.y -= 20.0;"
+        },
+        {
+          "line": "TM-Mo-0147",
+          "text": "          } else {"
+        },
+        {
+          "line": "TM-Mo-0148",
+          "text": "            transformed.y -= 20.0 * (sinkDist - overlapDist) / (sinkDist - halfSinkDist);"
+        },
+        {
+          "line": "TM-Mo-0149",
+          "text": "          }"
+        },
+        {
+          "line": "TM-Mo-0150",
+          "text": "      }"
+        },
+        {
+          "line": "TM-Mo-0151",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0152",
+          "text": "    } else {"
+        },
+        {
+          "line": "TM-Mo-0153",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0154",
+          "text": "      float fSinkDist = -sinkDist/2.0;"
+        },
+        {
+          "line": "TM-Mo-0155",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0156",
+          "text": "      if(overlapDist > fSinkDist) {"
+        },
+        {
+          "line": "TM-Mo-0157",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0158",
+          "text": "        float halfSinkDist = fSinkDist / 2.0;"
+        },
+        {
+          "line": "TM-Mo-0159",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0160",
+          "text": "        if(overlapDist > halfSinkDist) {"
+        },
+        {
+          "line": "TM-Mo-0161",
+          "text": "          transformed.y -= 20.0;"
+        },
+        {
+          "line": "TM-Mo-0162",
+          "text": "        } else {"
+        },
+        {
+          "line": "TM-Mo-0163",
+          "text": "          transformed.y -= 20.0 * (fSinkDist - overlapDist) / halfSinkDist;"
+        },
+        {
+          "line": "TM-Mo-0164",
+          "text": "        }"
+        },
+        {
+          "line": "TM-Mo-0165",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0166",
+          "text": "      }"
+        },
+        {
+          "line": "TM-Mo-0167",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0168",
+          "text": "    }"
+        },
+        {
+          "line": "TM-Mo-0169",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0170",
+          "text": "    // Recalc mvPosition"
+        },
+        {
+          "line": "TM-Mo-0171",
+          "text": "    mvPosition = modelViewMatrix * vec4( transformed, 1.0 );"
+        },
+        {
+          "line": "TM-Mo-0172",
+          "text": "}"
+        },
+        {
+          "line": "TM-Mo-0173",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0174",
+          "text": "gl_Position = projectionMatrix * mvPosition;"
+        },
+        {
+          "line": "TM-Mo-0175",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0176",
+          "text": "vCamDepth = -mvPosition.z;"
+        },
+        {
+          "line": "TM-Mo-0177",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0178",
+          "text": "// vLightGrass = 0.0;"
+        },
+        {
+          "line": "TM-Mo-0179",
+          "text": "// vDarkGrass = 0.0;"
+        },
+        {
+          "line": "TM-Mo-0180",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0181",
+          "text": "vShadow *= shadowFactor;"
+        },
+        {
+          "line": "TM-Mo-0182",
+          "text": ""
+        },
+        {
+          "line": "TM-Mo-0183",
+          "text": ""
+        }
+      ],
+      "excerpt": {
+        "first": 52,
+        "last": 234
+      }
+    },
+    "Lo": {
+      "text": "\n\nvarying float height;\nvarying float steepness;\nvarying float roadProx;\nvarying float hasRoadProx;\nvarying float vTreeMask;\nvarying vec2 vUv;\nvarying vec2 vUUv;\nvarying vec2 vWv;\nvarying vec2 vWWv;\nvarying float vLightGrass;\nvarying float vDarkGrass;\nvarying float vField;\nvarying float vHeather;\nvarying float vShadow;\nvarying float vCamDepth;\nvarying vec2 vRoadUv;\n\nuniform int seasonIndex;\n\nuniform sampler2D grassMap;\nuniform sampler2D sandMap;\nuniform sampler2D rockMap;\nuniform sampler2D rockMapBump;\nuniform sampler2D gravelMap;\nuniform sampler2D forestMap;\nuniform sampler2D heatherMap;\n\nuniform sampler2D detailNearMap;\nuniform sampler2D detailFarMap;\nuniform sampler2D grassVariationMap;\n\nuniform sampler2D offroadMap;\n\nuniform sampler2D fadeFine;\n\nuniform vec3 roadCol;\n\nuniform vec3 grassColA;\nuniform vec3 grassColB;\nuniform vec3 peakColA;\nuniform vec3 peakColB;\n\nuniform vec3 fieldDiscolouration;\n\nuniform float radiance;\n\nuniform float offroad;\nuniform float greenlane;\n\nvec4 rockTex;\n\nvec4 terrainBlend(vec4 tx1, float w1, vec4 tx2, float w2, float depth) {\n\n  // Perform the blending\n\n  float ma = max(tx1.a + w1, tx2.a + w2) - depth;\n  float b1 = max(tx1.a + w1 - ma, 0.0);\n  float b2 = max(tx2.a + w2 - ma, 0.0);\n\n  return ((tx1 * b1) + (tx2 * b2)) / (b1 + b2);\n}\n\n// the ws are the height of that texture; biggest w wins\n// The depth is the transition between them? maybe?\n\n// The height goes in the alpha channel of the textures 1 and 2\n// the w is the weight? the weight should be the transition?\n// depth is.. I don't know, a weird offset? No idea tbh\n\nfloat screen(float a, float b) {\n  return 1.0 - ((1.0 - a) * (1.0 - b));\n}\n\n",
+      "sha256": "8bfe4359759eee572d41143cfe2a7b81533b6bf31ff74c4b184779d7c2cec7cc",
+      "utf16Offset": 58416,
+      "lines": [
+        {
+          "line": "TM-Lo-0001",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0002",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0003",
+          "text": "varying float height;"
+        },
+        {
+          "line": "TM-Lo-0004",
+          "text": "varying float steepness;"
+        },
+        {
+          "line": "TM-Lo-0005",
+          "text": "varying float roadProx;"
+        },
+        {
+          "line": "TM-Lo-0006",
+          "text": "varying float hasRoadProx;"
+        },
+        {
+          "line": "TM-Lo-0007",
+          "text": "varying float vTreeMask;"
+        },
+        {
+          "line": "TM-Lo-0008",
+          "text": "varying vec2 vUv;"
+        },
+        {
+          "line": "TM-Lo-0009",
+          "text": "varying vec2 vUUv;"
+        },
+        {
+          "line": "TM-Lo-0010",
+          "text": "varying vec2 vWv;"
+        },
+        {
+          "line": "TM-Lo-0011",
+          "text": "varying vec2 vWWv;"
+        },
+        {
+          "line": "TM-Lo-0012",
+          "text": "varying float vLightGrass;"
+        },
+        {
+          "line": "TM-Lo-0013",
+          "text": "varying float vDarkGrass;"
+        },
+        {
+          "line": "TM-Lo-0014",
+          "text": "varying float vField;"
+        },
+        {
+          "line": "TM-Lo-0015",
+          "text": "varying float vHeather;"
+        },
+        {
+          "line": "TM-Lo-0016",
+          "text": "varying float vShadow;"
+        },
+        {
+          "line": "TM-Lo-0017",
+          "text": "varying float vCamDepth;"
+        },
+        {
+          "line": "TM-Lo-0018",
+          "text": "varying vec2 vRoadUv;"
+        },
+        {
+          "line": "TM-Lo-0019",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0020",
+          "text": "uniform int seasonIndex;"
+        },
+        {
+          "line": "TM-Lo-0021",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0022",
+          "text": "uniform sampler2D grassMap;"
+        },
+        {
+          "line": "TM-Lo-0023",
+          "text": "uniform sampler2D sandMap;"
+        },
+        {
+          "line": "TM-Lo-0024",
+          "text": "uniform sampler2D rockMap;"
+        },
+        {
+          "line": "TM-Lo-0025",
+          "text": "uniform sampler2D rockMapBump;"
+        },
+        {
+          "line": "TM-Lo-0026",
+          "text": "uniform sampler2D gravelMap;"
+        },
+        {
+          "line": "TM-Lo-0027",
+          "text": "uniform sampler2D forestMap;"
+        },
+        {
+          "line": "TM-Lo-0028",
+          "text": "uniform sampler2D heatherMap;"
+        },
+        {
+          "line": "TM-Lo-0029",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0030",
+          "text": "uniform sampler2D detailNearMap;"
+        },
+        {
+          "line": "TM-Lo-0031",
+          "text": "uniform sampler2D detailFarMap;"
+        },
+        {
+          "line": "TM-Lo-0032",
+          "text": "uniform sampler2D grassVariationMap;"
+        },
+        {
+          "line": "TM-Lo-0033",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0034",
+          "text": "uniform sampler2D offroadMap;"
+        },
+        {
+          "line": "TM-Lo-0035",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0036",
+          "text": "uniform sampler2D fadeFine;"
+        },
+        {
+          "line": "TM-Lo-0037",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0038",
+          "text": "uniform vec3 roadCol;"
+        },
+        {
+          "line": "TM-Lo-0039",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0040",
+          "text": "uniform vec3 grassColA;"
+        },
+        {
+          "line": "TM-Lo-0041",
+          "text": "uniform vec3 grassColB;"
+        },
+        {
+          "line": "TM-Lo-0042",
+          "text": "uniform vec3 peakColA;"
+        },
+        {
+          "line": "TM-Lo-0043",
+          "text": "uniform vec3 peakColB;"
+        },
+        {
+          "line": "TM-Lo-0044",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0045",
+          "text": "uniform vec3 fieldDiscolouration;"
+        },
+        {
+          "line": "TM-Lo-0046",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0047",
+          "text": "uniform float radiance;"
+        },
+        {
+          "line": "TM-Lo-0048",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0049",
+          "text": "uniform float offroad;"
+        },
+        {
+          "line": "TM-Lo-0050",
+          "text": "uniform float greenlane;"
+        },
+        {
+          "line": "TM-Lo-0051",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0052",
+          "text": "vec4 rockTex;"
+        },
+        {
+          "line": "TM-Lo-0053",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0054",
+          "text": "vec4 terrainBlend(vec4 tx1, float w1, vec4 tx2, float w2, float depth) {"
+        },
+        {
+          "line": "TM-Lo-0055",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0056",
+          "text": "  // Perform the blending"
+        },
+        {
+          "line": "TM-Lo-0057",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0058",
+          "text": "  float ma = max(tx1.a + w1, tx2.a + w2) - depth;"
+        },
+        {
+          "line": "TM-Lo-0059",
+          "text": "  float b1 = max(tx1.a + w1 - ma, 0.0);"
+        },
+        {
+          "line": "TM-Lo-0060",
+          "text": "  float b2 = max(tx2.a + w2 - ma, 0.0);"
+        },
+        {
+          "line": "TM-Lo-0061",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0062",
+          "text": "  return ((tx1 * b1) + (tx2 * b2)) / (b1 + b2);"
+        },
+        {
+          "line": "TM-Lo-0063",
+          "text": "}"
+        },
+        {
+          "line": "TM-Lo-0064",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0065",
+          "text": "// the ws are the height of that texture; biggest w wins"
+        },
+        {
+          "line": "TM-Lo-0066",
+          "text": "// The depth is the transition between them? maybe?"
+        },
+        {
+          "line": "TM-Lo-0067",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0068",
+          "text": "// The height goes in the alpha channel of the textures 1 and 2"
+        },
+        {
+          "line": "TM-Lo-0069",
+          "text": "// the w is the weight? the weight should be the transition?"
+        },
+        {
+          "line": "TM-Lo-0070",
+          "text": "// depth is.. I don't know, a weird offset? No idea tbh"
+        },
+        {
+          "line": "TM-Lo-0071",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0072",
+          "text": "float screen(float a, float b) {"
+        },
+        {
+          "line": "TM-Lo-0073",
+          "text": "  return 1.0 - ((1.0 - a) * (1.0 - b));"
+        },
+        {
+          "line": "TM-Lo-0074",
+          "text": "}"
+        },
+        {
+          "line": "TM-Lo-0075",
+          "text": ""
+        },
+        {
+          "line": "TM-Lo-0076",
+          "text": ""
+        }
+      ],
+      "excerpt": {
+        "first": 235,
+        "last": 310
+      }
+    },
+    "yo": {
+      "text": "\n\nfloat fade0 = texture2D(fadeFine, vUv).r;\nfloat fade1 = texture2D(fadeFine, vUUv).r;\nfloat fade2 = texture2D(fadeFine, vWv).r;\n\n//// PREP MAP\n\nvec4 texelColor = texture2D( grassMap, vUv ); \n\n//// DETAIL TEXTURING\n\nfloat blendVal  = (1.0 - texture2D( detailFarMap, vWWv ).r);\nfloat blendValB = (1.0 - texture2D( detailFarMap, vWv ).r);\nfloat blendValC = (1.0 - texture2D( detailFarMap, vUUv).r);\n\n\nblendValB = screen(blendValC, blendValB);\nblendValB *= min(1.0, blendVal * 10.0);\n\n// Reduce on winter?\nif(seasonIndex == 3) {\n  blendValB *= 0.7;\n}\n\n// Elevation alteration to large-scale blend\nblendVal *= (0.6 + 0.4 * vLightGrass);\n\n// Enhance the distant intensity relative to medium/close range\nblendVal *= 2.0;\n\n// Blend from large-scale to medium-scale\nfloat depthLerpFar = saturate(vCamDepth / 800.0);\nblendVal = blendVal * depthLerpFar + (1.0 - depthLerpFar) * blendValB;\n\n// Large-scale texture toned down for fields\nfloat fieldFactor = ceil(abs(vField));\n// blendVal *= 1.0 - fieldFactor * 0.25;\n\n// Depth for far\nblendVal *= saturate(0.4 + 0.6 * (vCamDepth / 300.0));\n\n// Dotty noisy...\nblendVal += (1.0 - texture2D( detailNearMap, vUUv ).r ) * (0.7 + vLightGrass * 0.3);\n\n//// GRASS COLOUR MIX\n\n// Blend them into two colours\n\nfloat variationVal = texture2D(grassVariationMap, vWWv).r - 0.5;\nfloat closeVariation = ((1.0 - texture2D(grassVariationMap, vWv).r) - 0.5);\n\nfloat grassBlend = (screen(fade1, fade0) + vDarkGrass) / 2.0;\n\n// Square for more effect?\ngrassBlend = grassBlend * grassBlend;\n\ngrassBlend = saturate(grassBlend + variationVal + closeVariation);\n\nfloat lightGrassFactor = saturate(vLightGrass + variationVal - closeVariation);\n\n// Colour the grass tips versus base\nlightGrassFactor = saturate(lightGrassFactor * 2.0 * texelColor.r);\n\nvec3 grassCol = mix(\n  mix(grassColA, grassColB, grassBlend),\n  mix(peakColA, peakColB, grassBlend),\n  lightGrassFactor\n);\n\n//// APPLY GRASS COLOUR\n\ntexelColor.rgb *= grassCol;\n\n//// FIELDS\n\nif(vField != 0.0) {\n\n  // Rough lines using noise\n  // Note that we step on vField for simplicity - should consider a separate varying for field mow dir though\n  float fadeField = texture2D(\n    fadeFine,\n    vec2(\n      vWv.x * 2.0 * step(0.001, vField),\n      vWv.y * 2.0 * (1.0 - step(0.001, vField))\n    )\n  ).r;\n\n  texelColor.rgb += vField * fieldDiscolouration * fadeField;\n\n}\n\n//// HEATHER\n\n\nif(vHeather > 0.0) {\n\n  vec4 heatherCol = texture2D(heatherMap, vUv);\n\n  float depthLerp = 0.25 + 0.75 * min(1.0, vCamDepth / 400.0);\n  heatherCol = mix(heatherCol, texture2D( heatherMap, vWv ), depthLerp);\n  \n  heatherCol = mix(texelColor, heatherCol, min(1.0, vHeather));\n  heatherCol.a = heatherCol.r;\n  texelColor.a = texelColor.g;\n  texelColor = terrainBlend(\n      texelColor,\n      1.0 - vHeather,\n      heatherCol,\n      vHeather,\n      0.1\n  );\n  \n}\n  \n// Apply detail texture\ntexelColor *= 1.0 - blendVal;\n\n\n//// TREE MASK\n\nvec4 forestCol = texture2D(forestMap, vUv / (1.25 - offroad * 0.25)); // larger scale looks better?\nforestCol.a = forestCol.r * 2.0 * fade2;\n\nfloat fTreeMask = min(1.0, vTreeMask);\n\nif(fTreeMask > 0.0) {\n\n  texelColor = terrainBlend(\n    texelColor,\n    1.0-fTreeMask,\n    forestCol,\n    fTreeMask,\n    0.1 + (1.0 - fTreeMask) * fade0 * 0.9\n  );\n\n  texelColor.a = 1.0;\n}\n\n\n//// SAND BLEND\n\nfloat vHeight = height + min(1.0, height+0.5) * (fade2 * 2.0 + (fade0 + fade2) * 0.5);\n\nif(vHeight < 4.0 && seasonIndex < 3) {\n\n  float dark = 1.0;\n\n  if(vHeight < 0.0) {\n    texelColor = texture2D(sandMap, vUv) * 0.75;\n  } else {\n\n    if(vHeight < 2.0) {\n\n      // Darken toward water\n      dark = min(dark, 1.0 - (2.0 - vHeight) / 4.0);\n\n    } else if(vHeight > 2.5) {\n\n      // Darken into the grass\n      dark = 1.0 - (vHeight-2.5) / 2.0;\n\n    }\n\n    // Lerp from grass to thingy\n    float lerp = max(0.0, (vHeight - 1.0) / 3.0);\n\n    vec4 sandCol = texture2D(sandMap, vUv);\n\n    texelColor.a = texelColor.r;\n\n    sandCol.a = sandCol.r;\n\n    // Apply shading based on water/grass proximity\n    sandCol.rgb *= dark;\n\n    texelColor = terrainBlend(\n      texelColor,\n      lerp,\n      sandCol,\n      1.0 - lerp,\n      0.05\n    );\n\n    // texelColor = mix(texture2D(sandMap, vUv) * dark, texelColor, height / 4.0);\n\n    // texelColor = terrainBlend(\n    //   texture2D(sandMap, vUv) * dark,\n    //   dark,\n    //   texelColor,\n    //   texelColor.g,\n    //   height / 4.0\n    // );\n  }\n}\n\n//// ROADSIDE GRAVEL\n\nif((seasonIndex < 3 || offroad > 0.5) && hasRoadProx > 0.5) {\n\n  if(offroad < 0.5 && roadProx < -0.2 && (vCamDepth > 100.0 || seasonIndex == 1)) {\n\n    texelColor.rgb = roadCol;\n\n  } else if(roadProx + fade2 * 0.1 < 0.5 * fade0) {\n\n    float rp = saturate(1.0 - (roadProx + fade2 * 0.1) / (0.5 * fade0));    \n\n    //// GREENLANE CENTER\n    // NOTE - could inject this at attribute level instead?\n    \n    if(greenlane > 0.5) {\n      if(roadProx < -0.7) { // Lower values = narrower strip in middle\n        if(roadProx < -1.1) {\n          rp = 0.0;\n        } else {\n          // needs to be 0 when -1.2, 1 when -0.8\n          rp = 1.0 - (-roadProx - 0.7) / 0.4;\n        }\n      }\n    } else if(offroad > 0.5) {\n\n      // Off-road a bit noisier along grass edges\n      rp = saturate((1.0 * fade0) - (roadProx + fade2 * 0.1) / (1.0 * fade0));    \n\n    }\n\n    // Mix into forest colour if we're under trees\n    if(offroad > 0.5) {\n\n      float edgeness = 1.0 - saturate(-roadProx/(2.0 - greenlane));\n\n      vec4 gravelCol = texture2D(gravelMap, vUv) * (0.75 + rp * rp * 0.75);\n\n      // texelColor.rgb = vec3(rp);\n      texelColor = mix(\n\n      \n      mix(\n\n        gravelCol,\n          forestCol,\n          min(0.8 - greenlane * 0.2, vShadow * 2.0) * edgeness\n        ),\n        \n        texelColor,\n\n        smoothstep(\n          0.0, \n          rp,\n          texelColor.g / rp\n        )\n        \n\n      );\n\n      // OFFROAD TEXTURE\n      if((greenlane < 0.5 || seasonIndex == 3) && roadProx < 1.0) {\n          vec4 roadMaskCol = texture2D(offroadMap, vRoadUv);\n          texelColor.rgb *= 1.0 - roadMaskCol.r * 0.5 * ((1.0 - greenlane) + (greenlane * rp));\n          \n      }  \n\n    } else if(seasonIndex != 1 && vShadow > 0.0) {\n\n      float gravelBrightness = 1.3;\n      // if(seasonIndex == 2) {\n      //   gravelBrightness = 1.3;\n      // }\n\n      texelColor = mix(\n\n        mix(\n          texture2D(\n            gravelMap,\n            vUv\n          ),\n          forestCol * gravelBrightness,\n          min(1.0, vShadow * 2.0)\n        ),\n\n        texelColor,\n\n        smoothstep(\n          0.0, \n          rp,\n          texelColor.g / rp\n        )\n      );\n\n    } else {\n\n      texelColor = mix(\n        texture2D(gravelMap, vUv) * (0.75 + rp * rp * 0.75),\n        texelColor,\n        smoothstep(\n          0.0, \n          rp,\n          texelColor.g / rp\n        )\n      );      \n    }\n\n  }\n\n}\n\n//// STEEPNESS CLIFF\n\n// Note we do a branch here since cliffs take up such a small portion of the space; worthwhile\nif(steepness > 0.1) {\n\n  float steepBlend = 1.0 - steepness;\n  rockTex = mix(\n    texture2D(rockMap, vUv),\n    texture2D(rockMap, vUUv),\n    saturate((vCamDepth - 20.0) / 130.0) // Blend by proximity\n  );\n  \n  // Gradual distance-based blend\n  rockTex.a = texture2D(rockMapBump, vUv).r * texture2D(rockMapBump, vUUv).r;\n  \n  // Blend according to steepness etc.\n  texelColor.a = 0.2 + fade2 * 0.2;\n  \n  // Lower steep blend is more snow?\n  // float steepBlend = 1.0 - steepness; // Reduce steepess factor to reduce rockiness\n  // Reduce the depth value to increase sharp transition from snow to rock\n  texelColor = terrainBlend(texelColor, steepBlend, rockTex, (1.0 - steepBlend), 0.08);\n  texelColor.a = 1.0;\n}\n\n//// PREVENT GLITTERING PIXELS\n\ntexelColor.r = saturate(texelColor.r);\ntexelColor.g = saturate(texelColor.g);\ntexelColor.b = saturate(texelColor.b);\n\n//// PREP EMISSIVE?\n\n// NOTE this must match the grass sprites. Ideally share a chunk?\n\ntotalEmissiveRadiance = texelColor.rgb * radiance;\n\n//// FINAL COMPOSITION\n\ndiffuseColor *= texelColor;\n\n// DEBUG COLOURS\n// diffuseColor = vec4(vHeather, vCurvature, 0.0, 1.0);\n// diffuseColor.rgb = vNormal.rgb;\n// diffuseColor = vec4(vec3(vLightGrass), 1.0);\n\n// Clamp to reduce glittering pixels? Needs a better fix though... this is a last resort\n\n/*\n\nThis is a commercial project owned and developed solely by Topograph Interactive Ltd.\nNo derivatives or modifications are permitted \n\n*/\n\n\n",
+      "sha256": "e15b1fdeb0eeb3abb40950334fc59158302ae63397f17a707a3b564909d5eb4e",
+      "utf16Offset": 60075,
+      "lines": [
+        {
+          "line": "TM-yo-0001",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0002",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0003",
+          "text": "float fade0 = texture2D(fadeFine, vUv).r;"
+        },
+        {
+          "line": "TM-yo-0004",
+          "text": "float fade1 = texture2D(fadeFine, vUUv).r;"
+        },
+        {
+          "line": "TM-yo-0005",
+          "text": "float fade2 = texture2D(fadeFine, vWv).r;"
+        },
+        {
+          "line": "TM-yo-0006",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0007",
+          "text": "//// PREP MAP"
+        },
+        {
+          "line": "TM-yo-0008",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0009",
+          "text": "vec4 texelColor = texture2D( grassMap, vUv ); "
+        },
+        {
+          "line": "TM-yo-0010",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0011",
+          "text": "//// DETAIL TEXTURING"
+        },
+        {
+          "line": "TM-yo-0012",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0013",
+          "text": "float blendVal  = (1.0 - texture2D( detailFarMap, vWWv ).r);"
+        },
+        {
+          "line": "TM-yo-0014",
+          "text": "float blendValB = (1.0 - texture2D( detailFarMap, vWv ).r);"
+        },
+        {
+          "line": "TM-yo-0015",
+          "text": "float blendValC = (1.0 - texture2D( detailFarMap, vUUv).r);"
+        },
+        {
+          "line": "TM-yo-0016",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0017",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0018",
+          "text": "blendValB = screen(blendValC, blendValB);"
+        },
+        {
+          "line": "TM-yo-0019",
+          "text": "blendValB *= min(1.0, blendVal * 10.0);"
+        },
+        {
+          "line": "TM-yo-0020",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0021",
+          "text": "// Reduce on winter?"
+        },
+        {
+          "line": "TM-yo-0022",
+          "text": "if(seasonIndex == 3) {"
+        },
+        {
+          "line": "TM-yo-0023",
+          "text": "  blendValB *= 0.7;"
+        },
+        {
+          "line": "TM-yo-0024",
+          "text": "}"
+        },
+        {
+          "line": "TM-yo-0025",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0026",
+          "text": "// Elevation alteration to large-scale blend"
+        },
+        {
+          "line": "TM-yo-0027",
+          "text": "blendVal *= (0.6 + 0.4 * vLightGrass);"
+        },
+        {
+          "line": "TM-yo-0028",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0029",
+          "text": "// Enhance the distant intensity relative to medium/close range"
+        },
+        {
+          "line": "TM-yo-0030",
+          "text": "blendVal *= 2.0;"
+        },
+        {
+          "line": "TM-yo-0031",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0032",
+          "text": "// Blend from large-scale to medium-scale"
+        },
+        {
+          "line": "TM-yo-0033",
+          "text": "float depthLerpFar = saturate(vCamDepth / 800.0);"
+        },
+        {
+          "line": "TM-yo-0034",
+          "text": "blendVal = blendVal * depthLerpFar + (1.0 - depthLerpFar) * blendValB;"
+        },
+        {
+          "line": "TM-yo-0035",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0036",
+          "text": "// Large-scale texture toned down for fields"
+        },
+        {
+          "line": "TM-yo-0037",
+          "text": "float fieldFactor = ceil(abs(vField));"
+        },
+        {
+          "line": "TM-yo-0038",
+          "text": "// blendVal *= 1.0 - fieldFactor * 0.25;"
+        },
+        {
+          "line": "TM-yo-0039",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0040",
+          "text": "// Depth for far"
+        },
+        {
+          "line": "TM-yo-0041",
+          "text": "blendVal *= saturate(0.4 + 0.6 * (vCamDepth / 300.0));"
+        },
+        {
+          "line": "TM-yo-0042",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0043",
+          "text": "// Dotty noisy..."
+        },
+        {
+          "line": "TM-yo-0044",
+          "text": "blendVal += (1.0 - texture2D( detailNearMap, vUUv ).r ) * (0.7 + vLightGrass * 0.3);"
+        },
+        {
+          "line": "TM-yo-0045",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0046",
+          "text": "//// GRASS COLOUR MIX"
+        },
+        {
+          "line": "TM-yo-0047",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0048",
+          "text": "// Blend them into two colours"
+        },
+        {
+          "line": "TM-yo-0049",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0050",
+          "text": "float variationVal = texture2D(grassVariationMap, vWWv).r - 0.5;"
+        },
+        {
+          "line": "TM-yo-0051",
+          "text": "float closeVariation = ((1.0 - texture2D(grassVariationMap, vWv).r) - 0.5);"
+        },
+        {
+          "line": "TM-yo-0052",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0053",
+          "text": "float grassBlend = (screen(fade1, fade0) + vDarkGrass) / 2.0;"
+        },
+        {
+          "line": "TM-yo-0054",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0055",
+          "text": "// Square for more effect?"
+        },
+        {
+          "line": "TM-yo-0056",
+          "text": "grassBlend = grassBlend * grassBlend;"
+        },
+        {
+          "line": "TM-yo-0057",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0058",
+          "text": "grassBlend = saturate(grassBlend + variationVal + closeVariation);"
+        },
+        {
+          "line": "TM-yo-0059",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0060",
+          "text": "float lightGrassFactor = saturate(vLightGrass + variationVal - closeVariation);"
+        },
+        {
+          "line": "TM-yo-0061",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0062",
+          "text": "// Colour the grass tips versus base"
+        },
+        {
+          "line": "TM-yo-0063",
+          "text": "lightGrassFactor = saturate(lightGrassFactor * 2.0 * texelColor.r);"
+        },
+        {
+          "line": "TM-yo-0064",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0065",
+          "text": "vec3 grassCol = mix("
+        },
+        {
+          "line": "TM-yo-0066",
+          "text": "  mix(grassColA, grassColB, grassBlend),"
+        },
+        {
+          "line": "TM-yo-0067",
+          "text": "  mix(peakColA, peakColB, grassBlend),"
+        },
+        {
+          "line": "TM-yo-0068",
+          "text": "  lightGrassFactor"
+        },
+        {
+          "line": "TM-yo-0069",
+          "text": ");"
+        },
+        {
+          "line": "TM-yo-0070",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0071",
+          "text": "//// APPLY GRASS COLOUR"
+        },
+        {
+          "line": "TM-yo-0072",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0073",
+          "text": "texelColor.rgb *= grassCol;"
+        },
+        {
+          "line": "TM-yo-0074",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0075",
+          "text": "//// FIELDS"
+        },
+        {
+          "line": "TM-yo-0076",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0077",
+          "text": "if(vField != 0.0) {"
+        },
+        {
+          "line": "TM-yo-0078",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0079",
+          "text": "  // Rough lines using noise"
+        },
+        {
+          "line": "TM-yo-0080",
+          "text": "  // Note that we step on vField for simplicity - should consider a separate varying for field mow dir though"
+        },
+        {
+          "line": "TM-yo-0081",
+          "text": "  float fadeField = texture2D("
+        },
+        {
+          "line": "TM-yo-0082",
+          "text": "    fadeFine,"
+        },
+        {
+          "line": "TM-yo-0083",
+          "text": "    vec2("
+        },
+        {
+          "line": "TM-yo-0084",
+          "text": "      vWv.x * 2.0 * step(0.001, vField),"
+        },
+        {
+          "line": "TM-yo-0085",
+          "text": "      vWv.y * 2.0 * (1.0 - step(0.001, vField))"
+        },
+        {
+          "line": "TM-yo-0086",
+          "text": "    )"
+        },
+        {
+          "line": "TM-yo-0087",
+          "text": "  ).r;"
+        },
+        {
+          "line": "TM-yo-0088",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0089",
+          "text": "  texelColor.rgb += vField * fieldDiscolouration * fadeField;"
+        },
+        {
+          "line": "TM-yo-0090",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0091",
+          "text": "}"
+        },
+        {
+          "line": "TM-yo-0092",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0093",
+          "text": "//// HEATHER"
+        },
+        {
+          "line": "TM-yo-0094",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0095",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0096",
+          "text": "if(vHeather > 0.0) {"
+        },
+        {
+          "line": "TM-yo-0097",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0098",
+          "text": "  vec4 heatherCol = texture2D(heatherMap, vUv);"
+        },
+        {
+          "line": "TM-yo-0099",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0100",
+          "text": "  float depthLerp = 0.25 + 0.75 * min(1.0, vCamDepth / 400.0);"
+        },
+        {
+          "line": "TM-yo-0101",
+          "text": "  heatherCol = mix(heatherCol, texture2D( heatherMap, vWv ), depthLerp);"
+        },
+        {
+          "line": "TM-yo-0102",
+          "text": "  "
+        },
+        {
+          "line": "TM-yo-0103",
+          "text": "  heatherCol = mix(texelColor, heatherCol, min(1.0, vHeather));"
+        },
+        {
+          "line": "TM-yo-0104",
+          "text": "  heatherCol.a = heatherCol.r;"
+        },
+        {
+          "line": "TM-yo-0105",
+          "text": "  texelColor.a = texelColor.g;"
+        },
+        {
+          "line": "TM-yo-0106",
+          "text": "  texelColor = terrainBlend("
+        },
+        {
+          "line": "TM-yo-0107",
+          "text": "      texelColor,"
+        },
+        {
+          "line": "TM-yo-0108",
+          "text": "      1.0 - vHeather,"
+        },
+        {
+          "line": "TM-yo-0109",
+          "text": "      heatherCol,"
+        },
+        {
+          "line": "TM-yo-0110",
+          "text": "      vHeather,"
+        },
+        {
+          "line": "TM-yo-0111",
+          "text": "      0.1"
+        },
+        {
+          "line": "TM-yo-0112",
+          "text": "  );"
+        },
+        {
+          "line": "TM-yo-0113",
+          "text": "  "
+        },
+        {
+          "line": "TM-yo-0114",
+          "text": "}"
+        },
+        {
+          "line": "TM-yo-0115",
+          "text": "  "
+        },
+        {
+          "line": "TM-yo-0116",
+          "text": "// Apply detail texture"
+        },
+        {
+          "line": "TM-yo-0117",
+          "text": "texelColor *= 1.0 - blendVal;"
+        },
+        {
+          "line": "TM-yo-0118",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0119",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0120",
+          "text": "//// TREE MASK"
+        },
+        {
+          "line": "TM-yo-0121",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0122",
+          "text": "vec4 forestCol = texture2D(forestMap, vUv / (1.25 - offroad * 0.25)); // larger scale looks better?"
+        },
+        {
+          "line": "TM-yo-0123",
+          "text": "forestCol.a = forestCol.r * 2.0 * fade2;"
+        },
+        {
+          "line": "TM-yo-0124",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0125",
+          "text": "float fTreeMask = min(1.0, vTreeMask);"
+        },
+        {
+          "line": "TM-yo-0126",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0127",
+          "text": "if(fTreeMask > 0.0) {"
+        },
+        {
+          "line": "TM-yo-0128",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0129",
+          "text": "  texelColor = terrainBlend("
+        },
+        {
+          "line": "TM-yo-0130",
+          "text": "    texelColor,"
+        },
+        {
+          "line": "TM-yo-0131",
+          "text": "    1.0-fTreeMask,"
+        },
+        {
+          "line": "TM-yo-0132",
+          "text": "    forestCol,"
+        },
+        {
+          "line": "TM-yo-0133",
+          "text": "    fTreeMask,"
+        },
+        {
+          "line": "TM-yo-0134",
+          "text": "    0.1 + (1.0 - fTreeMask) * fade0 * 0.9"
+        },
+        {
+          "line": "TM-yo-0135",
+          "text": "  );"
+        },
+        {
+          "line": "TM-yo-0136",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0137",
+          "text": "  texelColor.a = 1.0;"
+        },
+        {
+          "line": "TM-yo-0138",
+          "text": "}"
+        },
+        {
+          "line": "TM-yo-0139",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0140",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0141",
+          "text": "//// SAND BLEND"
+        },
+        {
+          "line": "TM-yo-0142",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0143",
+          "text": "float vHeight = height + min(1.0, height+0.5) * (fade2 * 2.0 + (fade0 + fade2) * 0.5);"
+        },
+        {
+          "line": "TM-yo-0144",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0145",
+          "text": "if(vHeight < 4.0 && seasonIndex < 3) {"
+        },
+        {
+          "line": "TM-yo-0146",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0147",
+          "text": "  float dark = 1.0;"
+        },
+        {
+          "line": "TM-yo-0148",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0149",
+          "text": "  if(vHeight < 0.0) {"
+        },
+        {
+          "line": "TM-yo-0150",
+          "text": "    texelColor = texture2D(sandMap, vUv) * 0.75;"
+        },
+        {
+          "line": "TM-yo-0151",
+          "text": "  } else {"
+        },
+        {
+          "line": "TM-yo-0152",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0153",
+          "text": "    if(vHeight < 2.0) {"
+        },
+        {
+          "line": "TM-yo-0154",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0155",
+          "text": "      // Darken toward water"
+        },
+        {
+          "line": "TM-yo-0156",
+          "text": "      dark = min(dark, 1.0 - (2.0 - vHeight) / 4.0);"
+        },
+        {
+          "line": "TM-yo-0157",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0158",
+          "text": "    } else if(vHeight > 2.5) {"
+        },
+        {
+          "line": "TM-yo-0159",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0160",
+          "text": "      // Darken into the grass"
+        },
+        {
+          "line": "TM-yo-0161",
+          "text": "      dark = 1.0 - (vHeight-2.5) / 2.0;"
+        },
+        {
+          "line": "TM-yo-0162",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0163",
+          "text": "    }"
+        },
+        {
+          "line": "TM-yo-0164",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0165",
+          "text": "    // Lerp from grass to thingy"
+        },
+        {
+          "line": "TM-yo-0166",
+          "text": "    float lerp = max(0.0, (vHeight - 1.0) / 3.0);"
+        },
+        {
+          "line": "TM-yo-0167",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0168",
+          "text": "    vec4 sandCol = texture2D(sandMap, vUv);"
+        },
+        {
+          "line": "TM-yo-0169",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0170",
+          "text": "    texelColor.a = texelColor.r;"
+        },
+        {
+          "line": "TM-yo-0171",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0172",
+          "text": "    sandCol.a = sandCol.r;"
+        },
+        {
+          "line": "TM-yo-0173",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0174",
+          "text": "    // Apply shading based on water/grass proximity"
+        },
+        {
+          "line": "TM-yo-0175",
+          "text": "    sandCol.rgb *= dark;"
+        },
+        {
+          "line": "TM-yo-0176",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0177",
+          "text": "    texelColor = terrainBlend("
+        },
+        {
+          "line": "TM-yo-0178",
+          "text": "      texelColor,"
+        },
+        {
+          "line": "TM-yo-0179",
+          "text": "      lerp,"
+        },
+        {
+          "line": "TM-yo-0180",
+          "text": "      sandCol,"
+        },
+        {
+          "line": "TM-yo-0181",
+          "text": "      1.0 - lerp,"
+        },
+        {
+          "line": "TM-yo-0182",
+          "text": "      0.05"
+        },
+        {
+          "line": "TM-yo-0183",
+          "text": "    );"
+        },
+        {
+          "line": "TM-yo-0184",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0185",
+          "text": "    // texelColor = mix(texture2D(sandMap, vUv) * dark, texelColor, height / 4.0);"
+        },
+        {
+          "line": "TM-yo-0186",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0187",
+          "text": "    // texelColor = terrainBlend("
+        },
+        {
+          "line": "TM-yo-0188",
+          "text": "    //   texture2D(sandMap, vUv) * dark,"
+        },
+        {
+          "line": "TM-yo-0189",
+          "text": "    //   dark,"
+        },
+        {
+          "line": "TM-yo-0190",
+          "text": "    //   texelColor,"
+        },
+        {
+          "line": "TM-yo-0191",
+          "text": "    //   texelColor.g,"
+        },
+        {
+          "line": "TM-yo-0192",
+          "text": "    //   height / 4.0"
+        },
+        {
+          "line": "TM-yo-0193",
+          "text": "    // );"
+        },
+        {
+          "line": "TM-yo-0194",
+          "text": "  }"
+        },
+        {
+          "line": "TM-yo-0195",
+          "text": "}"
+        },
+        {
+          "line": "TM-yo-0196",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0197",
+          "text": "//// ROADSIDE GRAVEL"
+        },
+        {
+          "line": "TM-yo-0198",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0199",
+          "text": "if((seasonIndex < 3 || offroad > 0.5) && hasRoadProx > 0.5) {"
+        },
+        {
+          "line": "TM-yo-0200",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0201",
+          "text": "  if(offroad < 0.5 && roadProx < -0.2 && (vCamDepth > 100.0 || seasonIndex == 1)) {"
+        },
+        {
+          "line": "TM-yo-0202",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0203",
+          "text": "    texelColor.rgb = roadCol;"
+        },
+        {
+          "line": "TM-yo-0204",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0205",
+          "text": "  } else if(roadProx + fade2 * 0.1 < 0.5 * fade0) {"
+        },
+        {
+          "line": "TM-yo-0206",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0207",
+          "text": "    float rp = saturate(1.0 - (roadProx + fade2 * 0.1) / (0.5 * fade0));    "
+        },
+        {
+          "line": "TM-yo-0208",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0209",
+          "text": "    //// GREENLANE CENTER"
+        },
+        {
+          "line": "TM-yo-0210",
+          "text": "    // NOTE - could inject this at attribute level instead?"
+        },
+        {
+          "line": "TM-yo-0211",
+          "text": "    "
+        },
+        {
+          "line": "TM-yo-0212",
+          "text": "    if(greenlane > 0.5) {"
+        },
+        {
+          "line": "TM-yo-0213",
+          "text": "      if(roadProx < -0.7) { // Lower values = narrower strip in middle"
+        },
+        {
+          "line": "TM-yo-0214",
+          "text": "        if(roadProx < -1.1) {"
+        },
+        {
+          "line": "TM-yo-0215",
+          "text": "          rp = 0.0;"
+        },
+        {
+          "line": "TM-yo-0216",
+          "text": "        } else {"
+        },
+        {
+          "line": "TM-yo-0217",
+          "text": "          // needs to be 0 when -1.2, 1 when -0.8"
+        },
+        {
+          "line": "TM-yo-0218",
+          "text": "          rp = 1.0 - (-roadProx - 0.7) / 0.4;"
+        },
+        {
+          "line": "TM-yo-0219",
+          "text": "        }"
+        },
+        {
+          "line": "TM-yo-0220",
+          "text": "      }"
+        },
+        {
+          "line": "TM-yo-0221",
+          "text": "    } else if(offroad > 0.5) {"
+        },
+        {
+          "line": "TM-yo-0222",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0223",
+          "text": "      // Off-road a bit noisier along grass edges"
+        },
+        {
+          "line": "TM-yo-0224",
+          "text": "      rp = saturate((1.0 * fade0) - (roadProx + fade2 * 0.1) / (1.0 * fade0));    "
+        },
+        {
+          "line": "TM-yo-0225",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0226",
+          "text": "    }"
+        },
+        {
+          "line": "TM-yo-0227",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0228",
+          "text": "    // Mix into forest colour if we're under trees"
+        },
+        {
+          "line": "TM-yo-0229",
+          "text": "    if(offroad > 0.5) {"
+        },
+        {
+          "line": "TM-yo-0230",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0231",
+          "text": "      float edgeness = 1.0 - saturate(-roadProx/(2.0 - greenlane));"
+        },
+        {
+          "line": "TM-yo-0232",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0233",
+          "text": "      vec4 gravelCol = texture2D(gravelMap, vUv) * (0.75 + rp * rp * 0.75);"
+        },
+        {
+          "line": "TM-yo-0234",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0235",
+          "text": "      // texelColor.rgb = vec3(rp);"
+        },
+        {
+          "line": "TM-yo-0236",
+          "text": "      texelColor = mix("
+        },
+        {
+          "line": "TM-yo-0237",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0238",
+          "text": "      "
+        },
+        {
+          "line": "TM-yo-0239",
+          "text": "      mix("
+        },
+        {
+          "line": "TM-yo-0240",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0241",
+          "text": "        gravelCol,"
+        },
+        {
+          "line": "TM-yo-0242",
+          "text": "          forestCol,"
+        },
+        {
+          "line": "TM-yo-0243",
+          "text": "          min(0.8 - greenlane * 0.2, vShadow * 2.0) * edgeness"
+        },
+        {
+          "line": "TM-yo-0244",
+          "text": "        ),"
+        },
+        {
+          "line": "TM-yo-0245",
+          "text": "        "
+        },
+        {
+          "line": "TM-yo-0246",
+          "text": "        texelColor,"
+        },
+        {
+          "line": "TM-yo-0247",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0248",
+          "text": "        smoothstep("
+        },
+        {
+          "line": "TM-yo-0249",
+          "text": "          0.0, "
+        },
+        {
+          "line": "TM-yo-0250",
+          "text": "          rp,"
+        },
+        {
+          "line": "TM-yo-0251",
+          "text": "          texelColor.g / rp"
+        },
+        {
+          "line": "TM-yo-0252",
+          "text": "        )"
+        },
+        {
+          "line": "TM-yo-0253",
+          "text": "        "
+        },
+        {
+          "line": "TM-yo-0254",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0255",
+          "text": "      );"
+        },
+        {
+          "line": "TM-yo-0256",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0257",
+          "text": "      // OFFROAD TEXTURE"
+        },
+        {
+          "line": "TM-yo-0258",
+          "text": "      if((greenlane < 0.5 || seasonIndex == 3) && roadProx < 1.0) {"
+        },
+        {
+          "line": "TM-yo-0259",
+          "text": "          vec4 roadMaskCol = texture2D(offroadMap, vRoadUv);"
+        },
+        {
+          "line": "TM-yo-0260",
+          "text": "          texelColor.rgb *= 1.0 - roadMaskCol.r * 0.5 * ((1.0 - greenlane) + (greenlane * rp));"
+        },
+        {
+          "line": "TM-yo-0261",
+          "text": "          "
+        },
+        {
+          "line": "TM-yo-0262",
+          "text": "      }  "
+        },
+        {
+          "line": "TM-yo-0263",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0264",
+          "text": "    } else if(seasonIndex != 1 && vShadow > 0.0) {"
+        },
+        {
+          "line": "TM-yo-0265",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0266",
+          "text": "      float gravelBrightness = 1.3;"
+        },
+        {
+          "line": "TM-yo-0267",
+          "text": "      // if(seasonIndex == 2) {"
+        },
+        {
+          "line": "TM-yo-0268",
+          "text": "      //   gravelBrightness = 1.3;"
+        },
+        {
+          "line": "TM-yo-0269",
+          "text": "      // }"
+        },
+        {
+          "line": "TM-yo-0270",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0271",
+          "text": "      texelColor = mix("
+        },
+        {
+          "line": "TM-yo-0272",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0273",
+          "text": "        mix("
+        },
+        {
+          "line": "TM-yo-0274",
+          "text": "          texture2D("
+        },
+        {
+          "line": "TM-yo-0275",
+          "text": "            gravelMap,"
+        },
+        {
+          "line": "TM-yo-0276",
+          "text": "            vUv"
+        },
+        {
+          "line": "TM-yo-0277",
+          "text": "          ),"
+        },
+        {
+          "line": "TM-yo-0278",
+          "text": "          forestCol * gravelBrightness,"
+        },
+        {
+          "line": "TM-yo-0279",
+          "text": "          min(1.0, vShadow * 2.0)"
+        },
+        {
+          "line": "TM-yo-0280",
+          "text": "        ),"
+        },
+        {
+          "line": "TM-yo-0281",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0282",
+          "text": "        texelColor,"
+        },
+        {
+          "line": "TM-yo-0283",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0284",
+          "text": "        smoothstep("
+        },
+        {
+          "line": "TM-yo-0285",
+          "text": "          0.0, "
+        },
+        {
+          "line": "TM-yo-0286",
+          "text": "          rp,"
+        },
+        {
+          "line": "TM-yo-0287",
+          "text": "          texelColor.g / rp"
+        },
+        {
+          "line": "TM-yo-0288",
+          "text": "        )"
+        },
+        {
+          "line": "TM-yo-0289",
+          "text": "      );"
+        },
+        {
+          "line": "TM-yo-0290",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0291",
+          "text": "    } else {"
+        },
+        {
+          "line": "TM-yo-0292",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0293",
+          "text": "      texelColor = mix("
+        },
+        {
+          "line": "TM-yo-0294",
+          "text": "        texture2D(gravelMap, vUv) * (0.75 + rp * rp * 0.75),"
+        },
+        {
+          "line": "TM-yo-0295",
+          "text": "        texelColor,"
+        },
+        {
+          "line": "TM-yo-0296",
+          "text": "        smoothstep("
+        },
+        {
+          "line": "TM-yo-0297",
+          "text": "          0.0, "
+        },
+        {
+          "line": "TM-yo-0298",
+          "text": "          rp,"
+        },
+        {
+          "line": "TM-yo-0299",
+          "text": "          texelColor.g / rp"
+        },
+        {
+          "line": "TM-yo-0300",
+          "text": "        )"
+        },
+        {
+          "line": "TM-yo-0301",
+          "text": "      );      "
+        },
+        {
+          "line": "TM-yo-0302",
+          "text": "    }"
+        },
+        {
+          "line": "TM-yo-0303",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0304",
+          "text": "  }"
+        },
+        {
+          "line": "TM-yo-0305",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0306",
+          "text": "}"
+        },
+        {
+          "line": "TM-yo-0307",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0308",
+          "text": "//// STEEPNESS CLIFF"
+        },
+        {
+          "line": "TM-yo-0309",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0310",
+          "text": "// Note we do a branch here since cliffs take up such a small portion of the space; worthwhile"
+        },
+        {
+          "line": "TM-yo-0311",
+          "text": "if(steepness > 0.1) {"
+        },
+        {
+          "line": "TM-yo-0312",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0313",
+          "text": "  float steepBlend = 1.0 - steepness;"
+        },
+        {
+          "line": "TM-yo-0314",
+          "text": "  rockTex = mix("
+        },
+        {
+          "line": "TM-yo-0315",
+          "text": "    texture2D(rockMap, vUv),"
+        },
+        {
+          "line": "TM-yo-0316",
+          "text": "    texture2D(rockMap, vUUv),"
+        },
+        {
+          "line": "TM-yo-0317",
+          "text": "    saturate((vCamDepth - 20.0) / 130.0) // Blend by proximity"
+        },
+        {
+          "line": "TM-yo-0318",
+          "text": "  );"
+        },
+        {
+          "line": "TM-yo-0319",
+          "text": "  "
+        },
+        {
+          "line": "TM-yo-0320",
+          "text": "  // Gradual distance-based blend"
+        },
+        {
+          "line": "TM-yo-0321",
+          "text": "  rockTex.a = texture2D(rockMapBump, vUv).r * texture2D(rockMapBump, vUUv).r;"
+        },
+        {
+          "line": "TM-yo-0322",
+          "text": "  "
+        },
+        {
+          "line": "TM-yo-0323",
+          "text": "  // Blend according to steepness etc."
+        },
+        {
+          "line": "TM-yo-0324",
+          "text": "  texelColor.a = 0.2 + fade2 * 0.2;"
+        },
+        {
+          "line": "TM-yo-0325",
+          "text": "  "
+        },
+        {
+          "line": "TM-yo-0326",
+          "text": "  // Lower steep blend is more snow?"
+        },
+        {
+          "line": "TM-yo-0327",
+          "text": "  // float steepBlend = 1.0 - steepness; // Reduce steepess factor to reduce rockiness"
+        },
+        {
+          "line": "TM-yo-0328",
+          "text": "  // Reduce the depth value to increase sharp transition from snow to rock"
+        },
+        {
+          "line": "TM-yo-0329",
+          "text": "  texelColor = terrainBlend(texelColor, steepBlend, rockTex, (1.0 - steepBlend), 0.08);"
+        },
+        {
+          "line": "TM-yo-0330",
+          "text": "  texelColor.a = 1.0;"
+        },
+        {
+          "line": "TM-yo-0331",
+          "text": "}"
+        },
+        {
+          "line": "TM-yo-0332",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0333",
+          "text": "//// PREVENT GLITTERING PIXELS"
+        },
+        {
+          "line": "TM-yo-0334",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0335",
+          "text": "texelColor.r = saturate(texelColor.r);"
+        },
+        {
+          "line": "TM-yo-0336",
+          "text": "texelColor.g = saturate(texelColor.g);"
+        },
+        {
+          "line": "TM-yo-0337",
+          "text": "texelColor.b = saturate(texelColor.b);"
+        },
+        {
+          "line": "TM-yo-0338",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0339",
+          "text": "//// PREP EMISSIVE?"
+        },
+        {
+          "line": "TM-yo-0340",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0341",
+          "text": "// NOTE this must match the grass sprites. Ideally share a chunk?"
+        },
+        {
+          "line": "TM-yo-0342",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0343",
+          "text": "totalEmissiveRadiance = texelColor.rgb * radiance;"
+        },
+        {
+          "line": "TM-yo-0344",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0345",
+          "text": "//// FINAL COMPOSITION"
+        },
+        {
+          "line": "TM-yo-0346",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0347",
+          "text": "diffuseColor *= texelColor;"
+        },
+        {
+          "line": "TM-yo-0348",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0349",
+          "text": "// DEBUG COLOURS"
+        },
+        {
+          "line": "TM-yo-0350",
+          "text": "// diffuseColor = vec4(vHeather, vCurvature, 0.0, 1.0);"
+        },
+        {
+          "line": "TM-yo-0351",
+          "text": "// diffuseColor.rgb = vNormal.rgb;"
+        },
+        {
+          "line": "TM-yo-0352",
+          "text": "// diffuseColor = vec4(vec3(vLightGrass), 1.0);"
+        },
+        {
+          "line": "TM-yo-0353",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0354",
+          "text": "// Clamp to reduce glittering pixels? Needs a better fix though... this is a last resort"
+        },
+        {
+          "line": "TM-yo-0355",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0356",
+          "text": "/*"
+        },
+        {
+          "line": "TM-yo-0357",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0358",
+          "text": "This is a commercial project owned and developed solely by Topograph Interactive Ltd."
+        },
+        {
+          "line": "TM-yo-0359",
+          "text": "No derivatives or modifications are permitted "
+        },
+        {
+          "line": "TM-yo-0360",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0361",
+          "text": "*/"
+        },
+        {
+          "line": "TM-yo-0362",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0363",
+          "text": ""
+        },
+        {
+          "line": "TM-yo-0364",
+          "text": ""
+        }
+      ],
+      "excerpt": {
+        "first": 311,
+        "last": 674
+      }
+    },
+    "Co": {
+      "text": "\n\n    // TODO ORIGIN OFFSET USE OFFSET CAM POS\n    vec3 offsetCameraPosition = vec3(\n      cameraPosition.x - originOffset.x,\n      cameraPosition.y,\n      cameraPosition.z - originOffset.y\n    );\n    // REPLACE BELOW WITH cameraPosition WHEN DISABLING ORIGIN OFFSET\n    \n    float fresnel = 1.0 - max( 0.0, dot( normalize(offsetCameraPosition - vFresnelPos), vFresnelNorm ) );\n\n    float lightFresnel = max(0.0, (fresnel - 0.75)) * 4.0 * (1.0 - blendVal * 0.5);\n    lightFresnel *= lightFresnel;\n    lightFresnel *= (1.0 - vShadow);\n    lightFresnel *= fresnelIntensity;\n    \n    float darkFresnel = 1.0 - min(1.0, fresnel * 1.3333);\n    darkFresnel *= fresnelIntensity;\n    darkFresnel = 0.25 + min(0.25, max(0.0, darkFresnel - 0.25) * 0.5);\n\n    diffuseColor.rgb *= 1.0 + lightFresnel - darkFresnel;\n\n",
+      "sha256": "6f75294eb96c72948215ce95d25fed8fa86224d0e5f83913bef04e95c6c75c17",
+      "utf16Offset": 68432,
+      "lines": [
+        {
+          "line": "TM-Co-0001",
+          "text": ""
+        },
+        {
+          "line": "TM-Co-0002",
+          "text": ""
+        },
+        {
+          "line": "TM-Co-0003",
+          "text": "    // TODO ORIGIN OFFSET USE OFFSET CAM POS"
+        },
+        {
+          "line": "TM-Co-0004",
+          "text": "    vec3 offsetCameraPosition = vec3("
+        },
+        {
+          "line": "TM-Co-0005",
+          "text": "      cameraPosition.x - originOffset.x,"
+        },
+        {
+          "line": "TM-Co-0006",
+          "text": "      cameraPosition.y,"
+        },
+        {
+          "line": "TM-Co-0007",
+          "text": "      cameraPosition.z - originOffset.y"
+        },
+        {
+          "line": "TM-Co-0008",
+          "text": "    );"
+        },
+        {
+          "line": "TM-Co-0009",
+          "text": "    // REPLACE BELOW WITH cameraPosition WHEN DISABLING ORIGIN OFFSET"
+        },
+        {
+          "line": "TM-Co-0010",
+          "text": "    "
+        },
+        {
+          "line": "TM-Co-0011",
+          "text": "    float fresnel = 1.0 - max( 0.0, dot( normalize(offsetCameraPosition - vFresnelPos), vFresnelNorm ) );"
+        },
+        {
+          "line": "TM-Co-0012",
+          "text": ""
+        },
+        {
+          "line": "TM-Co-0013",
+          "text": "    float lightFresnel = max(0.0, (fresnel - 0.75)) * 4.0 * (1.0 - blendVal * 0.5);"
+        },
+        {
+          "line": "TM-Co-0014",
+          "text": "    lightFresnel *= lightFresnel;"
+        },
+        {
+          "line": "TM-Co-0015",
+          "text": "    lightFresnel *= (1.0 - vShadow);"
+        },
+        {
+          "line": "TM-Co-0016",
+          "text": "    lightFresnel *= fresnelIntensity;"
+        },
+        {
+          "line": "TM-Co-0017",
+          "text": "    "
+        },
+        {
+          "line": "TM-Co-0018",
+          "text": "    float darkFresnel = 1.0 - min(1.0, fresnel * 1.3333);"
+        },
+        {
+          "line": "TM-Co-0019",
+          "text": "    darkFresnel *= fresnelIntensity;"
+        },
+        {
+          "line": "TM-Co-0020",
+          "text": "    darkFresnel = 0.25 + min(0.25, max(0.0, darkFresnel - 0.25) * 0.5);"
+        },
+        {
+          "line": "TM-Co-0021",
+          "text": ""
+        },
+        {
+          "line": "TM-Co-0022",
+          "text": "    diffuseColor.rgb *= 1.0 + lightFresnel - darkFresnel;"
+        },
+        {
+          "line": "TM-Co-0023",
+          "text": ""
+        },
+        {
+          "line": "TM-Co-0024",
+          "text": ""
+        }
+      ],
+      "excerpt": {
+        "first": 675,
+        "last": 698
+      }
+    }
+  },
+  "seasons": [
+    {
+      "name": "summer",
+      "maps": {
+        "grass": "grass.15f2422c.webp",
+        "forest": "forest_01.b82a9e7e.webp",
+        "heather": "summer_heather_05.5f56558d.webp",
+        "gravel": "gravel.0c64b1c3.webp",
+        "sand": "sand.43e5b6fc.webp",
+        "rock": "summer_rock.674f8c5a.webp",
+        "rockBump": "rock_bump.8f8c68ad.webp",
+        "detailNear": "ground_detail_near.9099b9d5.webp",
+        "detailFar": "ground_detail_far.a63b212a.webp",
+        "grassVariation": "grass_variation.209068de.webp",
+        "offroadMap": "offroad_mask.07511369.webp"
+      },
+      "roadColor": [
+        0.10363409665513738,
+        0.09387586652557776,
+        0.08690125178766034
+      ],
+      "colors": {
+        "grassColA": [
+          0.06003160713631323,
+          0.14799802298268516,
+          0.03561436968491877
+        ],
+        "grassColB": [
+          0.3203815487918104,
+          0.348864834082879,
+          0.11926401300504741
+        ],
+        "peakColA": [
+          0.505432468828216,
+          0.4368127538003594,
+          0.2631747163984916
+        ],
+        "peakColB": [
+          0.7592995506950911,
+          0.20835965596076741,
+          0.06003160713631323
+        ],
+        "fieldDiscolouration": [
+          0.1803921568627451,
+          0.03529411764705882,
+          0.0196078431372549
+        ]
+      }
+    },
+    {
+      "name": "spring",
+      "maps": {
+        "grass": "grass.15f2422c.webp",
+        "forest": "forest_spring.a81cef17.webp",
+        "heather": "summer_heather_05.5f56558d.webp",
+        "gravel": "gravel.0c64b1c3.webp",
+        "sand": "sand.43e5b6fc.webp",
+        "rock": "spring_rock.d1f6769c.webp",
+        "rockBump": "rock_bump.8f8c68ad.webp",
+        "detailNear": "ground_detail_near.9099b9d5.webp",
+        "detailFar": "ground_detail_far.a63b212a.webp",
+        "grassVariation": "grass_variation.209068de.webp",
+        "offroadMap": "offroad_mask.07511369.webp"
+      },
+      "roadColor": [
+        0.1247409453870513,
+        0.12198571316961948,
+        0.11657577617857154
+      ],
+      "colors": {
+        "grassColA": [
+          0.07382776632778461,
+          0.2388279842720483,
+          0.051122050056493396
+        ],
+        "grassColB": [
+          0.30212549635885283,
+          0.4045408225679618,
+          0.10363409665513738
+        ],
+        "peakColA": [
+          0.5795466117825252,
+          0.6387794556508168,
+          0.3066347662031576
+        ],
+        "peakColB": [
+          0.4478708418004099,
+          0.215764399609395,
+          0.10871114997903854
+        ],
+        "fieldDiscolouration": [
+          0.09411764705882353,
+          0.047058823529411764,
+          0.047058823529411764
+        ]
+      }
+    },
+    {
+      "name": "autumn",
+      "maps": {
+        "grass": "grass.15f2422c.webp",
+        "forest": "forest_autumn.55ca08bd.webp",
+        "heather": "autumn_heather.d890b430.webp",
+        "gravel": "gravel.0c64b1c3.webp",
+        "sand": "sand.43e5b6fc.webp",
+        "rock": "summer_rock.674f8c5a.webp",
+        "rockBump": "rock_bump.8f8c68ad.webp",
+        "detailNear": "ground_detail_near.9099b9d5.webp",
+        "detailFar": "ground_detail_far.a63b212a.webp",
+        "grassVariation": "grass_variation.209068de.webp",
+        "offroadMap": "offroad_mask.07511369.webp"
+      },
+      "roadColor": [
+        0.1247409453870513,
+        0.12198571316961948,
+        0.11657577617857154
+      ],
+      "colors": {
+        "grassColA": [
+          0.06575388026033009,
+          0.20835965596076741,
+          0.07176144884623908
+        ],
+        "grassColB": [
+          0.5234431552143247,
+          0.4368127538003594,
+          0.19397216704809314
+        ],
+        "peakColA": [
+          0.7742273142184416,
+          0.5234431552143247,
+          0.3586539059261989
+        ],
+        "peakColB": [
+          0.36859092219748707,
+          0.22331040834112742,
+          0.014310519374884064
+        ],
+        "fieldDiscolouration": [
+          0.13725490196078433,
+          0.11372549019607843,
+          0.08235294117647059
+        ]
+      }
+    },
+    {
+      "name": "winter",
+      "maps": {
+        "grass": "winter_grass.2126ead2.webp",
+        "forest": "forest_winter.0710a850.webp",
+        "heather": "winter_heather.b9aeb76f.webp",
+        "gravel": "winter_gravel.03b9e4e9.webp",
+        "sand": "winter_gravel.03b9e4e9.webp",
+        "rock": "winter_rock.674a5de1.webp",
+        "rockBump": "rock_bump.8f8c68ad.webp",
+        "detailNear": "winter_grass.2126ead2.webp",
+        "detailFar": "ground_detail_far_winter.003963d8.webp",
+        "grassVariation": "grass_variation.209068de.webp",
+        "offroadMap": "offroad_mask_winter.3f84c777.webp"
+      },
+      "roadColor": [
+        0.3066347662031576,
+        0.30212549635885283,
+        0.2976526404492112
+      ],
+      "colors": {
+        "grassColA": [
+          1,
+          1,
+          1
+        ],
+        "grassColB": [
+          0.7154654323350483,
+          0.7299188933520705,
+          0.7592995506950911
+        ],
+        "peakColA": [
+          0.7154654323350483,
+          0.7299188933520705,
+          0.7592995506950911
+        ],
+        "peakColB": [
+          0.49361620131107364,
+          0.5174013674966733,
+          0.5731588750675233
+        ],
+        "fieldDiscolouration": [
+          0.3803921568627451,
+          0.3803921568627451,
+          0.3803921568627451
+        ]
+      }
+    }
+  ],
+  "fadeFine": "noise_fine.592be1a0.webp",
+  "sourceOrigin": [
+    4020,
+    8240
+  ],
+  "colorConversion": {
+    "source": "XE=(a,e=!1)=>{const t=a>>16&255,i=a>>8&255,n=a&255;if(e){let s=Wu([t/255,i/255,n/255]);return s.push(1),s}return Wu([t/255,i/255,n/255])},Wu=a=>[Math.pow(a[0],2.2),Math.pow(a[1],2.2),Math.pow(a[2],2.2)]",
+    "sha256": "40e464246c4c2ff2058d50ed80d0910d98ae23e3498e1c9bbcd925724acb9e7a",
+    "excerpt": {
+      "first": 700,
+      "last": 700
+    }
+  },
+  "binding": {
+    "source": "function ls(t,a){var n;Mr({colors:{sky:a.fog.colB,horizon:a.fog.colA,ground:a.ground.grassColA,road:a.colours.road},lights:{sun:a.lights.sun,ambient:a.lights.ambient}}),Bt.length==2&&t==\"winter\"?i.userData.seasonIndex.value=3:i.userData.seasonIndex.value=Bt.indexOf(t),i.userData.grassMap.value=s(a.maps.grass,4,void 0,void 0),i.userData.forestMap.value=s(a.maps.forest),i.userData.heatherMap.value=s(a.maps.heather),i.userData.gravelMap.value=s(a.maps.gravel),i.userData.sandMap.value=s(a.maps.sand),i.userData.rockMap.value=s(a.maps.rock),i.userData.rockMapBump.value=s(a.maps.rockBump,4,P,R),i.userData.detailNearMap.value=s(a.maps.detailNear,4,P,R),i.userData.detailFarMap.value=s(a.maps.detailFar,4,P,R),i.userData.grassVariationMap.value=s(a.maps.grassVariation,4,P,R),N&&(i.userData.offroadMap.value=s(a.maps.offroadMap,16)),i.userData.grassColA.value=le(a.ground.grassColA),i.userData.grassColB.value=le(a.ground.grassColB),i.userData.peakColA.value=le(a.ground.peakColA),i.userData.peakColB.value=le(a.ground.peakColB),i.userData.fieldDiscolouration.value=Lr(a.ground.fieldDiscolouration),i.userData.radiance.value=a.lights.radiance??0,i.displacementMap=i.userData.rockMapBump.value,i.userData.roadCol.value=le(a.colours.road),i.userData.fresnelIntensity.value=a.lights.fresnelFactor??1,i.userData.offroad.value=N?1:0,i.userData.greenlane.value=F?1:0,D.map=s(a.maps.grassSprites,4,H),y.map=s(a.maps.bushes,2,H);",
+    "sha256": "c6ee3b8d9de7ef9f43b7fe8bd5fd666dca1987e40438b0fa67dc1149630716a5",
+    "excerpt": {
+      "first": 699,
+      "last": 699
+    }
+  },
+  "scope": "Common ground palettes, original surface/vertex functions and exact XE/Wu gamma2.2; scene lighting/fog is a declared URP adapter; no tree/field providers",
+  "flatWinter": {
+    "cameraDepth": 100,
+    "grass": [
+      0.8,
+      0.6,
+      0.4,
+      1
+    ],
+    "a": [
+      0.2,
+      0.4,
+      0.6
+    ],
+    "b": [
+      0.8,
+      0.6,
+      0.4
+    ],
+    "rgba": [
+      0.08584335937500004,
+      0.07086708984375002,
+      0.05156777343750001,
+      1
+    ]
+  }
+}

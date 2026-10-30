@@ -1,0 +1,20 @@
+{
+  "scene": "Assets/Scenes/SlowRoadsRoadDemo.unity",
+  "sceneGuid": "c323176c3ca002848be289a8e08ab141",
+  "dirty": false,
+  "missingScripts": 0,
+  "brokenReferences": [],
+  "buildScenes": [
+    {
+      "path": "Assets/Scenes/SlowRoadsRoadDemo.unity",
+      "enabled": true
+    }
+  ],
+  "businessSettings": 1,
+  "shaderMessages": [],
+  "variants": 4,
+  "srpBatcher": 0,
+  "terrainMeshes": 0,
+  "runtimeTerrainMaterials": 0,
+  "compilationFailed": false
+}

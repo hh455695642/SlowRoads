@@ -14,9 +14,9 @@ Assets/
       Generation/Midline/             Se/B7、精链/属性、发布快照、米制索引与重放
       Generation/Road/                D/Nl 纯网格、版本/ready 消费、属性 overlay 与有限段构建
       Generation/Spatial/             Ca索引、i_粗投影/$u精投影与显式退役
-      Generation/Terrain/             Ll/U查询、远景Tile/近路Chunk、只读产物与驻留合同
+      Generation/Terrain/             Ll/U查询、Tile/Chunk、Ma区域/overlap、分步流式与驻留合同
       Generation/Streaming/           Ni顺序分步、xi三对象轮转、发布/重放与驻留调度
-      Scene/Terrain/                  地形Mesh上传/LOD/原点及驻留收据（未装配T4）
+      Scene/Terrain/                  地形Mesh上传/LOD/原点、Renderer池与共享材质表现
       Scene/Road/                     三Mesh上传/LOD/释放、流式装配、唯一HillsSceneSettings
     Editor/Debug/                     调试 Inspector，无顶层菜单
     Settings/Hills/                    唯一HillsSceneSettings.asset（种子/道路/季节/观察/性能）
@@ -26,6 +26,7 @@ Assets/
       Models/ Textures/ Materials/ Prefabs/
     Rendering/Shaders/Legacy/          已有参考树 Shader（材质仍依赖）
     Rendering/Shaders/Road/            Hills 路面表面合成与 alpha clip
+    Rendering/Shaders/Terrain/         Hills 地形表面/微位移/overlap下沉（Forward/DepthOnly）
 Docs/
   Agents/                             开发契约、阶段状态、整理与验证记录
   Assets/                             资产审计报告、统一清单、只读复查脚本
@@ -41,8 +42,8 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 
 ## 当前场景与配置
 
-- Runtime/Debug 保留主场景装配、IRouteSource、StreamingRoadRouteSource、RouteObserver、ObserverCamera；它们只消费持续道路，没有有限预览或备用分支。
-- 唯一业务配置：Settings/Hills/HillsSceneSettings.asset。包含五种道路类型、单一seed、视距、季节、运动/相机、三族四季材质直接引用及实际调度/回收参数；保留原GUID。类型派生P3路缘宽度及P4几何/越野语义，不新增独立半宽或surface开关。选择类型后在原主场景重新生成。
+- Runtime/Debug 保留主场景装配、IRouteSource、StreamingRoadRouteSource、RouteObserver、ObserverCamera；道路与地形共享同一预算和生产屏障；观察者只提交道路及近路地形均Ready的里程，没有有限预览或备用分支。
+- 唯一业务配置：Settings/Hills/HillsSceneSettings.asset。包含五种道路类型、单一seed、视距、季节、运动/相机、道路三族四季及地形四季材质直接引用、地形可见性/边界调试及实际调度/回收参数；保留原GUID。类型派生P3路缘宽度及P4几何/越野语义，不新增独立半宽或surface开关。选择类型后在原主场景重新生成。
 - Editor/Debug 只保留 HillsDebugSessionEditor，提供中文设置、暂停/继续、单步和重新生成。烘焙/Provision、灰模、测试预览、性能诊断开关已删除。
 - 已删除独立HillsDebugSettings、HillsRoadStreamingSettings（重命名并合并）、HillsRoadMaterialSettings、HillsHeightfieldSettings及旧实例；删除Runtime/Configuration、Settings/Debug、Art/Debug/RoadPreview空目录及预览专用占位路面材质。
 - Rendering/Shaders/Legacy的树Shader仍被八套参考树材质使用。原版对照fixture与纯算法测试在Tests/Docs，不进入用户场景配置；旧P6场景探针按用户要求删除，历史结果保留在原报告。
@@ -50,7 +51,7 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 
 ## 清理状态（2026-10-28）
 
-P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit/P6_道路专项验收记录.md`；原 `p6-scene-probe.cs` 已在后续清退中删除，仅保留历史结果。道路功能补齐结果见该记录第10节：新增正式路基求值、配置/桥头/恢复对照，全集368/368及主场景验证通过；用户授权的B7代际标记兼容修复与原版失败证据分别保存。设备性能延期。2026-10-30已实现并补全T2/T3无内容几何，Terrain 73/73通过；当前主场景仍只装配道路，地形流式与材质显示留T4/T5。
+P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit/P6_道路专项验收记录.md`；原 `p6-scene-probe.cs` 已在后续清退中删除，仅保留历史结果。道路功能补齐结果见该记录第10节：新增正式路基求值、配置/桥头/恢复对照，全集368/368及主场景验证通过；用户授权的B7代际标记兼容修复与原版失败证据分别保存。设备性能延期。2026-10-30已实现并补全T2/T3无内容几何，Terrain 73/73通过；T4/T5已在同一主场景装配地形流式和四季材质。续验通过48组正式固定图像、48组诊断图像和实际Frame Debugger提交；地形范围门禁通过，实际测试及完整光照/雾/内容的边界见T4/T5计划第9–10节。
 
 - 已删除 316 个未使用资源文件（不计 .meta，约 66.4 MiB）：未接入的音频、字体/许可证、UI 图标与 SampleScene。
 - 已删除旧根目录算法总结、全量资产清单、两份旧验证文档、重复 JSON、一次性文本迁移脚本及可重新生成的 IDE 项目文件。有效资产来源与验证信息已合并到 HillsAssetManifest.json。

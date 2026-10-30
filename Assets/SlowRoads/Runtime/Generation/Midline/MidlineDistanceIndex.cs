@@ -9,8 +9,9 @@ namespace SlowRoads.Generation.Midline
         public readonly Double3 Position,Forward;
         public readonly MidlineSampleKey From,To;
         public readonly int FromCoarseIndex,ToCoarseIndex;
-        public MidlineDistanceSample(Double3 p,Double3 forward,MidlineSampleKey from,MidlineSampleKey to,int fromIndex=0,int toIndex=0)
-        {Position=p;Forward=forward;From=from;To=to;FromCoarseIndex=fromIndex;ToCoarseIndex=toIndex;}
+        public readonly double Progress;
+        public MidlineDistanceSample(Double3 p,Double3 forward,MidlineSampleKey from,MidlineSampleKey to,int fromIndex=0,int toIndex=0,double progress=0)
+        {Position=p;Forward=forward;From=from;To=to;FromCoarseIndex=fromIndex;ToCoarseIndex=toIndex;Progress=progress;}
     }
     /// <summary>Unity extension: sequential double chord-length accumulation, not D's UV.
     /// Update is explicit; sampling uses binary search and allocates nothing.</summary>
@@ -83,6 +84,11 @@ namespace SlowRoads.Generation.Midline
             }
             return lo;
         }
+        // Scene anchor only; does not change the accumulated double route distances.
+        public bool TryGetCoarseDistance(int index,out double distance)
+        {
+            distance=0;for(int i=first;i<points.Count;i++)if(points[i].Sample.CoarseIndex==index&&points[i].Sample.IsCoarse){distance=points[i].Distance;return true;}return false;
+        }
         public MidlineDistanceResult TrySample(double distance,out MidlineDistanceSample sample)
         {
             sample=default;
@@ -110,7 +116,7 @@ namespace SlowRoads.Generation.Midline
             double t=(distance-a.Distance)/length;
             var delta=new Double3(b.Sample.Position.X-a.Sample.Position.X,b.Sample.Position.Y-a.Sample.Position.Y,
                 b.Sample.Position.Z-a.Sample.Position.Z);
-            sample=new MidlineDistanceSample(a.Sample.Position.Lerp(b.Sample.Position,t),delta.Normalize(),a.Sample.Key,b.Sample.Key,a.Sample.CoarseIndex,b.Sample.CoarseIndex);
+            sample=new MidlineDistanceSample(a.Sample.Position.Lerp(b.Sample.Position,t),delta.Normalize(),a.Sample.Key,b.Sample.Key,a.Sample.CoarseIndex,b.Sample.CoarseIndex,a.Sample.Progress+(b.Sample.Progress-a.Sample.Progress)*t);
             return MidlineDistanceResult.Ready;
         }
     }

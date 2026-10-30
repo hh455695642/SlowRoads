@@ -1708,5 +1708,56 @@
       "fullSceneLightingFog": "pending",
       "mobileGPUAndASTC": "unverified"
     }
+  },
+  "terrainMaterialT5": {
+    "date": "2026-10-30",
+    "sourceArchive": "Slow Roads/resources/app.asar",
+    "sourceEvidence": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/TerrainMaterial.source.txt",
+    "reference": "Docs/ReverseEngineering/RoadAudit/Fixtures/RoadBlend/terrain-material.json",
+    "shader": "SlowRoads/Hills/Terrain",
+    "settings": "Assets/SlowRoads/Settings/Hills/HillsSceneSettings.asset",
+    "materials": [
+      "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Terrain/HillsTerrain_summer.mat",
+      "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Terrain/HillsTerrain_spring.mat",
+      "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Terrain/HillsTerrain_autumn.mat",
+      "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Terrain/HillsTerrain_winter.mat"
+    ],
+    "sourceMaterial": "ls; shared I5 consumed by Ma/U",
+    "sourceOrigin": [
+      4020,
+      8240
+    ],
+    "paletteConversion": "XE=(a,e=!1)=>{const t=a>>16&255,i=a>>8&255,n=a&255;if(e){let s=Wu([t/255,i/255,n/255]);return s.push(1),s}return Wu([t/255,i/255,n/255])},Wu=a=>[Math.pow(a[0],2.2),Math.pow(a[1],2.2),Math.pow(a[2],2.2)]",
+    "texturePixelsChanged": false,
+    "rockBump": "Default importer, linear red channel; original displacement source, not Unity NormalMap",
+    "displayCompatibility": "2026-10-30 user authorized full-index float overlap; original Int8 fixture retained",
+    "scope": "Geometry-only common ground surface (treeMask=0, fieldCol=0), actual texture/GLSL fixed-view images verified; URP main sun/SH adapter. Full Three lighting/fog/content pixel parity is outside this subset and remains unverified.",
+    "gpuReference": "Docs/ReverseEngineering/RoadAudit/Fixtures/RoadBlend/terrain-material-gpu.json",
+    "verification": {
+      "affectedEditMode": "105/105",
+      "sourceGlSlCases": 32,
+      "sourceScheduleEvents": 15226,
+      "sourceOverlapCases": 63,
+      "shaderVariants": 4,
+      "srpBatcherCompatibilityCode": 0,
+      "missingScripts": 0,
+      "invalidSerializedReferences": 0,
+      "sceneGuid": "c323176c3ca002848be289a8e08ab141",
+      "releasedTerrainMeshes": 0,
+      "releasedRuntimeTerrainMaterials": 0,
+      "fullNativeSceneImage": "UNVERIFIED (full lighting/fog/content outside T5 terrain subset)",
+      "frameDebuggerDrawEvents": "PASS: terrain event 7, SRPBatch, 13 draws, Forward/UniversalForward, ZWrite/LEqual/Cull Back, 0 instances",
+      "mobileAndT6": "not executed",
+      "fixedViewReport": "Docs/Agents/Artifacts/HillsTerrainT5_FixedViews.json",
+      "fixedViewShippingCases": 48,
+      "fixedViewControlCases": 48,
+      "fixedViewGeometry": "1,489,743 vertices and 3,799,956 current-LOD indices numerically equal; JSON signed zero canonicalized",
+      "fixedViewGate": "PASS: MAE<=0.015, RMSE<=0.03, P99<=0.12, silhouette ratio<=0.0001; constant GLSL sample tolerance remains 0.003",
+      "targetedRerun": "TerrainMaterial 3/3; frozen-input Chunk 7/7",
+      "frameDebuggerReport": "Docs/Agents/Artifacts/HillsTerrainT5_FrameDebugger.json",
+      "unityGraphicsApi": "Direct3D12",
+      "referenceGraphicsApi": "WebGL2 / ANGLE Direct3D11",
+      "finalAudit": "Docs/Agents/Artifacts/HillsTerrainT5_FinalAudit.json"
+    }
   }
 }

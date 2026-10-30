@@ -28,6 +28,10 @@ namespace SlowRoads.Scene.Road
         [InspectorName("道路视距档位"),Range(0,5)] public int detail=2;
         [InspectorName("地形采样细度"),Range(0,4)] public int terrainDetail=2;
         [InspectorName("季节")] public HillsRoadSeason season;
+        [InspectorName("显示丘陵地形")] public bool terrainVisible=true;
+        [InspectorName("地形边界调试")] public bool terrainDebug=false;
+        [InspectorName("地形季节材质")] public Material[] terrainMaterials=new Material[4];
+        public Material ResolveTerrainMaterial()=>terrainMaterials!=null&&terrainMaterials.Length==4&&terrainMaterials[(int)season]!=null?terrainMaterials[(int)season]:throw new InvalidOperationException("地形季节材质未配置");
         [InspectorName("显示道路")] public bool visible=true;
         [InspectorName("持续生成")] public bool generationEnabled=true;
         [InspectorName("自动前进")] public bool movementEnabled=true;

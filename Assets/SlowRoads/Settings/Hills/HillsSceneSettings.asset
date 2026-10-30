@@ -17,6 +17,13 @@ MonoBehaviour:
   detail: 2
   terrainDetail: 2
   season: 3
+  terrainVisible: 1
+  terrainDebug: 0
+  terrainMaterials:
+  - {fileID: 2100000, guid: 0336dad7b33b59a48aa64fc8d1cce4ba, type: 2}
+  - {fileID: 2100000, guid: 24bff07ecce9b8941b8be355a7e90de4, type: 2}
+  - {fileID: 2100000, guid: 58136b52fb8ff2f45a030f9d1063933c, type: 2}
+  - {fileID: 2100000, guid: 3a91b1708eecd8640b095db0d93b1990, type: 2}
   visible: 1
   generationEnabled: 1
   movementEnabled: 1

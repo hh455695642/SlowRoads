@@ -100,7 +100,7 @@ namespace SlowRoads.Generation.Terrain
                 corners[cellIndex,0],corners[cellIndex,1],corners[cellIndex,2],corners[cellIndex,3],bilinear,
                 fine?TerrainProjectionMode.Fine:TerrainProjectionMode.Coarse);
             if(owner.EvaluateTerrain(context,input,out var value)!=RoadQueryStatus.Ready)
-                throw new InvalidOperationException("Chunk projection exceeds retained road support");
+                throw new InvalidOperationException($"Chunk projection exceeds retained road support: cell={c.X},{c.Z} local={x},{z}, support={context.FirstSupportIndex}..{context.LastSupportIndex}");
             return value;
         }
         void PositionRow()

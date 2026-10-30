@@ -23,6 +23,7 @@ namespace SlowRoads.Generation.Terrain
         readonly TerrainGenerationConfig config;
         public readonly int Id;
         public readonly long CollectionEpoch;
+        public int StartIndex {get;internal set;}
         public TerrainGenerationConfig Config=>config;
         public int Count {get;private set;}
         public bool Sealed {get;private set;}
@@ -66,26 +67,29 @@ namespace SlowRoads.Generation.Terrain
         bool finished;
         NearTerrainChunkLayout previous,current;
         public readonly Queue<NearTerrainChunkLayout> Completed=new();
+        public NearTerrainChunkLayout Current=>current;
+        public NearTerrainChunkLayout Previous=>previous;
+        public event Action<NearTerrainChunkLayout> Started;
         public NearTerrainCorridorCollector(TerrainGenerationConfig config,int cellX,int cellZ,int candidate)
         {
-            this.config=config;x=cellX;z=cellZ;current=new(config,id++);
+            this.config=config;x=cellX;z=cellZ;current=new(config,id++){StartIndex=candidate};
             for(int i=-2;i<=2;i++)for(int j=-2;j<=2;j++)current.AddCell(x+i,z+j,candidate);
             for(int i=-1;i<=1;i++)for(int j=-1;j<=1;j++)current.RegisterInner(x+i,z+j);
-            Rotate();
+            Rotate(candidate);
         }
-        void Rotate(){if(previous!=null){previous.Seal();Completed.Enqueue(previous);}previous=current;current=new(config,id++);}
+        void Rotate(int index){if(previous!=null){previous.Seal();Completed.Enqueue(previous);}previous=current;current=new(config,id++){StartIndex=index};Started?.Invoke(current);}
         public void AddNode(double worldX,double worldZ,int nextCandidate)
         {
             if(finished)throw new InvalidOperationException("Corridor collection has finished");
             if(!double.IsFinite(worldX)||!double.IsFinite(worldZ))throw new ArgumentOutOfRangeException();
             int nx=(int)Math.Floor(worldX/10),nz=(int)Math.Floor(worldZ/10),dx=nx-x,dz=nz-z;
-            if(dx!=0&&dz!=0&&config.ChunkCapacity-current.Count<5)Rotate();
+            if(dx!=0&&dz!=0&&config.ChunkCapacity-current.Count<5)Rotate(nextCandidate-1);
             if(dx!=0||dz!=0)for(int a=-2;a<=2;a++)
             {
                 if(dx!=0){int sx=nx+dx*2,sz=nz+a;current.AddCell(sx,sz,nextCandidate,previous);
-                    if(a> -2&&a<2)current.RegisterInner(sx-dx,sz,previous);if(current.Count>=config.ChunkCapacity)Rotate();}
+                    if(a> -2&&a<2)current.RegisterInner(sx-dx,sz,previous);if(current.Count>=config.ChunkCapacity)Rotate(nextCandidate-1);}
                 if(dz!=0){int sx=nx+a,sz=nz+dz*2;current.AddCell(sx,sz,nextCandidate,previous);
-                    if(a> -2&&a<2)current.RegisterInner(sx,sz-dz,previous);if(current.Count>=config.ChunkCapacity)Rotate();}
+                    if(a> -2&&a<2)current.RegisterInner(sx,sz-dz,previous);if(current.Count>=config.ChunkCapacity)Rotate(nextCandidate-1);}
             }
             x=nx;z=nz;
         }
