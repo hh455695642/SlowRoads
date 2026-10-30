@@ -1,0 +1,945 @@
+{
+  "schema": 1,
+  "hashes": {
+    "Dev": "3bf75140e92dd8647c338c6cd06c8c180054d422fe5169d824aed6977cf0e7e8",
+    "Hills": "ae71adcb4870e3b3cfe0a2ad4d7684e68411be4ed309d01a71a3b048881d12ee",
+    "Settings": "64b10bb49f13c0781afa899a216bf565ed6ab97cef212a5eca1b7673e4cc01da",
+    "Rand": "7e8f0ddefecacaa1268d4e58c5d92e7b248d37fba057e75f734ec5a90987d073",
+    "Normals": "3ae7beb33c892dd742dad0f561fdbaee8113c3431020e5d1adb18ebd5844bdfc"
+  },
+  "sections": {
+    "grid": "d41e20f7e587224a8fc0e19717ed423056f293138f384d93d9a32db3fb0ab878",
+    "tile": "aabdb59c453ecb4ce607329374b684fa5127a68ebef1e2b6fa6e2ce6a718b94e",
+    "overlapShader": "ebd79cb1b296c49de3e42e42beaadc830e7fd0dea141e7d2acdc78dea6123986"
+  },
+  "channels": {
+    "position": "f0/U Float32; local origin separate",
+    "normal": "Dt/U original coarse/fine",
+    "curvature": "Hills Pl constant zero",
+    "roadProximity": "U plus s0 L46178-L46180",
+    "roadUv": "s0 L46210-L46214, off-road only",
+    "overlap": "f0 native Int8; Dt four-corner/eight-direction writes; scheduler deferred to T4",
+    "treeMask": "i7 L44990; s0 L46158-L46209, including fine-node shadows even at zero density; absent in this geometry subset, zero adaptation omits shadows",
+    "fieldCol": "i7 L44993 and field manager; absent in this no-field subset"
+  },
+  "source": {
+    "grid": "Settings L41004-L41194",
+    "tile": "Settings L42661-L42682; L42780-L42818",
+    "shader": {
+      "symbol": "Hills template containing overlap displacement",
+      "utf16Start": 57453,
+      "utf16End": 58266,
+      "lines": [
+        {
+          "line": "OVL0001",
+          "text": "if(overlap > 0.0) {"
+        },
+        {
+          "line": "OVL0002",
+          "text": ""
+        },
+        {
+          "line": "OVL0003",
+          "text": "    float overlapDist = overlap - vehicleIndex;"
+        },
+        {
+          "line": "OVL0004",
+          "text": ""
+        },
+        {
+          "line": "OVL0005",
+          "text": "    if(overlapDist > 0.0) {"
+        },
+        {
+          "line": "OVL0006",
+          "text": ""
+        },
+        {
+          "line": "OVL0007",
+          "text": "      if(overlapDist < sinkDist) {"
+        },
+        {
+          "line": "OVL0008",
+          "text": ""
+        },
+        {
+          "line": "OVL0009",
+          "text": "          float halfSinkDist = sinkDist * 0.75;"
+        },
+        {
+          "line": "OVL0010",
+          "text": ""
+        },
+        {
+          "line": "OVL0011",
+          "text": "          if(overlapDist < halfSinkDist) {"
+        },
+        {
+          "line": "OVL0012",
+          "text": "            transformed.y -= 20.0;"
+        },
+        {
+          "line": "OVL0013",
+          "text": "          } else {"
+        },
+        {
+          "line": "OVL0014",
+          "text": "            transformed.y -= 20.0 * (sinkDist - overlapDist) / (sinkDist - halfSinkDist);"
+        },
+        {
+          "line": "OVL0015",
+          "text": "          }"
+        },
+        {
+          "line": "OVL0016",
+          "text": "      }"
+        },
+        {
+          "line": "OVL0017",
+          "text": ""
+        },
+        {
+          "line": "OVL0018",
+          "text": "    } else {"
+        },
+        {
+          "line": "OVL0019",
+          "text": ""
+        },
+        {
+          "line": "OVL0020",
+          "text": "      float fSinkDist = -sinkDist/2.0;"
+        },
+        {
+          "line": "OVL0021",
+          "text": ""
+        },
+        {
+          "line": "OVL0022",
+          "text": "      if(overlapDist > fSinkDist) {"
+        },
+        {
+          "line": "OVL0023",
+          "text": ""
+        },
+        {
+          "line": "OVL0024",
+          "text": "        float halfSinkDist = fSinkDist / 2.0;"
+        },
+        {
+          "line": "OVL0025",
+          "text": ""
+        },
+        {
+          "line": "OVL0026",
+          "text": "        if(overlapDist > halfSinkDist) {"
+        },
+        {
+          "line": "OVL0027",
+          "text": "          transformed.y -= 20.0;"
+        },
+        {
+          "line": "OVL0028",
+          "text": "        } else {"
+        },
+        {
+          "line": "OVL0029",
+          "text": "          transformed.y -= 20.0 * (fSinkDist - overlapDist) / halfSinkDist;"
+        },
+        {
+          "line": "OVL0030",
+          "text": "        }"
+        },
+        {
+          "line": "OVL0031",
+          "text": ""
+        },
+        {
+          "line": "OVL0032",
+          "text": "      }"
+        },
+        {
+          "line": "OVL0033",
+          "text": ""
+        },
+        {
+          "line": "OVL0034",
+          "text": "    }"
+        },
+        {
+          "line": "OVL0035",
+          "text": ""
+        },
+        {
+          "line": "OVL0036",
+          "text": "    // Recalc mvPosition"
+        },
+        {
+          "line": "OVL0037",
+          "text": "    mvPosition = modelViewMatrix * vec4( transformed, 1.0 );"
+        },
+        {
+          "line": "OVL0038",
+          "text": "}"
+        },
+        {
+          "line": "OVL0039",
+          "text": ""
+        },
+        {
+          "line": "OVL0040",
+          "text": ""
+        }
+      ]
+    }
+  },
+  "result": {
+    "type": "Int8Array",
+    "aliasesOriginalAttribute": true,
+    "cases": [
+      {
+        "index": 0,
+        "edge": -1,
+        "entries": [
+          {
+            "address": 53,
+            "value": 1
+          },
+          {
+            "address": 54,
+            "value": 1
+          },
+          {
+            "address": 78,
+            "value": 1
+          },
+          {
+            "address": 79,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 0,
+        "edge": 0,
+        "entries": [
+          {
+            "address": 50,
+            "value": 1
+          },
+          {
+            "address": 75,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 0,
+        "edge": 1,
+        "entries": [
+          {
+            "address": 600,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 0,
+        "edge": 2,
+        "entries": [
+          {
+            "address": 603,
+            "value": 1
+          },
+          {
+            "address": 604,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 0,
+        "edge": 3,
+        "entries": [
+          {
+            "address": 624,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 0,
+        "edge": 4,
+        "entries": [
+          {
+            "address": 74,
+            "value": 1
+          },
+          {
+            "address": 99,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 0,
+        "edge": 5,
+        "entries": [
+          {
+            "address": 24,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 0,
+        "edge": 6,
+        "entries": [
+          {
+            "address": 3,
+            "value": 1
+          },
+          {
+            "address": 4,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 0,
+        "edge": 7,
+        "entries": [
+          {
+            "address": 0,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": -1,
+        "entries": [
+          {
+            "address": 53,
+            "value": 1
+          },
+          {
+            "address": 54,
+            "value": 1
+          },
+          {
+            "address": 78,
+            "value": 1
+          },
+          {
+            "address": 79,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": 0,
+        "entries": [
+          {
+            "address": 50,
+            "value": 1
+          },
+          {
+            "address": 75,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": 1,
+        "entries": [
+          {
+            "address": 600,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": 2,
+        "entries": [
+          {
+            "address": 603,
+            "value": 1
+          },
+          {
+            "address": 604,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": 3,
+        "entries": [
+          {
+            "address": 624,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": 4,
+        "entries": [
+          {
+            "address": 74,
+            "value": 1
+          },
+          {
+            "address": 99,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": 5,
+        "entries": [
+          {
+            "address": 24,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": 6,
+        "entries": [
+          {
+            "address": 3,
+            "value": 1
+          },
+          {
+            "address": 4,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 1,
+        "edge": 7,
+        "entries": [
+          {
+            "address": 0,
+            "value": 1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": -1,
+        "entries": [
+          {
+            "address": 53,
+            "value": 127
+          },
+          {
+            "address": 54,
+            "value": 127
+          },
+          {
+            "address": 78,
+            "value": 127
+          },
+          {
+            "address": 79,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": 0,
+        "entries": [
+          {
+            "address": 50,
+            "value": 127
+          },
+          {
+            "address": 75,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": 1,
+        "entries": [
+          {
+            "address": 600,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": 2,
+        "entries": [
+          {
+            "address": 603,
+            "value": 127
+          },
+          {
+            "address": 604,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": 3,
+        "entries": [
+          {
+            "address": 624,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": 4,
+        "entries": [
+          {
+            "address": 74,
+            "value": 127
+          },
+          {
+            "address": 99,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": 5,
+        "entries": [
+          {
+            "address": 24,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": 6,
+        "entries": [
+          {
+            "address": 3,
+            "value": 127
+          },
+          {
+            "address": 4,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 127,
+        "edge": 7,
+        "entries": [
+          {
+            "address": 0,
+            "value": 127
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": -1,
+        "entries": [
+          {
+            "address": 53,
+            "value": -128
+          },
+          {
+            "address": 54,
+            "value": -128
+          },
+          {
+            "address": 78,
+            "value": -128
+          },
+          {
+            "address": 79,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": 0,
+        "entries": [
+          {
+            "address": 50,
+            "value": -128
+          },
+          {
+            "address": 75,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": 1,
+        "entries": [
+          {
+            "address": 600,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": 2,
+        "entries": [
+          {
+            "address": 603,
+            "value": -128
+          },
+          {
+            "address": 604,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": 3,
+        "entries": [
+          {
+            "address": 624,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": 4,
+        "entries": [
+          {
+            "address": 74,
+            "value": -128
+          },
+          {
+            "address": 99,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": 5,
+        "entries": [
+          {
+            "address": 24,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": 6,
+        "entries": [
+          {
+            "address": 3,
+            "value": -128
+          },
+          {
+            "address": 4,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 128,
+        "edge": 7,
+        "entries": [
+          {
+            "address": 0,
+            "value": -128
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": -1,
+        "entries": [
+          {
+            "address": 53,
+            "value": -1
+          },
+          {
+            "address": 54,
+            "value": -1
+          },
+          {
+            "address": 78,
+            "value": -1
+          },
+          {
+            "address": 79,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": 0,
+        "entries": [
+          {
+            "address": 50,
+            "value": -1
+          },
+          {
+            "address": 75,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": 1,
+        "entries": [
+          {
+            "address": 600,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": 2,
+        "entries": [
+          {
+            "address": 603,
+            "value": -1
+          },
+          {
+            "address": 604,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": 3,
+        "entries": [
+          {
+            "address": 624,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": 4,
+        "entries": [
+          {
+            "address": 74,
+            "value": -1
+          },
+          {
+            "address": 99,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": 5,
+        "entries": [
+          {
+            "address": 24,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": 6,
+        "entries": [
+          {
+            "address": 3,
+            "value": -1
+          },
+          {
+            "address": 4,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 255,
+        "edge": 7,
+        "entries": [
+          {
+            "address": 0,
+            "value": -1
+          }
+        ],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": -1,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": 0,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": 1,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": 2,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": 3,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": 4,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": 5,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": 6,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 256,
+        "edge": 7,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": -1,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": 0,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": 1,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": 2,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": 3,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": 4,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": 5,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": 6,
+        "entries": [],
+        "pendingAfterUpdate": false
+      },
+      {
+        "index": 4096,
+        "edge": 7,
+        "entries": [],
+        "pendingAfterUpdate": false
+      }
+    ]
+  }
+}

@@ -63,6 +63,8 @@ namespace SlowRoads.Generation.Terrain
             if(++producerWaits<=MaxProducerWaits)return true;
             Cancel();return false; // Abandoned/zero-budget work cannot freeze the road indefinitely.
         }
+        // Mesh rows also make progress while bypassing the request batch.
+        internal void ReportProgress(){producerWaits=0;}
         public TerrainBuildState Advance(int budget)
         {
             if(budget<0)throw new ArgumentOutOfRangeException(nameof(budget));

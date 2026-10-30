@@ -239,12 +239,12 @@ namespace SlowRoads.Generation.Streaming
         public bool AtTickBoundary=>Ready&&phase==0&&Midline.AtUpdateBoundary;
         // One bounded phase barrier, shared by raw far-field and mixed near-field jobs.
         // Caller supplies frozen U candidate order after cell registration is complete.
-        public RoadQueryStatus TryBeginTerrainBuild(TerrainSampleRequest[] requests,int first,int last,int[] candidates,out TerrainBuildContext context)
+        public RoadQueryStatus TryBeginTerrainBuild(TerrainSampleRequest[] requests,int first,int last,int[] candidates,out TerrainBuildContext context,bool retainRoadSupport=false)
         {
             context=null;
             if(requests==null||requests.Length==0||requests.Length>TerrainBuildContext.MaxSamples)throw new ArgumentOutOfRangeException(nameof(requests));
             if(disposed||terrainBuild!=null||!AtTickBoundary||Midline.State.Generation!=generation)return RoadQueryStatus.NotResident;
-            bool mixed=false;foreach(var request in requests)if(!request.Raw)mixed=true;
+            bool mixed=retainRoadSupport;foreach(var request in requests)if(!request.Raw)mixed=true;
             TerrainQueryWindow window=null;
             if(mixed)
             {var status=TryCaptureTerrainWindow(first,last,candidates,out window);if(status!=RoadQueryStatus.Ready)return status;}
@@ -256,6 +256,8 @@ namespace SlowRoads.Generation.Streaming
             context.LayerRevision==terrainHeightSource.LayerRevision&&
             (context.Window==null||IsTerrainWindowCurrent(context.Window));
         internal void ReleaseTerrainBuild(TerrainBuildContext context){if(ReferenceEquals(terrainBuild,context))terrainBuild=null;}
+        internal bool IsTerrainDataCurrent(int gen,long revision,long layer,bool roads)=>!disposed&&
+            Midline.State.Generation==gen&&terrainHeightSource.LayerRevision==layer&&(!roads||(AtTickBoundary&&Midline.Revision==revision));
         internal double ReadTerrainRaw(TerrainBuildContext context,double x,double z)
         {
             if(!IsTerrainBuildCurrent(context))throw new InvalidOperationException("Stale terrain height context");

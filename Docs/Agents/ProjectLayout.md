@@ -14,8 +14,9 @@ Assets/
       Generation/Midline/             Se/B7、精链/属性、发布快照、米制索引与重放
       Generation/Road/                D/Nl 纯网格、版本/ready 消费、属性 overlay 与有限段构建
       Generation/Spatial/             Ca索引、i_粗投影/$u精投影与显式退役
-      Generation/Terrain/             Ll/U地表求值、有限消费窗口（尚无地形网格）
+      Generation/Terrain/             Ll/U查询、远景Tile/近路Chunk、只读产物与驻留合同
       Generation/Streaming/           Ni顺序分步、xi三对象轮转、发布/重放与驻留调度
+      Scene/Terrain/                  地形Mesh上传/LOD/原点及驻留收据（未装配T4）
       Scene/Road/                     三Mesh上传/LOD/释放、流式装配、唯一HillsSceneSettings
     Editor/Debug/                     调试 Inspector，无顶层菜单
     Settings/Hills/                    唯一HillsSceneSettings.asset（种子/道路/季节/观察/性能）
@@ -49,7 +50,7 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 
 ## 清理状态（2026-10-28）
 
-P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit/P6_道路专项验收记录.md`；原 `p6-scene-probe.cs` 已在后续清退中删除，仅保留历史结果。道路功能补齐结果见该记录第10节：新增正式路基求值、配置/桥头/恢复对照，全集368/368及主场景验证通过；用户授权的B7代际标记兼容修复与原版失败证据分别保存。设备性能延期，地形网格尚未开始。
+P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit/P6_道路专项验收记录.md`；原 `p6-scene-probe.cs` 已在后续清退中删除，仅保留历史结果。道路功能补齐结果见该记录第10节：新增正式路基求值、配置/桥头/恢复对照，全集368/368及主场景验证通过；用户授权的B7代际标记兼容修复与原版失败证据分别保存。设备性能延期。2026-10-30已实现并补全T2/T3无内容几何，Terrain 73/73通过；当前主场景仍只装配道路，地形流式与材质显示留T4/T5。
 
 - 已删除 316 个未使用资源文件（不计 .meta，约 66.4 MiB）：未接入的音频、字体/许可证、UI 图标与 SampleScene。
 - 已删除旧根目录算法总结、全量资产清单、两份旧验证文档、重复 JSON、一次性文本迁移脚本及可重新生成的 IDE 项目文件。有效资产来源与验证信息已合并到 HillsAssetManifest.json。
