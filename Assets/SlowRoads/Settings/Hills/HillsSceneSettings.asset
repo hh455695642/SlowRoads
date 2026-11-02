@@ -13,12 +13,68 @@ MonoBehaviour:
   m_Name: HillsSceneSettings
   m_EditorClassIdentifier: SlowRoads.RoadPresentation::SlowRoads.Scene.Road.HillsSceneSettings
   seed: a
-  roadType: 2
+  roadType: 4
   detail: 2
   terrainDetail: 2
-  season: 3
+  season: 0
   terrainVisible: 1
   terrainDebug: 0
+  treesVisible: 1
+  treeShadows: 1
+  treeDensity: 0
+  treeMeshes:
+  - {fileID: -2432090755550338912, guid: ccac3d2d2b6b5664c8392b96346f7fa1, type: 3}
+  - {fileID: -2432090755550338912, guid: a4af913825a7f314a9ef69bcc00bc667, type: 3}
+  - {fileID: -2432090755550338912, guid: 17235e427c978954a84477ad1d9aef59, type: 3}
+  - {fileID: -2432090755550338912, guid: e64007ae07ea1324fa18859bd4de1f88, type: 3}
+  - {fileID: -2432090755550338912, guid: 5abb932a0d5585d4caf92160a5f5d1b5, type: 3}
+  - {fileID: -2432090755550338912, guid: c40d04d12d1a40442916b648579146bc, type: 3}
+  - {fileID: -2432090755550338912, guid: 722597be0f29a0a439917d4bc46cb902, type: 3}
+  - {fileID: -2432090755550338912, guid: e76cc032c191fd740973718ea214bed9, type: 3}
+  treeMaterials:
+  - {fileID: 2100000, guid: 4572cb6fc792333469a771b427811722, type: 2}
+  - {fileID: 2100000, guid: fc5ae8f9687bb964ca86396b304f9f7b, type: 2}
+  - {fileID: 2100000, guid: ada0dbb1dec355442a9b1b9aadafc414, type: 2}
+  - {fileID: 2100000, guid: 420b8c036f7808a4990ed6f10ec1b895, type: 2}
+  - {fileID: 2100000, guid: 4e69627ed8670cd48af683c50ee294d2, type: 2}
+  - {fileID: 2100000, guid: 788b7cd26381a0c4a8d8c471e4971596, type: 2}
+  - {fileID: 2100000, guid: 569acb99a753d3c49bc59ea08cd07f02, type: 2}
+  - {fileID: 2100000, guid: a3c7b9fe39d0f0641a514e92bb61696f, type: 2}
+  - {fileID: 2100000, guid: 57e0366acad0226419dcfd97a9a3fc41, type: 2}
+  - {fileID: 2100000, guid: 67b26c23c405efd468a8d19d7ade77ba, type: 2}
+  - {fileID: 2100000, guid: c6e7dcf1ec692b54fb7a8e40d012999f, type: 2}
+  - {fileID: 2100000, guid: 41370e93b730f0b40bba494562228f8f, type: 2}
+  - {fileID: 2100000, guid: 04da777bb97b4164da522241afbda3c5, type: 2}
+  - {fileID: 2100000, guid: 70cd0845226f31340bced4fb2d859b82, type: 2}
+  - {fileID: 2100000, guid: 91d5809e51069b1439958844cf5c32ed, type: 2}
+  - {fileID: 2100000, guid: d5cbfbb62edafdc419e458a0431d41d7, type: 2}
+  - {fileID: 2100000, guid: b96d593e1dd3ce14f9e81e08fd1c41b6, type: 2}
+  - {fileID: 2100000, guid: 1fb5cd94fa39afe4f9bcd7d76fb55b90, type: 2}
+  - {fileID: 2100000, guid: e06b399c29b73594bbe456a8bb4c8316, type: 2}
+  - {fileID: 2100000, guid: ec162a92f46f73841b251fd5ee161811, type: 2}
+  - {fileID: 2100000, guid: 6f1f358fcaf0d994bad20f3fe891a741, type: 2}
+  - {fileID: 2100000, guid: 3d7c48c987c2e1f428d35826edaeb617, type: 2}
+  - {fileID: 2100000, guid: fb854298661199d46b37d5a70d62202c, type: 2}
+  - {fileID: 2100000, guid: e3ea7c0d03ecc6a469589a597ad2794d, type: 2}
+  - {fileID: 2100000, guid: dcfa7cda8a1097643a7fbab9f3dca026, type: 2}
+  - {fileID: 2100000, guid: 676a971c09cdcc448bb7b26707978505, type: 2}
+  - {fileID: 2100000, guid: 2f840100e3fa6bc4ea42a4e9dfdfb811, type: 2}
+  - {fileID: 2100000, guid: 57d4daa43515d044db468a4d5cda1b3e, type: 2}
+  - {fileID: 2100000, guid: 0668907b703506d47b3bb873fbd43413, type: 2}
+  - {fileID: 2100000, guid: fc3e12fcc9088b944885b09a350b6ada, type: 2}
+  - {fileID: 2100000, guid: 947130f1c3a73cf41a50d6cee88c82d2, type: 2}
+  - {fileID: 2100000, guid: 1530bfe8faa37f84f9d6b30e304e9c7b, type: 2}
+  treeImposterMaterials:
+  - {fileID: 2100000, guid: 20807c4a4e7184346942401379a68257, type: 2}
+  - {fileID: 2100000, guid: 3465996dacdbd4248b6d3a4590f7a4a8, type: 2}
+  - {fileID: 2100000, guid: a14fc5c30bba99846bbaaa7d925e0e01, type: 2}
+  - {fileID: 2100000, guid: c88346bb749a23045aea84659aa16ddb, type: 2}
+  - {fileID: 2100000, guid: edecd9b6adb69134a9e30bb5b69ab05a, type: 2}
+  - {fileID: 2100000, guid: 7c9928ea4d02f8143a34168a0d6d5a20, type: 2}
+  - {fileID: 2100000, guid: fe0cc44dead65bd46995c06ff3a6edbf, type: 2}
+  - {fileID: 2100000, guid: 41c42f7a4e1787d429b284c1993c6201, type: 2}
+  treeCulling: {fileID: 7200000, guid: 12edb52a97efa654ca9b23ae76e0cd3c, type: 3}
+  treeFallbackShader: {fileID: 4800000, guid: 18a45baf69110d74db6972986b665382, type: 3}
   terrainMaterials:
   - {fileID: 2100000, guid: 0336dad7b33b59a48aa64fc8d1cce4ba, type: 2}
   - {fileID: 2100000, guid: 24bff07ecce9b8941b8be355a7e90de4, type: 2}

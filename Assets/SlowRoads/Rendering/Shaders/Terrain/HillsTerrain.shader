@@ -79,12 +79,11 @@ float4 terrainBlend(float4 tx1, float w1, float4 tx2, float w2, float depth) {
 }
 
 
-struct Attributes {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 roadUv:TEXCOORD0;float3 surface:TEXCOORD1;UNITY_VERTEX_INPUT_INSTANCE_ID};
+struct Attributes {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 roadUv:TEXCOORD0;float3 surface:TEXCOORD1;float2 content:TEXCOORD2;UNITY_VERTEX_INPUT_INSTANCE_ID};
 struct Varyings {float4 positionCS:SV_POSITION;float3 world:TEXCOORD0;half3 normalWS:TEXCOORD1;float4 uv:TEXCOORD2;float4 wuv:TEXCOORD3;float4 surface:TEXCOORD4;float4 weights:TEXCOORD5;float4 extras:TEXCOORD6;float2 roadUv:TEXCOORD7;UNITY_VERTEX_INPUT_INSTANCE_ID};
 Varyings Vert(Attributes i){Varyings o=(Varyings)0;UNITY_SETUP_INSTANCE_ID(i);UNITY_TRANSFER_INSTANCE_ID(i,o);
 float3 transformed=i.positionOS;float roadProximity=i.surface.x,overlap=i.surface.z;
-// Geometry-only stage: original tree/field providers are deliberately absent.
-float treeMask=0,fieldCol=0;
+float treeMask=i.content.x,fieldCol=i.content.y;
 float height,steepness,roadProx,hasRoadProx,vTreeMask,vLightGrass,vDarkGrass,vField,vHeather,vShadow,vCamDepth;
 float2 vUv,vUUv,vWv,vWWv,vRoadUv;float3 vFresnelPos,vFresnelNorm;float wuvSize=500;
 float2 roadUv=i.roadUv;

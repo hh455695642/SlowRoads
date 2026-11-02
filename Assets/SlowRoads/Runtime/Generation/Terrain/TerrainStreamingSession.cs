@@ -47,6 +47,10 @@ namespace SlowRoads.Generation.Terrain
         public event Action<TerrainRegionState> Released;
         public event Action Reset;
         public event Action<TerrainRegionState,TerrainOverlapState> CoverageChanged;
+        public event Action<TerrainRegionState,FarTerrainTileBuilder,int,int,double> FarNormalSample;
+        // Subscribers copy only owned content channels here, before near arrays retire.
+        public event Action<TerrainRegionState,TerrainMeshData> RegionCommitted;
+        public Func<double,double,double> TreeShadowProvider {get;set;}
         // Optional block measurements. Null subscribers incur no clock reads;
         // the pure generator remains independent of Unity's profiling assembly.
         public event Action<TerrainWorkKind,long> WorkMeasured;
@@ -69,7 +73,7 @@ namespace SlowRoads.Generation.Terrain
             bool ready=true;
             foreach(var key in r.Layout.ParentTiles)
             {
-                if(!Schedule.Tiles.TryGetValue(key,out var t))throw new InvalidOperationException("Ma parent tile not registered");
+                if(!Schedule.Tiles.TryGetValue(key,out var t))return false;
                 if(!residents.TryGetValue(t,out var value)||value.Tile==null||!value.Tile.CanPublish(road)){Queue(t);ready=false;}
             }
             // Collection only reads frozen XZ. Mixed geometry additionally needs
@@ -88,7 +92,13 @@ namespace SlowRoads.Generation.Terrain
             generation=road.Midline.State.Generation;
             Schedule=new(road.TerrainConfig,Position,(x,z)=>road.Spatial.GetLastSeenIndexForTile(x,z)??int.MinValue);
             Schedule.Changed+=OnEvent;Schedule.ParentsReady=ParentsReady;
+            Schedule.CanRepool=t=>{
+                foreach(var chunk in Schedule.Chunks.Values)if(!chunk.Retired&&chunk.Layout.ParentTiles.Contains((t.X,t.Z)))return false;
+                return true;};
             Schedule.Initialize(first);Schedule.InnerCellRegistered+=(x,z,i)=>coverage.Enqueue(new Cover(x,z,i));
+            // Native qb urgent centre precedes creation-order priority Tiles.
+            int initialX=(int)Math.Floor(Position(first).Value.X/road.Config.TileSize),initialZ=(int)Math.Floor(Position(first).Value.Z/road.Config.TileSize);
+            int urgent=work.FindIndex(t=>!t.Chunk&&t.X==initialX&&t.Z==initialZ);if(urgent>0){var t=work[urgent];work.RemoveAt(urgent);work.Insert(0,t);}
             var p=Position(first).Value;int cx=(int)Math.Floor(p.X/10),cz=(int)Math.Floor(p.Z/10);
             for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)coverage.Enqueue(new Cover(cx+x,cz+z,first));
         }
@@ -131,8 +141,9 @@ namespace SlowRoads.Generation.Terrain
                         }
                         var resident=new Resident{Receipt=receipt};layer=data.LayerRevision;
                         if(!building.Chunk){resident.Tile=data;resident.Overlap=new(data.Config.TileFineResolution);ActiveTiles++;}
-                        else {foreach(var c in data.Cells)cells[(c.X,c.Z)]=building;ActiveChunks++;data.Dispose();}
+                        else {foreach(var c in data.Cells)cells[(c.X,c.Z)]=building;ActiveChunks++;}
                         residents.Add(building,resident);building.Residency=receipt;building.Uploaded=true;UploadedCount++;
+                        try{RegionCommitted?.Invoke(building,data);}finally{if(building.Chunk)data.Dispose();}
                         far?.Dispose();near?.Dispose();far=null;near=null;building=null;
                     }
                     continue;
@@ -140,7 +151,9 @@ namespace SlowRoads.Generation.Terrain
                 if(work.Count>0)
                 {
                     var r=work[0];work.RemoveAt(0);if(r.Retired||r.Uploaded)continue;
-                    if(!r.Chunk){long measured=BeginMeasure();building=r;far=new FarTerrainTileBuilder(road,r.X,r.Z);EndMeasure(TerrainWorkKind.FarInitialization,measured);}
+                    if(!r.Chunk){long measured=BeginMeasure();building=r;far=new FarTerrainTileBuilder(road,r.X,r.Z);
+                        far.CoarseNormalSample=(b,x,z,n)=>FarNormalSample?.Invoke(r,b,x,z,n);
+                        EndMeasure(TerrainWorkKind.FarInitialization,measured);}
                     else
                     {
                         if(!ParentsReady(r)){work.Add(r);NeedsWork=false;return used;}
@@ -149,6 +162,7 @@ namespace SlowRoads.Generation.Terrain
                         if(min<=first||max>=last-2||last-first>=256)throw new InvalidOperationException($"Chunk support outside P5 ready window: {min}..{max}, {first}..{last}");
                         var parents=new List<TerrainMeshData>();foreach(var key in r.Layout.ParentTiles)parents.Add(residents[Schedule.Tiles[key]].Tile);
                         long measured=BeginMeasure();building=r;near=new NearTerrainChunkBuilder(road,r.Layout,first,last,parents);EndMeasure(TerrainWorkKind.NearInitialization,measured);
+                        near.TreeShadowProvider=TreeShadowProvider;
                     }
                     used++;continue;
                 }

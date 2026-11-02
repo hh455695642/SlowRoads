@@ -30,6 +30,15 @@ namespace SlowRoads.Scene.Road
         [InspectorName("季节")] public HillsRoadSeason season;
         [InspectorName("显示丘陵地形")] public bool terrainVisible=true;
         [InspectorName("地形边界调试")] public bool terrainDebug=false;
+        [InspectorName("显示树群")] public bool treesVisible=true;
+        [InspectorName("树群投影")] public bool treeShadows=true;
+        [InspectorName("树密度（0自动）"),Range(0,4)] public int treeDensity;
+        public Mesh[] treeMeshes=new Mesh[8];
+        // Season-major, family-major, four original variants; same assets/GUIDs.
+        public Material[] treeMaterials=new Material[32];
+        public Material[] treeImposterMaterials=new Material[8];
+        public ComputeShader treeCulling;
+        public Shader treeFallbackShader;
         [InspectorName("地形季节材质")] public Material[] terrainMaterials=new Material[4];
         public Material ResolveTerrainMaterial()=>terrainMaterials!=null&&terrainMaterials.Length==4&&terrainMaterials[(int)season]!=null?terrainMaterials[(int)season]:throw new InvalidOperationException("地形季节材质未配置");
         [InspectorName("显示道路")] public bool visible=true;

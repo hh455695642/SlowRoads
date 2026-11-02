@@ -1,7 +1,7 @@
 {
   "name": "SlowRoads.RoadPresentation",
   "rootNamespace": "SlowRoads.Scene.Road",
-  "references": ["SlowRoads.Generation"],
+  "references": ["SlowRoads.Generation", "SlowRoads.ContentsRendering"],
   "autoReferenced": true,
   "noEngineReferences": false
 }

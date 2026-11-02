@@ -1,6 +1,6 @@
 # Rendering 开发边界
 
-- 继承根 AGENTS.md 的 URP/移动端/variant 规则。当前仅保留有参考材质依赖的 Legacy 树 Shader，不代表已通过原版效果验收。
+- 继承根 AGENTS.md 的 URP/移动端/variant 规则。当前植被正式入口为HillsTreeRendererFeature/TreeGpuResources；Legacy树Shader已在材质迁移后清退。表面数值与渲染提交通过不代表全场景原版图像等价。
 - 新 Feature、Pass、Compute 与 Shader 分目录、分职责。配置实例位于 Settings/Hills，不把美术资源塞入渲染代码目录。
 - 每个 Pass 说明 RenderPassEvent、输入输出、RT 生命周期、是否触发额外深度或颜色拷贝；Frame Debugger 验证实际次数。
 - 大规模植被采用 Chunk/Cluster + Indirect + GPU 剔除/LOD；明确平台支持检查与 fallback，禁止重新接回旧全场草地实验实现。

@@ -96,6 +96,27 @@
           ]
         ],
         "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      },
+      {
+        "formatter": "prettier@3.6.2 parser=babel default LF",
+        "formattedSHA256": "6a9d766e0461fcc5950ec83da513bf9e1700588d0b289f6a0e8596e13a361aa4",
+        "ranges": [
+          [
+            6015,
+            6114
+          ],
+          [
+            6023,
+            6122
+          ],
+          [
+            5733,
+            5832
+          ]
+        ],
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsContents.source.txt",
+        "lineConvention": "full-module prettier 3.6.2; independent from historical excerpt labels",
+        "excerptSHA256": "8a82d4b522a670c03536322c216dde6e105a2f38bc6320a62de7cf4d86eaa2f3"
       }
     ]
   },
@@ -111,6 +132,33 @@
         40897,
         50550
       ]
+    ],
+    "additionalExcerpts": [
+      {
+        "formatter": "prettier@3.6.2 parser=babel default LF",
+        "formattedSHA256": "25baedef6a717bfe5dcd5a2ab44a9380aff29355d072232f548c89d7d7b1e5e2",
+        "ranges": [
+          [
+            44693,
+            44782
+          ],
+          [
+            46112,
+            46361
+          ],
+          [
+            47441,
+            47800
+          ],
+          [
+            51702,
+            52351
+          ]
+        ],
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsContents.source.txt",
+        "lineConvention": "full-module prettier 3.6.2; independent from historical excerpt labels",
+        "excerptSHA256": "8a82d4b522a670c03536322c216dde6e105a2f38bc6320a62de7cf4d86eaa2f3"
+      }
     ]
   },
   {
@@ -191,6 +239,19 @@
           ]
         ],
         "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      },
+      {
+        "formatter": "prettier@3.6.2 parser=babel default LF",
+        "formattedSHA256": "b3a0bda89c85ec170a7273219b773850307aaea346459aa0ec1a12c0d155928e",
+        "ranges": [
+          [
+            40993,
+            41202
+          ]
+        ],
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsContents.source.txt",
+        "lineConvention": "full-module prettier 3.6.2; independent from historical excerpt labels",
+        "excerptSHA256": "8a82d4b522a670c03536322c216dde6e105a2f38bc6320a62de7cf4d86eaa2f3"
       }
     ]
   },

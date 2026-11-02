@@ -27,6 +27,11 @@ namespace SlowRoads.Generation.Terrain
         public readonly TerrainGridTopology Topology;
         public FarTerrainStage Stage {get;private set;}
         public TerrainMeshData Data {get;private set;}
+        // Content callback receives original double normal before mesh quantization.
+        public Action<FarTerrainTileBuilder,int,int,double> CoarseNormalSample {get;set;}
+        public int NegativeXLayer=>context.NegativeXLayer;
+        public int NonNegativeXLayer=>context.NonNegativeXLayer;
+        public double SampleRawForContents(double x,double z)=>owner.ReadTerrainRaw(context,x,z);
         public int Generation=>context.Generation;
         public long Revision=>context.Revision;
         public double LookupHeight(double worldX,double worldZ,bool fine=true)=>Data?.LookupHeight(worldX,worldZ,fine)??throw new InvalidOperationException("Tile is not complete");
@@ -71,6 +76,7 @@ namespace SlowRoads.Generation.Terrain
             }
             double nx=-(down-up)*span,ny=span*span,nz=-span*(right-left);
             double inv=1/Math.Sqrt(nx*nx+ny*ny+nz*nz);int at=(x*z+y)*3;
+            if(!fine)CoarseNormalSample?.Invoke(this,x,y,ny*inv);
             normals[at]=(float)(nx*inv);normals[at+1]=(float)(ny*inv);normals[at+2]=(float)(nz*inv);
             if(!fine){coarseNormalValid[x*z+y]=true;Array.Copy(normals,at,coarseNormals,at,3);}
         }

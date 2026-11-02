@@ -1,6 +1,6 @@
 # Hills agent 结构与阶段验收
 
-此文件定义开发 agent 的职责和交接契约；不是运行时 AI、NavMesh agent 或车辆控制系统。当前唯一运行时为 HillsDebugSession → RoadStreamingPresentation（协调RoadStreamingSession与TerrainStreamingSession/TerrainStreamingPresentation）→ StreamingRoadRouteSource → RouteObserver → ObserverCamera，唯一业务 SO 为 `Assets/SlowRoads/Settings/Hills/HillsSceneSettings.asset`。2026-10-29 按用户要求删除有限预览/烘焙、灰模、独立高度场及材质/观察者/流式分散配置；只保留一个种子入口。Legacy 道路已清退；树 Shader 仍被八套参考材质引用。
+此文件定义开发 agent 的职责和交接契约；不是运行时 AI、NavMesh agent 或车辆控制系统。当前唯一运行时为 HillsDebugSession → RoadStreamingPresentation（协调RoadStreamingSession、TerrainStreamingSession与正式TreeStreamingSession/Presentation）→ StreamingRoadRouteSource → RouteObserver → ObserverCamera，唯一业务 SO 为 `Assets/SlowRoads/Settings/Hills/HillsSceneSettings.asset`。2026-10-29 删除有限预览/分散配置，仅一个种子入口；2026-11-02树群已接主场景，原八套树材质保GUID迁移后Legacy树Shader已删除。
 
 唯一开发场景为 `Assets/Scenes/SlowRoadsRoadDemo.unity`；目录与协作边界见 `ProjectLayout.md`。不再通过菜单创建演示场景。
 
@@ -53,6 +53,9 @@
 - T2/T3及C1–C3（2026-10-30）：远景Tile/近路Chunk无内容几何已有原版对照；补齐只读空间产物、缓冲所有权、首次上传与驻留收据、低预算进度和边界/属性来源合同。Terrain 73/73通过。该记录对应前置完成时点；后续T4/T5实际装配与验收见下条和其第9节。当前状态与限制见 `Docs/ReverseEngineering/TerrainAudit/T2T3_完成度复核与补全实施计划.md` 第6节。
 - T4/T5（2026-10-30）：已装配Ma区域/覆盖流式、共享P5预算/Ready背压及四季地形Shader；原版12组调度轨迹和32组独立GLSL表面GPU结果已对照，主场景可持续显示地形。用户已授权overlap显示流改用完整float索引，原Int8证据保留。续验补齐48组正式固定机位地形图像、48组诊断图像和实际Frame Debugger提交，T5地形范围门禁PASS。最终测试、图像差异、场景里程和明确适配边界以 `Docs/ReverseEngineering/TerrainAudit/T4T5_地形流式与材质开发实施计划.md` 第9–10节为准；未执行T6或移动端专项，不代表完整S1光照/雾/内容复刻。
 - T6（2026-10-30最终结项）：约定Editor/桌面范围九类门禁全部PASS，第二目标“道路与丘陵地形一体化生成”完成。失败上传产物释放缺陷已最小修复；新增联合10+1项、受影响流式6项、新桥区36区域原版对照、49帧色彩/实际深度、八配置轮转、十次重置及30分钟/93.33km联合长跑记录有效。用户手动清理全部17项目标后，1004个保护文件核验及正式主场景清理后回归通过：实际增加291.67m、固定seed重置后继续140.89m，退出资源归零。最终证据以 `Docs/ReverseEngineering/TerrainAudit/T6_道路地形联合验收实施计划.md` §13及HillsTerrainT6/result.json为准；历史拒绝记录保留，不含移动端性能，不代表整个S1完成，不自动进入下一目标或S2/S3。
+- 第三目标C0/C1（2026-10-31进行中）：内容原版执行器、13份fixture与最小SourceAtlas补证已建立，初始Ma urgent中心Tile顺序已纠正；C1.1只读数值基础（密度、ze族map、h5变体noise、四循环表/checkpoint）已实现，原采样对照4/4及受影响道路阴影输入/属性8/8通过。完整live内容调度/重建trace尚未收口，C0整体及C1整体均未PASS；未接候选生成、GPU渲染或主场景内容，不包含移动端专项。实际结果、批次调整和剩余门槛统一见 `Docs/ReverseEngineering/ContentsAudit/C0C1_内容清单与树群开发实施计划.md` §15，不覆盖T6既有结项。
+- C0/C1补全R1（2026-10-31）：已补真实Ma/si/Ca/qb/Dt/i7动态参考套件和U父依赖、urgent/部分消费后取消收据；原13份fixture受影响非写入回归无漂移。进度点排空子集PASS；连续低预算合成压力输入复现缺失父Tile读取，R1 Ready Gate为FAIL，未进入R2。该样本排除真实Chunk几何/C2/C5，不宣称完整原应用故障。原始证据、输入域/驻留解除条件与实际范围见 `Docs/ReverseEngineering/ContentsAudit/C0C1_完成度复核与补全实施计划.md` §8；没有运行时代码或主场景改动。
+- C0/C1补全实施（2026-11-02，取代上两条的当前状态）：用户已解除旧R1开发阻断；R2–R7正式候选/稳定来源事务/近路解析/组合属性/GPU Cluster差量/Compute/Indirect/四季材质/唯一主场景接入已完成。CPU14/14、GPU6/6（含96组原组装GLSL表面/顶点/自发光），受影响地形流式6/6和材质3/3通过；原点迁移17次、开关随机中立和退出native资源归零。原R1压力FAIL与全Ni/全图像UNVERIFIED保留，不伪改为PASS，也不重新设立开发许可。C2可复用现有ApplyExternal/ContentAttributeStore，C3独立桥分支可先做；农田派生墙按C2输出串行。实现、接口、渲染复核、成本及限制统一见同文件§9，C2/C3尚未实施。
 - S1c：地形、路基、道路、树群、农田、墙/桥/路边物件完整复刻；临时参考资产绑定。
 - S1d：固定观察点图像、生成计数、生命周期、Android/iOS GPU 帧耗时与带宽验收；通过后才能进入 S2。
 - S2：自有美术替换与材质/LOD 验证，检查所有临时素材引用已经清除。
@@ -104,8 +107,8 @@ P5 已接管固定配置的空间索引、三段轮转、窗口化快照/邻域�
 
 直接打开 `Assets/Scenes/SlowRoadsRoadDemo.unity`。配置资产为 `Assets/SlowRoads/Settings/Hills/HillsSceneSettings.asset`。旧 Slow Roads 菜单、创建器及有限预览烘焙已经移除；不要重新引入开发验收按钮、示例配置或自动覆盖场景的生成器。
 
-进入 Play，选择 `Hills Scene`：道路类型可选宽越野、越野、单线窄路、单线宽路、标准公路，点击“应用道路设置并重新生成”生效；保留暂停/继续、单步与里程状态。唯一 SO 控制 roadType/seed/detail、季节、移动/相机、预算与驻留；三族四季材质为同一SO内直接资源引用。roadType/seed/detail/驻留在重新生成时生效；等待应用期间材质继续跟随当前Core类型，避免半切换。
+进入 Play，选择 `Hills Scene`：五种道路类型，点击“应用场景设置并重新生成”生效；保留暂停/继续、单步与里程状态。唯一SO控制seed/detail、树密度、季节、树群/投影可见性、移动/相机、预算及资源。生成配置重建时生效；显示/季节不重抽随机；等待道路类型应用期间保持当前Core材质。
 
-当前显示持续生成道路、近路/远景丘陵和橙色Cube，背景纯色；尚无植被、农田、桥梁实体、车辆、音频或物理控制。全部设置读取HillsSceneSettings；五种类型已联合装配P3路缘阴影采样宽度、P4网格/UV/越野语义和表现材质，半宽依次3.6/1.8/1.8/3.6/3.7米，由类型派生，不增加独立宽度字段。越野按原Nl只在桥区发布可见路面，普通越野区由近路地形及其材质表达。相机在LateUpdate运行。道路验证见P5记录第13节，地形/显示见T4/T5计划第9–10节。
+当前显示持续生成道路、近远景丘陵、近远树群及橙色Cube，背景纯色；农田/桥梁实体/草灌/路标尚未实施，不接车辆/音频/物理控制。全部设置读HillsSceneSettings；道路类型派生半宽3.6/1.8/1.8/3.6/3.7米，不另增宽度字段。越野按原Nl仅在桥区显示路面，其余由近地形表达。相机在LateUpdate运行；道路/地形既有验收继续有效，新增树链见ContentsAudit当前记录。
 
-性能边界：单个观察者的CPU路径采样与相机更新规模很小；Legacy近似生成及线性查询路径已删除。三块道路Mesh与地形区域Mesh池复用，地形共用一个季节运行时材质。没有GPU Compute、自定义RendererFeature/RT/全屏Blit；道路与地形Shader均有Forward/DepthOnly、Instancing兼容，无自定义keyword。实际采集帧的地形为13次draw的SRPBatch事件，实例数0，不声称跨不同Mesh实现GPU Instancing合批。移动设备表现仍待实测。
+性能边界：观察者CPU采样规模很小；三块道路Mesh与地形Mesh池复用。树群使用独立RendererFeature、Compute/Indirect、320m显示Cluster与局部上传；没有为树分配RT或全屏Blit，仅Instancing变体。原地形13次SRPBatch draw为T5历史采样，不等于当前含树全场景draw。CPU/GPU/上传/显存结论分别记录；本次C0/C1不含移动专项，完整光照/雾图像留后续验收。

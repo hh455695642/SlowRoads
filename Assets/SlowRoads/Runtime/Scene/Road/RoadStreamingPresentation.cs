@@ -13,6 +13,7 @@ namespace SlowRoads.Scene.Road
     {
         public RoadStreamingSession Core {get;private set;}
         public TerrainStreamingPresentation Terrain {get;private set;}
+        public SlowRoads.Scene.Contents.TreeStreamingPresentation Trees {get;private set;}
         public double ObserverProgress {get;private set;}
         public Double3 RenderOrigin {get;private set;}
         public string Fault {get;private set;}
@@ -42,6 +43,7 @@ namespace SlowRoads.Scene.Road
             BindMaterial();
             Core.YieldAtTickBoundary=true;
             Terrain=gameObject.AddComponent<TerrainStreamingPresentation>();Terrain.Initialize(this,settings);
+            Trees=gameObject.AddComponent<SlowRoads.Scene.Contents.TreeStreamingPresentation>();Trees.Initialize(this,settings);
         }
         void BindMaterial()
         {
@@ -105,7 +107,7 @@ namespace SlowRoads.Scene.Road
         }
         public void Release()
         {
-            if(disposed)return;disposed=true;Terrain?.Release();Terrain=null;Core?.Dispose();Core=null;
+            if(disposed)return;disposed=true;Trees?.Release();Trees=null;Terrain?.Release();Terrain=null;Core?.Dispose();Core=null;
             foreach(var upload in uploads)upload?.Dispose();
         }
         void OnDestroy()=>Release();

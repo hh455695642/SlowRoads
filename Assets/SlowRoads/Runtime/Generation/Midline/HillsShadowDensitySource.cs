@@ -20,9 +20,12 @@ namespace SlowRoads.Generation.Midline
         }
         public void SetHeadLayers(int negativeX,int nonNegativeX)=>map.SetLayers(negativeX,nonNegativeX);
         public double GetMapXZ(double x,double z)=>map.GetXZ(x,z);
+        // Shared Wa arithmetic for the road shadow input and C1 content density.
+        public double GetDensityAt(double x,double z)=>
+            (1-Math.Max(Math.Min(1,map.GetXZ(x,z)+(1-DensityFactor)),0))*DensityFactor;
         public double GetShadowDensityAt(double x,double z)
         {
-            double density=(1-Math.Max(Math.Min(1,map.GetXZ(x,z)+(1-DensityFactor)),0))*DensityFactor;
+            double density=GetDensityAt(x,z);
             return density>0.05?Math.Min(1,density*1.5+0.3):0;
         }
         public void Dispose()=>map.Dispose();

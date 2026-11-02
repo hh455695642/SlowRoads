@@ -16,6 +16,9 @@ Assets/
       Generation/Spatial/             Ca索引、i_粗投影/$u精投影与显式退役
       Generation/Terrain/             Ll/U查询、Tile/Chunk、Ma区域/overlap、分步流式与驻留合同
       Generation/Streaming/           Ni顺序分步、xi三对象轮转、发布/重放与驻留调度
+      Generation/Contents/            来源贡献、组合版本与共享内容属性
+      Generation/Contents/Trees/      Wa候选、Arrangement、稳定Store/解析、T4流式与树影
+      Scene/Contents/                 唯一树群表现/资源owner，复用RoadPresentation程序集
       Scene/Terrain/                  地形Mesh上传/LOD/原点、Renderer池与共享材质表现
       Scene/Road/                     三Mesh上传/LOD/释放、流式装配、唯一HillsSceneSettings
     Editor/Debug/                     调试 Inspector，无顶层菜单
@@ -24,7 +27,10 @@ Assets/
     Art/Debug/Materials/               观察方块材质
     Art/Reference/SlowRoads/           临时参考素材，按原分类保存
       Models/ Textures/ Materials/ Prefabs/
-    Rendering/Shaders/Legacy/          已有参考树 Shader（材质仍依赖）
+    Rendering/Features/                HillsTreeRendererFeature（Compute/DepthNormals/Forward）
+    Rendering/Compute/                 树群GPU剔除与近远LOD
+    Rendering/Instances/               Cluster差量、Indirect缓冲与释放
+    Rendering/Shaders/Vegetation/      树/imposter正式Shader及受限CPU降级
     Rendering/Shaders/Road/            Hills 路面表面合成与 alpha clip
     Rendering/Shaders/Terrain/         Hills 地形表面/微位移/overlap下沉（Forward/DepthOnly）
 Docs/
@@ -36,6 +42,8 @@ Docs/
                                       路面材质来源身份与独立表面算术样本
     RoadAudit/Fixtures/Streaming/      原 Se/B7→Ca→xi trace与Functional/Recovery全数组矩阵
     RoadAudit/Fixtures/RoadBlend/      i_投影、ze扰动、Ll逐点与分支边界样本
+    ContentsAudit/                    C0/C1唯一实施文档、复用既有VM的内容执行器
+    ContentsAudit/Fixtures/Trees/     原Wa/Dt/i7/U/s0/qb样本、精确随机位串和材质证据
 ```
 
 SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移除。原 SampleSceneProfile 被 PC/Mobile 管线引用，故保留并更名 SceneVolumeProfile，GUID 不变；已失效的输入配置注册已清除。参考模型/场景贴图以 Docs/Assets/HillsAssetManifest.json 为准。禁止重新导入车辆或其他场景资源。非运行资料放 Docs，不放 Assets 或 Resources。
@@ -43,13 +51,15 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 ## 当前场景与配置
 
 - Runtime/Debug 保留主场景装配、IRouteSource、StreamingRoadRouteSource、RouteObserver、ObserverCamera；道路与地形共享同一预算和生产屏障；观察者只提交道路及近路地形均Ready的里程，没有有限预览或备用分支。
-- 唯一业务配置：Settings/Hills/HillsSceneSettings.asset。包含五种道路类型、单一seed、视距、季节、运动/相机、道路三族四季及地形四季材质直接引用、地形可见性/边界调试及实际调度/回收参数；保留原GUID。类型派生P3路缘宽度及P4几何/越野语义，不新增独立半宽或surface开关。选择类型后在原主场景重新生成。
+- 唯一业务配置：Settings/Hills/HillsSceneSettings.asset。包含五种道路类型、单一seed、视距、季节、运动/相机、道路三族四季/地形四季/树群两族四季资源、地形/树可见性及实际调度/回收参数；保留原GUID。类型派生宽度，树密度改变在原主场景重建，显示开关不改变随机序列。
 - Editor/Debug 只保留 HillsDebugSessionEditor，提供中文设置、暂停/继续、单步和重新生成。烘焙/Provision、灰模、测试预览、性能诊断开关已删除。
 - 已删除独立HillsDebugSettings、HillsRoadStreamingSettings（重命名并合并）、HillsRoadMaterialSettings、HillsHeightfieldSettings及旧实例；删除Runtime/Configuration、Settings/Debug、Art/Debug/RoadPreview空目录及预览专用占位路面材质。
-- Rendering/Shaders/Legacy的树Shader仍被八套参考树材质使用。原版对照fixture与纯算法测试在Tests/Docs，不进入用户场景配置；旧P6场景探针按用户要求删除，历史结果保留在原报告。
+- 2026-11-02原8套树材质保GUID迁移至正式植被Shader；Legacy树Shader与空目录在引用归零后已删除。原版对照fixture与测试在Tests/Docs，不进入用户场景配置；旧P6探针不恢复。
 - 运行程序集不读Docs；Generation保持无Unity引用，Scene/Road提供唯一配置类型和表现边界。没有新增Manager、兼容Settings或平行场景。
 
 ## 清理状态（2026-10-28）
+
+2026-11-02 C0/C1：R2–R7正式树链已接同一T4/P5屏障和主场景，新增独立植被Rendering程序集；CPU14/14、GPU6/6，原GLSL96组表面/顶点/自发光对照通过，17次原点迁移及退出资源归零。原8材质引用迁移后删除Legacy树Shader；不创建第二场景/配置或树渲染器。原R1合成低预算失败及全Ni/全图像未验证项保持事实，但用户已解除其开发顺序阻断。详细实现、接口、成本与验收范围见ContentsAudit/C0C1_完成度复核与补全实施计划.md §9。下列T6/旧清理状态均是对应日期的历史。
 
 2026-10-30 T6最终状态：唯一场景/唯一HillsSceneSettings与正式道路—地形链未变，Editor/桌面范围九类验收全部PASS，第二目标已结项；技术结果见TerrainAudit/T6计划§9，最终清理与清理后回归见§13。联合测试位于Tests/EditMode/RoadUnity，显式采集/复算脚本位于Docs/ReverseEngineering/TerrainAudit，证据合并于Docs/Agents/Artifacts/HillsTerrainT6。用户已手动清理清单17项，1004个保护文件核验及清理后主场景推进/重置/退出回归通过，历史拒绝记录保留。旧Temp只读审计已合并进现有t6-joint-probe.cs的AuditClosure/SampleClosure，不恢复临时脚本。未向Assets加入诊断Feature/菜单/第二场景，退出诊断Feature为0；Legacy树Shader仍有八套材质实际依赖。全部有效原版证据、用户暂存/未跟踪成果保留；本结论不延伸到移动端性能或整个S1，不自动进入下一目标。
 

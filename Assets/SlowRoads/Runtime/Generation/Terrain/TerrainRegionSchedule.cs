@@ -48,6 +48,7 @@ namespace SlowRoads.Generation.Terrain
         readonly List<TilePlan> stageTiles=new();
         readonly Queue<TilePlan> spawnTiles=new();
         readonly Queue<TerrainRegionState> stage=new(),display=new(),prepare=new(),fine=new(),coarse=new(),retire=new();
+        readonly List<TerrainRegionState> deferredRelease=new();
         public readonly double Q2,L2,H4,S5,W4,Lookahead;
         public readonly int B4,MT;
         readonly double collapse;
@@ -58,6 +59,9 @@ namespace SlowRoads.Generation.Terrain
         public event Action<TerrainRegionEvent> Changed;
         public event Action<int,int,int> InnerCellRegistered;
         public Func<TerrainRegionState,bool> ParentsReady;
+        // Unity content adapter: preserve a pending consumer's logical parent even
+        // when native Ma would delete it under backlog. Null keeps native trace.
+        public Func<TerrainRegionState,bool> CanRepool;
         public bool Initialized=>collector!=null;
         public NearTerrainChunkLayout OpenChunk=>collector?.Current;
         public TerrainRegionSchedule(TerrainGenerationConfig config,Func<int,Double3?> source,Func<int,int,int> roadLastSeen=null)
@@ -144,7 +148,7 @@ namespace SlowRoads.Generation.Terrain
                     foreach(var t in a.Remove)if(t!=null&&!t.Repooled)
                     {
                         t.Visible=false;t.Retired=true;t.TargetLod=0;
-                        bool keep=t.LastSeen>observer||roadLastSeen(t.X,t.Z)>observer;
+                        bool keep=t.LastSeen>observer||roadLastSeen(t.X,t.Z)>observer||(CanRepool!=null&&!CanRepool(t));
                         t.Repooled=!keep;Emit(t,keep?TerrainRegionAction.Retire:TerrainRegionAction.Repool,observer);if(!keep)Tiles.Remove((t.X,t.Z));
                     }
                 }
@@ -163,6 +167,12 @@ namespace SlowRoads.Generation.Terrain
             {var r=coarse.Dequeue();r.TargetLod=0;Emit(r,TerrainRegionAction.Coarse,observer);retire.Enqueue(r);did=true;}
             else if(retire.Count>0&&retire.Peek().LastSeen-W4<=observer)
             {var r=retire.Dequeue();r.Visible=false;r.Retired=true;Emit(r,TerrainRegionAction.Retire,observer);Chunks.Remove(r.Id);did=true;}
+            if(CanRepool!=null)
+            {
+                deferredRelease.Clear();
+                foreach(var t in Tiles.Values)if(t.Retired&&!t.Repooled&&t.LastSeen<=observer&&roadLastSeen(t.X,t.Z)<=observer&&CanRepool(t))deferredRelease.Add(t);
+                foreach(var t in deferredRelease){t.Repooled=true;Emit(t,TerrainRegionAction.Repool,observer);Tiles.Remove((t.X,t.Z));did=true;}
+            }
             return did;
         }
     }

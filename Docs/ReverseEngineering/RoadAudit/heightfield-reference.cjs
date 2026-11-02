@@ -7,7 +7,7 @@ const manifest=JSON.parse(fs.readFileSync(path.join(root,'Docs/ReverseEngineerin
 const out=path.join(__dirname,'Fixtures/Heightfield/hills-heightfield.json');
 const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 
-function readArchive(extraKeys=[]){
+function readArchive(extraKeys=[],options={}){
   const fd=fs.openSync(path.join(root,'Slow Roads/resources/app.asar'),'r');
   const read=(offset,length)=>{
     const bytes=Buffer.alloc(length);let done=0;
@@ -34,11 +34,15 @@ function readArchive(extraKeys=[]){
     for(const item of manifest.filter(x=>required.has(x.key)))
       sources[item.key]=file('build/_app/immutable/chunks/'+item.module+'.js');
     for(const key of required)assert(sources[key],'Missing manifest module '+key);
-    const calls=[];
+    const files=Object.fromEntries((options.files||[]).map(name=>[name,file(name)]));
+    const calls=[],termCalls=Object.fromEntries((options.scanTerms||[]).map(term=>[term,[]]));
     const chunks=header.files.build.files._app.files.immutable.files.chunks.files;
-    for(const name of Object.keys(chunks).filter(x=>x.endsWith('.js')))
-      if(/\.\s*getXZLayer\s*\(/.test(file('build/_app/immutable/chunks/'+name).toString('utf8')))calls.push(name);
-    return {sources,version:JSON.parse(file('package.json')).version,calls};
+    for(const name of Object.keys(chunks).filter(x=>x.endsWith('.js'))){
+      const text=file('build/_app/immutable/chunks/'+name).toString('utf8');
+      if(/\.\s*getXZLayer\s*\(/.test(text))calls.push(name);
+      for(const term of Object.keys(termCalls))if(text.includes(term))termCalls[term].push(name);
+    }
+    return {sources,version:JSON.parse(file('package.json')).version,calls,files,termCalls};
   }finally{fs.closeSync(fd);}
 }
 function verifyHashes(sources,keys=['Dev','Hills','Settings','Rand']){

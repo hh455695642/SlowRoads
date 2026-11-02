@@ -5,6 +5,8 @@ using SlowRoads.Generation.Streaming;
 using SlowRoads.Generation.Terrain;
 using SlowRoads.Scene.Road;
 using UnityEngine;
+using SlowRoads.Generation.Contents.Trees;
+using SlowRoads.Generation.Contents;
 
 namespace SlowRoads.Scene.Terrain
 {
@@ -26,10 +28,13 @@ namespace SlowRoads.Scene.Terrain
         bool disposed;
         Material runtimeMaterial,sourceMaterial;
         public TerrainStreamingSession Core {get;private set;}
+        public TreeStreamingSession Trees {get;private set;}
         public int NativeMeshCount=>active.Count+pool.Count;
         public void Initialize(RoadStreamingPresentation road,HillsSceneSettings settings)
         {
             this.road=road;this.settings=settings;Core=new TerrainStreamingSession(road.Core,Upload);
+            Trees=new(road.Core,Core,settings.treeDensity==0?(int?)null:settings.treeDensity);
+            Trees.Attributes.Changed+=ContentChanged;
             Core.Released+=ReleaseRegion;Core.Reset+=ReleaseAll;
             Core.CoverageChanged+=(r,c)=>{if(active.TryGetValue(r,out var slot))slot.Upload.UpdateOverlap(c);};
             road.OriginShifted+=OriginChanged;
@@ -57,7 +62,8 @@ namespace SlowRoads.Scene.Terrain
                 slot.Object.name=region.Chunk?"Near terrain chunk "+region.Id:$"Far terrain {region.X},{region.Z}";
                 slot.Object.SetActive(true);slot.Renderer.enabled=false;
                 slot.Renderer.sharedMaterial=ResolveMaterial();
-                slot.Upload.Upload(data,road.Core,slot.Object.transform,road.RenderOrigin);slot.Upload.SetFine(region.TargetLod==1);
+                slot.Upload.Upload(data,road.Core,slot.Object.transform,road.RenderOrigin,Trees.BaseShadowAt,Trees.FieldAt);
+                if(Trees.Attributes.HasContributions)slot.Upload.UpdateContent(Trees.AdditionalShadowAt,Trees.FieldAt);slot.Upload.SetFine(region.TargetLod==1);
                 active.Add(region,slot);return slot.Upload.Residency;
             }
             catch{slot.Upload.Dispose();Destroy(slot.Object);throw;}
@@ -71,6 +77,17 @@ namespace SlowRoads.Scene.Terrain
                 return used+road.Core.Advance(budget-used);
             }
             return road.Core.Advance(budget);
+        }
+        void ContentChanged(IReadOnlyCollection<ContentAttributeKey> keys)
+        {
+            if(Core.Schedule==null)return;
+            // Patch only regions intersecting changed original 10m grid samples.
+            foreach(var pair in active)
+            {
+                var slot=pair.Value;var b=slot.Upload.Mesh.bounds;var o=slot.Upload.Origin;bool dirty=false;
+                foreach(var key in keys)if(key.Channel<=ContentChannel.FieldColour&&key.X*10>=o.X+b.min.x-10&&key.X*10<=o.X+b.max.x+10&&key.Z*10>=o.Z+b.min.z-10&&key.Z*10<=o.Z+b.max.z+10){dirty=true;break;}
+                if(dirty)slot.Upload.UpdateContent(Trees.AdditionalShadowAt,Trees.FieldAt);
+            }
         }
         void LateUpdate()
         {
@@ -114,7 +131,7 @@ namespace SlowRoads.Scene.Terrain
         }
         public void Release()
         {
-            if(disposed)return;disposed=true;if(road!=null)road.OriginShifted-=OriginChanged;Core?.Dispose();ReleaseAll();
+            if(disposed)return;disposed=true;if(road!=null)road.OriginShifted-=OriginChanged;if(Trees!=null)Trees.Attributes.Changed-=ContentChanged;Trees?.Dispose();Core?.Dispose();ReleaseAll();
             foreach(var slot in pool){slot.Upload.Dispose();if(slot.Object!=null)Destroy(slot.Object);}pool.Clear();if(runtimeMaterial!=null)Destroy(runtimeMaterial);runtimeMaterial=null;sourceMaterial=null;
         }
         void OnDestroy()=>Release();

@@ -12,6 +12,9 @@ namespace SlowRoads.Generation.Terrain
     /// Contents (tree density and wall elevation) are outside this geometry stage.</summary>
     public sealed class NearTerrainChunkBuilder : IDisposable
     {
+        public Func<double,double,double> TreeShadowProvider {get;set;}
+        float[] treeMask;
+        double[,] treeCorners;
         readonly RoadStreamingSession owner;
         readonly NearTerrainChunkLayout layout;
         readonly TerrainBuildContext context;
@@ -62,6 +65,8 @@ namespace SlowRoads.Generation.Terrain
             int vertices=cellVertices*layout.Count;
             positions=new float[vertices*3];normals=new float[vertices*3];coarseNormals=new float[vertices*3];
             proximity=new float[vertices];uv=new float[vertices*2];corners=new double[layout.Count,4];
+            treeMask=new float[vertices];
+            treeCorners=new double[layout.Count,4];
             coarseCount=layout.Count*topology.CoarseCount;fineStart=inner*topology.CoarseCount;
             fineCount=coarseCount-fineStart+inner*topology.FineCount;indices=new int[fineStart+fineCount];
             var first=layout.Cells[0];
@@ -89,6 +94,9 @@ namespace SlowRoads.Generation.Terrain
             if(selectedCell==cellIndex)return;
             selectedCell=cellIndex;var c=layout.Cells[cellIndex];context.Window.SetCandidates(c.Candidates());
             if(Stage!=NearTerrainStage.Positions)return;
+            if(TreeShadowProvider!=null)
+            {treeCorners[cellIndex,0]=TreeShadowProvider(c.X*10.0,c.Z*10.0);treeCorners[cellIndex,1]=TreeShadowProvider(c.X*10.0+10,c.Z*10.0);
+                treeCorners[cellIndex,2]=TreeShadowProvider(c.X*10.0,c.Z*10.0+10);treeCorners[cellIndex,3]=TreeShadowProvider(c.X*10.0+10,c.Z*10.0+10);}
             corners[cellIndex,1]=owner.ReadTerrainRaw(context,c.X*10.0+10,c.Z*10.0);
             corners[cellIndex,2]=owner.ReadTerrainRaw(context,c.X*10.0,c.Z*10.0+10);
             corners[cellIndex,3]=owner.ReadTerrainRaw(context,c.X*10.0+10,c.Z*10.0+10);
@@ -112,6 +120,16 @@ namespace SlowRoads.Generation.Terrain
                 positions[at*3]=(float)(c.X*10.0-originX+row*step);positions[at*3+1]=(float)value.Height;
                 positions[at*3+2]=(float)(c.Z*10.0-originZ+z*step);
                 proximity[at]=(float)(p.Distance-roadWidth);
+                if(TreeShadowProvider!=null)
+                {
+                    double x=row/(double)resolution,zFraction=z/(double)resolution;
+                    double tl=treeCorners[cellIndex,0],tr=treeCorners[cellIndex,1],bl=treeCorners[cellIndex,2],br=treeCorners[cellIndex,3];
+                    double td=(tl*(1-x)+tr*x)*(1-zFraction)+(bl*(1-x)+br*x)*zFraction;
+                    double left=0,right=0;
+                    if(context.TryGetFineAttributes(p.FineKey,out var a,out var b))
+                    {left=a.ShadowLeft*(1-p.FineT)+b.ShadowLeft*p.FineT;right=a.ShadowRight*(1-p.FineT)+b.ShadowRight*p.FineT;}
+                    treeMask[at]=(float)Contents.Trees.TreeSurfaceShadow.Evaluate(td,p.OriginalDistance-roadWidth,roadWidth,p.Side,left,right);
+                }
                 if(p.Distance<roadWidth&&value.Height-p.Y<-.2)proximity[at]=(float)Math.Max(-.001,p.OriginalDistance-roadWidth);
                 // Settings imports Hills.N as l1: roadUv is populated only for off-road styles.
                 if(owner.Config.Mesh.OffRoad&&p.OriginalDistance<roadWidth*2){uv[at*2]=(float)(.5-(p.OriginalDistance/(roadWidth*2)*p.Side)/2);uv[at*2+1]=(float)(p.Index+p.T);}
@@ -156,7 +174,7 @@ namespace SlowRoads.Generation.Terrain
                 if(Stage==NearTerrainStage.Complete)
                 {
                     if(!context.TryCommit()){Stage=NearTerrainStage.Cancelled;return Stage;}
-                    Data=new TerrainMeshData(owner,context,true,originX,originZ,positions,normals,coarseNormals,indices,coarseCount,fineStart,fineCount,proximity,uv,layout);
+                    Data=new TerrainMeshData(owner,context,true,originX,originZ,positions,normals,coarseNormals,indices,coarseCount,fineStart,fineCount,proximity,uv,layout,treeMask:treeMask);
                     ClearBuffers();
                 }
                 return Stage;
@@ -170,7 +188,7 @@ namespace SlowRoads.Generation.Terrain
             cellIndex=0;if(Stage==NearTerrainStage.CoarseNormals)Array.Copy(normals,coarseNormals,normals.Length);
             Stage++;
         }
-        void ClearBuffers(){positions=normals=coarseNormals=proximity=uv=null;indices=null;corners=null;parents=null;}
+        void ClearBuffers(){positions=normals=coarseNormals=proximity=uv=treeMask=null;indices=null;corners=treeCorners=null;parents=null;}
         public void Dispose(){context.Dispose();ClearBuffers();if(Stage!=NearTerrainStage.Complete)Stage=NearTerrainStage.Cancelled;}
     }
 }

@@ -93,6 +93,7 @@ namespace SlowRoads.Generation.Terrain
         public TerrainBuffer<float> CoarseNormals {get;}
         public TerrainBuffer<float> RoadProximity {get;}
         public TerrainBuffer<float> RoadUv {get;}
+        public TerrainBuffer<float> TreeMask {get;}
         public TerrainBuffer<float> Curvature {get;}
         public TerrainBuffer<sbyte> Overlap {get;}
         public TerrainBuffer<int> Indices {get;}
@@ -103,9 +104,10 @@ namespace SlowRoads.Generation.Terrain
         public int VertexCount=>IsDisposed?0:Positions.Length/3;
         internal TerrainMeshData(RoadStreamingSession owner,TerrainBuildContext context,bool roads,double x,double z,
             float[] positions,float[] normals,float[] coarseNormals,int[] indices,int coarseCount,int fineStart,int fineCount,
-            float[] proximity=null,float[] uv=null,NearTerrainChunkLayout layout=null,double[] heights=null,bool[] heightValid=null,bool[] normalValid=null)
+            float[] proximity=null,float[] uv=null,NearTerrainChunkLayout layout=null,double[] heights=null,bool[] heightValid=null,bool[] normalValid=null,float[] treeMask=null)
         {
             Owner=owner;Generation=context.Generation;Revision=context.Revision;LayerRevision=context.LayerRevision;RoadDependent=roads;
+            TreeMask=treeMask!=null?new(treeMask):null;
             Config=context.Config;FirstSupportIndex=context.FirstSupportIndex;LastSupportIndex=context.LastSupportIndex;
             ResidencyRevision=context.Window?.Residency??-1;
             OriginX=x;OriginZ=z;Positions=new(positions);Normals=new(normals);CoarseNormals=new(coarseNormals);Indices=new(indices);
@@ -152,7 +154,7 @@ namespace SlowRoads.Generation.Terrain
         {
             if(IsDisposed)return;IsDisposed=true;
             Positions.Release();Normals.Release();CoarseNormals.Release();Indices.Release();Curvature.Release();
-            RoadProximity?.Release();RoadUv?.Release();Overlap?.Release();Heights?.Release();CoarseHeightValid?.Release();CoarseNormalValid?.Release();
+            RoadProximity?.Release();RoadUv?.Release();TreeMask?.Release();Overlap?.Release();Heights?.Release();CoarseHeightValid?.Release();CoarseNormalValid?.Release();
         }
     }
 }
