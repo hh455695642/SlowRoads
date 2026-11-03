@@ -4,6 +4,10 @@ using SlowRoads.Generation.Road;
 
 namespace SlowRoads.Scene.Road
 {
+    [Serializable] public sealed class HillsStructureMaterials
+    {
+        public Material bridge,solidWall,barrier,fence,drystone,fieldFar;
+    }
     public enum HillsRoadSeason { [InspectorName("夏季")] Summer, [InspectorName("春季")] Spring, [InspectorName("秋季")] Autumn, [InspectorName("冬季")] Winter }
     // Values preserve the original Wm enum. Default explicitly remains Standard for existing assets.
     public enum HillsRoadType { [InspectorName("宽越野")] OffRoadWide=0,[InspectorName("越野")] OffRoad=1,
@@ -41,6 +45,12 @@ namespace SlowRoads.Scene.Road
         public Shader treeFallbackShader;
         [InspectorName("地形季节材质")] public Material[] terrainMaterials=new Material[4];
         public Material ResolveTerrainMaterial()=>terrainMaterials!=null&&terrainMaterials.Length==4&&terrainMaterials[(int)season]!=null?terrainMaterials[(int)season]:throw new InvalidOperationException("地形季节材质未配置");
+        [InspectorName("显示农田边界墙")] public bool fieldWallsVisible=true;
+        [InspectorName("显示桥梁")] public bool bridgesVisible=true;
+        [InspectorName("显示沿路墙及防护设施")] public bool wallsVisible=true;
+        public HillsStructureMaterials[] structureMaterials=new HillsStructureMaterials[4];
+        public Material bridgeProjectedShadow;
+        public HillsStructureMaterials ResolveStructureMaterials()=>structureMaterials!=null&&structureMaterials.Length==4&&structureMaterials[(int)season]!=null?structureMaterials[(int)season]:throw new InvalidOperationException("桥墙季节材质未配置");
         [InspectorName("显示道路")] public bool visible=true;
         [InspectorName("持续生成")] public bool generationEnabled=true;
         [InspectorName("自动前进")] public bool movementEnabled=true;

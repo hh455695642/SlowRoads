@@ -8,12 +8,15 @@ namespace SlowRoads.Generation.Contents.Trees
     /// seam duplicates and the original amplitude expression; not the repeated ze profile.</summary>
     public sealed class HillsTreeVariantNoise
     {
-        readonly Double3[][] layers=new Double3[4][];
+        readonly Double3[][] layers;
         readonly double amplitude;
-        public HillsTreeVariantNoise()
+        readonly int initialResolution;
+        public HillsTreeVariantNoise(int depthCount=4,int initialResolution=4)
         {
-            var random=new AleaRandom("perlin");int resolution=4;
-            for(int depth=0;depth<4;depth++,resolution*=2)
+            if(depthCount<1||depthCount>6||initialResolution<1||initialResolution>16)throw new ArgumentOutOfRangeException();
+            layers=new Double3[depthCount][];this.initialResolution=initialResolution;
+            var random=new AleaRandom("perlin");int resolution=initialResolution;
+            for(int depth=0;depth<depthCount;depth++,resolution*=2)
             {
                 int stride=resolution+1;var points=new Double3[stride*stride];
                 for(int x=0;x<resolution;x++)
@@ -24,12 +27,12 @@ namespace SlowRoads.Generation.Contents.Trees
                 }
                 Array.Copy(points,0,points,resolution*stride,stride);layers[depth]=points;
             }
-            double sum=0,value=1;for(int depth=0;depth<4;depth++){sum+=value;value/=2;}
+            double sum=0,value=1;for(int depth=0;depth<depthCount;depth++){sum+=value;value/=2;}
             amplitude=.5+(1/sum)*.5;
         }
         public double Get(double x,double z)
         {
-            x-=Math.Floor(x);z-=Math.Floor(z);double height=0,a=amplitude;int resolution=4;
+            x-=Math.Floor(x);z-=Math.Floor(z);double height=0,a=amplitude;int resolution=initialResolution;
             foreach(var layer in layers)
             {
                 double sx=x*resolution,sz=z*resolution;int ix=(int)Math.Floor(sx),iz=(int)Math.Floor(sz),stride=resolution+1;

@@ -50,6 +50,9 @@ namespace SlowRoads.Generation.Terrain
         public event Action<TerrainRegionState,FarTerrainTileBuilder,int,int,double> FarNormalSample;
         // Subscribers copy only owned content channels here, before near arrays retire.
         public event Action<TerrainRegionState,TerrainMeshData> RegionCommitted;
+        public event Action<TerrainRegionEvent> Lifecycle;
+        // Content jobs retain the same P5 barrier after a far tile commits; no near chunk may overtake them.
+        public Func<bool> ContentWorkPending {get;set;}
         public Func<double,double,double> TreeShadowProvider {get;set;}
         // Optional block measurements. Null subscribers incur no clock reads;
         // the pure generator remains independent of Unity's profiling assembly.
@@ -60,6 +63,27 @@ namespace SlowRoads.Generation.Terrain
         {this.road=road??throw new ArgumentNullException(nameof(road));this.upload=upload??throw new ArgumentNullException(nameof(upload));}
         Double3? Position(int i)=>i>=road.Midline.State.Head.Index&&i<road.Midline.State.FineTail.Index-2?road.Midline.FindCoarse(i)?.Position:null;
         void Queue(TerrainRegionState r){if(!r.Retired&&!r.Uploaded&&!work.Contains(r)&&r!=building)work.Add(r);}
+        /// <summary>Invalidate only resident near chunks whose finite projection support intersects
+        /// a C2 road-content revision. Their old residency remains visible until replacement commits.
+        /// Called at the existing producer barrier, never while a terrain builder is reading inputs.</summary>
+        public int InvalidateContent(int first,int last)
+        {
+            if(disposed)throw new ObjectDisposedException(nameof(TerrainStreamingSession));
+            if(first>last)throw new ArgumentOutOfRangeException(nameof(first));
+            if(building!=null)throw new InvalidOperationException("Content changed during a terrain build");
+            int count=0;
+            foreach(var pair in residents)
+            {
+                var r=pair.Key;if(!r.Chunk||r.Retired||!r.Uploaded)continue;
+                bool intersects=false;
+                // This is the same bounded support retained by NearTerrainChunkBuilder,
+                // including its original side-of-normal walk and shadow interpolation halo.
+                foreach(var cell in r.Layout.Cells)
+                {for(int i=0;i<cell.CandidateCount;i++)if(cell.Candidate(i)>=first-64&&cell.Candidate(i)<=last+64){intersects=true;break;}if(intersects)break;}
+                if(!intersects)continue;r.Uploaded=false;Queue(r);count++;
+            }
+            if(count>0)NeedsWork=true;return count;
+        }
         void OnEvent(TerrainRegionEvent e)
         {
             TerrainRegionState r=e.Region;
@@ -67,6 +91,7 @@ namespace SlowRoads.Generation.Terrain
             // Native Dt.retire retains height/mesh data for Ca's future road.
             // Only repool releases a tile; chunks release on retire.
             if((e.Chunk&&e.Action==TerrainRegionAction.Retire)||e.Action==TerrainRegionAction.Repool)release.Add(r);
+            Lifecycle?.Invoke(e);
         }
         bool ParentsReady(TerrainRegionState r)
         {
@@ -139,12 +164,15 @@ namespace SlowRoads.Generation.Terrain
                             far?.Dispose();near?.Dispose();far=null;near=null;building=null;
                             throw;
                         }
+                        bool replacing=residents.TryGetValue(building,out var previous);
                         var resident=new Resident{Receipt=receipt};layer=data.LayerRevision;
                         if(!building.Chunk){resident.Tile=data;resident.Overlap=new(data.Config.TileFineResolution);ActiveTiles++;}
-                        else {foreach(var c in data.Cells)cells[(c.X,c.Z)]=building;ActiveChunks++;}
-                        residents.Add(building,resident);building.Residency=receipt;building.Uploaded=true;UploadedCount++;
+                        else {foreach(var c in data.Cells)cells[(c.X,c.Z)]=building;if(!replacing)ActiveChunks++;}
+                        residents[building]=resident;building.Residency=receipt;building.Uploaded=true;UploadedCount++;
+                        previous?.Receipt.Retire();
                         try{RegionCommitted?.Invoke(building,data);}finally{if(building.Chunk)data.Dispose();}
                         far?.Dispose();near?.Dispose();far=null;near=null;building=null;
+                        if(ContentWorkPending?.Invoke()==true)return used;
                     }
                     continue;
                 }
@@ -169,6 +197,7 @@ namespace SlowRoads.Generation.Terrain
                 bool step=Schedule.Step(road.Midline.State.ObserverIndex);used++;
                 long coverageStart=BeginMeasure();FlushCoverage();EndMeasure(TerrainWorkKind.Coverage,coverageStart);
                 long retirementStart=BeginMeasure();ReleaseRetired();EndMeasure(TerrainWorkKind.Retirement,retirementStart);
+                if(ContentWorkPending?.Invoke()==true)return used;
                 if(!step&&work.Count==0){used--;NeedsWork=false;break;}
             }
             return used;

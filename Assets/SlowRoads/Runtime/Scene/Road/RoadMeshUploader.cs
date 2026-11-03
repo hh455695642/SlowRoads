@@ -26,6 +26,9 @@ namespace SlowRoads.Scene.Road
             new VertexAttributeDescriptor(VertexAttribute.TexCoord2,VertexAttributeFormat.Float32,3,3)};
         const MeshUpdateFlags Flags=MeshUpdateFlags.DontRecalculateBounds;
         HillsChannels[] channels;
+        float[] baseShadow;
+        int[] contentOwner,contentOrdinal;
+        bool contentBound;
         ushort[] indices;
         int vertexCount,coarseCount,fineStart,fineCount;
         bool sourceVisible;
@@ -45,14 +48,29 @@ namespace SlowRoads.Scene.Road
         public bool DiagnosticsEnabled {get;set;}
         public int LastUploadedBytes {get;private set;}
         public int UploadCount {get;private set;}
+        public long ContentUploadedBytes {get;private set;}
         public int LiveVertexCount=>vertexCount;
+        /// <summary>C2 composition touches only the existing interleaved content stream.
+        /// P4's validated position/normal/UV buffers and source shadow history remain immutable.</summary>
+        public void UpdateContentShadows(Func<int,int,bool,double?> provider)
+        {
+            ThrowIfDisposed();if(vertexCount==0)return;if(!contentBound)throw new InvalidOperationException("Upload must bind its finite content path");
+            for(int row=0;row<vertexCount/2;row++)
+            {
+                int at=row*2;
+                channels[at].shadow=(float)(provider?.Invoke(contentOwner[row],contentOrdinal[row],true)??baseShadow[at]);
+                channels[at+1].shadow=(float)(provider?.Invoke(contentOwner[row],contentOrdinal[row],false)??baseShadow[at+1]);
+            }
+            Mesh.SetVertexBufferData(channels,0,0,vertexCount,3,Flags);
+            ContentUploadedBytes+=(long)vertexCount*28;
+        }
         public Double3 Origin {get;private set;}
         public RoadSegmentRequest SubmittedRequest {get;private set;}
         public RoadMeshUploader(string name="Hills road segment")
         {
             Mesh=new Mesh{name=name};Mesh.MarkDynamic();
         }
-        public bool Upload(RoadMeshBuffers source,int currentGeneration,long currentRevision,Transform target=null,Double3 renderOrigin=default)
+        public bool Upload(RoadMeshBuffers source,int currentGeneration,long currentRevision,Transform target=null,Double3 renderOrigin=default,RoadPathSnapshot path=null)
         {
             ThrowIfDisposed();
             if(!enabled)return false;
@@ -60,16 +78,24 @@ namespace SlowRoads.Scene.Road
             if(source.Request.Generation!=currentGeneration||source.Request.Revision!=currentRevision)
                 throw new InvalidOperationException("Producer revision changed before upload; rebuild from saved before-state");
             Validate(source);
+            int first=path?.FineOffset(source.Request.HeadCoarseIndex)??-1;
+            if(path!=null&&(first<0||first+source.VertexCount/2>path.FineCount))throw new InvalidOperationException("Road content binding does not match the uploaded fine chain");
             if(channels==null||channels.Length!=source.VertexCapacity)
             {
                 Mesh.Clear(false);
                 channels=new HillsChannels[source.VertexCapacity];indices=new ushort[source.Indices.Length];
+                baseShadow=new float[source.VertexCapacity];contentOwner=new int[source.VertexCapacity/2];contentOrdinal=new int[source.VertexCapacity/2];
                 Mesh.SetVertexBufferParams(source.VertexCapacity,Layout);
                 Mesh.SetIndexBufferParams(indices.Length,IndexFormat.UInt16);Mesh.subMeshCount=1;
             }
             for(int i=0;i<source.VertexCount;i++)channels[i]=new HillsChannels{
                 bridge=source.Bridge[i],shadow=source.Shadow[i],solid=source.PaintSolid[i],left=source.PaintSolidLeft[i],
                 right=source.PaintSolidRight[i],mergeLeft=source.PaintMergeLeft[i],mergeRight=source.PaintMergeRight[i]};
+            // The P5 producer immediately reuses its builder on slot rotation. Keep only
+            // the small value mapping and baseline needed by later C2 content patches.
+            Array.Copy(source.Shadow,baseShadow,source.VertexCount);contentBound=path!=null;
+            if(contentBound)for(int row=0;row<source.VertexCount/2;row++)
+            {var n=path.GetFine(first+row);contentOwner[row]=n.Owner;contentOrdinal[row]=n.IsCoarse?0:first+row-path.FineOffset(n.Owner);}
             int liveIndexEnd=source.FineStart+source.FineCount;
             for(int i=0;i<liveIndexEnd;i++)indices[i]=checked((ushort)source.Indices[i]);
             // Performance: retain GPU/CPU capacity; upload only live data, never recalculate normals/tangents.
@@ -125,7 +151,7 @@ namespace SlowRoads.Scene.Road
                 if(Application.isPlaying)UnityEngine.Object.Destroy(Mesh);else UnityEngine.Object.DestroyImmediate(Mesh);
                 Mesh=null;
             }
-            channels=null;indices=null;vertexCount=0;
+            channels=null;indices=null;baseShadow=null;contentOwner=contentOrdinal=null;contentBound=false;vertexCount=0;
         }
     }
 }

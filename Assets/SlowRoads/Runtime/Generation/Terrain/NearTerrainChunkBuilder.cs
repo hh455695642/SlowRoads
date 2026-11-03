@@ -13,6 +13,7 @@ namespace SlowRoads.Generation.Terrain
     public sealed class NearTerrainChunkBuilder : IDisposable
     {
         public Func<double,double,double> TreeShadowProvider {get;set;}
+        static readonly Contents.Fields.FieldWallSurface fieldWallSurface=new();
         float[] treeMask;
         double[,] treeCorners;
         readonly RoadStreamingSession owner;
@@ -117,7 +118,9 @@ namespace SlowRoads.Generation.Terrain
             for(int z=0;z<=resolution;z++)
             {
                 var value=Height(row,z,true,true);var p=value.Projection;int at=cellIndex*cellVertices+row*side+z;
-                positions[at*3]=(float)(c.X*10.0-originX+row*step);positions[at*3+1]=(float)value.Height;
+                double wallBand=0;
+                if(owner.ContentSidewallProvider!=null)wallBand=Contents.Fields.FieldWallSurface.Weight(p.Distance,p.Side,owner.ContentSidewallProvider(p.Index,true),owner.ContentSidewallProvider(p.Index,false));
+                positions[at*3]=(float)(c.X*10.0-originX+row*step);positions[at*3+1]=(float)(value.Height+fieldWallSurface.Elevation(c.X*10.0+row*step,c.Z*10.0+z*step,wallBand));
                 positions[at*3+2]=(float)(c.Z*10.0-originZ+z*step);
                 proximity[at]=(float)(p.Distance-roadWidth);
                 if(TreeShadowProvider!=null)
@@ -127,9 +130,14 @@ namespace SlowRoads.Generation.Terrain
                     double td=(tl*(1-x)+tr*x)*(1-zFraction)+(bl*(1-x)+br*x)*zFraction;
                     double left=0,right=0;
                     if(context.TryGetFineAttributes(p.FineKey,out var a,out var b))
-                    {left=a.ShadowLeft*(1-p.FineT)+b.ShadowLeft*p.FineT;right=a.ShadowRight*(1-p.FineT)+b.ShadowRight*p.FineT;}
+                    {
+                        double al=owner.ContentShadowProvider?.Invoke(a.CoarseIndex,a.Ordinal,true)??a.ShadowLeft,blShadow=owner.ContentShadowProvider?.Invoke(b.CoarseIndex,b.Ordinal,true)??b.ShadowLeft;
+                        double ar=owner.ContentShadowProvider?.Invoke(a.CoarseIndex,a.Ordinal,false)??a.ShadowRight,brShadow=owner.ContentShadowProvider?.Invoke(b.CoarseIndex,b.Ordinal,false)??b.ShadowRight;
+                        left=al*(1-p.FineT)+blShadow*p.FineT;right=ar*(1-p.FineT)+brShadow*p.FineT;
+                    }
                     treeMask[at]=(float)Contents.Trees.TreeSurfaceShadow.Evaluate(td,p.OriginalDistance-roadWidth,roadWidth,p.Side,left,right);
                 }
+                if(wallBand>treeMask[at])treeMask[at]=(float)wallBand;
                 if(p.Distance<roadWidth&&value.Height-p.Y<-.2)proximity[at]=(float)Math.Max(-.001,p.OriginalDistance-roadWidth);
                 // Settings imports Hills.N as l1: roadUv is populated only for off-road styles.
                 if(owner.Config.Mesh.OffRoad&&p.OriginalDistance<roadWidth*2){uv[at*2]=(float)(.5-(p.OriginalDistance/(roadWidth*2)*p.Side)/2);uv[at*2+1]=(float)(p.Index+p.T);}

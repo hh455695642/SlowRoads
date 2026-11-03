@@ -7,6 +7,7 @@ using SlowRoads.Scene.Road;
 using UnityEngine;
 using SlowRoads.Generation.Contents.Trees;
 using SlowRoads.Generation.Contents;
+using SlowRoads.Generation.Contents.Fields;
 
 namespace SlowRoads.Scene.Terrain
 {
@@ -15,6 +16,7 @@ namespace SlowRoads.Scene.Terrain
     /// Shared season materials, no per-tile material instances, RTs or custom passes.</summary>
     public sealed class TerrainStreamingPresentation : MonoBehaviour
     {
+        static readonly Unity.Profiling.ProfilerMarker FieldWork=new("SlowRoads.C2.Fields.Advance");
         sealed class Slot
         {
             public GameObject Object;
@@ -29,11 +31,13 @@ namespace SlowRoads.Scene.Terrain
         Material runtimeMaterial,sourceMaterial;
         public TerrainStreamingSession Core {get;private set;}
         public TreeStreamingSession Trees {get;private set;}
+        public FieldStreamingSession Fields {get;private set;}
         public int NativeMeshCount=>active.Count+pool.Count;
         public void Initialize(RoadStreamingPresentation road,HillsSceneSettings settings)
         {
             this.road=road;this.settings=settings;Core=new TerrainStreamingSession(road.Core,Upload);
             Trees=new(road.Core,Core,settings.treeDensity==0?(int?)null:settings.treeDensity);
+            Fields=new FieldStreamingSession(road.Core,Core,Trees,settings.treeDensity);
             Trees.Attributes.Changed+=ContentChanged;
             Core.Released+=ReleaseRegion;Core.Reset+=ReleaseAll;
             Core.CoverageChanged+=(r,c)=>{if(active.TryGetValue(r,out var slot))slot.Upload.UpdateOverlap(c);};
@@ -64,7 +68,10 @@ namespace SlowRoads.Scene.Terrain
                 slot.Renderer.sharedMaterial=ResolveMaterial();
                 slot.Upload.Upload(data,road.Core,slot.Object.transform,road.RenderOrigin,Trees.BaseShadowAt,Trees.FieldAt);
                 if(Trees.Attributes.HasContributions)slot.Upload.UpdateContent(Trees.AdditionalShadowAt,Trees.FieldAt);slot.Upload.SetFine(region.TargetLod==1);
-                active.Add(region,slot);return slot.Upload.Residency;
+                // Upload into a spare slot first. Failure leaves the old committed view alive.
+                if(active.Remove(region,out var previous))
+                {previous.Renderer.enabled=false;previous.Object.SetActive(false);pool.Push(previous);}
+                active[region]=slot;return slot.Upload.Residency;
             }
             catch{slot.Upload.Dispose();Destroy(slot.Object);throw;}
         }
@@ -72,8 +79,16 @@ namespace SlowRoads.Scene.Terrain
         {
             if(road.Core.Ready&&road.Core.AtTickBoundary)
             {
+                if(road.Structures?.Building==true)return road.Structures.Advance(budget);
+                if(!Core.Building)
+                {
+                    using var fieldSample=FieldWork.Auto();
+                    Fields.CheckReclips();if(Fields.HasWork)return Fields.Advance(budget);
+                }
                 int used=Core.Advance(budget);
-                if(used>=budget||Core.Building||Core.NeedsWork)return used;
+                if(used>=budget||Core.Building||Core.NeedsWork||Fields.HasWork)return used;
+                int structures=road.Structures!=null?road.Structures.Advance(budget-used):0;used+=structures;
+                if(used>=budget||road.Core.TerrainBuildPending)return used;
                 return used+road.Core.Advance(budget-used);
             }
             return road.Core.Advance(budget);
@@ -131,7 +146,7 @@ namespace SlowRoads.Scene.Terrain
         }
         public void Release()
         {
-            if(disposed)return;disposed=true;if(road!=null)road.OriginShifted-=OriginChanged;if(Trees!=null)Trees.Attributes.Changed-=ContentChanged;Trees?.Dispose();Core?.Dispose();ReleaseAll();
+            if(disposed)return;disposed=true;if(road!=null)road.OriginShifted-=OriginChanged;if(Trees!=null)Trees.Attributes.Changed-=ContentChanged;Fields?.Dispose();Trees?.Dispose();Core?.Dispose();ReleaseAll();
             foreach(var slot in pool){slot.Upload.Dispose();if(slot.Object!=null)Destroy(slot.Object);}pool.Clear();if(runtimeMaterial!=null)Destroy(runtimeMaterial);runtimeMaterial=null;sourceMaterial=null;
         }
         void OnDestroy()=>Release();

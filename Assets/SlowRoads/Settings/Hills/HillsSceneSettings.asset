@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HillsSceneSettings
   m_EditorClassIdentifier: SlowRoads.RoadPresentation::SlowRoads.Scene.Road.HillsSceneSettings
   seed: a
-  roadType: 4
+  roadType: 3
   detail: 2
   terrainDetail: 2
-  season: 0
+  season: 3
   terrainVisible: 1
   terrainDebug: 0
   treesVisible: 1
@@ -80,6 +80,35 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 24bff07ecce9b8941b8be355a7e90de4, type: 2}
   - {fileID: 2100000, guid: 58136b52fb8ff2f45a030f9d1063933c, type: 2}
   - {fileID: 2100000, guid: 3a91b1708eecd8640b095db0d93b1990, type: 2}
+  fieldWallsVisible: 1
+  bridgesVisible: 1
+  wallsVisible: 1
+  structureMaterials:
+  - bridge: {fileID: 2100000, guid: 62206dbfbf3f2e54999d53245666e20d, type: 2}
+    solidWall: {fileID: 2100000, guid: 209d843c1379a144a934213f0db5a102, type: 2}
+    barrier: {fileID: 2100000, guid: d3099cf7f23cfc3478850dcc06ac9f75, type: 2}
+    fence: {fileID: 2100000, guid: ac3aa9ee0748d7743b630ec0c4cf8a35, type: 2}
+    drystone: {fileID: 2100000, guid: e6d2baa4e9c24694ea9cd84e3d86be7f, type: 2}
+    fieldFar: {fileID: 2100000, guid: 464dc5ef4d2b4414aa890998440a724f, type: 2}
+  - bridge: {fileID: 2100000, guid: 1b856937dcb6e1249b1facc80e8533f9, type: 2}
+    solidWall: {fileID: 2100000, guid: fb1ebece54afa4e439b2ee00b490a316, type: 2}
+    barrier: {fileID: 2100000, guid: 4c39ae281ed2df24cb7fe45e5a54317c, type: 2}
+    fence: {fileID: 2100000, guid: a63b6f4ca375ff14f9e3897a401d9919, type: 2}
+    drystone: {fileID: 2100000, guid: 77b3c1374777a0c469dff2465b9aa2be, type: 2}
+    fieldFar: {fileID: 2100000, guid: d9f97b46bd6b07d489401d0359bb5375, type: 2}
+  - bridge: {fileID: 2100000, guid: 9f88f6d244ba6bb4dad8eb1b4210fd36, type: 2}
+    solidWall: {fileID: 2100000, guid: 2b48944b8be4c7748931cc1ebfb914ce, type: 2}
+    barrier: {fileID: 2100000, guid: 6dc544b6823be6445b7ef276246bfb8d, type: 2}
+    fence: {fileID: 2100000, guid: 22d6abf24648a0b4085230dc3b739057, type: 2}
+    drystone: {fileID: 2100000, guid: d283bc734e75881489fd341118dbbbd3, type: 2}
+    fieldFar: {fileID: 2100000, guid: 0fa01a688ae937446b3cfa432c7739c0, type: 2}
+  - bridge: {fileID: 2100000, guid: d0260d7dbddc34b43ae97b880d020ef4, type: 2}
+    solidWall: {fileID: 2100000, guid: 1dae42530d1f13e41979ef5372c5dd36, type: 2}
+    barrier: {fileID: 2100000, guid: 84828cfde5984374d8a24cd2f101c90a, type: 2}
+    fence: {fileID: 2100000, guid: bef2ef7189fa9324ea3254433377a32d, type: 2}
+    drystone: {fileID: 2100000, guid: 35ec9609ce79ffc46b63e91a8bdebc03, type: 2}
+    fieldFar: {fileID: 2100000, guid: 09a9e2da44dd1fc44aafb5d8d9a7491f, type: 2}
+  bridgeProjectedShadow: {fileID: 2100000, guid: 8f0bf3d06960f1246a1238a4e13e536b, type: 2}
   visible: 1
   generationEnabled: 1
   movementEnabled: 1

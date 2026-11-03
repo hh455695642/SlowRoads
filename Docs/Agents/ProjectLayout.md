@@ -18,7 +18,10 @@ Assets/
       Generation/Streaming/           Ni顺序分步、xi三对象轮转、发布/重放与驻留调度
       Generation/Contents/            来源贡献、组合版本与共享内容属性
       Generation/Contents/Trees/      Wa候选、Arrangement、稳定Store/解析、T4流式与树影
-      Scene/Contents/                 唯一树群表现/资源owner，复用RoadPresentation程序集
+      Generation/Contents/Fields/     Da/Ra/Ea/Ka、共享租约、裁接/属性/边界树事务及只读快照
+      Generation/Contents/Bridges/    J9/ii原桥输入、deck/pylon/arch和桥体流式
+      Generation/Contents/Walls/      原墙规则、S2/k2/T0/K4/Ka几何、局部修订和C5查询
+      Scene/Contents/                 唯一树GPU及桥墙Mesh表现owner，复用RoadPresentation程序集
       Scene/Terrain/                  地形Mesh上传/LOD/原点、Renderer池与共享材质表现
       Scene/Road/                     三Mesh上传/LOD/释放、流式装配、唯一HillsSceneSettings
     Editor/Debug/                     调试 Inspector，无顶层菜单
@@ -31,6 +34,7 @@ Assets/
     Rendering/Compute/                 树群GPU剔除与近远LOD
     Rendering/Instances/               Cluster差量、Indirect缓冲与释放
     Rendering/Shaders/Vegetation/      树/imposter正式Shader及受限CPU降级
+    Rendering/Shaders/Structures/      桥/墙原表面URP适配及桥投影，无额外RT/Feature
     Rendering/Shaders/Road/            Hills 路面表面合成与 alpha clip
     Rendering/Shaders/Terrain/         Hills 地形表面/微位移/overlap下沉（Forward/DepthOnly）
 Docs/
@@ -44,6 +48,8 @@ Docs/
     RoadAudit/Fixtures/RoadBlend/      i_投影、ze扰动、Ll逐点与分支边界样本
     ContentsAudit/                    C0/C1唯一实施文档、复用既有VM的内容执行器
     ContentsAudit/Fixtures/Trees/     原Wa/Dt/i7/U/s0/qb样本、精确随机位串和材质证据
+    ContentsAudit/Fixtures/Fields/    原Da/Ra/Ea/Ka/Ca裁接、共享边、属性与随机数据
+    ContentsAudit/Fixtures/Structures/ 原ii/S2/k2/T0/K4和墙规则、季节绑定、表面数据
 ```
 
 SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移除。原 SampleSceneProfile 被 PC/Mobile 管线引用，故保留并更名 SceneVolumeProfile，GUID 不变；已失效的输入配置注册已清除。参考模型/场景贴图以 Docs/Assets/HillsAssetManifest.json 为准。禁止重新导入车辆或其他场景资源。非运行资料放 Docs，不放 Assets 或 Resources。
@@ -61,7 +67,9 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 
 2026-11-02 C0/C1：R2–R7正式树链已接同一T4/P5屏障和主场景，新增独立植被Rendering程序集；CPU14/14、GPU6/6，原GLSL96组表面/顶点/自发光对照通过，17次原点迁移及退出资源归零。原8材质引用迁移后删除Legacy树Shader；不创建第二场景/配置或树渲染器。原R1合成低预算失败及全Ni/全图像未验证项保持事实，但用户已解除其开发顺序阻断。详细实现、接口、成本与验收范围见ContentsAudit/C0C1_完成度复核与补全实施计划.md §9。下列T6/旧清理状态均是对应日期的历史。
 
-2026-10-30 T6最终状态：唯一场景/唯一HillsSceneSettings与正式道路—地形链未变，Editor/桌面范围九类验收全部PASS，第二目标已结项；技术结果见TerrainAudit/T6计划§9，最终清理与清理后回归见§13。联合测试位于Tests/EditMode/RoadUnity，显式采集/复算脚本位于Docs/ReverseEngineering/TerrainAudit，证据合并于Docs/Agents/Artifacts/HillsTerrainT6。用户已手动清理清单17项，1004个保护文件核验及清理后主场景推进/重置/退出回归通过，历史拒绝记录保留。旧Temp只读审计已合并进现有t6-joint-probe.cs的AuditClosure/SampleClosure，不恢复临时脚本。未向Assets加入诊断Feature/菜单/第二场景，退出诊断Feature为0；Legacy树Shader仍有八套材质实际依赖。全部有效原版证据、用户暂存/未跟踪成果保留；本结论不延伸到移动端性能或整个S1，不自动进入下一目标。
+2026-11-02 C2/C3：正式农田/桥墙链已接现有唯一场景和SO。算法、增量失效/收据替换、树Cluster delta、两自然桥/墙流式和所列联合验收通过；24季节材质+1投影材质，来源/GUID合并HillsAssetManifest的structureMaterialC3。完整PBR固定图像及阶段性能归因仍未验，不宣称整个S1完成。实际文件/接口/44项测试/场景证据和限制以ContentsAudit/C2C3_农田桥墙开发实施计划.md §10为准。没有创建第二树渲染器/场景或C4–C7实现，临时自有C2C3材质绑定脚本已移除。
+
+2026-10-30 T6最终状态：唯一场景/唯一HillsSceneSettings与正式道路—地形链未变，Editor/桌面范围九类验收全部PASS，第二目标已结项；技术结果见TerrainAudit/T6计划§9，最终清理与清理后回归见§13。联合测试位于Tests/EditMode/RoadUnity，显式采集/复算脚本位于Docs/ReverseEngineering/TerrainAudit，证据合并于Docs/Agents/Artifacts/HillsTerrainT6。用户已手动清理清单17项，1004个保护文件核验及清理后主场景推进/重置/退出回归通过，历史拒绝记录保留。旧Temp只读审计已合并进现有t6-joint-probe.cs的AuditClosure/SampleClosure，不恢复临时脚本。未向Assets加入诊断Feature/菜单/第二场景，退出诊断Feature为0；当时Legacy树Shader仍有八套材质依赖，后由C1迁移清退。全部有效原版证据、用户暂存/未跟踪成果保留；本结论不延伸到移动端性能或整个S1，不自动进入下一目标。
 
 P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit/P6_道路专项验收记录.md`；原 `p6-scene-probe.cs` 已在后续清退中删除，仅保留历史结果。道路功能补齐结果见该记录第10节：新增正式路基求值、配置/桥头/恢复对照，全集368/368及主场景验证通过；用户授权的B7代际标记兼容修复与原版失败证据分别保存。设备性能延期。2026-10-30已实现并补全T2/T3无内容几何，Terrain 73/73通过；T4/T5已在同一主场景装配地形流式和四季材质。续验通过48组正式固定图像、48组诊断图像和实际Frame Debugger提交；地形范围门禁通过，实际测试及完整光照/雾/内容的边界见T4/T5计划第9–10节。
 

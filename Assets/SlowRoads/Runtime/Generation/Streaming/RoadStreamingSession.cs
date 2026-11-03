@@ -51,6 +51,8 @@ namespace SlowRoads.Generation.Streaming
         public readonly TerrainGenerationConfig TerrainConfig;
         TerrainBuildContext terrainBuild;
         public bool TerrainBuildPending=>terrainBuild!=null;
+        public Func<int,int,bool,double?> ContentShadowProvider {get;set;}
+        public Func<int,bool,double> ContentSidewallProvider {get;set;}
         public event Action<StreamingRoadSlot> Published;
         public event Action<StreamingRoadSlot,RoadLod> LodChanged;
         public event Action Invalidated;
@@ -305,6 +307,15 @@ namespace SlowRoads.Generation.Streaming
             window.Residency==Spatial.ResidencyRevision&&window.Generation==Midline.State.Generation&&
             window.Revision==Midline.Revision&&window.FirstIndex>=Midline.State.Head.Index+1&&
             window.LastIndex<Midline.AttributeReadyExclusive&&window.LastIndex<Midline.State.FineTail.Index;
+        // Ka reads Ca's full bounded lookahead, including coarse nodes ahead of fine generation.
+        // This is a private value snapshot at the existing producer barrier, not a second road generator/index.
+        internal RoadQueryStatus TryCaptureContentWindow(out TerrainQueryWindow window)
+        {
+            window=null;if(disposed||!AtTickBoundary||Spatial==null)return RoadQueryStatus.NotResident;
+            int first=Midline.State.Head.Index,last=Math.Min(Midline.State.Tail.Index,Spatial.LookaheadIndex+32);
+            if(last-first<4||last-first>Spatial.Horizon+64)return RoadQueryStatus.NotResident;
+            var view=Midline.CaptureWindow(first,last);window=new TerrainQueryWindow(roadBlendOwner,Spatial.ResidencyRevision,view,new[]{first+1});return RoadQueryStatus.Ready;
+        }
         internal RoadQueryStatus TryTerrainHeight(TerrainQueryWindow window,in TerrainHeightInput input,out TerrainHeightResult result)
         {
             result=default;if(!IsTerrainWindowCurrent(window))return RoadQueryStatus.NotResident;

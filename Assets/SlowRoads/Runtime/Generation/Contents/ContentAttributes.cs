@@ -16,7 +16,8 @@ namespace SlowRoads.Generation.Contents
     public readonly struct ContentAttributeKey : IEquatable<ContentAttributeKey>
     {
         // Terrain channels use the original 10m world grid; road channels use
-        // coarse node index in X, Z=0. Signed offsets retain their original units.
+        // coarse node index in X; road shadows use Z=fine ordinal (zero is coarse).
+        // Signed sidewall offsets use Z=0 and retain their original units.
         public readonly int X,Z;public readonly ContentChannel Channel;
         public ContentAttributeKey(int x,int z,ContentChannel channel){X=x;Z=z;Channel=channel;}
         public bool Equals(ContentAttributeKey k)=>X==k.X&&Z==k.Z&&Channel==k.Channel;
@@ -24,15 +25,17 @@ namespace SlowRoads.Generation.Contents
         public override int GetHashCode()=>HashCode.Combine(X,Z,Channel);
     }
     /// <summary>Ordered owner contributions, not a mutable P2 node array. Field/wall
-    /// consumers share a versioned snapshot. No C2 algorithm is implemented here.</summary>
+    /// consumers share a versioned snapshot. Generation algorithms do not own this storage.</summary>
     public sealed class ContentAttributeStore
     {
         sealed class Contribution {public long Source,Sequence;public Dictionary<ContentAttributeKey,double> Values;}
         readonly Dictionary<long,Contribution> owners=new();
         readonly Dictionary<ContentAttributeKey,double> values=new();
         long sequence;
+        int roadShadowKeys;
         public ContentVersion Version {get;private set;}
         public bool HasContributions=>owners.Count>0;
+        public bool HasRoadShadows=>roadShadowKeys>0;
         public event Action<IReadOnlyCollection<ContentAttributeKey>> Changed;
         public ContentAttributeStore(ContentVersion version){Version=version;}
         public void Rebase(int generation,long road,long layer)
@@ -50,16 +53,22 @@ namespace SlowRoads.Generation.Contents
             var dirty=new HashSet<ContentAttributeKey>(patch.Keys);
             if(owners.TryGetValue(source,out var old))dirty.UnionWith(old.Values.Keys);
             if(patch.Count==0)owners.Remove(source);else owners[source]=new(){Source=source,Sequence=++sequence,Values=new(patch)};
+            var unchanged=new List<ContentAttributeKey>();
             foreach(var key in dirty)
             {
+                bool hadValue=values.TryGetValue(key,out double before);
+                bool roadShadow=key.Channel==ContentChannel.RoadShadowLeft||key.Channel==ContentChannel.RoadShadowRight;
+                if(roadShadow&&values.ContainsKey(key))roadShadowKeys--;
                 bool found=false;long last=long.MinValue;double result=0;
                 foreach(var owner in owners.Values)if(owner.Values.TryGetValue(key,out double v))
-                {if(key.Channel==ContentChannel.TreeShadow||key.Channel==ContentChannel.RoadShadowLeft||key.Channel==ContentChannel.RoadShadowRight){result=Math.Max(result,v);found=true;}
+                {if(key.Channel==ContentChannel.TreeShadow){result=Math.Max(result,v);found=true;}
                     else if(owner.Sequence>last){last=owner.Sequence;result=v;found=true;}}
-                if(found)values[key]=result;else values.Remove(key);
+                if(found){values[key]=result;if(roadShadow)roadShadowKeys++;}else values.Remove(key);
+                if(hadValue==found&&(!found||before.Equals(result)))unchanged.Add(key);
             }
+            foreach(var key in unchanged)dirty.Remove(key);
             Version=new(Version.Generation,Version.Road,Version.Layer,Version.Revision+1);Changed?.Invoke(dirty);return true;
         }
-        public void Reset(ContentVersion version){var dirty=new List<ContentAttributeKey>(values.Keys);owners.Clear();values.Clear();sequence=0;Version=version;Changed?.Invoke(dirty);}
+        public void Reset(ContentVersion version){var dirty=new List<ContentAttributeKey>(values.Keys);owners.Clear();values.Clear();sequence=0;roadShadowKeys=0;Version=version;Changed?.Invoke(dirty);}
     }
 }

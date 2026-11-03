@@ -35,7 +35,9 @@ namespace SlowRoads.Generation.Terrain
                 var a=view.GetCoarse(i);
                 nodes[i]=new CoarseNode{Index=a.Index,Generation=a.Handle.Generation,Slot=a.Handle.Slot,SlotVersion=a.Handle.Version,
                     Position=a.Position,Normal=a.Side,HeadingDelta=a.HeadingDelta,Grade=a.Grade,HeightCorrection=a.HeightCorrection,
-                    GradeForwardAverage=a.GradeForwardAverage,Blend=a.Blend,Bank=a.Bank,Bridge=a.Bridge};
+                    GradeForwardAverage=a.GradeForwardAverage,Blend=a.Blend,Bank=a.Bank,Bridge=a.Bridge,
+                    HasFineSegments=a.HasFineSegments,FineSegments=a.FineSegments,
+                    ShadowLeft=a.ShadowLeft,ShadowRight=a.ShadowRight,HasShadowLeft=a.HasShadowLeft,HasShadowRight=a.HasShadowRight};
                 if(i>0){nodes[i].Previous=nodes[i-1];nodes[i-1].Next=nodes[i];}
             }
             MidlinePathNode previous=null;
@@ -57,6 +59,7 @@ namespace SlowRoads.Generation.Terrain
             }
             SetCandidates(orderedCandidates);
         }
+        internal CoarseNode FindCoarse(int index)=>nodes!=null&&index>=FirstIndex&&index<=LastIndex?nodes[index-FirstIndex]:null;
         internal void SetCandidates(int[] orderedCandidates)
         {
             if(nodes==null)throw new ObjectDisposedException(nameof(TerrainQueryWindow));

@@ -30,6 +30,7 @@ public sealed class HillsDebugSessionEditor : Editor
         }
         Field(data,"terrainVisible","显示丘陵地形");Field(data,"terrainDebug","地形边界调试","远景绿/青、近路黄/橙表示细/粗，红色待显示，灰色驻留退役；浅绿框为近路内圈。");
         Field(data,"treesVisible","显示树群","只控制显示，不重抽候选或改变随机序列。");Field(data,"treeShadows","树群投影","需要当前光源启用阴影；原版地表树影数据独立保留。");
+        Field(data,"fieldWallsVisible","显示农田边界墙");Field(data,"bridgesVisible","显示桥梁");Field(data,"wallsVisible","显示沿路墙及防护设施");
         Field(data,"season","季节");Field(data,"visible","显示道路");Field(data,"generationEnabled","持续生成","关闭时停止补路，观察者等待可用道路。");
         EditorGUILayout.Space();Field(data,"movementEnabled","自动前进");Field(data,"speed","前进速度（米/秒）");Field(data,"stepMetres","单步距离（米）");
         cameraSettings=EditorGUILayout.Foldout(cameraSettings,"相机",true);
@@ -53,6 +54,7 @@ public sealed class HillsDebugSessionEditor : Editor
             Field(data,"terrainMaterials","地形季节材质（夏/春/秋/冬）");
             Field(data,"treeMeshes","树模型（两族各四变体）");Field(data,"treeMaterials","树材质（夏/春/秋/冬各八套）");
             Field(data,"treeImposterMaterials","远景树材质（四季各两族）");Field(data,"treeCulling","树群GPU剔除");Field(data,"treeFallbackShader","树群降级Shader");
+            Field(data,"structureMaterials","桥墙季节材质（夏/春/秋/冬）");Field(data,"bridgeProjectedShadow","原版桥下投影材质");
             if(selected==SlowRoads.Scene.Road.HillsRoadType.Standard)
                 foreach(var name in new[]{"summerMaterial","springMaterial","autumnMaterial","winterMaterial"})
                     EditorGUILayout.PropertyField(data.FindProperty(name));
@@ -75,6 +77,8 @@ public sealed class HillsDebugSessionEditor : Editor
             if(terrain!=null)EditorGUILayout.LabelField("地形状态",$"驻留 Tile {terrain.ActiveTiles} / Chunk {terrain.ActiveChunks} / 回收 {terrain.RetiredCount} / {(terrain.Building?"生成中":"等待下一需求")}");
             var trees=session.Streaming.Trees;
             if(trees?.Core!=null&&trees.Gpu!=null)EditorGUILayout.LabelField("树群状态",$"候选 {trees.Core.Store.Count} / 有效实例 {trees.Gpu.InstanceCount} / 批次 {trees.Gpu.BatchCount}");
+            var structures=session.Streaming.Structures;
+            if(structures!=null)EditorGUILayout.LabelField("农田与桥墙",$"农田 {session.Streaming.Terrain.Fields.ResidentRegions} / 桥 {structures.Bridges.Count} / 墙 {structures.Walls.Count} / Mesh {structures.NativeMeshCount}");
             if(session.Streaming.Fault!=null)EditorGUILayout.HelpBox(session.Streaming.Fault,MessageType.Error);
         }
         if(Application.isPlaying)Repaint();

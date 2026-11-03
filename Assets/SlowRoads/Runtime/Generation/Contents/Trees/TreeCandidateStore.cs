@@ -26,6 +26,7 @@ namespace SlowRoads.Generation.Contents.Trees
         readonly Dictionary<TreeId,Entry> entries=new();
         readonly Dictionary<TreeClusterKey,HashSet<TreeId>> clusters=new();
         readonly Dictionary<(int,int),TreeTileCandidates> tiles=new();
+        readonly Dictionary<(int,int),int> rawCounts=new();
         readonly Dictionary<(int,int),TreeTerrainCell> cells=new();
         readonly Dictionary<(int,int),HashSet<TreeId>> worldCells=new();
         public readonly HashSet<TreeClusterKey> Dirty=new();
@@ -36,6 +37,7 @@ namespace SlowRoads.Generation.Contents.Trees
         public TreeCandidateStore(int generation){Generation=generation;}
         public IEnumerable<TreeClusterKey> ClusterKeys=>clusters.Keys;
         public bool TryGetTile(int x,int z,out TreeTileCandidates tile)=>tiles.TryGetValue((x,z),out tile);
+        public int NextRawIndex(int x,int z)=>rawCounts.TryGetValue((x,z),out int count)?count:throw new InvalidOperationException("Tree tile not resident");
         public bool TryGetRaw(TreeId id,out TreeCandidate candidate)
         {if(entries.TryGetValue(id,out var e)){candidate=e.Raw;return true;}candidate=default;return false;}
         public bool TryGetResolved(TreeId id,out TreeInstanceCandidate candidate)
@@ -61,6 +63,7 @@ namespace SlowRoads.Generation.Contents.Trees
             if(tile.Generation!=Generation)throw new InvalidOperationException("Stale tree generation");
             if(tiles.ContainsKey((tile.TileX,tile.TileZ)))throw new InvalidOperationException("Tile already committed");
             tiles.Add((tile.TileX,tile.TileZ),tile);
+            rawCounts.Add((tile.TileX,tile.TileZ),tile.RawCount);
             foreach(var c in tile.Candidates)
             {
                 // Recover group scale from original pose, including the count==3 bonus.
@@ -103,18 +106,21 @@ namespace SlowRoads.Generation.Contents.Trees
             var seen=new HashSet<TreeId>();
             foreach(var c in upsert)if(c.Id.Source!=source||!seen.Add(c.Id)||!tiles.TryGetValue((c.Id.TileX,c.Id.TileZ),out var tile)||tile.Event!=c.Id.Event||
                 (int)Math.Floor(c.X/tile.Size)!=tile.TileX||(int)Math.Floor(c.Z/tile.Size)!=tile.TileZ||
-                !double.IsFinite(c.X+c.Y+c.Z+c.Scale+c.Rotation)||c.Scale<=0||c.Type<0||c.Type>1||c.Variant<0||c.Variant>3)return false;
-            foreach(var id in remove)if(id.Source!=source||!seen.Add(id))return false;
+                !double.IsFinite(c.X+c.Y+c.Z+c.Scale+c.Rotation)||c.Scale<=0||c.Type<0||c.Type>1||c.Variant<0||c.Variant>3||c.RawIndex==int.MaxValue)return false;
+            // A reclip atomically withdraws the previous recipe and may republish the
+            // same logical ID. Duplicates within either input remain invalid.
+            seen.Clear();foreach(var id in remove)if(id.Source!=source||!seen.Add(id))return false;
             foreach(var id in remove)Remove(id);
-            foreach(var c in upsert){Remove(c.Id);Put(c,1);}
+            foreach(var c in upsert){Remove(c.Id);Put(c,1);var key=(c.Id.TileX,c.Id.TileZ);rawCounts[key]=Math.Max(rawCounts[key],checked(c.RawIndex+1));}
             Revision++;return true;
         }
         public void ReleaseTile(int x,int z)
         {
             if(!tiles.Remove((x,z)))return;
+            rawCounts.Remove((x,z));
             var remove=new List<TreeId>();foreach(var id in entries.Keys)if(id.TileX==x&&id.TileZ==z)remove.Add(id);
             foreach(var id in remove)Remove(id);Revision++;
         }
-        public void Reset(int generation){foreach(var k in clusters.Keys)Dirty.Add(k);entries.Clear();clusters.Clear();tiles.Clear();cells.Clear();worldCells.Clear();Generation=generation;Revision++;}
+        public void Reset(int generation){foreach(var k in clusters.Keys)Dirty.Add(k);entries.Clear();clusters.Clear();tiles.Clear();rawCounts.Clear();cells.Clear();worldCells.Clear();Generation=generation;Revision++;}
     }
 }

@@ -86,8 +86,11 @@ namespace SlowRoads.Generation.Spatial
         static bool Outside(Segment s,double x,double z,double r)=>x<s.MinX-r||x>s.MaxX+r||z<s.MinZ-r||z>s.MaxZ+r;
         double Distance(int i,double x,double z){var p=P(i);return (x-p.X)*(x-p.X)+(z-p.Z)*(z-p.Z);}
         public RoadQueryStatus GetClosestNode(double x,double z,out int node,out double distanceSquared,double radius=50)
+            =>GetClosestNodeForTile(TileCoordinate(x,TileSize),TileCoordinate(z,TileSize),x,z,out node,out distanceSquared,radius);
+        // Original Ca caller-selected tile query. Ka's plot center can belong to a neighboring tile.
+        public RoadQueryStatus GetClosestNodeForTile(int tileX,int tileZ,double x,double z,out int node,out double distanceSquared,double radius=50)
         {
-            node=0;distanceSquared=0;if(!tiles.TryGetValue((TileCoordinate(x,TileSize),TileCoordinate(z,TileSize)),out var tile))return RoadQueryStatus.NotResident;
+            node=0;distanceSquared=0;if(!tiles.TryGetValue((tileX,tileZ),out var tile))return RoadQueryStatus.NotResident;
             double closest=radius,sq=radius*radius;int? selected=null;
             foreach(var s in tile.Segments)
             {

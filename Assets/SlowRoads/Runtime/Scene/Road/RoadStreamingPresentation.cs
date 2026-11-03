@@ -15,6 +15,7 @@ namespace SlowRoads.Scene.Road
         public TerrainStreamingPresentation Terrain {get;private set;}
         public SlowRoads.Scene.Contents.TreeStreamingPresentation Trees {get;private set;}
         public double ObserverProgress {get;private set;}
+        public SlowRoads.Scene.Contents.StructureStreamingPresentation Structures {get;private set;}
         public Double3 RenderOrigin {get;private set;}
         public string Fault {get;private set;}
         public int OriginShiftCount {get;private set;}
@@ -44,6 +45,8 @@ namespace SlowRoads.Scene.Road
             Core.YieldAtTickBoundary=true;
             Terrain=gameObject.AddComponent<TerrainStreamingPresentation>();Terrain.Initialize(this,settings);
             Trees=gameObject.AddComponent<SlowRoads.Scene.Contents.TreeStreamingPresentation>();Trees.Initialize(this,settings);
+            Structures=gameObject.AddComponent<SlowRoads.Scene.Contents.StructureStreamingPresentation>();Structures.Initialize(this,settings);
+            Terrain.Trees.Attributes.Changed+=ContentShadowsChanged;
         }
         void BindMaterial()
         {
@@ -55,9 +58,20 @@ namespace SlowRoads.Scene.Road
         {
             var b=slot.Builder.Buffers;
             if(!hasOrigin){RenderOrigin=new Double3(b.Origin.X,0,b.Origin.Z);hasOrigin=true;}
-            uploads[slot.Id].Upload(b,Core.Midline.State.Generation,Core.Midline.Revision,targets[slot.Id],RenderOrigin);
+            uploads[slot.Id].Upload(b,Core.Midline.State.Generation,Core.Midline.Revision,targets[slot.Id],RenderOrigin,slot.Input);
+            if(Terrain?.Trees.Attributes.HasRoadShadows==true)uploads[slot.Id].UpdateContentShadows(Core.ContentShadowProvider);
             publishedVisible[slot.Id]=b.Visible;
             renderers[slot.Id].enabled=settings.visible&&publishedVisible[slot.Id];
+        }
+        void ContentShadowsChanged(System.Collections.Generic.IReadOnlyCollection<SlowRoads.Generation.Contents.ContentAttributeKey> keys)
+        {
+            foreach(var upload in uploads)
+            {
+                if(upload.LiveVertexCount==0)continue;bool affected=false;int first=upload.SubmittedRequest.HeadCoarseIndex;
+                foreach(var key in keys)if(key.Channel==SlowRoads.Generation.Contents.ContentChannel.RoadShadowLeft||key.Channel==SlowRoads.Generation.Contents.ContentChannel.RoadShadowRight)
+                    if(key.X>=first&&key.X<=first+Core.Config.Intervals){affected=true;break;}
+                if(affected)upload.UpdateContentShadows(Core.ContentShadowProvider);
+            }
         }
         void Update()
         {
@@ -89,6 +103,7 @@ namespace SlowRoads.Scene.Road
             if(!hasStart){if(!Core.Distance.TryGetCoarseDistance(0,out startDistance))return MidlineDistanceResult.NotReady;hasStart=true;Core.SetObserverIndex(0);}
             var result=Core.TrySample(startDistance+distance,out var sample);if(result!=MidlineDistanceResult.Ready)return result;
             if(!Terrain.Core.CanTraverse(sample.Position,sample.FromCoarseIndex))return MidlineDistanceResult.NotReady;
+            if(!Terrain.Fields.CanTraverse(sample.Position))return MidlineDistanceResult.NotReady;
             ObserverProgress=sample.Progress;
             ShiftOriginIfNeeded(sample.Position);
             var p=sample.Position;position=new Vector3((float)(p.X-RenderOrigin.X),(float)(p.Y+.02),(float)(p.Z-RenderOrigin.Z));
@@ -107,7 +122,7 @@ namespace SlowRoads.Scene.Road
         }
         public void Release()
         {
-            if(disposed)return;disposed=true;Trees?.Release();Trees=null;Terrain?.Release();Terrain=null;Core?.Dispose();Core=null;
+            if(disposed)return;disposed=true;if(Terrain?.Trees!=null)Terrain.Trees.Attributes.Changed-=ContentShadowsChanged;Structures?.Release();Structures=null;Trees?.Release();Trees=null;Terrain?.Release();Terrain=null;Core?.Dispose();Core=null;
             foreach(var upload in uploads)upload?.Dispose();
         }
         void OnDestroy()=>Release();
