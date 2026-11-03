@@ -6,7 +6,7 @@ using SlowRoads.Generation.Terrain;
 namespace SlowRoads.Generation.Contents.Fields
 {
     /// <summary>Value retention for Ra's cached i_ anchors after P5 trims its live head.
-    /// No spatial search or generation occurs here. Storage is bounded and owned by the shared field registry.</summary>
+    /// No spatial search or generation occurs here. Bounded session storage survives same-road terrain resets.</summary>
     internal sealed class FieldRoadHistory
     {
         const int MaxNodes=8192;

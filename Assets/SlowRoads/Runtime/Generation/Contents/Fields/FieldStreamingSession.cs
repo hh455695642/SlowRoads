@@ -22,6 +22,8 @@ namespace SlowRoads.Generation.Contents.Fields
         readonly Dictionary<TerrainRegionState,Region> regions=new();readonly Queue<Region> pending=new();
         readonly List<(long source,int last)> retiredRoad=new();
         readonly Queue<Region> revisit=new();
+        // Road references outlive a terrain-layer reset. Fresh road generations and Dispose clear them.
+        readonly FieldRoadHistory roadHistory=new();
         FieldTileRegistry registry;FieldQualityNoise quality=new();FieldRandomState random;long sequence;int owner;
         FieldExecutionState execution=new();
         readonly int detail,density;bool disposed;
@@ -30,7 +32,7 @@ namespace SlowRoads.Generation.Contents.Fields
         public event Action<TerrainRegionState> Released;
         public FieldRandomState Random=>random;
         public int ResidentRegions=>regions.Count;public int SharedFieldTiles=>registry.LiveCount;
-        public int RetainedRoadNodes=>registry.RoadHistory.Count;
+        public int RetainedRoadNodes=>roadHistory.Count;
         public bool HasWork=>current!=null||pending.Count>0||revisit.Count>0;
         public long CompletedCount {get;private set;}
         public bool TrySnapshot(out FieldQuerySnapshot snapshot)
@@ -88,9 +90,12 @@ namespace SlowRoads.Generation.Contents.Fields
                 if(road.TryBeginTerrainBuild(new[]{new TerrainSampleRequest(current.Terrain.X*(double)road.Config.TileSize,current.Terrain.Z*(double)road.Config.TileSize)},0,0,null,out context)!=RoadQueryStatus.Ready)
                 {window.Dispose();window=null;pending.Enqueue(current);current=null;return false;}
                 trees.Density.SetHeadLayers(context.NegativeXLayer,context.NonNegativeXLayer);
-                registry.RoadHistory.Capture(window,registry.MinimumRoadAnchor);
+                // New Ca queries can select retired nodes not yet present in Ra's projection cache.
+                // Retain both existing anchors and the complete live spatial dependency range.
+                int firstRoadSupport=Math.Min(registry.MinimumRoadAnchor,road.Spatial.FirstReferencedIndex);
+                roadHistory.Capture(window,firstRoadSupport);
                 transaction=new FieldContentTransaction(trees.Store,trees.Attributes,current.Source,current.Trees);transaction.RetainRoadPatch(current.Patch);
-                world=new World(this,transaction,window,context);
+                world=new World(this,transaction,window,context,firstRoadSupport);
                 int originalOwner=owner++;
                 if(current.Job==null)
                 {if(owner>1000)owner=0;current.Job=new FieldGenerationJob(registry,random,quality,world,current.Terrain.X,current.Terrain.Z,originalOwner,road.Config.TileSize,road.Config.Mesh.HalfWidth,detail,density,detail>=2,execution);}
@@ -108,7 +113,9 @@ namespace SlowRoads.Generation.Contents.Fields
                 if(current==null&&!Begin())break;
                 int step=current.Job.Advance(1);used+=step;context.ReportProgress();
                 if(!current.Job.Complete)continue;
-                if(!road.IsTerrainBuildCurrent(context)||!transaction.Commit())throw new InvalidOperationException("Field publication lost its content/road token");
+                if(!road.IsTerrainBuildCurrent(context))throw new InvalidOperationException("Field publication lost its road token");
+                if(!transaction.Current)throw new InvalidOperationException("Field publication lost its content token");
+                if(!transaction.Commit())throw new InvalidOperationException("Field publication rejected boundary tree data");
                 current.Trees.Clear();foreach(var candidate in transaction.Additions)current.Trees.Add(candidate.Id);
                 current.Patch=new Dictionary<ContentAttributeKey,double>(transaction.Patch);current.Job.MarkPublished();current.Queued=false;CompletedCount++;
                 var region=current.Terrain;var recipe=current.Job.Recipe;EndContext();current=null;Committed?.Invoke(region,recipe);
@@ -144,6 +151,7 @@ namespace SlowRoads.Generation.Contents.Fields
             }
             foreach(var old in retiredRoad)trees.Attributes.Apply(trees.Attributes.Version,old.source,new Dictionary<ContentAttributeKey,double>());
             regions.Clear();pending.Clear();revisit.Clear();retiredRoad.Clear();registry.Dispose();
+            if(fresh||disposed)roadHistory.Clear();
             registry=new FieldTileRegistry(new[]{700,800,1000,1000,1000,1000}[road.Config.ViewDistance],road.Midline.State.Generation);quality=new FieldQualityNoise();
             // Fresh/warm reset follows the current content session contract. C5 shares this stream instance.
             if(fresh){random=new FieldRandomState(road.TerrainConfig.Seed);execution=new FieldExecutionState();sequence=0;owner=0;}
@@ -153,10 +161,11 @@ namespace SlowRoads.Generation.Contents.Fields
         sealed class World : IFieldWorld
         {
             readonly FieldStreamingSession session;readonly FieldContentTransaction transaction;readonly TerrainQueryWindow window;readonly TerrainBuildContext context;readonly HillsRoadBlend blend;
+            readonly int firstRoadSupport;
             Dictionary<int,CoarseNode> oldNodes;
-            internal World(FieldStreamingSession session,FieldContentTransaction transaction,TerrainQueryWindow window,TerrainBuildContext context)
+            internal World(FieldStreamingSession session,FieldContentTransaction transaction,TerrainQueryWindow window,TerrainBuildContext context,int firstRoadSupport)
             {
-                this.session=session;this.transaction=transaction;this.window=window;this.context=context;blend=new HillsRoadBlend(session.road.Config.Mesh.LaneStyle);
+                this.session=session;this.transaction=transaction;this.window=window;this.context=context;this.firstRoadSupport=firstRoadSupport;blend=new HillsRoadBlend(session.road.Config.Mesh.LaneStyle);
                 for(var c=window.FindCoarse(window.FirstIndex);c!=null;c=c.Next)
                 {
                     Restore(c,c.Index,0);MidlinePathNode n=c.NextFine;
@@ -175,7 +184,7 @@ namespace SlowRoads.Generation.Contents.Fields
                 if(index>=window.FirstIndex)return null;
                 if(oldNodes==null)
                 {
-                    oldNodes=session.registry.RoadHistory.Prefix(window,Math.Min(index,session.registry.MinimumRoadAnchor));
+                    oldNodes=session.roadHistory.Prefix(window,Math.Min(index,firstRoadSupport));
                     foreach(var pair in oldNodes){Restore(pair.Value,pair.Key,0);for(var f=pair.Value.NextFine as FineNode;f!=null;f=f.NextFine as FineNode)Restore(f,pair.Key,f.Ordinal);}
                 }
                 return oldNodes.TryGetValue(index,out node)?node:null;

@@ -48,10 +48,19 @@ namespace SlowRoads.Generation.Contents.Fields
             double old=patch.TryGetValue(key,out double prior)?prior:attributes.Read(key);patch[key]=Math.Max(old,value);
         }
         internal void SetRoadShadow(int index,int ordinal,bool left,double value)
-            =>patch[new ContentAttributeKey(index,ordinal,left?ContentChannel.RoadShadowLeft:ContentChannel.RoadShadowRight)]=value;
+        {
+            var key=new ContentAttributeKey(index,ordinal,left?ContentChannel.RoadShadowLeft:ContentChannel.RoadShadowRight);
+            // Ka.makeNodeShadow (Settings L44067–44092) can interpolate an undefined
+            // endpoint ahead of B7's attribute frontier. Keep that NaN in the private
+            // source graph, but withdraw this owner's overlay at the publication boundary.
+            // Consumers then use the ready B7 value, not a fabricated zero or a stale
+            // retained field value. Other channels and infinities still fail validation.
+            if(double.IsNaN(value))patch.Remove(key);else patch[key]=value;
+        }
         public bool Commit()
         {
-            if(!Current)return false;foreach(double value in patch.Values)if(!double.IsFinite(value))return false;
+            if(!Current)return false;
+            foreach(var p in patch)if(!double.IsFinite(p.Value))throw new InvalidOperationException($"Non-finite field attribute {p.Key.Channel} at {p.Key.X}:{p.Key.Z}: {p.Value}");
             // Both stores are session-thread owned. Validate every attribute before the first mutation;
             // no callbacks or producer work intervene between these two commits.
             if(!trees.ApplyExternal(version.Generation,treeRevision,source,additions,removals))return false;

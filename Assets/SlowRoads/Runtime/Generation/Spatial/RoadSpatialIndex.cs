@@ -24,6 +24,12 @@ namespace SlowRoads.Generation.Spatial
         public int LookaheadIndex {get;private set;}
         public int TileCount=>tiles.Count;
         public int CachedNodes=>positions.Count;
+        // Ca may select a detached node before Se's live head. Consumers retaining
+        // full node values must cover every still-queryable segment, not only prior queries.
+        public int FirstReferencedIndex
+        {
+            get{int first=LookaheadIndex;foreach(var tile in tiles.Values)foreach(var segment in tile.Segments)first=Math.Min(first,segment.Head);return first;}
+        }
         // Conservative invalidation for consumer snapshots; never affects Ca selection order.
         public long ResidencyRevision {get;private set;}
         public RoadSpatialIndex(int tileSize,int margin,Func<int,Double3?> source,int head)

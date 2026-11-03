@@ -22,7 +22,6 @@ namespace SlowRoads.Generation.Contents.Fields
             public double CachedTreeDensity(int index)=>Densities[index];
         }
         readonly Dictionary<(int,int),Tile> tiles=new();
-        internal readonly FieldRoadHistory RoadHistory=new();
         internal int MinimumRoadAnchor
         {get{int min=int.MaxValue;foreach(var tile in tiles.Values)foreach(var p in tile.Projections)if(p!=null)min=Math.Min(min,p.Index);return min;}}
         public FieldTemplate Template {get;}
@@ -77,6 +76,6 @@ namespace SlowRoads.Generation.Contents.Fields
                 if(--tile.Members<=0)tiles.Remove((tile.X,tile.Z));
             }
         }
-        public void Dispose(){tiles.Clear();RoadHistory.Clear();disposed=true;}
+        public void Dispose(){tiles.Clear();disposed=true;}
     }
 }
