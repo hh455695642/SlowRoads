@@ -38,6 +38,7 @@ namespace SlowRoads.Scene.Terrain
             this.road=road;this.settings=settings;Core=new TerrainStreamingSession(road.Core,Upload);
             Trees=new(road.Core,Core,settings.treeDensity==0?(int?)null:settings.treeDensity);
             Fields=new FieldStreamingSession(road.Core,Core,Trees,settings.treeDensity);
+            Core.FieldsReadyForWater=Fields.InitialContentReady;
             Trees.Attributes.Changed+=ContentChanged;
             Core.Released+=ReleaseRegion;Core.Reset+=ReleaseAll;
             Core.CoverageChanged+=(r,c)=>{if(active.TryGetValue(r,out var slot))slot.Upload.UpdateOverlap(c);};

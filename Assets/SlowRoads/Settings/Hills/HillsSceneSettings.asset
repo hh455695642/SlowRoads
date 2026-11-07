@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HillsSceneSettings
   m_EditorClassIdentifier: SlowRoads.RoadPresentation::SlowRoads.Scene.Road.HillsSceneSettings
   seed: a
-  roadType: 3
+  roadType: 0
   detail: 2
   terrainDetail: 2
-  season: 3
+  season: 0
   terrainVisible: 1
   terrainDebug: 0
   treesVisible: 1
@@ -80,6 +80,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 24bff07ecce9b8941b8be355a7e90de4, type: 2}
   - {fileID: 2100000, guid: 58136b52fb8ff2f45a030f9d1063933c, type: 2}
   - {fileID: 2100000, guid: 3a91b1708eecd8640b095db0d93b1990, type: 2}
+  waterVisible: 1
+  waterMaterials:
+  - {fileID: 2100000, guid: 38ccbbb430f7f15478cf2622a79f5555, type: 2}
+  - {fileID: 2100000, guid: 3cfeb62488cbe644c84b1cdf0f236b85, type: 2}
+  - {fileID: 2100000, guid: 66b9a7a20b7af5d4286da1b35c7d237e, type: 2}
+  - {fileID: 2100000, guid: 2a337ab392ac1684fa1361772549216d, type: 2}
   fieldWallsVisible: 1
   bridgesVisible: 1
   wallsVisible: 1

@@ -14,6 +14,7 @@ namespace SlowRoads.Generation.Terrain
         readonly int f,z;
         int row;
         bool firstHeight=true;
+        bool hasSea;SlowRoads.Generation.Contents.Water.WaterCoarseSnapshot waterCoarse;
         public readonly double OriginX,OriginZ;
         double[] heights;
         public TerrainBuffer<double> Heights=>Data?.Heights??throw new InvalidOperationException("Tile is not complete");
@@ -57,7 +58,7 @@ namespace SlowRoads.Generation.Terrain
         void SetHeight(int x,int y,bool coarse)
         {
             int at=x*z+y;double h=Height(OriginX+x*10,OriginZ+y*10);
-            heights[at]=h;positions[at*3+1]=(float)h;if(coarse)coarseHeightValid[at]=true;
+            heights[at]=h;positions[at*3+1]=(float)h;if(coarse){coarseHeightValid[at]=true;if(h<0)hasSea=true;}
         }
         void Normal(int x,int y,bool fine)
         {
@@ -104,7 +105,7 @@ namespace SlowRoads.Generation.Terrain
                     row++;
                 }
                 context.ReportProgress();
-                if(row>f){row=0;Stage++;}
+                if(row>f){if(Stage==FarTerrainStage.Heights0)waterCoarse=new(owner.TerrainConfig.TileSize,f,heights,hasSea);row=0;Stage++;}
             }
             if(Stage==FarTerrainStage.Complete)
             {
@@ -113,11 +114,11 @@ namespace SlowRoads.Generation.Terrain
                     for(int i=0;i<Topology.CoarseCount;i++)indices[i]=Topology.GetCoarse(i);
                     for(int i=0;i<Topology.FineCount;i++)indices[Topology.CoarseCount+i]=Topology.GetFine(i);
                     Data=new TerrainMeshData(owner,context,false,OriginX,OriginZ,positions,normals,coarseNormals,indices,Topology.CoarseCount,Topology.CoarseCount,Topology.FineCount,heights:heights,heightValid:coarseHeightValid,normalValid:coarseNormalValid);
-                    ClearBuffers();}
+                    Data.WaterCoarse=waterCoarse;waterCoarse=null;ClearBuffers();}
             }
             return Stage;}catch{Dispose();throw;}
         }
-        void ClearBuffers(){heights=null;positions=normals=coarseNormals=null;coarseHeightValid=coarseNormalValid=null;}
+        void ClearBuffers(){heights=null;positions=normals=coarseNormals=null;coarseHeightValid=coarseNormalValid=null;waterCoarse=null;}
         public void Dispose(){context?.Dispose();ClearBuffers();if(Stage!=FarTerrainStage.Complete)Stage=FarTerrainStage.Cancelled;}
     }
 }

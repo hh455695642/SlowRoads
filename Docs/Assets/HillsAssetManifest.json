@@ -2604,5 +2604,41 @@
     },
     "colourEncoding": "ShaderLab Color serializes the source sRGB integer components; GPU receives linear colour once. Do not pre-linearize the serialized _BaseColor.",
     "colourMigrationEvidence": "Docs/Agents/Artifacts/HillsContentsC2C3/material-colour-migration.json"
+  },
+  "waterImplementation": {
+    "version": "C4-2026-11-05",
+    "source": "Slow Roads v1.0.2 Hills b/fs/Io/Ro/Eo/To; Fixtures/Water/manifest.json",
+    "shader": "Assets/SlowRoads/Rendering/Shaders/Water/HillsWater.shader",
+    "theme": "day.clear, exact four seasonal water palettes; full Ni time/weather binding belongs to C7",
+    "materials": [
+      {
+        "season": "summer",
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Water/hills_summer_water.mat",
+        "guid": "38ccbbb430f7f15478cf2622a79f5555",
+        "sha256": "0e992efc252ce6ddfa24b9017b469aae2bf890acc53e3f28884162b0e1b68b02"
+      },
+      {
+        "season": "spring",
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Water/hills_spring_water.mat",
+        "guid": "3cfeb62488cbe644c84b1cdf0f236b85",
+        "sha256": "b8a9f3a08c73fbfb1b5febc86c16ee0d1ed8637d95045246d82781267c1db250"
+      },
+      {
+        "season": "autumn",
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Water/hills_autumn_water.mat",
+        "guid": "66b9a7a20b7af5d4286da1b35c7d237e",
+        "sha256": "64ad7adf59fe8dbbebca7070fe1772bd7de44dd482f7229a526e92c0e8a4cbbf"
+      },
+      {
+        "season": "winter",
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Water/hills_winter_water.mat",
+        "guid": "2a337ab392ac1684fa1361772549216d",
+        "sha256": "ddb13a91b59f4569d285c61cd0a5a40ee6194f79aadada2e54648fe14f0756d5"
+      }
+    ],
+    "texture": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Water/sea_waves.png",
+    "textureImport": "NoColorSpace/linear data, Repeat, Trilinear, anisotropy4, mipmaps enabled. Original Et(rs,4,undefined,zi).",
+    "rendering": "Opaque UniversalForwardOnly, Blend One/Zero, ZWrite On, LEqual; matching DepthOnly. No new renderer feature or RT. No custom shader keywords; Forward instancing x fog =8, DepthOnly instancing =2 theoretical variants.",
+    "verification": "56 independent archived GLSL float samples and original numeric geometry/depth; see C4 plan execution record for exact gates and limitations."
   }
 }

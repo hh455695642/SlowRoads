@@ -4,6 +4,7 @@ using System.Linq;
 using System.Diagnostics;
 using SlowRoads.Generation.Midline;
 using SlowRoads.Generation.Streaming;
+using SlowRoads.Generation.Contents.Water;
 
 namespace SlowRoads.Generation.Terrain
 {
@@ -31,6 +32,12 @@ namespace SlowRoads.Generation.Terrain
         readonly List<TerrainRegionState> work=new(),release=new();
         readonly Dictionary<(int,int),TerrainRegionState> cells=new();
         readonly Queue<Cover> coverage=new();
+        readonly Queue<(TerrainRegionState region,TerrainMeshData data)> waterPending=new();
+        WaterTileBuilder waterBuilder;TerrainRegionState waterRegion;
+        TerrainMeshData waterSource;
+        public Func<TerrainRegionState,bool> FieldsReadyForWater {get;set;}
+        public event Action<TerrainRegionState,WaterTileData> WaterCommitted;
+        public event Action<long> WaterWorkMeasured;
         FarTerrainTileBuilder far;
         NearTerrainChunkBuilder near;
         TerrainRegionState building;
@@ -137,6 +144,23 @@ namespace SlowRoads.Generation.Terrain
             int used=0;NeedsWork=true;
             while(used<budget)
             {
+                if(building==null&&(waterBuilder!=null||waterPending.Count>0))
+                {
+                    if(waterBuilder==null)
+                    {
+                        var next=waterPending.Peek();
+                        if(!residents.TryGetValue(next.region,out var parent)||!ReferenceEquals(parent.Tile,next.data)||next.region.Repooled||!parent.Receipt.IsCurrent){waterPending.Dequeue();continue;}
+                        if(FieldsReadyForWater?.Invoke(next.region)==false)return used;
+                        waterPending.Dequeue();waterRegion=next.region;var tile=parent.Tile;waterSource=tile;
+                        waterBuilder=new(tile.Key,tile.Revision,tile.LayerRevision,tile.OriginX,tile.OriginZ,tile.WaterCoarse,WaterTileBuilder.Segments(tile.Config.TileSize,tile.Config.Detail));
+                    }
+                    if(!residents.TryGetValue(waterRegion,out var currentParent)||!ReferenceEquals(currentParent.Tile,waterSource)||!currentParent.Receipt.IsCurrent){waterBuilder=null;waterRegion=null;waterSource=null;continue;}
+                    long waterStart=WaterWorkMeasured!=null?System.Diagnostics.Stopwatch.GetTimestamp():0;
+                    used+=waterBuilder.Advance(1);
+                    if(WaterWorkMeasured!=null)WaterWorkMeasured(System.Diagnostics.Stopwatch.GetTimestamp()-waterStart);
+                    if(waterBuilder.Data!=null){WaterCommitted?.Invoke(waterRegion,waterBuilder.Data);waterBuilder=null;waterRegion=null;waterSource=null;}
+                    continue;
+                }
                 if(building!=null)
                 {
                     bool isFar=far!=null;long measured=BeginMeasure();
@@ -169,6 +193,7 @@ namespace SlowRoads.Generation.Terrain
                         if(!building.Chunk){resident.Tile=data;resident.Overlap=new(data.Config.TileFineResolution);ActiveTiles++;}
                         else {foreach(var c in data.Cells)cells[(c.X,c.Z)]=building;if(!replacing)ActiveChunks++;}
                         residents[building]=resident;building.Residency=receipt;building.Uploaded=true;UploadedCount++;
+                        if(!building.Chunk)waterPending.Enqueue((building,data));
                         previous?.Receipt.Retire();
                         try{RegionCommitted?.Invoke(building,data);}finally{if(building.Chunk)data.Dispose();}
                         far?.Dispose();near?.Dispose();far=null;near=null;building=null;
@@ -252,6 +277,7 @@ namespace SlowRoads.Generation.Terrain
         }
         void Clear()
         {
+            waterBuilder=null;waterRegion=null;waterSource=null;waterPending.Clear();
             // Cancel the completed-but-uncommitted product as well as active work.
             far?.Data?.Dispose();near?.Data?.Dispose();
             far?.Dispose();near?.Dispose();far=null;near=null;building=null;

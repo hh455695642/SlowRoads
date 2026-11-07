@@ -45,6 +45,8 @@ namespace SlowRoads.Scene.Road
         public Shader treeFallbackShader;
         [InspectorName("地形季节材质")] public Material[] terrainMaterials=new Material[4];
         public Material ResolveTerrainMaterial()=>terrainMaterials!=null&&terrainMaterials.Length==4&&terrainMaterials[(int)season]!=null?terrainMaterials[(int)season]:throw new InvalidOperationException("地形季节材质未配置");
+        [InspectorName("显示湖泊水面")] public bool waterVisible=true;
+        public Material[] waterMaterials=new Material[4];
         [InspectorName("显示农田边界墙")] public bool fieldWallsVisible=true;
         [InspectorName("显示桥梁")] public bool bridgesVisible=true;
         [InspectorName("显示沿路墙及防护设施")] public bool wallsVisible=true;

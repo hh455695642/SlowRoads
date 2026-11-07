@@ -19,9 +19,10 @@ Assets/
       Generation/Contents/            来源贡献、组合版本与共享内容属性
       Generation/Contents/Trees/      Wa候选、Arrangement、稳定Store/解析、T4流式与树影
       Generation/Contents/Fields/     Da/Ra/Ea/Ka、共享租约、裁接/属性/边界树事务及只读快照
+      Generation/Contents/Water/      i7粗阶段判水、冻结Dt高程、Plane/depth不可变数据；T4拥有作业队列
       Generation/Contents/Bridges/    J9/ii原桥输入、deck/pylon/arch和桥体流式
       Generation/Contents/Walls/      原墙规则、S2/k2/T0/K4/Ka几何、局部修订和C5查询
-      Scene/Contents/                 唯一树GPU及桥墙Mesh表现owner，复用RoadPresentation程序集
+      Scene/Contents/                 唯一树GPU、桥墙及水面Mesh表现owner，复用RoadPresentation程序集
       Scene/Terrain/                  地形Mesh上传/LOD/原点、Renderer池与共享材质表现
       Scene/Road/                     三Mesh上传/LOD/释放、流式装配、唯一HillsSceneSettings
     Editor/Debug/                     调试 Inspector，无顶层菜单
@@ -87,6 +88,8 @@ P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit
 - 具体强制流程、Git 安全、来源证据保护、GUID 审计及回归门槛由 `HillsAgents.md` 的“旧实现清退与增量开发门禁”统一规定；本文件只记录实际目录与当前迁移状态，避免两处维护重复规则。
 
 ## 后续模块落点（实现时再建，禁止空类占位）
+
+2026-11-05 C4：WaterTilePresentation已接唯一RoadStreamingPresentation，水作业复用T4并等待逐区域Fields完成。唯一HillsSceneSettings新增waterVisible及四季day.clear材质引用；HillsWater为普通URP不透明ForwardOnly/DepthOnly，10个variant，无新Feature/RT。原版数值、56组GPU表面、两自然桥深度/生命周期与桌面长跑结果见`ContentsAudit/C4_湖泊水面开发实施计划.md` §10。独立GPU归因、精确GC和完整Ni气氛整图仍未验，不进入C5/C6/S2。
 
 | 内容 | 目录 | 责任 agent |
 |---|---|---|

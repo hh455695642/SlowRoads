@@ -29,6 +29,7 @@ public sealed class HillsDebugSessionEditor : Editor
             Field(data,"treeDensity","树密度（0自动）","按原版密度枚举生成；重新生成生效。");
         }
         Field(data,"terrainVisible","显示丘陵地形");Field(data,"terrainDebug","地形边界调试","远景绿/青、近路黄/橙表示细/粗，红色待显示，灰色驻留退役；浅绿框为近路内圈。");
+        Field(data,"waterVisible","显示湖泊水面","仅控制显示，保留原版水面数据与其他内容随机序列。");
         Field(data,"treesVisible","显示树群","只控制显示，不重抽候选或改变随机序列。");Field(data,"treeShadows","树群投影","需要当前光源启用阴影；原版地表树影数据独立保留。");
         Field(data,"fieldWallsVisible","显示农田边界墙");Field(data,"bridgesVisible","显示桥梁");Field(data,"wallsVisible","显示沿路墙及防护设施");
         Field(data,"season","季节");Field(data,"visible","显示道路");Field(data,"generationEnabled","持续生成","关闭时停止补路，观察者等待可用道路。");

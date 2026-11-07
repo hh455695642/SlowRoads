@@ -101,6 +101,7 @@ namespace SlowRoads.Generation.Terrain
         public TerrainBuffer<bool> CoarseHeightValid {get;}
         public TerrainBuffer<bool> CoarseNormalValid {get;}
         public bool IsDisposed {get;private set;}
+        public SlowRoads.Generation.Contents.Water.WaterCoarseSnapshot WaterCoarse {get;internal set;}
         public int VertexCount=>IsDisposed?0:Positions.Length/3;
         internal TerrainMeshData(RoadStreamingSession owner,TerrainBuildContext context,bool roads,double x,double z,
             float[] positions,float[] normals,float[] coarseNormals,int[] indices,int coarseCount,int fineStart,int fineCount,
@@ -153,6 +154,7 @@ namespace SlowRoads.Generation.Terrain
         public void Dispose()
         {
             if(IsDisposed)return;IsDisposed=true;
+            WaterCoarse=null;
             Positions.Release();Normals.Release();CoarseNormals.Release();Indices.Release();Curvature.Release();
             RoadProximity?.Release();RoadUv?.Release();TreeMask?.Release();Overlap?.Release();Heights?.Release();CoarseHeightValid?.Release();CoarseNormalValid?.Release();
         }

@@ -1,5 +1,7 @@
 # Hills agent 结构与阶段验收
 
+C4增量合同（2026-11-05）：T4队列拥有水面需求及逐列构建，FarTerrainTileBuilder在Heights0结束冻结原高程/hasSea；Fields提供逐区域完成收据，WaterTilePresentation仅拥有Mesh与共享材质显示。只使用原Y=0、原depth及不透明普通URP路径，不改Pl/Ll/桥规划，不新增调度器或SO。C4桌面实现/原版对照/生命周期/两桥/成本及明确未验证范围统一见`Docs/ReverseEngineering/ContentsAudit/C4_湖泊水面开发实施计划.md` §10；不是完整S1或C5/C6交付。
+
 此文件定义开发 agent 的职责和交接契约；不是运行时 AI、NavMesh agent 或车辆控制系统。当前唯一运行时为 HillsDebugSession → RoadStreamingPresentation（协调RoadStreamingSession、TerrainStreamingSession与正式TreeStreamingSession/Presentation）→ StreamingRoadRouteSource → RouteObserver → ObserverCamera，唯一业务 SO 为 `Assets/SlowRoads/Settings/Hills/HillsSceneSettings.asset`。2026-10-29 删除有限预览/分散配置，仅一个种子入口；2026-11-02树群已接主场景，原八套树材质保GUID迁移后Legacy树Shader已删除。
 
 唯一开发场景为 `Assets/Scenes/SlowRoadsRoadDemo.unity`；目录与协作边界见 `ProjectLayout.md`。不再通过菜单创建演示场景。

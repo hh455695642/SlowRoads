@@ -13,6 +13,7 @@ namespace SlowRoads.Scene.Road
     {
         public RoadStreamingSession Core {get;private set;}
         public TerrainStreamingPresentation Terrain {get;private set;}
+        public SlowRoads.Scene.Contents.WaterTilePresentation Water {get;private set;}
         public SlowRoads.Scene.Contents.TreeStreamingPresentation Trees {get;private set;}
         public double ObserverProgress {get;private set;}
         public SlowRoads.Scene.Contents.StructureStreamingPresentation Structures {get;private set;}
@@ -44,6 +45,7 @@ namespace SlowRoads.Scene.Road
             BindMaterial();
             Core.YieldAtTickBoundary=true;
             Terrain=gameObject.AddComponent<TerrainStreamingPresentation>();Terrain.Initialize(this,settings);
+            Water=gameObject.AddComponent<SlowRoads.Scene.Contents.WaterTilePresentation>();Water.Initialize(this,settings);
             Trees=gameObject.AddComponent<SlowRoads.Scene.Contents.TreeStreamingPresentation>();Trees.Initialize(this,settings);
             Structures=gameObject.AddComponent<SlowRoads.Scene.Contents.StructureStreamingPresentation>();Structures.Initialize(this,settings);
             Terrain.Trees.Attributes.Changed+=ContentShadowsChanged;
@@ -122,7 +124,7 @@ namespace SlowRoads.Scene.Road
         }
         public void Release()
         {
-            if(disposed)return;disposed=true;if(Terrain?.Trees!=null)Terrain.Trees.Attributes.Changed-=ContentShadowsChanged;Structures?.Release();Structures=null;Trees?.Release();Trees=null;Terrain?.Release();Terrain=null;Core?.Dispose();Core=null;
+            if(disposed)return;disposed=true;Water?.Release();Water=null;if(Terrain?.Trees!=null)Terrain.Trees.Attributes.Changed-=ContentShadowsChanged;Structures?.Release();Structures=null;Trees?.Release();Trees=null;Terrain?.Release();Terrain=null;Core?.Dispose();Core=null;
             foreach(var upload in uploads)upload?.Dispose();
         }
         void OnDestroy()=>Release();

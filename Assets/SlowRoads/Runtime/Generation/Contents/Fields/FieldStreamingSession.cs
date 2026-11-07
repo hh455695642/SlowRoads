@@ -35,6 +35,7 @@ namespace SlowRoads.Generation.Contents.Fields
         public int RetainedRoadNodes=>roadHistory.Count;
         public bool HasWork=>current!=null||pending.Count>0||revisit.Count>0;
         public long CompletedCount {get;private set;}
+        public bool InitialContentReady(TerrainRegionState region)=>regions.TryGetValue(region,out var r)&&!r.Queued&&(detail==0||r.Job?.Complete==true);
         public bool TrySnapshot(out FieldQuerySnapshot snapshot)
         {
             snapshot=null;if(disposed||HasWork||!road.AtTickBoundary)return false;
