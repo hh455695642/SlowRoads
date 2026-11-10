@@ -17,6 +17,7 @@ namespace SlowRoads.Scene.Terrain
     public sealed class TerrainStreamingPresentation : MonoBehaviour
     {
         static readonly Unity.Profiling.ProfilerMarker FieldWork=new("SlowRoads.C2.Fields.Advance");
+        static readonly Unity.Profiling.ProfilerMarker GrassWork=new("SlowRoads.C5.Grass.Advance");
         sealed class Slot
         {
             public GameObject Object;
@@ -33,11 +34,11 @@ namespace SlowRoads.Scene.Terrain
         public TreeStreamingSession Trees {get;private set;}
         public FieldStreamingSession Fields {get;private set;}
         public int NativeMeshCount=>active.Count+pool.Count;
-        public void Initialize(RoadStreamingPresentation road,HillsSceneSettings settings)
+        public void Initialize(RoadStreamingPresentation road,HillsSceneSettings settings,FieldRandomState moduleRandom=null,SlowRoads.Generation.Contents.Fields.FieldExecutionState moduleExecution=null,TreeRandomState treeRandom=null)
         {
             this.road=road;this.settings=settings;Core=new TerrainStreamingSession(road.Core,Upload);
-            Trees=new(road.Core,Core,settings.treeDensity==0?(int?)null:settings.treeDensity);
-            Fields=new FieldStreamingSession(road.Core,Core,Trees,settings.treeDensity);
+            Trees=new(road.Core,Core,settings.treeDensity==0?(int?)null:settings.treeDensity,treeRandom);
+            Fields=new FieldStreamingSession(road.Core,Core,Trees,settings.treeDensity,moduleRandom,moduleExecution);
             Core.FieldsReadyForWater=Fields.InitialContentReady;
             Trees.Attributes.Changed+=ContentChanged;
             Core.Released+=ReleaseRegion;Core.Reset+=ReleaseAll;
@@ -81,15 +82,30 @@ namespace SlowRoads.Scene.Terrain
             if(road.Core.Ready&&road.Core.AtTickBoundary)
             {
                 if(road.Structures?.Building==true)return road.Structures.Advance(budget);
-                if(!Core.Building)
+                // Ni initializes _9/x7 during scene load, before the observer moves.
+                // The fixed original horizons are sliced through the same work budget;
+                // off-road height binding may wait for T4 without restarting the controllers.
+                if(!Core.Building&&road.Roadside?.Core.InitialReady==false)
+                {int initial=road.Roadside.Advance(budget);if(initial>0)return initial;}
+                if(!Core.Building&&Fields.HasQueuedWork)
                 {
                     using var fieldSample=FieldWork.Auto();
-                    Fields.CheckReclips();if(Fields.HasWork)return Fields.Advance(budget);
+                    return Fields.Advance(budget);
+                }
+                var grass=road.Grass?.Core;
+                if(!Core.Building&&grass?.PriorityTurn==true)
+                {
+                    int prepared=grass.Building?0:road.Structures.Advance(budget);
+                    if(prepared>=budget)return prepared;using var grassSample=GrassWork.Auto();return prepared+grass.Advance(budget-prepared);
                 }
                 int used=Core.Advance(budget);
-                if(used>=budget||Core.Building||Core.NeedsWork||Fields.HasWork)return used;
+                if(used>=budget||Core.Building||Core.NeedsWork||Fields.HasQueuedWork||grass?.PriorityTurn==true)return used;
+                // Original Ka.checkRegenerate adds a normal-priority job, after qb's priority queue.
+                Fields.CheckReclips();if(Fields.HasQueuedWork)return used+Fields.Advance(budget-used);
                 int structures=road.Structures!=null?road.Structures.Advance(budget-used):0;used+=structures;
                 if(used>=budget||road.Core.TerrainBuildPending)return used;
+                int roadside=road.Roadside!=null?road.Roadside.Advance(budget-used):0;used+=roadside;
+                if(used>=budget||(roadside>0&&road.Roadside.Core.HasWork))return used;
                 return used+road.Core.Advance(budget-used);
             }
             return road.Core.Advance(budget);

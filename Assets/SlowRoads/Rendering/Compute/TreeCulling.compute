@@ -7,21 +7,24 @@ float4 _Planes[6];
 float3 _Origin,_Camera;
 float _Near,_Far;
 float4x4 _View;
-int _Count,_Lod;
+int _Count,_Lod,_GroundCover;
+float _InstanceRadius;
 [numthreads(64,1,1)]
 void Cull(uint id:SV_DispatchThreadID)
 {
     if(id>=(uint)_Count)return;
     TreeData tree=_Trees[id];float3 p=tree.positionScale.xyz+_Origin;
-    float radius=tree.positionScale.w*18;
+    float radius=tree.positionScale.w*(_GroundCover!=0?_InstanceRadius:18);
     float distance=length(p.xz-_Camera.xz);
     float depth=-mul(_View,float4(p,1)).z;
     // A near mesh is legal only after its T3 evaluation. Far imposters remain
     // available for terrain still outside the near set; visibility never draws RNG.
     if(distance>_Far+radius)return;
-    if(_Lod==0&&(tree.parameters.w<.5||depth>_Near))return;
+    // Wo/Yo use horizontal squared distance. Tree view-depth LOD must not
+    // remove cover below an elevated camera while still inside that circle.
+    if(_Lod==0&&(tree.parameters.w<.5||(_GroundCover==0&&depth>_Near)))return;
     if(_Lod==1&&tree.parameters.w>.5&&depth<_Near*.58)return;
-    p.y+=radius*.5;
+    if(_GroundCover==0)p.y+=radius*.5;
     for(int i=0;i<6;i++)if(dot(_Planes[i].xyz,p)+_Planes[i].w < -radius)return;
     _Visible.Append(id);
 }

@@ -13,6 +13,7 @@ namespace SlowRoads.Generation.Contents.Fields
         readonly int x,z,detail,density;int owner;readonly double tileSize,halfWidth;readonly bool colour;
         FieldClipBuilder clipping;bool disposed,published;
         readonly FieldExecutionState execution;int? lookupBefore;
+        FieldRandomState.Stream.Lease sharedLease;
         public bool Complete=>clipping!=null&&clipping.Complete;
         public FieldBoundaryRecipe Recipe=>Complete?clipping.Recipe:null;
         public IReadOnlyList<FieldCandidate> Candidates=>inclusion.Candidates;
@@ -21,8 +22,13 @@ namespace SlowRoads.Generation.Contents.Fields
         {
             this.registry=registry;this.random=random;this.world=world;this.x=x;this.z=z;this.owner=owner;this.tileSize=tileSize;this.halfWidth=halfWidth;this.detail=detail;this.density=density;this.colour=colour;
             this.execution=execution??new FieldExecutionState();lookupBefore=this.execution.LastLookupIndex;
-            lease=registry.Acquire(x*tileSize,z*tileSize,tileSize);before=registry.Capture(lease);randomBefore=random.Capture();
-            inclusion=new FieldCandidateBuilder(registry.Template,lease,random,quality,x*tileSize,z*tileSize,tileSize,density,world.RawHeight,world.Density);
+            sharedLease=random.Shared.Claim(this);
+            try
+            {
+                lease=registry.Acquire(x*tileSize,z*tileSize,tileSize);before=registry.Capture(lease);randomBefore=random.Capture();
+                inclusion=new FieldCandidateBuilder(registry.Template,lease,random,quality,x*tileSize,z*tileSize,tileSize,density,world.RawHeight,world.Density);
+            }
+            catch{if(lease!=null)registry.Release(lease);sharedLease.Dispose();throw;}
         }
         public int Advance(int budget)
         {
@@ -35,18 +41,19 @@ namespace SlowRoads.Generation.Contents.Fields
             }
             return used;
         }
-        public void MarkPublished(){if(!Complete||disposed)throw new InvalidOperationException("Incomplete field recipe");published=true;before=null;randomBefore=null;}
+        public void MarkPublished(){if(!Complete||disposed)throw new InvalidOperationException("Incomplete field recipe");published=true;before=null;randomBefore=null;sharedLease?.Dispose();sharedLease=null;}
         public void Reclip(IFieldWorld world,int owner)
         {
             if(!published||disposed)throw new InvalidOperationException("Reclip requires a stable field tile");
-            before=registry.Capture(lease);randomBefore=random.Capture();lookupBefore=execution.LastLookupIndex;this.world=world;
+            sharedLease=random.Shared.Claim(this);before=registry.Capture(lease);randomBefore=random.Capture();lookupBefore=execution.LastLookupIndex;this.world=world;
             clipping=new FieldClipBuilder(registry.Template,inclusion.Candidates,random,world,x,z,tileSize,registry.Generation,owner,this.owner,halfWidth,detail,density,colour,execution);
             this.owner=owner;published=false;
         }
         public void Dispose()
         {
             if(disposed)return;disposed=true;
-            if(!published){registry.Restore(before);random.Restore(randomBefore);execution.LastLookupIndex=lookupBefore;}registry.Release(lease);
+            try{if(!published){registry.Restore(before);random.Restore(randomBefore);execution.LastLookupIndex=lookupBefore;}registry.Release(lease);}
+            finally{sharedLease?.Dispose();sharedLease=null;}
         }
     }
 }

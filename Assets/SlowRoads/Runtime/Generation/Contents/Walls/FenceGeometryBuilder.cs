@@ -67,6 +67,9 @@ namespace SlowRoads.Generation.Contents.Walls
             if(node.Index<input.Segment.End)return false;
             Row(node.Position,node.Normal,side<0?node.ShadowLeft:node.ShadowRight,true,false);
             for(int i=0;i<rows-1;i++)fence.Connect(i*6,6);
+            // K4 L48916–48925: freeze original addObject arguments before endcap sinking.
+            if(!input.Segment.ContiguousStart&&!input.OffRoad)
+                fence.Marker=new VergeMarkerData(new Double3(fence.Positions[0]+ox,fence.Positions[1],fence.Positions[2]+oz),Math.PI+Math.PI/2-input.Start.Heading,input.Start.Index);
             if(!input.Segment.ContiguousStart)for(int i=0;i<6;i++)fence.Positions[i*3+1]=(float)(fence.Positions[i*3+1]-1.0);
             if(!input.Segment.ContiguousEnd)for(int i=0;i<6;i++){int at=fence.Positions.Count-(i*3+2);fence.Positions[at]=(float)(fence.Positions[at]-1.0);}
             int postStart=fence.Positions.Count/3;fence.Positions.AddRange(posts.Positions);fence.Normals.AddRange(posts.Normals);fence.UV.AddRange(posts.UV);fence.Shadow.AddRange(posts.Shadow);

@@ -16,7 +16,8 @@ namespace SlowRoads.Generation.Midline
     /// </summary>
     public sealed class MidlineSession : IDisposable
     {
-        readonly MidlineConfig config;
+        MidlineConfig config;
+        int graphicsFinePhase;
         readonly IMidlineHeightSource height;
         readonly MidlineInitialization initialisation;
         readonly MidlineState state;
@@ -73,7 +74,27 @@ namespace SlowRoads.Generation.Midline
         public int UpdateOrdinal => updateOrdinal;
         public int AllocatedCoarseNodeCount {get{ThrowIfDisposed();return nodes.AllocatedCount;}}
         public MidlineMarkingsState Markings {get{ThrowIfDisposed();return markings;}}
-        public bool AtUpdateBoundary=>phase==MidlineUpdatePhase.Prepare;
+        public bool AtUpdateBoundary=>phase==MidlineUpdatePhase.Prepare&&graphicsFinePhase==0;
+        public void ConfigureGraphicsHorizon(int horizon)
+        {if(!AtUpdateBoundary)throw new InvalidOperationException("Graphics rebuild requires a committed midline boundary");config=config.WithFineHorizon(horizon);}
+        public bool GraphicsFineReady=>graphicsFinePhase==0&&!FineIsRequired();
+        /// <summary>Ni.resetMidline -> Se.rebuildFine: only extend missing fine data through
+        /// the existing sampler/attributes/markings. Retained exact geometry is a cache;
+        /// no coarse steering/random update or observer input is consumed during graphics load.</summary>
+        public int AdvanceGraphicsFine(int budget)
+        {
+            if(phase!=MidlineUpdatePhase.Prepare||budget<0)throw new InvalidOperationException("Invalid graphics fine boundary");int used=0;
+            while(used<budget)
+            {
+                if(graphicsFinePhase==0){if(!FineIsRequired())break;fineSampler.Begin(state.FineTail,config.MinFineSegments,config.CurvatureHeightFactor);graphicsFinePhase=1;}
+                if(graphicsFinePhase==1&&fineSampler.Advance(1)){state.FineTail=fineSampler.NextCoarse;attributes.Begin(state.FineTail.Previous);graphicsFinePhase=2;}
+                else if(graphicsFinePhase==2&&attributes.Advance(1)){markings.Begin(state.FineTail.Previous);graphicsFinePhase=3;}
+                else if(graphicsFinePhase==3&&markings.Advance(1))
+                {GeometryDirtyFrom=Math.Min(GeometryDirtyFrom,state.FineTail.Index-1);AttributeDirtyFrom=Math.Min(AttributeDirtyFrom,Math.Min(attributes.DirtyFromCoarseIndex,markings.DirtyFromCoarseIndex));Revision++;graphicsFinePhase=0;nodes.AdvancePins(markings?.Node,state.Head.NextFine);}
+                used++;
+            }
+            return used;
+        }
         public CoarseNode FindCoarse(int index)=>nodes.Find(index,state.Generation);
         public int AttributeReadyExclusive=>Math.Max(state.Head.Index,Math.Min(state.FineTail.Index,
             (markings?.Node.Index??state.Head.Index)-(int)Math.Ceiling(11+config.MarkingsMargin/2)));

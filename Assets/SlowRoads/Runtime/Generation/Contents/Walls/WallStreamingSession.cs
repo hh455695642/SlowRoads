@@ -104,7 +104,7 @@ namespace SlowRoads.Generation.Contents.Walls
                 // C2's original coarse/fine shadow writes are composed without changing P2's producer nodes.
                 for(var n=window.FindCoarse(first);n!=null;n=n.Next)
                 {RestoreShadow(n,n.Index,0);for(var f=n.NextFine as FineNode;f!=null;f=f.NextFine as FineNode)RestoreShadow(f,n.Index,f.Ordinal);}
-                var input=new WallGeometryInput(record.Segment,window.FindCoarse(record.Segment.Start),record.Segment.Type==HillsWallType.Drystone||road.Config.Mesh.OffRoad?Roadside:null);
+                var input=new WallGeometryInput(record.Segment,window.FindCoarse(record.Segment.Start),record.Segment.Type==HillsWallType.Drystone||road.Config.Mesh.OffRoad?Roadside:null,road.Config.Mesh.LaneStyle==HillsLaneStyle.OffRoad);
                 switch(record.Segment.Type)
                 {
                     case HillsWallType.Bridge:case HillsWallType.Lowland:var solid=new BridgeSideWallGeometryBuilder(input);buildStep=solid.Step;buildData=()=>solid.Data;break;
@@ -156,6 +156,19 @@ namespace SlowRoads.Generation.Contents.Walls
             if(!QueryReady)throw new InvalidOperationException("C2 wall revision is still rebuilding");var segments=new List<WallSegment>();foreach(var w in active.Values)segments.Add(new WallSegment(w.Segment.Start,w.Segment.End,w.Segment.Type,w.Segment.Distance,w.Segment.ContiguousStart,w.Segment.ContiguousEnd));
             var surfaces=new List<WallSurfaceSnapshot>();foreach(var w in active.Values)if(w.Geometry!=null&&!w.NeedsMesh)surfaces.Add(new WallSurfaceSnapshot(w));
             return new WallQuerySnapshot(generation,attributes.Version,Revision,segments,surfaces);
+        }
+        /// <summary>G7 L47416–47425. C5's per-cell query avoids cloning every wall mesh.
+        /// Call only at the existing content barrier; display visibility is irrelevant.</summary>
+        public bool TryGetSides(int index,out double left,out double right,out int side)
+        {
+            left=right=0;side=0;if(disposed||!QueryReady)return false;
+            foreach(var w in active.Values)
+            {
+                var s=w.Segment;if(index<s.Start||index>=s.End)continue;
+                if(s.Distance<0){double d=-s.Distance;if(left==0||left>d)left=d;}
+                else if(right==0||right>s.Distance)right=s.Distance;
+            }
+            side=left!=0?(right!=0?0:1):(right!=0?-1:0);return true;
         }
         void Reset(){EndGeometry();foreach(var id in active.Keys)Released?.Invoke(id);active.Clear();geometry.Clear();Revision++;generation=road.Midline.State.Generation;random=new DrystoneWallRandom();dirty=int.MaxValue;revising=false;InitializeRules((road.Midline.State.Head?.Index??0)+1);initialized=road.Ready;}
         public void Dispose(){if(disposed)return;disposed=true;attributes.Changed-=AttributesChanged;road.Invalidated-=Reset;Reset();}

@@ -4,6 +4,8 @@ using SlowRoads.Generation.Midline;
 using SlowRoads.Generation.Road;
 using SlowRoads.Generation.Streaming;
 using SlowRoads.Scene.Terrain;
+using SlowRoads.Generation.Contents.Fields;
+using SlowRoads.Generation.Contents.Trees;
 using UnityEngine;
 
 namespace SlowRoads.Scene.Road
@@ -15,11 +17,18 @@ namespace SlowRoads.Scene.Road
         public TerrainStreamingPresentation Terrain {get;private set;}
         public SlowRoads.Scene.Contents.WaterTilePresentation Water {get;private set;}
         public SlowRoads.Scene.Contents.TreeStreamingPresentation Trees {get;private set;}
+        public SlowRoads.Scene.Contents.GrassStreamingPresentation Grass {get;private set;}
+        public SlowRoads.Scene.Contents.RoadsideStreamingPresentation Roadside {get;private set;}
         public double ObserverProgress {get;private set;}
+        public Double3 ObserverWorldPosition {get;private set;}public Vector3 ObserverForward {get;private set;}=Vector3.forward;
         public SlowRoads.Scene.Contents.StructureStreamingPresentation Structures {get;private set;}
         public Double3 RenderOrigin {get;private set;}
+        // C7 can replace the source intensity input without changing C6 generation.
+        public Light Sun {get;set;}
         public string Fault {get;private set;}
         public int OriginShiftCount {get;private set;}
+        public int GraphicsRebuildCount {get;private set;}public bool GraphicsRebuildPending {get;private set;}
+        public event Action GraphicsRebuilding,GraphicsRebuilt;
         public event Action<Vector3> OriginShifted;
         HillsSceneSettings settings;
         readonly RoadMeshUploader[] uploads=new RoadMeshUploader[3];
@@ -44,11 +53,42 @@ namespace SlowRoads.Scene.Road
             Core.Invalidated+=()=>{foreach(var r in renderers)r.enabled=false;hasOrigin=false;hasStart=false;};
             BindMaterial();
             Core.YieldAtTickBoundary=true;
-            Terrain=gameObject.AddComponent<TerrainStreamingPresentation>();Terrain.Initialize(this,settings);
+            InitializeContents();
+        }
+        void InitializeContents(FieldRandomState fields=null,FieldExecutionState execution=null,TreeRandomState treeRandom=null,FieldRandomState.Stream density=null)
+        {
+            Terrain=gameObject.AddComponent<TerrainStreamingPresentation>();Terrain.Initialize(this,settings,fields,execution,treeRandom);
             Water=gameObject.AddComponent<SlowRoads.Scene.Contents.WaterTilePresentation>();Water.Initialize(this,settings);
             Trees=gameObject.AddComponent<SlowRoads.Scene.Contents.TreeStreamingPresentation>();Trees.Initialize(this,settings);
             Structures=gameObject.AddComponent<SlowRoads.Scene.Contents.StructureStreamingPresentation>();Structures.Initialize(this,settings);
+            Grass=gameObject.AddComponent<SlowRoads.Scene.Contents.GrassStreamingPresentation>();Grass.Initialize(this,settings,density);
+            Roadside=gameObject.AddComponent<SlowRoads.Scene.Contents.RoadsideStreamingPresentation>();Roadside.Initialize(this,settings);
             Terrain.Trees.Attributes.Changed+=ContentShadowsChanged;
+        }
+        public void RequestGraphicsRebuild()
+        {
+            if(disposed||Core==null)throw new InvalidOperationException("No active Hills scene");
+            if(settings.seed!=Core.TerrainConfig.Seed||settings.LaneStyle!=Core.Config.Mesh.LaneStyle)throw new InvalidOperationException("Seed/road type changes require a fresh scene rebuild");
+            GraphicsRebuildPending=true;
+        }
+        void RebuildGraphics()
+        {
+            GraphicsRebuilding?.Invoke();
+            var random=Terrain.Fields.Random;var execution=Terrain.Fields.Execution;var treeRandom=Terrain.Trees.Generator.Random;var density=Grass.Core.Random.Density;
+            ReleaseContents();Core.RebuildGraphics(settings.detail,settings.terrainDetail);
+            foreach(var renderer in renderers)renderer.enabled=false;
+            InitializeContents(random,execution,treeRandom,density);GraphicsRebuildPending=false;GraphicsRebuildCount++;
+            GraphicsRebuilt?.Invoke();
+        }
+        void ReleaseContents()
+        {
+            var roadside=Roadside;roadside?.Release();Roadside=null;if(roadside!=null)Destroy(roadside);
+            var grass=Grass;grass?.Release();Grass=null;if(grass!=null)Destroy(grass);
+            var water=Water;water?.Release();Water=null;if(water!=null)Destroy(water);
+            if(Terrain?.Trees!=null)Terrain.Trees.Attributes.Changed-=ContentShadowsChanged;
+            var structures=Structures;structures?.Release();Structures=null;if(structures!=null)Destroy(structures);
+            var trees=Trees;trees?.Release();Trees=null;if(trees!=null)Destroy(trees);
+            var terrain=Terrain;terrain?.Release();Terrain=null;if(terrain!=null)Destroy(terrain);
         }
         void BindMaterial()
         {
@@ -81,6 +121,9 @@ namespace SlowRoads.Scene.Road
             try
             {
                 BindMaterial();for(int i=0;i<3;i++){uploads[i].Visible=settings.visible;renderers[i].enabled=settings.visible&&Core.Slots[i].Published&&publishedVisible[i];}
+                // Native graphics rebuild clears queued work, but C2/C5 share a transactional
+                // random stream. Wait for its finite publish boundary; never synchronously drain.
+                if(GraphicsRebuildPending&&Core.AtTickBoundary&&!Core.TerrainBuildPending&&!Terrain.Fields.Random.Shared.TransactionActive&&!Terrain.Core.Building&&!Structures.Building)RebuildGraphics();
                 if(!settings.generationEnabled)return;
                 // Operation cap determines work; wall time only yields between operations.
                 watch.Restart();int remaining=Math.Max(1,settings.operationsPerFrame);
@@ -104,9 +147,11 @@ namespace SlowRoads.Scene.Road
             // original coarse index zero so T3's fine projection has both neighbours.
             if(!hasStart){if(!Core.Distance.TryGetCoarseDistance(0,out startDistance))return MidlineDistanceResult.NotReady;hasStart=true;Core.SetObserverIndex(0);}
             var result=Core.TrySample(startDistance+distance,out var sample);if(result!=MidlineDistanceResult.Ready)return result;
+            if(Roadside!=null&&(!Roadside.Core.InitialReady||Roadside.Core.HasWork||Roadside.Core.PendingCount>0))return MidlineDistanceResult.NotReady;
             if(!Terrain.Core.CanTraverse(sample.Position,sample.FromCoarseIndex))return MidlineDistanceResult.NotReady;
             if(!Terrain.Fields.CanTraverse(sample.Position))return MidlineDistanceResult.NotReady;
             ObserverProgress=sample.Progress;
+            ObserverWorldPosition=sample.Position;ObserverForward=new Vector3((float)sample.Forward.X,(float)sample.Forward.Y,(float)sample.Forward.Z);
             ShiftOriginIfNeeded(sample.Position);
             var p=sample.Position;position=new Vector3((float)(p.X-RenderOrigin.X),(float)(p.Y+.02),(float)(p.Z-RenderOrigin.Z));
             forward=new Vector3((float)sample.Forward.X,(float)sample.Forward.Y,(float)sample.Forward.Z);
@@ -124,7 +169,7 @@ namespace SlowRoads.Scene.Road
         }
         public void Release()
         {
-            if(disposed)return;disposed=true;Water?.Release();Water=null;if(Terrain?.Trees!=null)Terrain.Trees.Attributes.Changed-=ContentShadowsChanged;Structures?.Release();Structures=null;Trees?.Release();Trees=null;Terrain?.Release();Terrain=null;Core?.Dispose();Core=null;
+            if(disposed)return;disposed=true;ReleaseContents();Core?.Dispose();Core=null;
             foreach(var upload in uploads)upload?.Dispose();
         }
         void OnDestroy()=>Release();

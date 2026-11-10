@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: hills_winter_grass
+  m_Shader: {fileID: 4800000, guid: 8b5e7219241caad4b927d92b2f3f804a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 6bb3be711f12c104bbc20c50becd56c7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseMap:
+        m_Texture: {fileID: 2800000, guid: a81edd4665bbaf04fa9dca1556c4504b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - detailFarMap:
+        m_Texture: {fileID: 2800000, guid: 307bbb07dbd98cf448d34141115fa4c6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - grassVariationMap:
+        m_Texture: {fileID: 2800000, guid: 1c009c255c788f542b5feef54714954c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - fresnelIntensity: 0.6
+    - radiance: 0
+    - seasonIndex: 3
+    - shadowFactor: 0.9
+    m_Colors:
+    - grassColA: {r: 1, g: 1, b: 1, a: 1}
+    - grassColB: {r: 0.7154654, g: 0.7299189, b: 0.7592996, a: 1}
+    - peakColA: {r: 0.7154654, g: 0.7299189, b: 0.7592996, a: 1}
+    - peakColB: {r: 0.4936162, g: 0.51740134, b: 0.57315886, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

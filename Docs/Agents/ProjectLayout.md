@@ -20,22 +20,27 @@ Assets/
       Generation/Contents/Trees/      Wa候选、Arrangement、稳定Store/解析、T4流式与树影
       Generation/Contents/Fields/     Da/Ra/Ea/Ka、共享租约、裁接/属性/边界树事务及只读快照
       Generation/Contents/Water/      i7粗阶段判水、冻结Dt高程、Plane/depth不可变数据；T4拥有作业队列
+      Generation/Contents/Grass/      s0候选/9表、C2共享G4 FIFO、冻结cell、原Et/Lt独立保留窗口
+      Generation/Contents/Roadside/   _9/O7/P7/F7/h4复用、E7窗口、Ni地表选择与x7双数组，正式流式消费者
       Generation/Contents/Bridges/    J9/ii原桥输入、deck/pylon/arch和桥体流式
       Generation/Contents/Walls/      原墙规则、S2/k2/T0/K4/Ka几何、局部修订和C5查询
-      Scene/Contents/                 唯一树GPU、桥墙及水面Mesh表现owner，复用RoadPresentation程序集
+      Scene/Contents/                 树/草灌GPU、桥墙/水面Mesh、路边对象池及两道钉Mesh表现owner
       Scene/Terrain/                  地形Mesh上传/LOD/原点、Renderer池与共享材质表现
       Scene/Road/                     三Mesh上传/LOD/释放、流式装配、唯一HillsSceneSettings
     Editor/Debug/                     调试 Inspector，无顶层菜单
     Settings/Hills/                    唯一HillsSceneSettings.asset（种子/道路/季节/观察/性能）
     Tests/EditMode/                    原版数值对照测试
+      Contents/HillsAllContentsHistory.cs     测试专用不可变全模块历史/随机轨迹，无运行时入口
+      Contents/HillsAllContentsJointTests.cs  C5/C6前置：三seed四预算/修订/warm/取消/受控路桩
     Art/Debug/Materials/               观察方块材质
     Art/Reference/SlowRoads/           临时参考素材，按原分类保存
       Models/ Textures/ Materials/ Prefabs/
-    Rendering/Features/                HillsTreeRendererFeature（Compute/DepthNormals/Forward）
-    Rendering/Compute/                 树群GPU剔除与近远LOD
-    Rendering/Instances/               Cluster差量、Indirect缓冲与释放
-    Rendering/Shaders/Vegetation/      树/imposter正式Shader及受限CPU降级
+    Rendering/Features/                HillsTreeRendererFeature（共享树/草灌Compute/DepthNormals/Forward）
+    Rendering/Compute/                 共享GPU剔除、树近远LOD与草灌显示半径
+    Rendering/Instances/               HillsGpuSource、树/草灌专用payload/Cluster、缓冲池及释放
+    Rendering/Shaders/Vegetation/      树/imposter/草/灌木Shader；草灌无Compute时禁显示且保留CPU数据
     Rendering/Shaders/Structures/      桥/墙原表面URP适配及桥投影，无额外RT/Feature
+    Rendering/Shaders/Roadside/        标识/路桩与道钉独立Shader，原透明深度/发光规则；4/2 variants
     Rendering/Shaders/Road/            Hills 路面表面合成与 alpha clip
     Rendering/Shaders/Terrain/         Hills 地形表面/微位移/overlap下沉（Forward/DepthOnly）
 Docs/
@@ -51,6 +56,8 @@ Docs/
     ContentsAudit/Fixtures/Trees/     原Wa/Dt/i7/U/s0/qb样本、精确随机位串和材质证据
     ContentsAudit/Fixtures/Fields/    原Da/Ra/Ea/Ka/Ca裁接、共享边、属性与随机数据
     ContentsAudit/Fixtures/Structures/ 原ii/S2/k2/T0/K4和墙规则、季节绑定、表面数据
+    ContentsAudit/Fixtures/Grass/     s0循环表/候选、qb联合G4、原GLSL/矩阵/几何与GPU数值样本；bush-loader.json为完整原Loader独立证据
+    ContentsAudit/Fixtures/Roadside/  原标识/路桩/道钉CPU与材质来源证据
 ```
 
 SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移除。原 SampleSceneProfile 被 PC/Mobile 管线引用，故保留并更名 SceneVolumeProfile，GUID 不变；已失效的输入配置注册已清除。参考模型/场景贴图以 Docs/Assets/HillsAssetManifest.json 为准。禁止重新导入车辆或其他场景资源。非运行资料放 Docs，不放 Assets 或 Resources。

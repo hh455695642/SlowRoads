@@ -10,9 +10,25 @@ namespace SlowRoads.Generation.Contents.Fields
         public sealed class Stream
         {
             readonly double[] values;public int Index {get;private set;}public long Calls {get;private set;}
+            object transactionOwner;int transactionDepth;
+            public bool TransactionActive=>transactionOwner!=null;
+            // Optional numeric evidence only. Null subscribers add no allocations or clock reads.
+            public event Action<int,int,double> Sampled;
+            internal sealed class Lease : IDisposable
+            {
+                Stream stream;readonly object owner;
+                internal Lease(Stream stream,object owner){this.stream=stream;this.owner=owner;}
+                public void Dispose(){if(stream==null)return;var s=stream;stream=null;if(!ReferenceEquals(s.transactionOwner,owner))throw new InvalidOperationException("G4 transaction owner changed");if(--s.transactionDepth==0)s.transactionOwner=null;}
+            }
+            internal Lease Claim(object owner)
+            {
+                if(owner==null)throw new ArgumentNullException(nameof(owner));
+                if(transactionOwner!=null&&!ReferenceEquals(transactionOwner,owner))throw new InvalidOperationException("G4 is held by an unpublished content job");
+                transactionOwner=owner;transactionDepth++;return new Lease(this,owner);
+            }
             internal Stream(string seed,int count=101,double range=1,double subtract=0,bool integer=false)
             {values=new double[count];var rng=new AleaRandom(seed);for(int i=0;i<count;i++){double v=rng.Next()*range-subtract;values[i]=integer?Math.Floor(v):v;}}
-            public double Next(){if(Index==values.Length)Index=0;Calls++;return values[Index++];}
+            public double Next(){int before=Index;if(Index==values.Length)Index=0;Calls++;double value=values[Index++];Sampled?.Invoke(before,Index,value);return value;}
             public readonly struct Cursor {public readonly int Index;public readonly long Calls;internal Cursor(int index,long calls){Index=index;Calls=calls;}}
             public Cursor Capture()=>new(Index,Calls);
             internal void Restore(Cursor c){Index=c.Index;Calls=c.Calls;}

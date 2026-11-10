@@ -1,5 +1,11 @@
 # Hills agent 结构与阶段验收
 
+2026-11-10补充：用户已接受C3已知轻微HDR效果差异；原线性数值FAIL/阈值/Fixture保留，但该项不再单独阻塞结项，具体范围覆盖早期强制L1修复依赖，见C7计划§14。用户随后授权相机高度2m及六张草灌图集Trilinear/Clamp、草aniso4/灌木2，已保存并通过9/9定向回归、冻结候选/随机一致及60m主场景冒烟；原算法/密度和运行代码不变。详见C5C6复核计划§11–12；动态mip、压缩alpha及完整画面仍归C7.4。 随后按用户要求相机后退改为6m、高度保持2m；远景树定向复核修复Fo/zo局部噪声UV，密度/生成不变，18/18回归通过，同机位与候选Hash记录见C0C1完成度复核计划§10。
+
+C5/C6前置补证（2026-11-10）：E1完整归档OBJLoader/Three/K0首对象回调与正式灌木Mesh逐位PASS；E2测试内全模块历史入口、三seed四预算/重放、贡献撤回重发、warm/取消和真实C3受控Marker已交付。去重20/20自动测试及唯一主场景60m窗口、受控显示/原点、退出释放通过；无运行时代码/场景/SO/GUID变更。完整记录及覆盖边界见`Docs/ReverseEngineering/ContentsAudit/C5C6_完成度复核与C7前置补全计划.md` §10。C7仍PARTIALLY READY；C3 HDR FAIL、正式全配置/自然桥区域/固定图/独立GPU/长跑/Legacy结项仍待C7，不能把前置子矩阵PASS外推为第三目标完成。
+
+C5/C6当前状态（2026-11-09，取代旧§13待办）：C5原Et/Lt窗口、Ni模块暖重建及共享G4联合门禁已关闭，Grass21/21、TreeGpu6/6通过。C6十类标识、原E7/h4复用语义、三组路桩Prefab及x7双缓冲已接唯一主场景，Roadside13/13通过；新增24组/727事件原控制器+对象池联合对照、18组Ni地表选择、72组反光与7组发光GPU样本。道钉保留原透明但写深度状态，原路桩OBJ的黑/白/反光分组不能用合并导入Mesh代替。1000m、原点、warm保留随机、开关和释放已有证据；完整画面/光照/雾/mip和GPU毫秒归C7，不能据此宣称整个S1完成。实施、输入边界、成本及适配说明统一见`Docs/ReverseEngineering/ContentsAudit/C5C6_草灌与路边物件开发实施计划.md` §14–15。
+
 C4增量合同（2026-11-05）：T4队列拥有水面需求及逐列构建，FarTerrainTileBuilder在Heights0结束冻结原高程/hasSea；Fields提供逐区域完成收据，WaterTilePresentation仅拥有Mesh与共享材质显示。只使用原Y=0、原depth及不透明普通URP路径，不改Pl/Ll/桥规划，不新增调度器或SO。C4桌面实现/原版对照/生命周期/两桥/成本及明确未验证范围统一见`Docs/ReverseEngineering/ContentsAudit/C4_湖泊水面开发实施计划.md` §10；不是完整S1或C5/C6交付。
 
 此文件定义开发 agent 的职责和交接契约；不是运行时 AI、NavMesh agent 或车辆控制系统。当前唯一运行时为 HillsDebugSession → RoadStreamingPresentation（协调RoadStreamingSession、TerrainStreamingSession与正式TreeStreamingSession/Presentation）→ StreamingRoadRouteSource → RouteObserver → ObserverCamera，唯一业务 SO 为 `Assets/SlowRoads/Settings/Hills/HillsSceneSettings.asset`。2026-10-29 删除有限预览/分散配置，仅一个种子入口；2026-11-02树群已接主场景，原八套树材质保GUID迁移后Legacy树Shader已删除。
@@ -112,6 +118,6 @@ P5 已接管固定配置的空间索引、三段轮转、窗口化快照/邻域�
 
 进入 Play，选择 `Hills Scene`：五种道路类型，点击“应用场景设置并重新生成”生效；保留暂停/继续、单步与里程状态。唯一SO控制seed/detail、树密度、季节、树群/投影可见性、移动/相机、预算及资源。生成配置重建时生效；显示/季节不重抽随机；等待道路类型应用期间保持当前Core材质。
 
-当前显示持续生成道路、近远景丘陵、近远树群及橙色Cube，背景纯色；农田/桥梁实体/草灌/路标尚未实施，不接车辆/音频/物理控制。全部设置读HillsSceneSettings；道路类型派生半宽3.6/1.8/1.8/3.6/3.7米，不另增宽度字段。越野按原Nl仅在桥区显示路面，其余由近地形表达。相机在LateUpdate运行；道路/地形既有验收继续有效，新增树链见ContentsAudit当前记录。
+当前显示持续生成道路、近远景丘陵、近远树群、农田/桥墙、水面、草灌、标识/路桩及橙色Cube，背景纯色。道钉按原道路类型和观察者反光开关显示，默认日间关闭反光照明；不接车辆/音频/物理控制。全部设置读HillsSceneSettings；道路类型派生半宽3.6/1.8/1.8/3.6/3.7米，不另增宽度字段。越野按原Nl仅在桥区显示路面，其余由近地形表达。图形设置可暖应用并保留里程；种子/道路类型仍需fresh重建。相机在LateUpdate运行；各模块验收范围见ContentsAudit当前记录。
 
 性能边界：观察者CPU采样规模很小；三块道路Mesh与地形Mesh池复用。树群使用独立RendererFeature、Compute/Indirect、320m显示Cluster与局部上传；没有为树分配RT或全屏Blit，仅Instancing变体。原地形13次SRPBatch draw为T5历史采样，不等于当前含树全场景draw。CPU/GPU/上传/显存结论分别记录；本次C0/C1不含移动专项，完整光照/雾图像留后续验收。

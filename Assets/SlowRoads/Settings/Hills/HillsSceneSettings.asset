@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HillsSceneSettings
   m_EditorClassIdentifier: SlowRoads.RoadPresentation::SlowRoads.Scene.Road.HillsSceneSettings
   seed: a
-  roadType: 0
+  roadType: 4
   detail: 2
   terrainDetail: 2
-  season: 0
+  season: 2
   terrainVisible: 1
   terrainDebug: 0
   treesVisible: 1
@@ -75,6 +75,41 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 41c42f7a4e1787d429b284c1993c6201, type: 2}
   treeCulling: {fileID: 7200000, guid: 12edb52a97efa654ca9b23ae76e0cd3c, type: 3}
   treeFallbackShader: {fileID: 4800000, guid: 18a45baf69110d74db6972986b665382, type: 3}
+  grassVisible: 1
+  grassUploadInstancesPerFrame: 2048
+  grassMesh: {fileID: 4300000, guid: 9a2444f7385fda5409e3d1db857dcaae, type: 2}
+  bushMesh: {fileID: 4300000, guid: e53dd1df0d691a24591e36c22f8a33ec, type: 2}
+  grassMaterials:
+  - {fileID: 2100000, guid: c140225d3209b614f936c7d28c6759f7, type: 2}
+  - {fileID: 2100000, guid: e28d0e0ff687d97449b447abf9b3df29, type: 2}
+  - {fileID: 2100000, guid: 7fa188f677bce004c8926e033a07afa5, type: 2}
+  - {fileID: 2100000, guid: f2e32923206423c44b718e1f016795d8, type: 2}
+  bushMaterials:
+  - {fileID: 2100000, guid: 09a0f35ed630c744a9cbfca1373395c7, type: 2}
+  - {fileID: 2100000, guid: 4be0050c8acb23e46bc56b0bc46fcb33, type: 2}
+  - {fileID: 2100000, guid: cd852ed2fe03876438a0617e5d613266, type: 2}
+  - {fileID: 2100000, guid: fbf7d84f5133c0d419c04fa7f1b9680f, type: 2}
+  roadsideVisible: 1
+  catsEyesVisible: 1
+  observerReflectorsEnabled: 0
+  signMeshes:
+  - {fileID: 4300000, guid: d2ce0b42f645d2449a9b682a212475f7, type: 2}
+  - {fileID: 4300000, guid: 30c2f81cdf745e34b8ba06e79bd69c6b, type: 2}
+  - {fileID: 4300000, guid: 871672e13da8e8847b94183043a3eff1, type: 2}
+  - {fileID: 4300000, guid: dfad3dbb6da72e948ae19e0937b056f9, type: 2}
+  - {fileID: 4300000, guid: 20102a2bcccc71f459fa5a502d8d40e1, type: 2}
+  - {fileID: 4300000, guid: 9c5776eb5824aeb4196649f543f2f257, type: 2}
+  - {fileID: 4300000, guid: 4873adddbfd616f4da63684ede638794, type: 2}
+  - {fileID: 4300000, guid: 97a90266f417f0a42963c84fc6850f17, type: 2}
+  - {fileID: 4300000, guid: c702d44e42710ad47b5136780d8531ce, type: 2}
+  - {fileID: 4300000, guid: b80342555028146489bc970ba2243c6b, type: 2}
+  signMaterial: {fileID: 2100000, guid: e313498e981dffc488235664d61952b7, type: 2}
+  vergeMarkerModel: {fileID: 2953510460893281830, guid: c8e78140de2dc01408261946345a4504, type: 3}
+  vergeMarkerMaterials:
+  - {fileID: 2100000, guid: 4e63e3ff3d123bb4d8f2dcba441ac0b8, type: 2}
+  - {fileID: 2100000, guid: 6363953f4a32c224a9475a8780819955, type: 2}
+  - {fileID: 2100000, guid: 77b7751b1866ba747aa2e6c8694e7ae1, type: 2}
+  catsEyeMaterial: {fileID: 2100000, guid: 7239a3c43188b8842881c589941a094c, type: 2}
   terrainMaterials:
   - {fileID: 2100000, guid: 0336dad7b33b59a48aa64fc8d1cce4ba, type: 2}
   - {fileID: 2100000, guid: 24bff07ecce9b8941b8be355a7e90de4, type: 2}
@@ -121,8 +156,8 @@ MonoBehaviour:
   speed: 8
   stepMetres: 1
   cameraFollowEnabled: 1
-  cameraDistance: 14
-  cameraHeight: 8
+  cameraDistance: 6
+  cameraHeight: 2
   lookAhead: 8
   cameraDamping: 6
   operationsPerFrame: 512

@@ -13,7 +13,7 @@ namespace SlowRoads.Rendering.Trees
     }
     public sealed class TreeGpuBatch : IDisposable
     {
-        public GraphicsBuffer Input,Visible,Args,ShadowArgs;
+        public GraphicsBuffer Input,Visible,Args,ShadowArgs,Extra;
         public readonly MaterialPropertyBlock Properties=new();
         public readonly MaterialPropertyBlock ShadowProperties=new();
         public Mesh Mesh;public Material Material;
@@ -21,15 +21,15 @@ namespace SlowRoads.Rendering.Trees
         public double OriginX,OriginZ;
         public Bounds Bounds;
         public bool HasNear;
+        public float InstanceRadius=18;
         public Matrix4x4[] CpuMatrices;
         public Matrix4x4[][] CpuBatches;
-        public void Dispose(){Input?.Dispose();Visible?.Dispose();Args?.Dispose();ShadowArgs?.Dispose();Input=Visible=Args=ShadowArgs=null;CpuMatrices=null;}
+        public void Dispose(){Input?.Dispose();Visible?.Dispose();Args?.Dispose();ShadowArgs?.Dispose();Extra?.Dispose();Input=Visible=Args=ShadowArgs=Extra=null;CpuMatrices=null;CpuBatches=null;}
     }
     /// <summary>320m spatial clusters, split by original family/variant. Updates
     /// replace only the affected cluster's buffers. Never repacks the whole world.</summary>
-    public sealed class TreeGpuResources : IDisposable
+    public sealed class TreeGpuResources : HillsGpuSource,IDisposable
     {
-        public static readonly HashSet<TreeGpuResources> Active=new();
         readonly Dictionary<TreeClusterKey,List<TreeGpuBatch>> clusters=new();
         readonly List<TreeInstanceCandidate> scratch=new();
         readonly List<TreeGpuInstance>[] groups=new List<TreeGpuInstance>[8];
@@ -39,15 +39,12 @@ namespace SlowRoads.Rendering.Trees
         readonly int tileSize;
         readonly Vector4[] ambient=new Vector4[7];
         SphericalHarmonicsL2 ambientProbe;bool hasAmbient;
-        public bool Visible=true,CastShadows;
-        public Double3 RenderOrigin;
-        public float NearDistance=190,FarDistance=840;
-        public bool UseCompute {get;}
+        public override bool UseCompute {get;}
         public int UploadedBytes {get;private set;}
         public long TotalUploadedBytes {get;private set;}
         public int InstanceCount {get;private set;}
-        public int BatchCount {get;private set;}
-        public IEnumerable<List<TreeGpuBatch>> Clusters=>clusters.Values;
+        public override int BatchCount {get;protected set;}
+        public override IEnumerable<List<TreeGpuBatch>> Clusters=>clusters.Values;
         public TreeGpuResources(TreeCandidateStore store,int size,Mesh[] meshes,Material[] materials,Mesh billboard,Material[] billboardMaterials,bool compute)
         {
             this.store=store;tileSize=size;this.meshes=meshes;this.materials=materials;this.billboard=billboard;this.billboardMaterials=billboardMaterials;
@@ -113,8 +110,8 @@ namespace SlowRoads.Rendering.Trees
             }
             store.Dirty.Clear();TotalUploadedBytes+=UploadedBytes;
         }
-        public Vector3 Origin(TreeGpuBatch batch)=>new((float)(batch.OriginX-RenderOrigin.X),(float)-RenderOrigin.Y,(float)(batch.OriginZ-RenderOrigin.Z));
-        public void Bind(TreeGpuBatch b)
+        public override Vector3 Origin(TreeGpuBatch batch)=>new((float)(batch.OriginX-RenderOrigin.X),(float)-RenderOrigin.Y,(float)(batch.OriginZ-RenderOrigin.Z));
+        public override void Bind(TreeGpuBatch b)
         {b.Properties.SetVector("_ClusterOrigin",Origin(b));b.Properties.SetVector("_NoiseOffset",new Vector4((float)(RenderOrigin.X%256),0,(float)(RenderOrigin.Z%256),0));b.Properties.SetFloat("_LodNear",NearDistance);b.Properties.SetFloat("_LodFar",FarDistance);b.Properties.SetFloat("_Lod",b.Lod);}
         public void SetMaterials(Material[] near,Material[] far)
         {foreach(var list in clusters.Values)foreach(var b in list)b.Material=b.Lod==0?near[b.Type*4+b.Variant]:far[b.Type];

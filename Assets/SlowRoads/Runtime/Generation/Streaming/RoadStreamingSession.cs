@@ -46,9 +46,11 @@ namespace SlowRoads.Generation.Streaming
         public readonly MidlineSession Midline;
         public readonly MidlineDistanceIndex Distance=new();
         public RoadSpatialIndex Spatial {get;private set;}
-        public readonly StreamingRoadSlot[] Slots;
-        public readonly RoadStreamingConfig Config;
-        public readonly TerrainGenerationConfig TerrainConfig;
+        public StreamingRoadSlot[] Slots {get;private set;}
+        public RoadStreamingConfig Config {get;private set;}
+        public TerrainGenerationConfig TerrainConfig {get;private set;}
+        bool graphicsBootstrap;
+        public long ContentEpoch {get;private set;}
         TerrainBuildContext terrainBuild;
         public bool TerrainBuildPending=>terrainBuild!=null;
         public Func<int,int,bool,double?> ContentShadowProvider {get;set;}
@@ -93,6 +95,15 @@ namespace SlowRoads.Generation.Streaming
             Slots=new[]{new StreamingRoadSlot(0,mesh),new StreamingRoadSlot(1,mesh),new StreamingRoadSlot(2,mesh)};
         }
         public void SetObserverIndex(int index){requestedObserver=index;}
+        public void RebuildGraphics(int viewDistance,int terrainDetail)
+        {
+            if(!AtTickBoundary||TerrainBuildPending)throw new InvalidOperationException("Graphics rebuild requires the shared producer boundary");
+            foreach(var slot in Slots)slot.Builder.Cancel();repairs.Clear();
+            Config=new(viewDistance,Config.RetainedBehindNodes,Config.Mesh.LaneStyle,terrainDetail);
+            TerrainConfig=new(TerrainConfig.Seed,viewDistance,terrainDetail,Config.Mesh.LaneStyle,++ContentEpoch);
+            Midline.ConfigureGraphicsHorizon(Config.FineHorizon);Slots=new[]{new StreamingRoadSlot(0,Config.Mesh),new StreamingRoadSlot(1,Config.Mesh),new StreamingRoadSlot(2,Config.Mesh)};
+            Spatial=null;MaxPublishedTail=int.MinValue;stage=0;phase=0;graphicsBootstrap=true;
+        }
         void SyncDistance()
         {
             var s=Midline.State;
@@ -207,6 +218,11 @@ namespace SlowRoads.Generation.Streaming
             {
                 if(stage==0)
                 {
+                    if(graphicsBootstrap)
+                    {
+                        Midline.AdvanceGraphicsFine(1);if(!Midline.GraphicsFineReady)continue;SyncDistance();
+                        Spatial=new RoadSpatialIndex(Config.TileSize,Config.Margin,i=>Midline.FindCoarse(i)?.Position,Midline.State.Head.Index);stage=1;graphicsBootstrap=false;continue;
+                    }
                     if(Midline.Advance(1)==MidlineAdvanceResult.Yielded)continue;
                     SyncDistance();var s=Midline.State;
                     if(s.Tail.Index>=s.ObserverIndex+2500&&s.FineTail.Index>=s.ObserverIndex+Config.FineHorizon)

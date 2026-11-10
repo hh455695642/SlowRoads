@@ -399,3 +399,12 @@ L00392 	vec3 clearcoatRadiance = vec3( 0.0 );
 L00393 
 L00394 #endif
 L00395 
+
+# C6 sign emission module=Hills rawUtf16Offset=131790; L00396 is local excerpt sequence
+L00396 bt.emissiveIntensity=Math.min(a.lights.sun.intensity/20,.5);
+
+# C6.pointsDefaultDepth module=Normals rawUtf16Offset=76640; local excerpt line
+L00397 this.depthFunc=Ic,this.depthTest=!0,this.depthWrite=!0;
+
+# C6.normalBlend module=Normals rawUtf16Offset=352580; local excerpt line
+L00398 blendFuncSeparate(a.SRC_ALPHA,a.ONE_MINUS_SRC_ALPHA,a.ONE,a.ONE_MINUS_SRC_ALPHA);

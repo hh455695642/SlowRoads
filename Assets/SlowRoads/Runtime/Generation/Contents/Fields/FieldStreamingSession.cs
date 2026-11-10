@@ -31,9 +31,11 @@ namespace SlowRoads.Generation.Contents.Fields
         public event Action<TerrainRegionState,FieldBoundaryRecipe> Committed;
         public event Action<TerrainRegionState> Released;
         public FieldRandomState Random=>random;
+        public FieldExecutionState Execution=>execution;
         public int ResidentRegions=>regions.Count;public int SharedFieldTiles=>registry.LiveCount;
         public int RetainedRoadNodes=>roadHistory.Count;
         public bool HasWork=>current!=null||pending.Count>0||revisit.Count>0;
+        public bool HasQueuedWork=>current!=null||pending.Count>0;
         public long CompletedCount {get;private set;}
         public bool InitialContentReady(TerrainRegionState region)=>regions.TryGetValue(region,out var r)&&!r.Queued&&(detail==0||r.Job?.Complete==true);
         public bool TrySnapshot(out FieldQuerySnapshot snapshot)
@@ -44,11 +46,11 @@ namespace SlowRoads.Generation.Contents.Fields
             {foreach(var c in r.Job.Candidates)plots.Add(new FieldPlotSnapshot(c,registry.Template));boundaries.AddRange(r.Job.Recipe.Events);extras.AddRange(r.Job.Recipe.Trees);}
             snapshot=new FieldQuerySnapshot(trees.Attributes.Version,plots,boundaries,extras,trees.Attributes.Snapshot());return true;
         }
-        public FieldStreamingSession(RoadStreamingSession road,TerrainStreamingSession terrain,TreeStreamingSession trees,int density)
+        public FieldStreamingSession(RoadStreamingSession road,TerrainStreamingSession terrain,TreeStreamingSession trees,int density,FieldRandomState moduleRandom=null,FieldExecutionState moduleExecution=null)
         {
             this.road=road;this.terrain=terrain;this.trees=trees;this.density=density;detail=road.TerrainConfig.Detail;
-            registry=new FieldTileRegistry(new[]{700,800,1000,1000,1000,1000}[road.Config.ViewDistance],road.Midline.State.Generation);random=new FieldRandomState(road.TerrainConfig.Seed);
-            trees.TileCommitted+=Enqueue;terrain.Released+=Release;terrain.Reset+=Reset;terrain.Lifecycle+=Lifecycle;terrain.ContentWorkPending=()=>HasWork;
+            registry=new FieldTileRegistry(new[]{700,800,1000,1000,1000,1000}[road.Config.ViewDistance],road.Midline.State.Generation);random=moduleRandom??new FieldRandomState(road.TerrainConfig.Seed);execution=moduleExecution??new FieldExecutionState();
+            trees.TileCommitted+=Enqueue;terrain.Released+=Release;terrain.Reset+=Reset;terrain.Lifecycle+=Lifecycle;terrain.ContentWorkPending=()=>HasQueuedWork;
             trees.Attributes.Changed+=AttributesChanged;
             road.ContentShadowProvider=(index,ordinal,left)=>trees.Attributes.TryRead(new ContentAttributeKey(index,ordinal,left?ContentChannel.RoadShadowLeft:ContentChannel.RoadShadowRight),out double value)?value:(double?)null;
             road.ContentSidewallProvider=(index,left)=>trees.Attributes.Read(new ContentAttributeKey(index,0,left?ContentChannel.SidewallLeft:ContentChannel.SidewallRight));

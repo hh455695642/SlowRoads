@@ -30,6 +30,10 @@ namespace SlowRoads.Generation.Terrain
         readonly Func<TerrainRegionState,TerrainMeshData,TerrainResidency> upload;
         readonly Dictionary<TerrainRegionState,Resident> residents=new();
         readonly List<TerrainRegionState> work=new(),release=new();
+        readonly Dictionary<TerrainRegionState,long> workOrder=new();long contentOrder;
+        // qb priority FIFO: content reserves a ticket only when the original job can be enqueued.
+        internal long ReserveContentOrder()=>++contentOrder;
+        public long NextWorkOrder=>work.Count==0?long.MaxValue:workOrder[work[0]];
         readonly Dictionary<(int,int),TerrainRegionState> cells=new();
         readonly Queue<Cover> coverage=new();
         readonly Queue<(TerrainRegionState region,TerrainMeshData data)> waterPending=new();
@@ -49,6 +53,15 @@ namespace SlowRoads.Generation.Terrain
         public int ActiveChunks {get;private set;}
         public int UploadedCount {get;private set;}
         public int RetiredCount {get;private set;}
+        /// <summary>Native Ma.getXZ: use the existing far tile's double bilerp, including
+        /// retained retired tiles. C6 never substitutes a fresh Pl query or a new sampler.</summary>
+        public bool TryLookupHeight(double x,double z,out double height)
+        {
+            height=0;if(disposed||Schedule==null)return false;
+            var key=((int)Math.Floor(x/road.TerrainConfig.TileSize),(int)Math.Floor(z/road.TerrainConfig.TileSize));
+            if(!Schedule.Tiles.TryGetValue(key,out var tile)||!residents.TryGetValue(tile,out var data)||data.Tile==null||!data.Receipt.IsCurrent)return false;
+            height=data.Tile.LookupHeight(x,z);return true;
+        }
         public bool Building=>building!=null;
         public bool NeedsWork {get;private set;}=true;
         public event Action<TerrainRegionState> Released;
@@ -69,7 +82,7 @@ namespace SlowRoads.Generation.Terrain
         public TerrainStreamingSession(RoadStreamingSession road,Func<TerrainRegionState,TerrainMeshData,TerrainResidency> upload)
         {this.road=road??throw new ArgumentNullException(nameof(road));this.upload=upload??throw new ArgumentNullException(nameof(upload));}
         Double3? Position(int i)=>i>=road.Midline.State.Head.Index&&i<road.Midline.State.FineTail.Index-2?road.Midline.FindCoarse(i)?.Position:null;
-        void Queue(TerrainRegionState r){if(!r.Retired&&!r.Uploaded&&!work.Contains(r)&&r!=building)work.Add(r);}
+        void Queue(TerrainRegionState r){if(!r.Retired&&!r.Uploaded&&!work.Contains(r)&&r!=building){work.Add(r);workOrder[r]=ReserveContentOrder();}}
         /// <summary>Invalidate only resident near chunks whose finite projection support intersects
         /// a C2 road-content revision. Their old residency remains visible until replacement commits.
         /// Called at the existing producer barrier, never while a terrain builder is reading inputs.</summary>
@@ -144,6 +157,7 @@ namespace SlowRoads.Generation.Terrain
             int used=0;NeedsWork=true;
             while(used<budget)
             {
+                if(building==null&&ContentWorkPending?.Invoke()==true)return used;
                 if(building==null&&(waterBuilder!=null||waterPending.Count>0))
                 {
                     if(waterBuilder==null)
@@ -203,7 +217,7 @@ namespace SlowRoads.Generation.Terrain
                 }
                 if(work.Count>0)
                 {
-                    var r=work[0];work.RemoveAt(0);if(r.Retired||r.Uploaded)continue;
+                    var r=work[0];work.RemoveAt(0);if(r.Retired||r.Uploaded){workOrder.Remove(r);continue;}
                     if(!r.Chunk){long measured=BeginMeasure();building=r;far=new FarTerrainTileBuilder(road,r.X,r.Z);
                         far.CoarseNormalSample=(b,x,z,n)=>FarNormalSample?.Invoke(r,b,x,z,n);
                         EndMeasure(TerrainWorkKind.FarInitialization,measured);}
@@ -217,7 +231,7 @@ namespace SlowRoads.Generation.Terrain
                         long measured=BeginMeasure();building=r;near=new NearTerrainChunkBuilder(road,r.Layout,first,last,parents);EndMeasure(TerrainWorkKind.NearInitialization,measured);
                         near.TreeShadowProvider=TreeShadowProvider;
                     }
-                    used++;continue;
+                    workOrder.Remove(r);used++;continue;
                 }
                 bool step=Schedule.Step(road.Midline.State.ObserverIndex);used++;
                 long coverageStart=BeginMeasure();FlushCoverage();EndMeasure(TerrainWorkKind.Coverage,coverageStart);
@@ -282,7 +296,7 @@ namespace SlowRoads.Generation.Terrain
             far?.Data?.Dispose();near?.Data?.Dispose();
             far?.Dispose();near?.Dispose();far=null;near=null;building=null;
             foreach(var r in residents.Values){r.Tile?.Dispose();r.Receipt.Retire();}
-            residents.Clear();work.Clear();release.Clear();cells.Clear();coverage.Clear();Schedule=null;generation=-1;layer=-1;ActiveTiles=ActiveChunks=0;Reset?.Invoke();
+            residents.Clear();work.Clear();workOrder.Clear();contentOrder=0;release.Clear();cells.Clear();coverage.Clear();Schedule=null;generation=-1;layer=-1;ActiveTiles=ActiveChunks=0;Reset?.Invoke();
         }
         public void Dispose(){if(disposed)return;Clear();disposed=true;}
     }

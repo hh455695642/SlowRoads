@@ -21,11 +21,11 @@ namespace SlowRoads.Generation.Contents.Trees
         public event Action<TerrainRegionState,TreeTileCandidates> TileCommitted;
         readonly int detail;
         bool disposed;
-        public TreeStreamingSession(RoadStreamingSession road,TerrainStreamingSession terrain,int? density=null)
+        public TreeStreamingSession(RoadStreamingSession road,TerrainStreamingSession terrain,int? density=null,TreeRandomState moduleRandom=null)
         {
             this.road=road;this.terrain=terrain;detail=road.TerrainConfig.Detail;
             Density=new(MidlineConfig.HillsStyle.Hills,road.TerrainConfig.Seed,detail,density);
-            Generator=new(Density,detail);Store=new(road.Midline.State.Generation);
+            Generator=new(Density,detail,moduleRandom);Store=new(road.Midline.State.Generation);
             Attributes=new(new(Store.Generation,road.Midline.Revision,0,0));
             terrain.FarNormalSample+=Normal;terrain.RegionCommitted+=Commit;terrain.Released+=Release;terrain.Reset+=Reset;
             terrain.TreeShadowProvider=(x,z)=>Density.GetShadowDensityAt(x,z);

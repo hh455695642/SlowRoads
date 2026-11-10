@@ -2640,5 +2640,232 @@
     "textureImport": "NoColorSpace/linear data, Repeat, Trilinear, anisotropy4, mipmaps enabled. Original Et(rs,4,undefined,zi).",
     "rendering": "Opaque UniversalForwardOnly, Blend One/Zero, ZWrite On, LEqual; matching DepthOnly. No new renderer feature or RT. No custom shader keywords; Forward instancing x fog =8, DepthOnly instancing =2 theoretical variants.",
     "verification": "56 independent archived GLSL float samples and original numeric geometry/depth; see C4 plan execution record for exact gates and limitations."
+  },
+  "groundCoverC5": {
+    "source": "Slow Roads/resources/app.asar",
+    "symbol": "K1.makeProtoGeo / K0 S7; Hills D/y",
+    "evidence": "Docs/ReverseEngineering/ContentsAudit/Fixtures/Grass/render-sources.json",
+    "meshPaths": [
+      "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vegetation/hills_grass.asset",
+      "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vegetation/hills_bush.asset"
+    ],
+    "materialDirectory": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover",
+    "materials": 8,
+    "instancing": true,
+    "textureImport": {
+      "updated": "2026-11-10",
+      "source": "Hills ls: D.map=s(a.maps.grassSprites,4,H),y.map=s(a.maps.bushes,2,H); Normals Et export ak, H import dn=ClampToEdge; Texture default LinearMipmapLinear/Linear.",
+      "filter": "Trilinear",
+      "wrap": "Clamp",
+      "grassAnisotropy": 4,
+      "bushAnisotropy": 2,
+      "scope": "Six existing BaseMap atlases: summer/winter_grasses and four seasonal bushes; GUID, pixels, sRGB, mip generation and compression preserved. PC ForceEnable quality override preserved; effective hardware anisotropy is not inferred from importer values.",
+      "verification": "HillsContentsC5/camera-sampling-imported.json and camera-sampling-final-state.json; fixed-camera sampling A/B and unchanged candidate/random snapshot in C5C6 prerequisite audit section 12."
+    },
+    "shaderVariantPolicy": "Instancing only, no local optional keywords; 3 passes each. ShaderUtil actual all/used=6 per shader on Unity 6000.3.22f1.",
+    "verification": "CPU283 and GLSL144 archived cases retained; native Et/Lt 60 configurations + ring cases and Ni 6 warm cases verified. Grass21/21 including shared G4/multibudget/warm/native retention. Full-scene lighting/fog/mips remain C7 scope.",
+    "referenceFixtures": [
+      "Docs/ReverseEngineering/ContentsAudit/Fixtures/Grass/render-manifest.json",
+      "Docs/ReverseEngineering/ContentsAudit/Fixtures/Grass/surface-gpu.json",
+      "Docs/ReverseEngineering/ContentsAudit/Fixtures/Grass/bush-loader.json"
+    ],
+    "nativeBushLoaderVerification": "2026-11-10 E1: current hash-verified app.asar complete OBJLoader and archived Three engine, then original K0.makeProtoGeo first-child callback (Settings L46092-L46098). Child Cube, 45 non-indexed vertices, native position/normal/UV Float32 bits and default material grouping match the existing Unity mesh with identity XYZ and sequential triangle indices. Asset bytes and GUID unchanged. See HillsContentsC5/pre-c7-loader-tests.json; full-scene images remain C7.",
+    "importedAssets": [
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vegetation/hills_bush.asset",
+        "guid": "e53dd1df0d691a24591e36c22f8a33ec",
+        "sha256": "aec308ac01bbe1108d7e507bdafa5e0cdef287b5257b8a71de8f10abf3ac9e9b"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Vegetation/hills_grass.asset",
+        "guid": "9a2444f7385fda5409e3d1db857dcaae",
+        "sha256": "bda4b92b2c23e21dd780f4a07539f40157fd17e83029a686051cf4c23f8c8e9c"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover/hills_autumn_bush.mat",
+        "guid": "cd852ed2fe03876438a0617e5d613266",
+        "sha256": "d4448e61381805aacefceb181a727ab0002cb8628ee42746b173d14723734312"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover/hills_autumn_grass.mat",
+        "guid": "7fa188f677bce004c8926e033a07afa5",
+        "sha256": "8dc62657a01ea636ffb0e3cbc3cebab6c36a33574dfddd25446e85a5d60bf3e9"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover/hills_spring_bush.mat",
+        "guid": "4be0050c8acb23e46bc56b0bc46fcb33",
+        "sha256": "1e7e728aa35acb0d786366cf056b48c2018597fcdc22236c95a2007430bacc56"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover/hills_spring_grass.mat",
+        "guid": "e28d0e0ff687d97449b447abf9b3df29",
+        "sha256": "7c4a3f18efb53ec97fada2857cd83a4ddf5c07b3e1bdedc5bb647536d0740039"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover/hills_summer_bush.mat",
+        "guid": "09a0f35ed630c744a9cbfca1373395c7",
+        "sha256": "9b274758a6990edb920717304194ee389bd3c2a32090f5d550c6c14270eec21c"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover/hills_summer_grass.mat",
+        "guid": "c140225d3209b614f936c7d28c6759f7",
+        "sha256": "7609fd4deb5b39f5318b8c949bf87dd349107c394a8268fb553ec962151a7e1b"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover/hills_winter_bush.mat",
+        "guid": "fbf7d84f5133c0d419c04fa7f1b9680f",
+        "sha256": "007b16c44a75dfe0679f636d42303deda5d2466f4431228eaed88ac109fff861"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/GroundCover/hills_winter_grass.mat",
+        "guid": "f2e32923206423c44b718e1f016795d8",
+        "sha256": "bc75228669f6eada1984b6f02214c281c204ebcf36183d85b39929daaee7df35"
+      }
+    ],
+    "lifecycleFixtures": [
+      "Fixtures/Grass/window.json",
+      "Fixtures/Grass/warm.json"
+    ]
+  },
+  "roadsideFormalRendering": {
+    "stage": "S1 reference art; C6 formal display",
+    "authoritativeSource": "Slow Roads/resources/app.asar",
+    "generation": "_9/O7/P7/F7 + h4, E7, x7. G7/J9 remain C3 walls/bridges.",
+    "signTexture": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Road/signs.png",
+    "markerSource": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Props/verge_marker.obj",
+    "markerSourceSHA256": "c71c041d2d58c3c17b888bb04455844cc93d55911469a133b54de6884718c06c",
+    "markerGroups": {
+      "black": 72,
+      "white": 24,
+      "reflect": 6
+    },
+    "markerNote": "Derived meshes/prefab preserve original named OBJ groups; Unity raw OBJ import collapsed groups and is not the formal prefab.",
+    "shaders": {
+      "roadside": {
+        "path": "Assets/SlowRoads/Rendering/Shaders/Roadside/HillsRoadside.shader",
+        "passes": [
+          "Forward",
+          "DepthOnly"
+        ],
+        "variants": 4
+      },
+      "catseye": {
+        "path": "Assets/SlowRoads/Rendering/Shaders/Roadside/HillsCatsEye.shader",
+        "passes": [
+          "Reflector"
+        ],
+        "variants": 2,
+        "queue": 2990,
+        "depthWrite": true,
+        "blend": "SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha"
+      }
+    },
+    "fixtures": [
+      "Fixtures/Roadside/lifecycle.json",
+      "Fixtures/Roadside/marker-geometry.json",
+      "Fixtures/Roadside/surface-gpu.json",
+      "Fixtures/Roadside/joint.json"
+    ],
+    "sunAdapter": "Source min(sunIntensity/20,.5); current main-scene Light intensity supplied by RoadStreamingPresentation.Sun",
+    "reflectorAdapter": "Observer world position + .65 Y and negative route forward; explicit toggle. No vehicle dependency; disabled on source single/offroad lane types.",
+    "verification": "13 directed Roadside tests passed: original28 sign/34 marker/9 numeric eyes; native lifecycle9/config6/height18; actual combined controllers+E7/h4 pool24 cases/727 events across budgets; GPU72+emission7+20 atlas sides; exact grouped marker mesh/binding. Main scene 1km, origins, warm, toggles and teardown recorded. Whole-scene image/fog and independent GPU milliseconds remain C7 scope.",
+    "assets": [
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_ChevronLeft.asset",
+        "guid": "c702d44e42710ad47b5136780d8531ce",
+        "sha256": "644873b4a7cf3a5e3bdf77ea6ba56201013d4835c96758d98c707aa3baab592a"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_ChevronRight.asset",
+        "guid": "b80342555028146489bc970ba2243c6b",
+        "sha256": "8f6a61ab138eb6f5c6fe94da862dc1d38aada29df8fb06327c4bb220926ac57c"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_Downhill15.asset",
+        "guid": "4873adddbfd616f4da63684ede638794",
+        "sha256": "bb3940f4567e6b0ae82ab2d4f206118e811a0b6f1c674503df383b128d2406ed"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_Downhill20.asset",
+        "guid": "97a90266f417f0a42963c84fc6850f17",
+        "sha256": "2274e685758d7a19becef2857b77d382f5a96fabe1e04102369160fd0bd07034"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_Left.asset",
+        "guid": "d2ce0b42f645d2449a9b682a212475f7",
+        "sha256": "82f18aa1a8bc0b93a618bafd5cbda2077d57de1a51fbc4c35f8f92c705256916"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_LeftDouble.asset",
+        "guid": "871672e13da8e8847b94183043a3eff1",
+        "sha256": "f207be9c1941bede18fb00001d9cc298eb3609c9d84dc6b487ece3c8af3d9e24"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_Right.asset",
+        "guid": "30c2f81cdf745e34b8ba06e79bd69c6b",
+        "sha256": "52da8033b1965897024e2721ecaaca40dac5b772c41dc7a73fbed8f067b734cc"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_RightDouble.asset",
+        "guid": "dfad3dbb6da72e948ae19e0937b056f9",
+        "sha256": "bbcd0cabd58249cbe0dca86ee098fd3cdd1f6317558f01aee89445d495ee3165"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_Uphill15.asset",
+        "guid": "20102a2bcccc71f459fa5a502d8d40e1",
+        "sha256": "2497aa4381e27e062b7e2ed559742eb931c9e86428e2952a2cf6e8bf1e3e06ca"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/Sign_Uphill20.asset",
+        "guid": "9c5776eb5824aeb4196649f543f2f257",
+        "sha256": "bef8cd9681e6b1d2d93c37842a9b7e1b5e22d98f18d1e7768641d8cd411e0af7"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/vergemarker_black.asset",
+        "guid": "d9cc361409dd6824ba8f5697241175a4",
+        "sha256": "5caeee32b2e101d8e7a1386b60bbe04078417b80b8675d5ca3d2724e0c4692c4"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/vergemarker_reflect.asset",
+        "guid": "c988080f492f60741bc202e8fd9abd1b",
+        "sha256": "e8bbaf21eb5ea2a30154f05887afd7a0cd4d9430351ee51ae03d6185d5779dee"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Models/Roadside/vergemarker_white_bollard.001.asset",
+        "guid": "aea42bdce9106694a8ff44a90f10f578",
+        "sha256": "085c0275b3fb68414b529cb311caa540baf5d1620937d5f61f492c4db1e15513"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Roadside/Hills_CatsEye.mat",
+        "guid": "7239a3c43188b8842881c589941a094c",
+        "sha256": "b5e02a8f4ba691f122402eec4ca5d093dd1a8ce5b970e0a1a3d3b66e0504c3d6"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Roadside/Hills_Marker_Black.mat",
+        "guid": "4e63e3ff3d123bb4d8f2dcba441ac0b8",
+        "sha256": "c7dce4a7250f3d225f25e754b2c62fe32f2a5db1765e605bfc6934eb0758f5f2"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Roadside/Hills_Marker_Reflect.mat",
+        "guid": "77b7751b1866ba747aa2e6c8694e7ae1",
+        "sha256": "9e6073e113de625532dcbf1c745febfb0477c79d7743b97c825c73e32993e12c"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Roadside/Hills_Marker_White.mat",
+        "guid": "6363953f4a32c224a9475a8780819955",
+        "sha256": "15773d3d0c95a6490c67a6a72fe0b7a70636196f6f7919487e7b4d6e486cc1cb"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Roadside/Hills_Signs.mat",
+        "guid": "e313498e981dffc488235664d61952b7",
+        "sha256": "9eacc4a563910c8809173f63e98264b2af84d5f20135b6201efe09b96aa5ff02"
+      },
+      {
+        "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Prefabs/Roadside/HillsVergeMarker.prefab",
+        "guid": "c8e78140de2dc01408261946345a4504",
+        "sha256": "29dfa7a1adf22b9734b7acfaddebe04ddfa55a770019cc2e24b3025f31df2b43"
+      }
+    ],
+    "objectReuse": "CPU RoadSignHandle preserves native _9 h4 LIFO reuse and O7/P7 aliases. E7 equal-retire variant updates retain queue order; initialization events are captured before original controller init."
   }
 }

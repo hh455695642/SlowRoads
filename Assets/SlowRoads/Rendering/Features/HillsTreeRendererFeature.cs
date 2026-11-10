@@ -30,7 +30,7 @@ namespace SlowRoads.Rendering
                 Graphics.DrawMeshInstancedIndirect(b.Mesh,0,b.Material,bounds,b.ShadowArgs,0,b.ShadowProperties,ShadowCastingMode.ShadowsOnly,false,0,cameraData.camera);
             }
         }
-        static bool VisibleCluster(TreeGpuResources owner,TreeGpuBatch batch,Camera camera,Plane[] planes)
+        static bool VisibleCluster(HillsGpuSource owner,TreeGpuBatch batch,Camera camera,Plane[] planes)
         {
             if(owner.UseCompute&&batch.Lod==0&&!batch.HasNear)return false;
             var bounds=batch.Bounds;bounds.center+=owner.Origin(batch);
@@ -44,7 +44,7 @@ namespace SlowRoads.Rendering
             if(data.cameraData.cameraType==CameraType.Preview||TreeGpuResources.Active.Count==0)return;
             cull.shader=culling;renderer.EnqueuePass(cull);renderer.EnqueuePass(depth);renderer.EnqueuePass(forward);
         }
-        sealed class CullData {public ComputeShader Shader;public int Kernel;public Camera Camera;public readonly List<(TreeGpuResources owner,TreeGpuBatch batch)> Batches=new();}
+        sealed class CullData {public ComputeShader Shader;public int Kernel;public Camera Camera;public readonly List<(HillsGpuSource owner,TreeGpuBatch batch)> Batches=new();}
         sealed class TreeCullPass : ScriptableRenderPass
         {
             public ComputeShader shader;
@@ -74,6 +74,7 @@ namespace SlowRoads.Rendering
                         context.cmd.SetBufferCounterValue(b.Visible,0);context.cmd.SetComputeBufferParam(d.Shader,d.Kernel,"_Trees",b.Input);
                         context.cmd.SetComputeBufferParam(d.Shader,d.Kernel,"_Visible",b.Visible);
                         context.cmd.SetComputeIntParam(d.Shader,"_Count",b.Count);context.cmd.SetComputeIntParam(d.Shader,"_Lod",b.Lod);
+                        context.cmd.SetComputeIntParam(d.Shader,"_GroundCover",o.GroundCover?1:0);context.cmd.SetComputeFloatParam(d.Shader,"_InstanceRadius",b.InstanceRadius);
                         context.cmd.SetComputeFloatParam(d.Shader,"_Near",o.NearDistance);context.cmd.SetComputeFloatParam(d.Shader,"_Far",o.FarDistance);
                         context.cmd.SetComputeVectorParam(d.Shader,"_Origin",o.Origin(b));
                         context.cmd.DispatchCompute(d.Shader,d.Kernel,(b.Count+63)/64,1,1);context.cmd.CopyCounterValue(b.Visible,b.Args,4);
@@ -81,7 +82,7 @@ namespace SlowRoads.Rendering
                 });
             }
         }
-        sealed class DrawData {public bool Depth;public readonly List<(TreeGpuResources owner,TreeGpuBatch batch)> Batches=new();}
+        sealed class DrawData {public bool Depth;public readonly List<(HillsGpuSource owner,TreeGpuBatch batch)> Batches=new();}
         sealed class TreeDrawPass : ScriptableRenderPass
         {
             readonly bool depth;
@@ -104,6 +105,7 @@ namespace SlowRoads.Rendering
                     if(!VisibleCluster(owner,b,camera,frustum))continue;
                     if(b.Material==null)continue;owner.Bind(b);data.Batches.Add((owner,b));
                     if(owner.UseCompute){builder.UseBuffer(graph.ImportBuffer(b.Input),AccessFlags.Read);builder.UseBuffer(graph.ImportBuffer(b.Visible),AccessFlags.Read);builder.UseBuffer(graph.ImportBuffer(b.Args),AccessFlags.Read);}
+                    if(b.Extra!=null)builder.UseBuffer(graph.ImportBuffer(b.Extra),AccessFlags.Read);
                 }
                 builder.SetRenderFunc(static (DrawData d,RasterGraphContext context)=>{
                     foreach(var pair in d.Batches){var b=pair.batch;int pass=b.Material.FindPass(d.Depth?"DepthNormals":"Forward");if(pass<0)continue;

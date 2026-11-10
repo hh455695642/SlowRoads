@@ -37,6 +37,9 @@ namespace SlowRoads.Generation.Contents.Walls
             node=next;if(node.Index<input.Segment.End)return false;Row(node,node);for(int j=0;j<width;j++)buffer.UV[(rows-1)*width*2+j*2]=(float)distance;
             for(int i=0;i<rows-1;i++)buffer.Connect(i*width,width);
             if(side>0)for(int i=0;i<buffer.Indices.Count;i+=3)(buffer.Indices[i+1],buffer.Indices[i+2])=(buffer.Indices[i+2],buffer.Indices[i+1]);
+            // T0 L47789–47799: marker Y excludes mesh.position.y, before endcap edits.
+            if(!input.Segment.ContiguousStart&&!input.OffRoad)
+                buffer.Marker=new VergeMarkerData(new Double3(buffer.Positions[0]+ox,buffer.Positions[1],buffer.Positions[2]+oz),Math.PI+Math.PI/2-input.Start.Heading,input.Start.Index);
             if(!input.Segment.ContiguousStart)for(int i=0;i<width;i++)buffer.Positions[i*3+1]=(float)(buffer.Positions[i*3+1]-.78);
             if(!input.Segment.ContiguousEnd)for(int i=0;i<width;i++){int atIndex=buffer.Positions.Count-(i*3+2);buffer.Positions[atIndex]=(float)(buffer.Positions[atIndex]-.78);}
             Data=buffer.Finish(new Double3(ox,-.15,oz),true);return true;

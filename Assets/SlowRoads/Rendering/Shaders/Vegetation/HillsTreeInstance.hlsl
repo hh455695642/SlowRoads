@@ -81,13 +81,17 @@ Varyings TreeVert(Attributes i)
     #endif
     return o;
 }
+// Original Hills Fo/zo: blend/dissolve noise uses the uncropped local quad UV,
+// not the atlas tile/variant UV. normalUv already holds (u/16, v*(1/4-.002)).
+// Reuse the existing interpolator: no new texture read, varying or keyword.
+float2 TreeNoiseUv(Varyings i) { return _Billboard>.5?i.normalUv*float2(21.32,4):i.uv; }
 half4 TreeSurface(Varyings i,out half3 emissive)
 {
     emissive=0;
     half4 c=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,i.uv);
     half alpha=_UseAlphaMap>.5?c.a*SAMPLE_TEXTURE2D(_AlphaMap,sampler_AlphaMap,i.uv).g:c.a;
     // Hills zo uses a noise-selected azimuth, not a linear blend between trees.
-    half noise=SAMPLE_TEXTURE2D(_NoiseMap,sampler_NoiseMap,i.uv).r;
+    half noise=SAMPLE_TEXTURE2D(_NoiseMap,sampler_NoiseMap,TreeNoiseUv(i)).r;
     if(_Billboard>.5){half4 next=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,i.angleBlend.xy);c=lerp(c,next,step(noise,i.angleBlend.z));alpha=c.a;}
     clip(alpha-i.sourceSurface.z);
     if(_Billboard<.5||i.angleBlend.z>0)clip(noise-i.dissolve);clip(.999-i.dissolve);
@@ -101,7 +105,7 @@ half3 TreeNormal(Varyings i)
 {
     if(_Family>.5&&_Billboard<.5)return normalize(i.normalWS);
     half3 n=SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv).rgb*2-1;
-    if(_Billboard>.5){half3 next=SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.angleBlend.xy).rgb*2-1;half noise=SAMPLE_TEXTURE2D(_NoiseMap,sampler_NoiseMap,i.uv).r;n=lerp(n,next,step(noise,i.angleBlend.z));}
+    if(_Billboard>.5){half3 next=SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.angleBlend.xy).rgb*2-1;half noise=SAMPLE_TEXTURE2D(_NoiseMap,sampler_NoiseMap,TreeNoiseUv(i)).r;n=lerp(n,next,step(noise,i.angleBlend.z));}
     // normals.dk -> Er=0 -> normalMapTangentSpace. Preserve the source channels;
     // use Three's derivative tangent frame, without Unity NormalMap repacking.
     float3 N=normalize(i.normalWS),q0=ddx(i.world),q1=ddy(i.world);

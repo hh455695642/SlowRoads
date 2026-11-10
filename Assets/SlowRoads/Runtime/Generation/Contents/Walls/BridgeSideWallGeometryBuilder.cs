@@ -37,6 +37,9 @@ namespace SlowRoads.Generation.Contents.Walls
             node=next;if(node.Index<input.Segment.End)return false;
             Row(node);for(int j=0;j<4;j++)buffer.UV[(rows-1)*8+j*2]=(float)distance;
             for(int i=0;i<rows-1;i++)buffer.Connect(i*4,4);
+            // S2 L48135–48145: BridgeWall only; this branch has no J1 suppression.
+            if(!input.Segment.ContiguousStart&&input.Segment.Type==HillsWallType.Bridge)
+                buffer.Marker=new VergeMarkerData(new Double3(((double)buffer.Positions[0]+buffer.Positions[9])/2+ox,buffer.Positions[1],((double)buffer.Positions[2]+buffer.Positions[11])/2+oz),Math.PI+Math.PI/2-input.Start.Heading,input.Start.Index);
             if(!input.Segment.ContiguousStart)for(int i=0;i<4;i++)buffer.Positions[i*3+1]=(float)(buffer.Positions[i*3+1]-1.0);
             if(!input.Segment.ContiguousEnd)for(int i=0;i<4;i++){int p=buffer.Positions.Count-(i*3+2);buffer.Positions[p]=(float)(buffer.Positions[p]-1.0);}
             Data=buffer.Finish(new Double3(ox,-.2,oz));return true;

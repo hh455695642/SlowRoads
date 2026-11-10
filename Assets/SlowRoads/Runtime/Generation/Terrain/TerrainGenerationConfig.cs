@@ -13,12 +13,13 @@ namespace SlowRoads.Generation.Terrain
         public const int CellSize=10;
         public readonly string Identity;
         public double CellStep=> (double)CellSize/CellResolution;
-        public TerrainGenerationConfig(string seed,int viewDistance,int detail,HillsLaneStyle lane)
+        public TerrainGenerationConfig(string seed,int viewDistance,int detail,HillsLaneStyle lane,long contentEpoch=0)
         {
             if(seed==null)throw new ArgumentNullException(nameof(seed));
             if((uint)viewDistance>5||(uint)detail>4||(uint)lane>4)throw new ArgumentOutOfRangeException();
             Seed=seed;ViewDistance=viewDistance;Detail=detail;LaneStyle=lane;
             Identity=FormattableString.Invariant($"{SourceId}:{seed.Length}:{seed}:{viewDistance}:{detail}:{(int)lane}");
+            if(contentEpoch!=0)Identity+=FormattableString.Invariant($":graphics:{contentEpoch}");
             TileSize=new[]{240,480,840,1500,2000,2500}[viewDistance];
             TileCoarseResolution=(int)Math.Floor(TileSize/20.0+.5);TileFineResolution=2*TileCoarseResolution;
             CellResolution=(int)lane<=1?24:new[]{10,16,20,20,20}[detail];

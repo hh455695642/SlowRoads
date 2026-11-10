@@ -117,6 +117,19 @@
         "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsContents.source.txt",
         "lineConvention": "full-module prettier 3.6.2; independent from historical excerpt labels",
         "excerptSHA256": "8a82d4b522a670c03536322c216dde6e105a2f38bc6320a62de7cf4d86eaa2f3"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+        "symbol": "C6.signEmission",
+        "rawSectionSHA256": "612bf9a7993c3c372ee2a7cb8a639678a2d46b5125f78b194422d6a0ef42e2cd",
+        "rawUtf16Offset": 131790,
+        "ranges": [
+          [
+            396,
+            396
+          ]
+        ],
+        "lineConvention": "local raw excerpt sequence; not pretty.js lines"
       }
     ]
   },
@@ -252,6 +265,32 @@
         "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsContents.source.txt",
         "lineConvention": "full-module prettier 3.6.2; independent from historical excerpt labels",
         "excerptSHA256": "8a82d4b522a670c03536322c216dde6e105a2f38bc6320a62de7cf4d86eaa2f3"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+        "symbol": "C6.pointsDefaultDepth",
+        "rawUtf16Offset": 76640,
+        "rawSectionSHA256": "c4210f505a9ace61658efce37b7bb734717b05089abe799bdbd6c3521767d877",
+        "ranges": [
+          [
+            397,
+            397
+          ]
+        ],
+        "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/RoadMaterial.source.txt",
+        "symbol": "C6.normalBlend",
+        "rawUtf16Offset": 352580,
+        "rawSectionSHA256": "455cc3bc9d026c2b4c4061d8a8f49982db3dd7f2fe11b5e83d109ac34cf146ed",
+        "ranges": [
+          [
+            398,
+            398
+          ]
+        ],
+        "lineConvention": "local raw excerpt sequence; not pretty.js lines"
       }
     ]
   },

@@ -43,6 +43,16 @@ namespace SlowRoads.Scene.Road
         public Material[] treeImposterMaterials=new Material[8];
         public ComputeShader treeCulling;
         public Shader treeFallbackShader;
+        [InspectorName("显示草与灌木")] public bool grassVisible=true;
+        [InspectorName("草灌每帧分组/上传实例工作量"),Min(1)] public int grassUploadInstancesPerFrame=2048;
+        public Mesh grassMesh,bushMesh;
+        public Material[] grassMaterials=new Material[4],bushMaterials=new Material[4];
+        [InspectorName("显示路边标识与路桩")] public bool roadsideVisible=true;
+        [InspectorName("显示道路反光道钉")] public bool catsEyesVisible=true;
+        [InspectorName("观察者反光照明")] public bool observerReflectorsEnabled;
+        public Mesh[] signMeshes=new Mesh[10];public Material signMaterial;
+        public GameObject vergeMarkerModel;public Material[] vergeMarkerMaterials=new Material[3];
+        public Material catsEyeMaterial;
         [InspectorName("地形季节材质")] public Material[] terrainMaterials=new Material[4];
         public Material ResolveTerrainMaterial()=>terrainMaterials!=null&&terrainMaterials.Length==4&&terrainMaterials[(int)season]!=null?terrainMaterials[(int)season]:throw new InvalidOperationException("地形季节材质未配置");
         [InspectorName("显示湖泊水面")] public bool waterVisible=true;

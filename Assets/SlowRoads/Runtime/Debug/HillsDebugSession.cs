@@ -21,6 +21,7 @@ namespace SlowRoads.Debugging
             var sunObject=new GameObject("Hills Sun",typeof(Light));sunObject.transform.SetParent(runtimeRoot.transform,false);
             sunObject.transform.rotation=Quaternion.Euler(50,-30,0);var sun=sunObject.GetComponent<Light>();
             sun.type=LightType.Directional;sun.intensity=1.2f;sun.shadows=LightShadows.None;
+            Streaming.Sun=sun;
             var cube=GameObject.CreatePrimitive(PrimitiveType.Cube);cube.name="Route Observer Cube";
             cube.transform.SetParent(runtimeRoot.transform,false);cube.GetComponent<Collider>().enabled=false;Destroy(cube.GetComponent<Collider>());
             if(settings.cubeMaterial!=null)cube.GetComponent<Renderer>().sharedMaterial=settings.cubeMaterial;
@@ -32,6 +33,7 @@ namespace SlowRoads.Debugging
             Streaming.OriginShifted+=delta=>{cube.transform.position+=delta;cameraObject.transform.position+=delta;};
         }
         public void TogglePause(){if(Observer!=null)Observer.paused=!Observer.paused;}
+        public void RebuildGraphics(){if(Application.isPlaying)Streaming?.RequestGraphicsRebuild();}
         public void Step(){if(Observer==null)return;Observer.paused=true;Observer.Move(Mathf.Max(.01f,settings.stepMetres));}
         void OnDestroy(){Streaming?.Release();if(runtimeRoot!=null)Destroy(runtimeRoot);}
     }
