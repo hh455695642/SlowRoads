@@ -53,7 +53,8 @@ namespace SlowRoads.Scene.Contents
         public void Release()
         {
             if(disposed)return;disposed=true;Gpu?.Dispose();Gpu=null;
-            if(billboard!=null)Destroy(billboard);foreach(var m in cpu)if(m!=null)Destroy(m);
+            if(billboard!=null){if(Application.isPlaying)Destroy(billboard);else DestroyImmediate(billboard);}
+            foreach(var m in cpu)if(m!=null){if(Application.isPlaying)Destroy(m);else DestroyImmediate(m);}
         }
         void OnDestroy()=>Release();
     }

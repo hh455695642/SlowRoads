@@ -19,6 +19,7 @@ Shader "SlowRoads/Hills/Road"
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#include "../Environment/HillsSurfaceEnvironment.hlsl"
         TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);
         TEXTURE2D(_DashedMap); SAMPLER(sampler_DashedMap);
         TEXTURE2D(_SolidMap); TEXTURE2D(_SolidLeftMap); TEXTURE2D(_SolidRightMap);
@@ -29,13 +30,13 @@ Shader "SlowRoads/Hills/Road"
         CBUFFER_END
         struct Attributes {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;float4 a:TEXCOORD1;float3 b:TEXCOORD2;UNITY_VERTEX_INPUT_INSTANCE_ID};
         struct Varyings {float4 positionCS:SV_POSITION;float2 uv:TEXCOORD0;float4 a:TEXCOORD1;float3 b:TEXCOORD2;
-            float3 positionWS:TEXCOORD3;half3 normalWS:TEXCOORD4;float overlay:TEXCOORD5;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
+            float3 positionWS:TEXCOORD3;half3 normalWS:TEXCOORD4;float overlay:TEXCOORD5;float4 fog:TEXCOORD6;float3 fogWorld:TEXCOORD7;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
         Varyings Vert(Attributes v)
         {
             Varyings o=(Varyings)0;UNITY_SETUP_INSTANCE_ID(v);UNITY_TRANSFER_INSTANCE_ID(v,o);UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
             o.positionWS=TransformObjectToWorld(v.positionOS);o.positionCS=TransformWorldToHClip(o.positionWS);
-            o.normalWS=TransformObjectToWorldNormal(v.normalOS);o.uv=v.uv;o.a=v.a;o.b=v.b;
-            o.a.y=v.a.y*_ShadowFactor;
+            o.fogWorld=o.positionWS;o.fog=HillsSurfaceFogVertex(o.fogWorld);o.normalWS=TransformObjectToWorldNormal(v.normalOS);o.uv=v.uv;o.a=v.a;o.b=v.b;
+            o.a.y=v.a.y*HillsThemeShadow(_ShadowFactor);
             // Source saturates PER VERTEX, before interpolation (ue.vert).
             o.overlay=saturate(o.a.y*3.0);return o;
         }
@@ -44,7 +45,7 @@ Shader "SlowRoads/Hills/Road"
         {
             half4 base=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,RoadUv(i.uv));base.a=max(i.a.x,base.a);
             // Alpha cutout is original MeshLambertMaterial alphaTest=.75, never transparent blending.
-            clip(base.a-.75);emission=base.rgb*_Radiance;
+            clip(base.a-.75);emission=base.rgb*HillsThemeRadiance(_Radiance);
             if(_HasPaint>.5)
             {
                 half4 paint=SAMPLE_TEXTURE2D_BIAS(_DashedMap,sampler_DashedMap,i.uv,-.3);
@@ -62,18 +63,18 @@ Shader "SlowRoads/Hills/Road"
             if(_HasOverlay>.5&&i.overlay>0){half4 overlay=SAMPLE_TEXTURE2D(_OverlayMap,sampler_OverlayMap,RoadUv(i.uv));base.rgb=lerp(base.rgb,overlay.rgb,i.overlay*overlay.a);}
             return base*_BaseColor;
         }
-        half4 Frag(Varyings i):SV_Target
+        float4 Frag(Varyings i):SV_Target
         {
             UNITY_SETUP_INSTANCE_ID(i);half3 emission;half4 surface=Surface(i,emission);
             if(_SurfaceOnly>.5)return surface;
             half3 normal=normalize(i.normalWS);float f=1.0-max(0.0,dot(normalize(GetCameraPositionWS()-i.positionWS),normal));
-            float light=max(0.0,f-.75)*4.0;light=light*light*(1.0-i.a.y)*_FresnelIntensity;
-            float dark=(1.0-min(1.0,f*1.3333))*_FresnelIntensity;dark=.25+min(.25,max(0.0,dark-.25)*.5);
+            float light=max(0.0,f-.75)*4.0;light=light*light*(1.0-i.a.y)*HillsThemeFresnel(_FresnelIntensity);
+            float dark=(1.0-min(1.0,f*1.3333))*HillsThemeFresnel(_FresnelIntensity);dark=.25+min(.25,max(0.0,dark-.25)*.5);
             surface.rgb*=1.0+light-dark;
             // URP adapter for the source Lambert sun/ambient. No extra light/shadow variants or shadow RT reads.
-            Light sun=GetMainLight();half3 direct=sun.color*saturate(dot(normal,sun.direction))*(1.0-min(1.0,i.a.y));
-            half3 ambient=max(0,SampleSH(normal))*(1.75-min(1.0,max(.75,i.a.y)));
-            return half4(surface.rgb*(direct*(1.0+emission)+ambient),surface.a);
+            Light sun=GetMainLight();float3 sourceLightDirection=HillsLightDirection(sun.direction),sourceLightColour=HillsLightColour(sun.color);float3 direct=sourceLightColour*saturate(dot(normal,sourceLightDirection))*(1.0-min(1.0,i.a.y));
+            float3 ambient=max(0,HillsAmbientColour(normal,SampleSH(normal)))*(1.75-min(1.0,max(.75,i.a.y)));
+            return float4(HillsSurfaceFog(surface.rgb*(direct*(1.0+emission)+ambient),i.fogWorld,i.fog),surface.a);
         }
         half4 DepthFrag(Varyings i):SV_Target
         {UNITY_SETUP_INSTANCE_ID(i);half a=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,RoadUv(i.uv)).a;clip(max(i.a.x,a)-.75);return 0;}

@@ -1,5 +1,6 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#include "../Environment/HillsSurfaceEnvironment.hlsl"
 // Original Bo/Wo/Xo/Zo and Qo/Yo/Jo. Grass and bush use separate shaders, no combinatorial keyword.
 TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
 TEXTURE2D(_NoiseMap);SAMPLER(sampler_NoiseMap);
@@ -20,7 +21,7 @@ struct CoverVaryings
 {
     float4 positionCS:SV_POSITION;float2 uv:TEXCOORD0;float3 world:TEXCOORD1;
     float3 ground:TEXCOORD2;float4 mapUV:TEXCOORD3;float4 colourUV:TEXCOORD4;
-    float4 factors:TEXCOORD5;float4 probe:TEXCOORD6;UNITY_VERTEX_INPUT_INSTANCE_ID
+    float4 fog:TEXCOORD7;float3 fogWorld:TEXCOORD8;float4 factors:TEXCOORD5;float4 probe:TEXCOORD6;UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 float3 RotateCover(float3 p,float rotation,float3 normal)
 {
@@ -44,6 +45,7 @@ CoverVaryings CoverVert(CoverAttributes i)
     GroundInstance data=_Trees[index];float4 extra=_GrassExtra[index];float3 normal=extra.xyz;
     float rotation=data.parameters.x,scale=data.positionScale.w,tm=data.parameters.y,rp=extra.w;
     float3 center=data.positionScale.xyz+_ClusterOrigin.xyz;
+    o.fogWorld=center+RotateCover(i.positionOS,rotation,normal)*scale;o.fog=HillsSurfaceFogVertex(o.fogWorld);
     float3 probe=center+RotateCover(float3(1,1,1),rotation,normal)*scale;
     float3 position=i.positionOS;float2 uv=i.uv;
     float dist=dot(center.xz-_WorldSpaceCameraPos.xz,center.xz-_WorldSpaceCameraPos.xz);
@@ -54,7 +56,7 @@ CoverVaryings CoverVert(CoverAttributes i)
     if(variant==0){if(shadow>.1){if(fade>.41)variant=fade>.52?2:1;}else if(fade>.46)variant=fade>.54?1:2;}
     if(variant==2)position.y-=.1;
     float shrink=saturate((dist-10000)/30000);position*=1-shrink*.5;position.y-=shrink*.5;
-    o.mapUV=float4(wv,0,0);o.factors=float4(shadow*shadowFactor,saturate(i.positionOS.y*2),dist>40000?1:0,0);
+    o.mapUV=float4(wv,0,0);o.factors=float4(shadow*HillsThemeShadow(shadowFactor),saturate(i.positionOS.y*2),dist>40000?1:0,0);
     #else
     float2 absolute=_GrassTextureOrigin.xy+data.positionScale.xz;
     float2 wv=absolute/500,wwv=wv/8,gv=absolute/10,ggv=gv/16;
@@ -76,7 +78,7 @@ CoverVaryings CoverVert(CoverAttributes i)
     position.y-=saturate((dist-10000)/30000)*.5;position*=1-step(40000,dist);
     if(seasonIndex<3){float crop=1-.5*step(.5,abs(variant-2));position.y*=crop;uv.y*=crop;}
     else{float keep=step(1.5,variant);position.xz*=keep;position.y*=keep*.5;uv.y*=keep*.5;}
-    o.mapUV=float4(wv,wwv*2);o.colourUV=float4(gv*1.4,ggv);o.factors=float4(shadow*shadowFactor,lightGrass,darkGrass,doColour);
+    o.mapUV=float4(wv,wwv*2);o.colourUV=float4(gv*1.4,ggv);o.factors=float4(shadow*HillsThemeShadow(shadowFactor),lightGrass,darkGrass,doColour);
     #endif
     o.world=center+RotateCover(position,rotation,normal)*scale;
     o.positionCS=TransformWorldToHClip(o.world);o.ground=normal;o.uv=uv+float2(variant*.25,0);
@@ -90,7 +92,7 @@ float4 CoverSurface(CoverVaryings i,out float3 emission)
     if(i.factors.z>0)discard;
     // Original fixed material alphaTest=.5 still applies after the dynamic map-fragment test.
     clip(texel.a-.5);
-    emission=texel.rgb*radiance*i.factors.y;
+    emission=texel.rgb*HillsThemeRadiance(radiance)*i.factors.y;
     #else
     clip(texel.a-.25);
     if(i.factors.w>.5)
@@ -104,11 +106,11 @@ float4 CoverSurface(CoverVaryings i,out float3 emission)
         texel.rgb*=colour*(1-(1-SAMPLE_TEXTURE2D(detailFarMap,sampler_detailFarMap,i.mapUV.xy).r)*.7);
     }
     else{clip(texel.a-.98);texel.rgb*=1+(SAMPLE_TEXTURE2D(_NoiseMap,sampler_NoiseMap,i.colourUV.xy).r-.6);}
-    emission=texel.rgb*radiance;
+    emission=texel.rgb*HillsThemeRadiance(radiance);
     float fresnel=1-max(0,dot(normalize(_WorldSpaceCameraPos-i.probe.xyz),i.ground));
     float lightFresnel=max(0,fresnel-.75)*4*clamp((i.uv.y*3),.7,.9);
-    lightFresnel*=lightFresnel;lightFresnel*=(1-i.factors.x)*min(1,i.probe.w/100)*fresnelIntensity*max(i.factors.w,.5);
-    float darkFresnel=(1-min(1,fresnel*1.3333))*fresnelIntensity*.5;darkFresnel=.25+min(.25,max(0,darkFresnel-.25)*.5);
+    lightFresnel*=lightFresnel;lightFresnel*=(1-i.factors.x)*min(1,i.probe.w/100)*HillsThemeFresnel(fresnelIntensity)*max(i.factors.w,.5);
+    float darkFresnel=(1-min(1,fresnel*1.3333))*HillsThemeFresnel(fresnelIntensity)*.5;darkFresnel=.25+min(.25,max(0,darkFresnel-.25)*.5);
     texel.rgb*=1+lightFresnel-darkFresnel;
     #endif
     return texel;
@@ -120,10 +122,10 @@ float3 CoverAmbient(float3 n)
 }
 float4 CoverForward(CoverVaryings i):SV_Target
 {
-    UNITY_SETUP_INSTANCE_ID(i);float3 emission;float4 c=CoverSurface(i,emission);float3 n=normalize(i.ground);Light light=GetMainLight();
-    float shadow=i.factors.x;float3 direct=saturate(dot(n,light.direction))*light.color*light.distanceAttenuation*(1-min(1,shadow));
-    float3 indirect=CoverAmbient(n)*(1.75-min(1,max(.75,shadow)));
-    return float4(c.rgb*(direct+indirect+direct*emission),1);
+    UNITY_SETUP_INSTANCE_ID(i);float3 emission;float4 c=CoverSurface(i,emission);float3 n=normalize(i.ground);Light light=GetMainLight();float3 sourceLightDirection=HillsLightDirection(light.direction),sourceLightColour=HillsLightColour(light.color);
+    float shadow=i.factors.x;float3 direct=saturate(dot(n,sourceLightDirection))*sourceLightColour*light.distanceAttenuation*(1-min(1,shadow));
+    float3 indirect=HillsAmbientColour(n,CoverAmbient(n))*(1.75-min(1,max(.75,shadow)));
+    return float4(HillsSurfaceFog(c.rgb*(direct+indirect+direct*emission),i.fogWorld,i.fog),1);
 }
 float4 CoverDepth(CoverVaryings i):SV_Target{UNITY_SETUP_INSTANCE_ID(i);float3 emission;CoverSurface(i,emission);return 0;}
 float4 CoverDepthNormals(CoverVaryings i):SV_Target{UNITY_SETUP_INSTANCE_ID(i);float3 emission;CoverSurface(i,emission);return float4(normalize(i.ground),0);}

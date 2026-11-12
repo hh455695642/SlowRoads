@@ -15,11 +15,12 @@ Shader "SlowRoads/Hills/BridgeShadow"
             #pragma fragment Frag
             #pragma multi_compile_instancing
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "../Environment/HillsSurfaceEnvironment.hlsl"
             CBUFFER_START(UnityPerMaterial) half _Opacity; CBUFFER_END
             struct Attributes {float3 positionOS:POSITION;UNITY_VERTEX_INPUT_INSTANCE_ID};
-            struct Varyings {float4 positionCS:SV_POSITION;UNITY_VERTEX_INPUT_INSTANCE_ID};
-            Varyings Vert(Attributes i){Varyings o;UNITY_SETUP_INSTANCE_ID(i);UNITY_TRANSFER_INSTANCE_ID(i,o);o.positionCS=TransformObjectToHClip(i.positionOS);return o;}
-            half4 Frag(Varyings i):SV_Target {UNITY_SETUP_INSTANCE_ID(i);return half4(0,0,0,_Opacity);}
+            struct Varyings {float4 positionCS:SV_POSITION;float3 world:TEXCOORD0;float4 fog:TEXCOORD1;UNITY_VERTEX_INPUT_INSTANCE_ID};
+            Varyings Vert(Attributes i){Varyings o;UNITY_SETUP_INSTANCE_ID(i);UNITY_TRANSFER_INSTANCE_ID(i,o);o.positionCS=TransformObjectToHClip(i.positionOS);o.world=TransformObjectToWorld(i.positionOS);o.fog=HillsSurfaceFogVertex(o.world);return o;}
+            half4 Frag(Varyings i):SV_Target {UNITY_SETUP_INSTANCE_ID(i);return half4(HillsSurfaceFog(float3(0,0,0),i.world,i.fog),_Opacity);}
             ENDHLSL
         }
     }

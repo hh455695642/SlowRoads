@@ -11,6 +11,34 @@
         1,
         2201
       ]
+    ],
+    "additionalExcerpts": [
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsEnvironment.source.txt",
+        "symbol": "E0 environment config/fog/clouds/snow",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "42066415a056bf0057a0c6cbbbde60c732872b8e97a14a1b76134dd9a2da7ffc",
+        "ranges": [
+          [
+            375,
+            609
+          ]
+        ],
+        "lineConvention": "full module formatted lines; raw source and section offsets/hashes in Fixtures/Environment/config.json"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsGroundEnvironment.source.txt",
+        "symbol": "E4 Ni observer shadow, camera haze, fixed sun + original fog and non-legacy light contract",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "42066415a056bf0057a0c6cbbbde60c732872b8e97a14a1b76134dd9a2da7ffc",
+        "ranges": [
+          [
+            433,
+            549
+          ]
+        ],
+        "lineConvention": "full module formatted lines; raw controller methods executed by environment-lighting-reference.cjs, archive module hashes verified before oracle execution"
+      }
     ]
   },
   {
@@ -130,6 +158,55 @@
           ]
         ],
         "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsEnvironment.source.txt",
+        "symbol": "E0 environment config/fog/clouds/snow",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "6a9d766e0461fcc5950ec83da513bf9e1700588d0b289f6a0e8596e13a361aa4",
+        "ranges": [
+          [
+            283,
+            638
+          ],
+          [
+            696,
+            1035
+          ],
+          [
+            1138,
+            1472
+          ],
+          [
+            1592,
+            1939
+          ],
+          [
+            1940,
+            2030
+          ],
+          [
+            2376,
+            2769
+          ],
+          [
+            5628,
+            5749
+          ],
+          [
+            5909,
+            5974
+          ],
+          [
+            6570,
+            6625
+          ],
+          [
+            6683,
+            6733
+          ]
+        ],
+        "lineConvention": "full module formatted lines; raw source and section offsets/hashes in Fixtures/Environment/config.json"
       }
     ]
   },
@@ -171,6 +248,56 @@
         "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsContents.source.txt",
         "lineConvention": "full-module prettier 3.6.2; independent from historical excerpt labels",
         "excerptSHA256": "8a82d4b522a670c03536322c216dde6e105a2f38bc6320a62de7cf4d86eaa2f3"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsEnvironment.source.txt",
+        "symbol": "E0 environment config/fog/clouds/snow",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "25baedef6a717bfe5dcd5a2ab44a9380aff29355d072232f548c89d7d7b1e5e2",
+        "ranges": [
+          [
+            51336,
+            51622
+          ],
+          [
+            51769,
+            51854
+          ],
+          [
+            51898,
+            52011
+          ],
+          [
+            52395,
+            52410
+          ],
+          [
+            52495,
+            52506
+          ]
+        ],
+        "lineConvention": "full module formatted lines; raw source and section offsets/hashes in Fixtures/Environment/config.json"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsGroundEnvironment.source.txt",
+        "symbol": "E4 Ni observer shadow, camera haze, fixed sun + original fog and non-legacy light contract",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "25baedef6a717bfe5dcd5a2ab44a9380aff29355d072232f548c89d7d7b1e5e2",
+        "ranges": [
+          [
+            51911,
+            51935
+          ],
+          [
+            52088,
+            52095
+          ],
+          [
+            52442,
+            52508
+          ]
+        ],
+        "lineConvention": "full module formatted lines; raw controller methods executed by environment-lighting-reference.cjs, archive module hashes verified before oracle execution"
       }
     ]
   },
@@ -291,6 +418,98 @@
           ]
         ],
         "lineConvention": "local raw excerpt sequence; not pretty.js lines"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsEnvironment.source.txt",
+        "symbol": "E0 environment config/fog/clouds/snow",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "b3a0bda89c85ec170a7273219b773850307aaea346459aa0ec1a12c0d155928e",
+        "ranges": [
+          [
+            1180,
+            1240
+          ],
+          [
+            5638,
+            5654
+          ],
+          [
+            18756,
+            18774
+          ],
+          [
+            20412,
+            20477
+          ],
+          [
+            27747,
+            27766
+          ]
+        ],
+        "lineConvention": "full module formatted lines; raw source and section offsets/hashes in Fixtures/Environment/config.json"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsCloudPlane.source.txt",
+        "symbol": "E3 hl / PlaneGeometry",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "b3a0bda89c85ec170a7273219b773850307aaea346459aa0ec1a12c0d155928e",
+        "rawUtf16Offset": 130073,
+        "rawSectionSHA256": "86b3526b9cf1d6ec2a791d0a42cf6e435a4d7fdee0b797d054d16c23238d2be8",
+        "ranges": [
+          [
+            7803,
+            7855
+          ]
+        ],
+        "excerptSHA256": "945f397736dbec5d73a1df08e50cd69700957d348c78bbd450c20ad970356443",
+        "lineConvention": "full-module formatted lines; unmodified class executed independently by environment-cloud-reference.cjs"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsGroundEnvironment.source.txt",
+        "symbol": "E4 Ni observer shadow, camera haze, fixed sun + original fog and non-legacy light contract",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "b3a0bda89c85ec170a7273219b773850307aaea346459aa0ec1a12c0d155928e",
+        "ranges": [
+          [
+            8475,
+            8485
+          ],
+          [
+            8570,
+            8582
+          ],
+          [
+            19179,
+            19185
+          ],
+          [
+            8159,
+            8161
+          ]
+        ],
+        "lineConvention": "full module formatted lines; raw controller methods executed by environment-lighting-reference.cjs, archive module hashes verified before oracle execution"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsSnow.source.txt",
+        "symbol": "E5 B0 map_particle / ey opaque output / PointsMaterial refresh uniforms",
+        "formatter": "prettier@3.6.2 parser=babel default options LF",
+        "formattedSHA256": "b3a0bda89c85ec170a7273219b773850307aaea346459aa0ec1a12c0d155928e",
+        "ranges": [
+          [
+            9205,
+            9217
+          ],
+          [
+            9428,
+            9435
+          ],
+          [
+            18858,
+            18867
+          ]
+        ],
+        "excerptSHA256": "d051e446e3fec5b9193a39c7e44260d63adfb7d6bdc09c4c598ab9447658b84d",
+        "lineConvention": "full-module formatted lines; original texture upload/material state/GL output independently executed by environment-snow-reference.cjs"
       }
     ]
   },

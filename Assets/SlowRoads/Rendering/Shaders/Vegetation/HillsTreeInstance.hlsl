@@ -1,5 +1,6 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#include "../Environment/HillsSurfaceEnvironment.hlsl"
 TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
 TEXTURE2D(_AlphaMap);SAMPLER(sampler_AlphaMap);
 TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
@@ -18,11 +19,11 @@ StructuredBuffer<TreeData> _Trees;
 StructuredBuffer<uint> _Visible;
 #endif
 struct Attributes {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;uint instanceID:SV_InstanceID;};
-struct Varyings {float4 positionCS:SV_POSITION;float2 uv:TEXCOORD0;half3 normalWS:TEXCOORD1;float3 world:TEXCOORD2;half2 shadowDensity:TEXCOORD3;half dissolve:TEXCOORD4;float3 angleBlend:TEXCOORD5;float2 rotation:TEXCOORD6;half4 sourceSurface:TEXCOORD7;half3 centerNormal:TEXCOORD8;float2 normalUv:TEXCOORD9;UNITY_VERTEX_INPUT_INSTANCE_ID};
+struct Varyings {float4 positionCS:SV_POSITION;float2 uv:TEXCOORD0;half3 normalWS:TEXCOORD1;float3 world:TEXCOORD2;half2 shadowDensity:TEXCOORD3;half dissolve:TEXCOORD4;float3 angleBlend:TEXCOORD5;float2 rotation:TEXCOORD6;half4 sourceSurface:TEXCOORD7;half3 centerNormal:TEXCOORD8;float2 normalUv:TEXCOORD9;float4 fog:TEXCOORD10;float3 fogWorld:TEXCOORD11;UNITY_VERTEX_INPUT_INSTANCE_ID};
 Varyings TreeVert(Attributes i)
 {
     Varyings o=(Varyings)0;UNITY_SETUP_INSTANCE_ID(i);UNITY_TRANSFER_INSTANCE_ID(i,o);
-    float3 p=i.positionOS;float rotation=0,scale=1,density=0,nearActive=1;float3 center=0;
+    float3 p=i.positionOS;float3 sourceFogPosition=i.positionOS;float rotation=0,scale=1,density=0,nearActive=1;float3 center=0;
     #ifndef TREE_CPU
     TreeData t=_Trees[_UseVisible>.5?_Visible[i.instanceID]:i.instanceID];center=t.positionScale.xyz;scale=t.positionScale.w;rotation=t.parameters.x;density=t.parameters.y;nearActive=t.parameters.w;
     #endif
@@ -43,6 +44,7 @@ Varyings TreeVert(Attributes i)
         o.normalUv=i.uv*float2(1.0/16,.25-.002);
         float angle=atan2(direction.x,direction.z),ca=cos(angle),sa=sin(angle);
         o.rotation=float2(ca,sa);
+        sourceFogPosition.xz=float2(sourceFogPosition.x*ca,-sourceFogPosition.x*sa);
         float crop=(.8-_Family*.1)*(1-step(.5,_Family)*i.uv.y*(.25-.002)*4*.6);
         p.xz=float2(p.x*ca,-p.x*sa)*crop;
         float normalized=angle-rotation;if(normalized>PI)normalized-=TWO_PI;else if(normalized< -PI)normalized+=TWO_PI;
@@ -57,21 +59,27 @@ Varyings TreeVert(Attributes i)
     #ifdef TREE_CPU
     p=TransformObjectToWorld(p);centerNormal=TransformObjectToWorldNormal(centerNormal);surfaceNormal=TransformObjectToWorldNormal(surfaceNormal);
     #endif
+    if(_Billboard<.5)sourceFogPosition=float3(sourceFogPosition.x*cs+sourceFogPosition.z*sn,sourceFogPosition.y,-sourceFogPosition.x*sn+sourceFogPosition.z*cs);
+    sourceFogPosition=sourceFogPosition*scale+center;
+    #ifdef TREE_CPU
+    sourceFogPosition=TransformObjectToWorld(sourceFogPosition);
+    #endif
+    o.fogWorld=sourceFogPosition+_ClusterOrigin.xyz;o.fog=HillsSurfaceFogVertex(o.fogWorld);
     o.world=p+_ClusterOrigin.xyz;o.positionCS=TransformWorldToHClip(o.world);o.normalWS=surfaceNormal;o.centerNormal=centerNormal*scale;
     half larch=step(.59,o.uv.x)*(1-step(.77,o.uv.x));half cypress=step(.77,o.uv.x);
     half shadow=((2.5+larch+density)*max(.1,1-min(1,h))-radius)*(1-max(larch,cypress)*.25);
     if(o.uv.x<.125)shadow=.7+.3*density;
-    if(_Family<.5){float3 delta=i.positionOS-float3(0,min(i.positionOS.y,5+density*_ShadowFactor),0);float d=dot(delta,delta);
+    if(_Family<.5){float3 delta=i.positionOS-float3(0,min(i.positionOS.y,5+density*HillsThemeShadow(_ShadowFactor)),0);float d=dot(delta,delta);
         shadow=d<36?(d<8?1:1-(d-8)/28):0;shadow=max(shadow,1-saturate(i.positionOS.y/8));}
-    o.shadowDensity=half2(shadow*_ShadowFactor,density);
+    o.shadowDensity=half2(shadow*HillsThemeShadow(_ShadowFactor),density);
     float distance=-TransformWorldToView(_ClusterOrigin.xyz+center).z;
     if(_Billboard<.5)distance=-TransformWorldToView(o.world).z;
-    half brightness=1-density*_ShadowFactor*saturate((10-i.positionOS.y)/3);
+    half brightness=1-density*HillsThemeShadow(_ShadowFactor)*saturate((10-i.positionOS.y)/3);
     half radianceBlend=1-saturate((distance-50)/200)*.33;
-    if(_Billboard>.5){brightness=1-.25*_ShadowFactor*saturate((.25-i.uv.y*(.25-.002))/.08);radianceBlend*=max(.5,brightness);}
+    if(_Billboard>.5){brightness=1-.25*HillsThemeShadow(_ShadowFactor)*saturate((.25-i.uv.y*(.25-.002))/.08);radianceBlend*=max(.5,brightness);}
     half alphaTest=_Cutoff;
     if(_Family<.5&&_Billboard<.5&&distance<(_LodNear>200?_LodNear:200))alphaTest=max(.3,_Cutoff*(1-distance/(_LodNear>200?_LodNear*1.3:300)));
-    half discolor=1+(SAMPLE_TEXTURE2D_LOD(_NoiseMap,sampler_NoiseMap,(_ClusterOrigin.xz+center.xz+_NoiseOffset.xz)/256,0).r-.5)*_Discolouration;
+    half discolor=1+(SAMPLE_TEXTURE2D_LOD(_NoiseMap,sampler_NoiseMap,(_ClusterOrigin.xz+center.xz+_NoiseOffset.xz)/256,0).r-.5)*HillsThemeTreeDiscolouration(_Discolouration);
     if(_Family>.5&&_Billboard<.5&&o.uv.x>.76)discolor=discolor/2+.5;
     o.sourceSurface=half4(brightness,radianceBlend,alphaTest,discolor);
     // Hills ds: mesh 0.70F..F; imposter 0.58F..0.88F, not symmetric fades.
@@ -96,7 +104,7 @@ half4 TreeSurface(Varyings i,out half3 emissive)
     clip(alpha-i.sourceSurface.z);
     if(_Billboard<.5||i.angleBlend.z>0)clip(noise-i.dissolve);clip(.999-i.dissolve);
     half discolor=i.sourceSurface.w;
-    if(_Family<.5){half leaf=_Billboard>.5?i.sourceSurface.x:step(c.b*1.5,c.g)*i.sourceSurface.x;c.rg*=_Billboard>.5?discolor:1-(1-discolor)*leaf;emissive=half3(c.rg*8,.5)*_Radiance*leaf*i.sourceSurface.y;c.rgb*=i.sourceSurface.y;}
+    if(_Family<.5){half leaf=_Billboard>.5?i.sourceSurface.x:step(c.b*1.5,c.g)*i.sourceSurface.x;c.rg*=_Billboard>.5?discolor:1-(1-discolor)*leaf;emissive=half3(c.rg*8,.5)*(HillsThemeRadiance(_Radiance*2)*.5)*leaf*i.sourceSurface.y;c.rgb*=i.sourceSurface.y;}
     else {if(_Billboard>.5||i.uv.x>.125)c.g*=discolor;if(_Billboard<.5)c.rgb*=1-sqrt(saturate(i.shadowDensity.x))*.65;}
     return c;
 }
@@ -121,16 +129,16 @@ half4 TreeAlbedo(Varyings i,out half3 emissive,out half3 n)
     if(_HasSnow>.5&&_Family<.5){if(_Billboard>.5&&n.y>0)c.rgb=lerp(c.rgb,1.0.xxx,min(1,n.y*8));else if(_Billboard<.5&&n.y>.1)c.rgb=lerp(c.rgb,min(1,.5+n.y).xxx,min(1,(n.y-.1)*8));}
     return c;
 }
-half4 TreeFrag(Varyings i):SV_Target
+float4 TreeFrag(Varyings i):SV_Target
 {
-    half3 emissive,n;half4 c=TreeAlbedo(i,emissive,n);Light light=GetMainLight();
+    half3 emissive,n;half4 c=TreeAlbedo(i,emissive,n);Light light=GetMainLight();float3 sourceLightDirection=HillsLightDirection(light.direction),sourceLightColour=HillsLightColour(light.color);
     half fShadow=sqrt(saturate(i.shadowDensity.x))*.65;
-    half centerDot=dot(i.centerNormal,light.direction);
+    half centerDot=dot(i.centerNormal,sourceLightDirection);
     half squash=_Billboard>.5?1:(_Family>.5?saturate(centerDot):min(1,max(.25,centerDot*2))*(i.uv.y>.25?1-i.shadowDensity.x*.5:1));
-    half3 direct=c.rgb*light.color*saturate(dot(n,light.direction))*squash;
+    float3 direct=c.rgb*sourceLightColour*saturate(dot(n,sourceLightDirection))*squash;
     half ambientShadow=_Billboard>.5?1:(_Family>.5?1-max(0,fShadow-.6):(i.shadowDensity.x>.5?1.5-i.shadowDensity.x:1));
-    half3 ambient=max(0,SampleSH9(_TreeAmbient,n))*c.rgb*ambientShadow;
-    return half4(direct+ambient+direct*emissive,1);
+    float3 ambient=max(0,HillsAmbientColour(n,SampleSH9(_TreeAmbient,n)))*c.rgb*ambientShadow;
+    return float4(HillsSurfaceFog(direct+ambient+direct*emissive,i.fogWorld,i.fog),1);
 }
 half4 TreeDepth(Varyings i):SV_Target {TreeSurface(i);return 0;}
 half4 TreeNormals(Varyings i):SV_Target {TreeSurface(i);return half4(TreeNormal(i),0);}

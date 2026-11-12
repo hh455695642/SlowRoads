@@ -17,6 +17,17 @@ MonoBehaviour:
   detail: 2
   terrainDetail: 2
   season: 2
+  environmentTime: 1
+  environmentWeather: 1
+  skyVisible: 1
+  cloudsVisible: 1
+  atmosphereVisible: 1
+  environmentLightingEnabled: 1
+  snowVisible: 1
+  skyMaterial: {fileID: 2100000, guid: 8db1af5c0de50434e811be90611bb682, type: 2}
+  cloudMaterial: {fileID: 2100000, guid: 63130a82064391949a911b019aba1f3b, type: 2}
+  snowMaterial: {fileID: 2100000, guid: 2a56bab853e8bc04f828fccf2df8b632, type: 2}
+  snowCulling: {fileID: 7200000, guid: 19b9b8919ec139449aeb909c4ed9f429, type: 3}
   terrainVisible: 1
   terrainDebug: 0
   treesVisible: 1

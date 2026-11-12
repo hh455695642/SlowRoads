@@ -28,6 +28,7 @@ SubShader {Tags {"RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Que
 HLSLINCLUDE
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#include "../Environment/HillsSurfaceEnvironment.hlsl"
 TEXTURE2D(grassMap); SAMPLER(sampler_grassMap);
 TEXTURE2D(sandMap); SAMPLER(sampler_sandMap);
 TEXTURE2D(rockMap); SAMPLER(sampler_rockMap);
@@ -80,8 +81,9 @@ float4 terrainBlend(float4 tx1, float w1, float4 tx2, float w2, float depth) {
 
 
 struct Attributes {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 roadUv:TEXCOORD0;float3 surface:TEXCOORD1;float2 content:TEXCOORD2;UNITY_VERTEX_INPUT_INSTANCE_ID};
-struct Varyings {float4 positionCS:SV_POSITION;float3 world:TEXCOORD0;half3 normalWS:TEXCOORD1;float4 uv:TEXCOORD2;float4 wuv:TEXCOORD3;float4 surface:TEXCOORD4;float4 weights:TEXCOORD5;float4 extras:TEXCOORD6;float2 roadUv:TEXCOORD7;UNITY_VERTEX_INPUT_INSTANCE_ID};
+struct Varyings {float4 positionCS:SV_POSITION;float3 world:TEXCOORD0;half3 normalWS:TEXCOORD1;float4 uv:TEXCOORD2;float4 wuv:TEXCOORD3;float4 surface:TEXCOORD4;float4 weights:TEXCOORD5;float4 extras:TEXCOORD6;float2 roadUv:TEXCOORD7;float4 fog:TEXCOORD8;float3 fogWorld:TEXCOORD9;UNITY_VERTEX_INPUT_INSTANCE_ID};
 Varyings Vert(Attributes i){Varyings o=(Varyings)0;UNITY_SETUP_INSTANCE_ID(i);UNITY_TRANSFER_INSTANCE_ID(i,o);
+o.fogWorld=TransformObjectToWorld(i.positionOS);o.fog=HillsSurfaceFogVertex(o.fogWorld);
 float3 transformed=i.positionOS;float roadProximity=i.surface.x,overlap=i.surface.z;
 float treeMask=i.content.x,fieldCol=i.content.y;
 float height,steepness,roadProx,hasRoadProx,vTreeMask,vLightGrass,vDarkGrass,vField,vHeather,vShadow,vCamDepth;
@@ -267,14 +269,14 @@ vCamDepth = -mvPosition.z;
 // vLightGrass = 0.0;
 // vDarkGrass = 0.0;
 
-vShadow *= shadowFactor;
+vShadow *= HillsThemeShadow(shadowFactor);
 
 
 o.world=vFresnelPos;o.normalWS=vFresnelNorm;o.uv=float4(vUv,vUUv);o.wuv=float4(vWv,vWWv);
 o.surface=float4(height,steepness,roadProx,hasRoadProx);o.weights=float4(vLightGrass,vDarkGrass,vHeather,vCamDepth);
 o.extras=float4(vTreeMask,vShadow,vField,0);o.roadUv=vRoadUv;return o;}
 
-half4 Frag(Varyings i):SV_Target {UNITY_SETUP_INSTANCE_ID(i);
+float4 Frag(Varyings i):SV_Target {UNITY_SETUP_INSTANCE_ID(i);
 float height=i.surface.x,steepness=i.surface.y,roadProx=i.surface.z,hasRoadProx=i.surface.w;
 float vLightGrass=i.weights.x,vDarkGrass=i.weights.y,vHeather=i.weights.z,vCamDepth=i.weights.w;
 float vTreeMask=i.extras.x,vShadow=i.extras.y,vField=i.extras.z;
@@ -621,7 +623,7 @@ texelColor.b = saturate(texelColor.b);
 
 // NOTE this must match the grass sprites. Ideally share a chunk?
 
-totalEmissiveRadiance = texelColor.rgb * radiance;
+totalEmissiveRadiance = texelColor.rgb * HillsThemeRadiance(radiance);
 
 //// FINAL COMPOSITION
 
@@ -657,20 +659,20 @@ No derivatives or modifications are permitted
     float lightFresnel = max(0.0, (fresnel - 0.75)) * 4.0 * (1.0 - blendVal * 0.5);
     lightFresnel *= lightFresnel;
     lightFresnel *= (1.0 - vShadow);
-    lightFresnel *= fresnelIntensity;
+    lightFresnel *= HillsThemeFresnel(fresnelIntensity);
     
     float darkFresnel = 1.0 - min(1.0, fresnel * 1.3333);
-    darkFresnel *= fresnelIntensity;
+    darkFresnel *= HillsThemeFresnel(fresnelIntensity);
     darkFresnel = 0.25 + min(0.25, max(0.0, darkFresnel - 0.25) * 0.5);
 
     diffuseColor.rgb *= 1.0 + lightFresnel - darkFresnel;
 
 
-Light sun=GetMainLight();half3 direct=sun.color*saturate(dot(vFresnelNorm,sun.direction))*(1.0-min(1.0,vShadow));
-half3 ambient=max(0,SampleSH(vFresnelNorm))*(1.75-min(1.0,max(.75,vShadow)));
+Light sun=GetMainLight();float3 sourceLightDirection=HillsLightDirection(sun.direction),sourceLightColour=HillsLightColour(sun.color);float3 direct=sourceLightColour*saturate(dot(vFresnelNorm,sourceLightDirection))*(1.0-min(1.0,vShadow));
+float3 ambient=max(0,HillsAmbientColour(vFresnelNorm,SampleSH(vFresnelNorm)))*(1.75-min(1.0,max(.75,vShadow)));
 // URP Lambert/ambient adapter, same scope as the existing road material adapter.
-half3 lit=diffuseColor.rgb*(ambient+direct+direct*radiance);
-return half4(lerp(lit,diffuseColor.rgb,saturate(_SurfaceOnly)),1);}
+float3 lit=diffuseColor.rgb*(ambient+direct+direct*HillsThemeRadiance(radiance));
+return float4(lerp(HillsSurfaceFog(lit,i.fogWorld,i.fog),diffuseColor.rgb,saturate(_SurfaceOnly)),1);}
 
 ENDHLSL
 Pass {Name "Forward" Tags {"LightMode"="UniversalForward"}

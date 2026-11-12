@@ -2867,5 +2867,299 @@
       }
     ],
     "objectReuse": "CPU RoadSignHandle preserves native _9 h4 LIFO reuse and O7/P7 aliases. E7 equal-retire variant updates retain queue order; initialization events are captured before original controller init."
+  },
+  "environmentClouds": {
+    "date": "2026-11-12",
+    "scope": "E3 Editor/desktop source cloud reproduction; ground fog, lighting, snow and whole-scene final image remain later batches",
+    "source": "_app/immutable/assets/clouds_01.700a3fdb.webp",
+    "archiveSHA256": "87594163030c53b114e5ed816671639f6be6a1fea7fa756357221508f3eafc9e",
+    "retainedPng": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01.png",
+    "retainedPngSHA256": "096f2ba6477148d8831caa36853f04fe32e6bbb273e560dedc33a85b95e364bf",
+    "sourceBytesChanged": false,
+    "sourceSampler": {
+      "colourSpace": "linear",
+      "flipY": true,
+      "wrap": "Repeat",
+      "min": "LinearMipmapLinear",
+      "mag": "Linear",
+      "anisotropy": 4,
+      "mips": true
+    },
+    "unitySourceImporter": {
+      "sRGBTexture": false,
+      "filterMode": "Trilinear",
+      "wrapMode": "Repeat",
+      "anisoLevel": 4,
+      "mipmapEnabled": true,
+      "compression": "Uncompressed",
+      "alphaIsTransparency": false
+    },
+    "derivedProductionTexture": {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01_mips.asset",
+      "guid": "1e4a988a152817140a60ce8b96354805",
+      "format": "linear RGBA32",
+      "size": [
+        512,
+        512
+      ],
+      "mipCount": 10,
+      "readable": false,
+      "generator": "Docs/ReverseEngineering/ContentsAudit/environment-cloud-mips.cs",
+      "method": "Sequential quantized native GPU mip generation from retained source PNG; no fixture pixels as input",
+      "mips": [
+        {
+          "level": 0,
+          "bytes": 1048576,
+          "sha256": "55b61ea66116b07baf6e2cc35a23cf35ee8700cca92d0dede6074c51dbb69cc3"
+        },
+        {
+          "level": 1,
+          "bytes": 262144,
+          "sha256": "7411801a155ec465e8cca8e9abe330872638a424d3d93afc8b3b7dc49436fd73"
+        },
+        {
+          "level": 2,
+          "bytes": 65536,
+          "sha256": "44579867f453c8162983002330072c866655731c0c0a785b08d8f875bb450c6a"
+        },
+        {
+          "level": 3,
+          "bytes": 16384,
+          "sha256": "2db5c9ecdfdd02902cfdff566a228d41c0b25ab260da33ccbc4053c3c93cc995"
+        },
+        {
+          "level": 4,
+          "bytes": 4096,
+          "sha256": "40b2affc3273c26bd037567c361f2fc57b77c31e184d0acb881d8b773525abe7"
+        },
+        {
+          "level": 5,
+          "bytes": 1024,
+          "sha256": "5f183e7e85c446ed91dcc42fb5567bdee9936caf1361795d4cda78c6522cd213"
+        },
+        {
+          "level": 6,
+          "bytes": 256,
+          "sha256": "a9a00ba27297df35bd89d6f1352bb0338be8f2433d78c6c2ecdca8cfd8cbe458"
+        },
+        {
+          "level": 7,
+          "bytes": 64,
+          "sha256": "0e488de8b1dcb7e0871b32cb9ac9356f2e158526b5229481a2d3d7f940555a5c"
+        },
+        {
+          "level": 8,
+          "bytes": 16,
+          "sha256": "257ed0d6078bbda1b57ddafdc35cff0711525a443027c96b2bf705dce49a55e3"
+        },
+        {
+          "level": 9,
+          "bytes": 4,
+          "sha256": "4d580473dbfc9f4c25f4bd482c7d20daf8d5c2bdf59e352dc8270343991d5a1c"
+        }
+      ]
+    },
+    "formalMaterial": {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Sky/HillsClouds.mat",
+      "guid": "63130a82064391949a911b019aba1f3b",
+      "shader": "SlowRoads/HillsClouds",
+      "textureProperty": "_CloudMap",
+      "configuration": "Original HillsSceneSettings.asset cloudMaterial; only derivedProductionTexture is sampled by the formal cloud material"
+    },
+    "samplerAdaptation": "Inline Trilinear Repeat Aniso4 avoids global forced anisotropy and URP mip bias; GLES texture-sampler fallback is bounded but not device-verified",
+    "evidence": {
+      "reference": "Docs/ReverseEngineering/ContentsAudit/Fixtures/Environment/cloud-resources.json",
+      "tests": "Docs/Agents/Artifacts/HillsEnvironment/e3-environment-tests.json",
+      "mipComparison": "Docs/Agents/Artifacts/HillsEnvironment/e3-mip-comparison.csv",
+      "floatImages": "Docs/Agents/Artifacts/HillsEnvironment/e3-cloud-images.csv",
+      "renderer": "Docs/Agents/Artifacts/HillsEnvironment/e3-frame-debugger.json"
+    },
+    "results": {
+      "meshViews": 6,
+      "mipByteDifferences": 0,
+      "sourceWebPVsPngUploadedByteDifferences": 0,
+      "originalProbes": 312,
+      "originalFloatImages": 48,
+      "environmentTestsPassed": 10,
+      "environmentTestsTotal": 10
+    },
+    "measurement": {
+      "editor": "6000.3.22f1",
+      "api": "Direct3D11",
+      "gpu": "NVIDIA GeForce RTX 3060",
+      "sceneCapture": [
+        1280,
+        720
+      ],
+      "floatImage": [
+        128,
+        72
+      ],
+      "textureProfilerBytes": 2840788,
+      "independentGpuMilliseconds": "UNVERIFIED; E7",
+      "mobileDeviceTests": "not in this batch"
+    }
+  },
+  "environmentGroundLighting": {
+    "date": "2026-11-12",
+    "scope": "E4 ground atmosphere/source lighting, Editor desktop; E5 snow and E6/E7 final integration remain pending",
+    "configuration": "HillsSceneSettings: existing season/time/weather/atmosphereVisible + environmentLightingEnabled; no second SO",
+    "formalGlobals": "HillsEnvironmentPass BeforeRendering binds one source snapshot; AfterRendering clears it, independent of sky display. Command-only passes, no draw/attachments/new RT or blit",
+    "lighting": "Archived non-legacy Three Lambert irradiance / pi; fixed +Y sun; ambient + black-ground hemisphere, source Ni updateHDR driven by P5 observer road-shadow input. HDR enabled status is independent of this calculation",
+    "water": "Existing four shared water materials remain intact; one production shader selects live original ls base/body/highlight, removes URP MixFog + multi_compile_fog. Archived fs never defines IS_WATER; do not activate its dormant zero-near branch",
+    "surfaces": [
+      "Road",
+      "Terrain",
+      "Tree mesh/imposter/CPU fallback",
+      "Grass",
+      "Bush",
+      "Structure",
+      "Water",
+      "Roadside",
+      "CatsEye",
+      "BridgeShadow"
+    ],
+    "variantChanges": "Uniform fog/theme toggles; no new shader keywords. Instancing retained; water fog keyword variants removed",
+    "newTextures": 0,
+    "newMaterials": 0,
+    "evidence": {
+      "lightingReference": "Docs/ReverseEngineering/ContentsAudit/Fixtures/Environment/lighting.json",
+      "fogBoundaries": "Docs/ReverseEngineering/ContentsAudit/Fixtures/Environment/fog-boundaries.json",
+      "groundResults": "Docs/Agents/Artifacts/HillsEnvironment/e4-ground-summary.json",
+      "sceneMatrix": "Docs/Agents/Artifacts/HillsEnvironment/e4-scene-matrix.json",
+      "rendering": "Docs/Agents/Artifacts/HillsEnvironment/e4-frame-debugger.json",
+      "knownC3Comparison": "Docs/Agents/Artifacts/HillsEnvironment/e4-c3-comparison.json"
+    },
+    "knownC3": "Original linear PBR image gate remains FAIL; pre-E4 and current difference reports identical. Prior user acceptance is retained without expanding tolerance or editing fixtures",
+    "performance": "O(1) per-camera globals, no per-instance CPU loop added. Final CPU/GPU milliseconds, upload bandwidth and memory baseline remain E7; no mobile device measurements",
+    "results": {
+      "environmentTestsPassed": 14,
+      "environmentTestsTotal": 14,
+      "originalFogSamples": 480,
+      "maxFogError": 1.7881393432617188e-07,
+      "originalLightSamples": 288,
+      "maxLightError": 4.76837158203125e-07,
+      "sceneProfiles": 24,
+      "generationAndRngHashesUnchanged": true
+    }
+  },
+  "environmentSnow": {
+    "date": "2026-11-12",
+    "scope": "E5 original winter exterior-camera falling snow, Editor/desktop. Not E6 integrated stress, E7 final image/performance or C7 completion.",
+    "sourceArchive": "Slow Roads/resources/app.asar",
+    "sourceArchiveSHA256": "074cb382594ea30166e71787c163d609fb1bff395789b955f8f3679cd52c6383",
+    "sourceSymbols": "Settings ni/hi/di/ri/oi/V L51332-51525, gi L51526-51622; Hills L5626-5627; Normals Et L27747-27760, B0 L9205-9217, ey L9428-9435, point scale L18858-18867",
+    "sourceAssetsAndImportersChanged": false,
+    "sharedBushNoiseImporterChanged": false,
+    "derivedTextures": [
+      {
+        "source": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_particle.png",
+        "sourceSHA256": "80227ca83ea400e33df0068ad6e6d4155947315f47d36c8bd92e371cac888b09",
+        "target": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_particle_mips.asset",
+        "guid": "619beece2fe6f3148aa7d021f65ff8d5",
+        "mips": [
+          {
+            "level": 0,
+            "bytes": 1024,
+            "sha256": "d4af33279299205bf374d3b05ef9f09eed7367e2819606b815a47038ab3d62ce"
+          },
+          {
+            "level": 1,
+            "bytes": 256,
+            "sha256": "62ba433b111dfa391099760b17302853a3bdc54d4853b8b353a2c98a1d47552b"
+          },
+          {
+            "level": 2,
+            "bytes": 64,
+            "sha256": "ec32441c2412369433ea9c81ebe765ea33c746898aac99ea19e021851698ea79"
+          },
+          {
+            "level": 3,
+            "bytes": 16,
+            "sha256": "092d2b96de75903b9ff56d9df69b7bbfc2e4c5492d92589330cac572b81fdb38"
+          },
+          {
+            "level": 4,
+            "bytes": 4,
+            "sha256": "048de34ab240a553a217ec893b19643e941e1c5c4c2c8866dfebbdf598e1ad91"
+          }
+        ]
+      },
+      {
+        "source": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/noise_finer.png",
+        "sourceSHA256": "e96391cd88d53d0bddfec29ab56baa04f4f8d03c1e7c6a12e65ac49f0ccdd5e7",
+        "target": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_noise.asset",
+        "guid": "582a2a8eb3df7454fb1465a0a1196685",
+        "mips": [
+          {
+            "level": 0,
+            "bytes": 1048576,
+            "sha256": "bdd27a896d4b0bd77a211a3c37dbdc4a9263d8019d99234a7db6b573c44e86e1"
+          }
+        ]
+      }
+    ],
+    "material": {
+      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Sky/HillsSnow.mat",
+      "guid": "2a56bab853e8bc04f828fccf2df8b632",
+      "shader": "SlowRoads/HillsSnow",
+      "bindings": [
+        "_SnowMap",
+        "_SnowNoise"
+      ]
+    },
+    "conversion": {
+      "tool": "environment-snow-textures.cjs + environment-snow-assets.cs",
+      "method": "Verified archive assets uploaded by archived Three in native WebGL; raw base/mips exported through GPU readback and serialized via AssetDatabase. Independent oracle fixture is never read by asset preparation. Retained PNG base independently validated. Temporary raw cache stays in ignored Temp.",
+      "producerSHA256": "7fc55da312c86e8ea943cb6229a707a2e7c3ae1bfe96d754d8924cc1e2b09f9b",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 (0x00002487) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "mipByteDifferences": 0,
+      "runtimeReadsDocsOrTemp": false
+    },
+    "samplers": {
+      "sprite": "16x16 sRGB RGBA32, 5 native mips, Repeat/Trilinear/aniso1, original alphaTest .1; white RGB",
+      "noise": "512x512 linear RGBA32, Repeat/Bilinear/aniso4, explicit vertex-equivalent LOD0; only consumed base serialized; shared C5 source asset untouched"
+    },
+    "configuration": "Only HillsSceneSettings snowVisible/snowMaterial/snowCulling and existing season/time/weather; serialized feature appended to existing PC_Renderer without replacing earlier features",
+    "runtime": {
+      "counts": [
+        48841,
+        5476,
+        0
+      ],
+      "sourceRandomCalls": 54317,
+      "randomAdaptation": "Private LCG32 seed 0x053A07E5 only for source Math.random startup heights; same recorded random input executed by original gi. Not arbitrary-original-startup identity; no road/tree/grass RNG input or consumption.",
+      "clock": "Time.timeAsDouble (application clock); no visible-only snow clock, vehicle, headlight or cockpit dependency",
+      "renderPassEvent": "BeforeRenderingTransparents - 1 (449)",
+      "draw": "GPU compute preparation + one indirect quad draw. Stable source order retained; no Append compaction; invisible quads exit rasterizer.",
+      "state": "Opaque alpha-test, depth test/write on, Blend Off, fog false, source linear snowCol and final alpha1",
+      "bufferBytes": 2214736,
+      "bufferCount": 4,
+      "cpuWork": "Bounded startup layout upload 651804 bytes; thereafter O(1) uniforms and 20-byte args on count changes only, no per-particle CPU updates/readbacks",
+      "fallback": "Compute/Instancing/IndirectArguments/SM4.5 or material absent: explicitly disable snow, allocate no particle buffers. No CPU particle fallback."
+    },
+    "results": {
+      "environmentTestsPassed": 20,
+      "environmentTestsTotal": 20,
+      "snowTests": 6,
+      "originalFloatImages": 33,
+      "vertexProbes": 108,
+      "maxVertexOrClipError": 0,
+      "maxImageError": 2.9802322387695312e-08,
+      "imageMismatchPixels": 0,
+      "originPreparedMaxDelta": 0,
+      "generationAndRandomHashesUnchanged": true
+    },
+    "evidence": {
+      "fixture": "Docs/ReverseEngineering/ContentsAudit/Fixtures/Environment/snow.json",
+      "tests": "Docs/Agents/Artifacts/HillsEnvironment/e5-environment-tests.json",
+      "mips": "Docs/Agents/Artifacts/HillsEnvironment/e5-texture-comparison.csv",
+      "images": "Docs/Agents/Artifacts/HillsEnvironment/e5-snow-images.csv",
+      "scene": "Docs/Agents/Artifacts/HillsEnvironment/e5-scene-comparison.json",
+      "frameDebugger": "Docs/Agents/Artifacts/HillsEnvironment/e5-frame-debugger.json",
+      "performance": "Docs/Agents/Artifacts/HillsEnvironment/e5-performance-summary.json",
+      "release": "Docs/Agents/Artifacts/HillsEnvironment/e5-edit-release.json"
+    },
+    "measurement": "Unity6000.3.22f1 D3D12 RTX3060, live target3840x2160, snapshots1280x720, source oracle128x72 ANGLE/D3D11. 120 fixed-view frames with CPU/GPU recording; outliers retained. See full marker mean/p95/max, not total-frame budget. Projected area is not measured hardware overdraw. E7 full-scene baseline remains pending; no mobile device tests."
   }
 }

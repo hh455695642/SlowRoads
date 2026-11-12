@@ -19,22 +19,23 @@ Shader "SlowRoads/Hills/CatsEye"
             #pragma multi_compile_instancing
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "HillsCatsEye.hlsl"
+            #include "../Environment/HillsSurfaceEnvironment.hlsl"
             CBUFFER_START(UnityPerMaterial)
             float4 _BaseColor;float _PointSize;
             CBUFFER_END
             float4 _ReflectorPosition,_ReflectorDirection;float _ReflectorEnabled;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 corner:TEXCOORD0;UNITY_VERTEX_INPUT_INSTANCE_ID};
-            struct V {float4 positionCS:SV_POSITION;float brightness:TEXCOORD0;UNITY_VERTEX_INPUT_INSTANCE_ID};
+            struct V {float4 positionCS:SV_POSITION;float brightness:TEXCOORD0;float3 world:TEXCOORD1;float4 fog:TEXCOORD2;UNITY_VERTEX_INPUT_INSTANCE_ID};
             V Vert(A i)
             {
                 V o=(V)0;UNITY_SETUP_INSTANCE_ID(i);UNITY_TRANSFER_INSTANCE_ID(i,o);float3 world=TransformObjectToWorld(i.positionOS);
-                o.positionCS=TransformWorldToHClip(world);
+                o.positionCS=TransformWorldToHClip(world);o.world=world;o.fog=HillsSurfaceFogVertex(world);
                 // Three PointMaterial sizeAttenuation: size * (height/2) / -viewZ.
                 // Clip w cancels depth; x includes viewport aspect for square pixels.
                 o.positionCS.xy+=i.corner*(_PointSize*.5)*float2(_ScreenParams.y/_ScreenParams.x,1);
                 o.brightness=HillsReflectorBrightness(world,TransformObjectToWorldNormal(i.normalOS),_ReflectorPosition.xyz,_ReflectorDirection.xyz)*_ReflectorEnabled;return o;
             }
-            float4 Frag(V i):SV_Target {UNITY_SETUP_INSTANCE_ID(i);return float4(_BaseColor.rgb,i.brightness);}
+            float4 Frag(V i):SV_Target {UNITY_SETUP_INSTANCE_ID(i);return float4(HillsSurfaceFog(_BaseColor.rgb,i.world,i.fog),i.brightness);}
             ENDHLSL
         }
     }

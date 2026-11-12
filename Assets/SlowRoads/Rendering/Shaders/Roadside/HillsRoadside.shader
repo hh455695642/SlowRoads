@@ -20,17 +20,18 @@ Shader "SlowRoads/Hills/Roadside"
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#include "../Environment/HillsSurfaceEnvironment.hlsl"
         #include "HillsRoadside.hlsl"
         TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
         CBUFFER_START(UnityPerMaterial)
         float4 _BaseColor;float _Cutoff,_Emission,_Flat,_SurfaceOnly,_Sign,_SunIntensity;
         CBUFFER_END
         struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;UNITY_VERTEX_INPUT_INSTANCE_ID};
-        struct V {float4 positionCS:SV_POSITION;float3 world:TEXCOORD0;float3 normal:TEXCOORD1;float2 uv:TEXCOORD2;float3 view:TEXCOORD3;UNITY_VERTEX_INPUT_INSTANCE_ID};
+        struct V {float4 positionCS:SV_POSITION;float3 world:TEXCOORD0;float3 normal:TEXCOORD1;float2 uv:TEXCOORD2;float3 view:TEXCOORD3;float4 fog:TEXCOORD4;UNITY_VERTEX_INPUT_INSTANCE_ID};
         V Vert(A i)
         {
             V o=(V)0;UNITY_SETUP_INSTANCE_ID(i);UNITY_TRANSFER_INSTANCE_ID(i,o);
-            o.world=TransformObjectToWorld(i.positionOS);float4 v=mul(UNITY_MATRIX_MV,float4(i.positionOS,1));o.view=v.xyz;o.positionCS=mul(UNITY_MATRIX_P,v);
+            o.world=TransformObjectToWorld(i.positionOS);o.fog=HillsSurfaceFogVertex(o.world);float4 v=mul(UNITY_MATRIX_MV,float4(i.positionOS,1));o.view=v.xyz;o.positionCS=mul(UNITY_MATRIX_P,v);
             o.normal=TransformObjectToWorldNormal(i.normalOS);o.uv=i.uv;return o;
         }
         float4 Surface(V i){float4 c=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,i.uv)*_BaseColor;clip(c.a-_Cutoff);return c;}
@@ -38,12 +39,12 @@ Shader "SlowRoads/Hills/Roadside"
         {
             UNITY_SETUP_INSTANCE_ID(i);float4 c=Surface(i);if(_SurfaceOnly>.5)return c;
             float3 n=normalize(i.normal);if(_Flat>.5)n=mul(normalize(cross(ddy(i.view),ddx(i.view))),(float3x3)UNITY_MATRIX_V);
-            float3 v=GetWorldSpaceNormalizeViewDir(i.world);Light l=GetMainLight();float nl=saturate(dot(n,l.direction)),nv=saturate(dot(n,v));
-            float vh=saturate(dot(v,normalize(l.direction+v))),f=exp2((-5.55473*vh-6.98316)*vh);
+            float3 v=GetWorldSpaceNormalizeViewDir(i.world);Light l=GetMainLight();float3 sourceLightDirection=HillsLightDirection(l.direction),sourceLightColour=HillsLightColour(l.color);float nl=saturate(dot(n,sourceLightDirection)),nv=saturate(dot(n,v));
+            float vh=saturate(dot(v,normalize(sourceLightDirection+v))),f=exp2((-5.55473*vh-6.98316)*vh);
             float specular=(.04*(1-f)+f)*(.5/max(nl+nv,1e-6));
             // Same restricted Three r155 standard BRDF adapter as C3; whole-scene
             // source lighting/fog remains a C7 input, not a new material keyword.
-            return float4(c.rgb*(SampleSH(n)+_Emission+_Sign*HillsSignEmission(_SunIntensity))+nl*l.color*l.distanceAttenuation*(c.rgb+specular),1);
+            return float4(HillsSurfaceFog(c.rgb*(HillsAmbientColour(n,SampleSH(n))+_Emission+_Sign*HillsSignEmission(_HillsSurfaceControl.y>.5?_HillsSurfaceControl.z:_SunIntensity))+nl*sourceLightColour*l.distanceAttenuation*(c.rgb+specular),i.world,i.fog),1);
         }
         half4 Depth(V i):SV_Target{UNITY_SETUP_INSTANCE_ID(i);Surface(i);return 0;}
         ENDHLSL

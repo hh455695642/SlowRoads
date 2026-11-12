@@ -164,7 +164,8 @@ namespace SlowRoads.Scene.Terrain
         public void Release()
         {
             if(disposed)return;disposed=true;if(road!=null)road.OriginShifted-=OriginChanged;if(Trees!=null)Trees.Attributes.Changed-=ContentChanged;Fields?.Dispose();Trees?.Dispose();Core?.Dispose();ReleaseAll();
-            foreach(var slot in pool){slot.Upload.Dispose();if(slot.Object!=null)Destroy(slot.Object);}pool.Clear();if(runtimeMaterial!=null)Destroy(runtimeMaterial);runtimeMaterial=null;sourceMaterial=null;
+            foreach(var slot in pool){slot.Upload.Dispose();if(slot.Object!=null){if(Application.isPlaying)Destroy(slot.Object);else DestroyImmediate(slot.Object);}}
+            pool.Clear();if(runtimeMaterial!=null){if(Application.isPlaying)Destroy(runtimeMaterial);else DestroyImmediate(runtimeMaterial);}runtimeMaterial=null;sourceMaterial=null;
         }
         void OnDestroy()=>Release();
     }

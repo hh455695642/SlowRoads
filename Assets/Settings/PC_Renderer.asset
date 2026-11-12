@@ -14,6 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: SlowRoads.ContentsRendering::SlowRoads.Rendering.HillsTreeRendererFeature
   m_Active: 1
   culling: {fileID: 7200000, guid: 12edb52a97efa654ca9b23ae76e0cd3c, type: 3}
+--- !u!114 &-1188492049655620337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19785b855541d894691f61dd3ac00f3f, type: 3}
+  m_Name: Hills Snow
+  m_EditorClassIdentifier: SlowRoads.ContentsRendering::SlowRoads.Rendering.HillsSnowRendererFeature
+  m_Active: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,7 +54,9 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
   - {fileID: -3254399999318850828}
-  m_RendererFeatureMap: ad6b866f10d7b46c
+  - {fileID: 5874441397948671653}
+  - {fileID: -1188492049655620337}
+  m_RendererFeatureMap: ad6b866f10d7b46cf4829173710cd6d2a56694ca533586510f9de619c7a081ef
   m_UseNativeRenderPass: 1
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   m_AssetVersion: 3
@@ -69,6 +84,19 @@ MonoBehaviour:
   m_DepthTextureFormat: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
+--- !u!114 &5874441397948671653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f16ee93a3c0cd648a575b5847dacddf, type: 3}
+  m_Name: Hills Sky
+  m_EditorClassIdentifier: SlowRoads.ContentsRendering::SlowRoads.Rendering.HillsSkyRendererFeature
+  m_Active: 1
 --- !u!114 &7833122117494664109
 MonoBehaviour:
   m_ObjectHideFlags: 0

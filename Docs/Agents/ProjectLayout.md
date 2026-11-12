@@ -36,6 +36,8 @@ Assets/
     Art/Reference/SlowRoads/           临时参考素材，按原分类保存
       Models/ Textures/ Materials/ Prefabs/
     Rendering/Features/                HillsTreeRendererFeature（共享树/草灌Compute/DepthNormals/Forward）
+    Rendering/Environment/             四季/时段/天气不可变原参数、按相机状态/天空云层Mesh、有界雪Buffer、地景雾光照参数；唯一SO控制
+    Rendering/Passes/                  HillsSkyPass（Opaque前既有颜色目标，一次绘制，无新增RT）
     Rendering/Compute/                 共享GPU剔除、树近远LOD与草灌显示半径
     Rendering/Instances/               HillsGpuSource、树/草灌专用payload/Cluster、缓冲池及释放
     Rendering/Shaders/Vegetation/      树/imposter/草/灌木Shader；草灌无Compute时禁显示且保留CPU数据
@@ -70,6 +72,7 @@ SampleScene、模板教学资源及未接入的音频、字体、UI 图标已移
 - 已删除独立HillsDebugSettings、HillsRoadStreamingSettings（重命名并合并）、HillsRoadMaterialSettings、HillsHeightfieldSettings及旧实例；删除Runtime/Configuration、Settings/Debug、Art/Debug/RoadPreview空目录及预览专用占位路面材质。
 - 2026-11-02原8套树材质保GUID迁移至正式植被Shader；Legacy树Shader与空目录在引用归零后已删除。原版对照fixture与测试在Tests/Docs，不进入用户场景配置；旧P6探针不恢复。
 - 运行程序集不读Docs；Generation保持无Unity引用，Scene/Road提供唯一配置类型和表现边界。没有新增Manager、兼容Settings或平行场景。
+- 2026-11-12环境E0–E4：Scene/Road/HillsEnvironmentPresentation消费唯一HillsSceneSettings、P5观察者进度和C2阴影属性；Rendering/Environment保存原24主题和按相机状态/资源/统一参数。HillsSkyRendererFeature复用天空云Pass，新增BeforeRendering/AfterRendering命令Pass绑定/清空地景雾光照，不增RT或绘制。原雾480样本、照明288样本、14/14环境回归及24组固定图通过，C3旧FAIL与基线一致。新入口/参考执行器/保护边界见ContentsAudit/S1_四季天空时段与天气复刻实施计划.md §8；E5雪已于下条记录通过限定门禁，最终整图性能待E6–E8。
 
 ## 清理状态（2026-10-28）
 
@@ -113,6 +116,8 @@ P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit
 | 编辑器工具 | Editor/具体模块 | 对应模块所有者 |
 | 算法对照测试 | Tests/EditMode/具体模块（独立测试程序集） | Debug & Verification |
 | 生命周期/播放测试 | Tests/PlayMode（独立测试程序集） | Debug & Verification |
+
+- 2026-11-12环境E5：Rendering/Features/HillsSnowRendererFeature、Passes/HillsSnowPass、Compute/HillsSnow.compute、Shaders/Environment/HillsSnow.shader+hlsl及Environment/HillsSnowResources组成唯一雪渲染链。Scene/Road现有EnvironmentPresentation提供应用时钟与逻辑原点；唯一SO引用共享雪材质/Compute。原生雪纹理导出与AssetDatabase转换工具、独立原版Fixture位于ContentsAudit，证据位于Artifacts/HillsEnvironment/e5-*。20/20环境回归，102个Generation源码/密度/6m与2m保持；E6–E8与C7未执行。
 
 ## 依赖与命名
 

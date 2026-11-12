@@ -82,14 +82,16 @@ namespace SlowRoads.Scene.Road
         }
         void ReleaseContents()
         {
-            var roadside=Roadside;roadside?.Release();Roadside=null;if(roadside!=null)Destroy(roadside);
-            var grass=Grass;grass?.Release();Grass=null;if(grass!=null)Destroy(grass);
-            var water=Water;water?.Release();Water=null;if(water!=null)Destroy(water);
+            var roadside=Roadside;roadside?.Release();Roadside=null;if(roadside!=null)DestroyPresentation(roadside);
+            var grass=Grass;grass?.Release();Grass=null;if(grass!=null)DestroyPresentation(grass);
+            var water=Water;water?.Release();Water=null;if(water!=null)DestroyPresentation(water);
             if(Terrain?.Trees!=null)Terrain.Trees.Attributes.Changed-=ContentShadowsChanged;
-            var structures=Structures;structures?.Release();Structures=null;if(structures!=null)Destroy(structures);
-            var trees=Trees;trees?.Release();Trees=null;if(trees!=null)Destroy(trees);
-            var terrain=Terrain;terrain?.Release();Terrain=null;if(terrain!=null)Destroy(terrain);
+            var structures=Structures;structures?.Release();Structures=null;if(structures!=null)DestroyPresentation(structures);
+            var trees=Trees;trees?.Release();Trees=null;if(trees!=null)DestroyPresentation(trees);
+            var terrain=Terrain;terrain?.Release();Terrain=null;if(terrain!=null)DestroyPresentation(terrain);
         }
+        // EditMode callers also own native resources. Runtime keeps deferred destruction.
+        static void DestroyPresentation(UnityEngine.Object value){if(Application.isPlaying)Destroy(value);else DestroyImmediate(value);}
         void BindMaterial()
         {
             // Keep materials tied to the active generation until the selected type is rebuilt.

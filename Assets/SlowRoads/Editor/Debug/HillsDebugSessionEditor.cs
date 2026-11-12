@@ -35,7 +35,9 @@ public sealed class HillsDebugSessionEditor : Editor
         Field(data,"treesVisible","显示树群","只控制显示，不重抽候选或改变随机序列。");Field(data,"treeShadows","树群投影","需要当前光源启用阴影；原版地表树影数据独立保留。");
         Field(data,"grassVisible","显示草与灌木","只控制显示，不重抽候选或改变随机序列。");
         Field(data,"fieldWallsVisible","显示农田边界墙");Field(data,"bridgesVisible","显示桥梁");Field(data,"wallsVisible","显示沿路墙及防护设施");
-        Field(data,"season","季节");Field(data,"visible","显示道路");Field(data,"generationEnabled","持续生成","关闭时停止补路，观察者等待可用道路。");
+        Field(data,"season","季节");Field(data,"environmentTime","时段");Field(data,"environmentWeather","天气");
+        Field(data,"skyVisible","显示天空");Field(data,"cloudsVisible","显示云层");Field(data,"atmosphereVisible","显示环境雾");Field(data,"environmentLightingEnabled","主题光照");Field(data,"snowVisible","显示天气飘雪");
+        Field(data,"visible","显示道路");Field(data,"generationEnabled","持续生成","关闭时停止补路，观察者等待可用道路。");
         EditorGUILayout.Space();Field(data,"movementEnabled","自动前进");Field(data,"speed","前进速度（米/秒）");Field(data,"stepMetres","单步距离（米）");
         cameraSettings=EditorGUILayout.Foldout(cameraSettings,"相机",true);
         if(cameraSettings)
@@ -56,6 +58,8 @@ public sealed class HillsDebugSessionEditor : Editor
         if(resources)
         {
             EditorGUILayout.PropertyField(data.FindProperty("cubeMaterial"));
+            Field(data,"skyMaterial","原版天空材质");
+            Field(data,"snowMaterial","飘雪材质");Field(data,"snowCulling","飘雪GPU计算");Field(data,"cloudMaterial","原版云层材质");
             Field(data,"terrainMaterials","地形季节材质（夏/春/秋/冬）");
             Field(data,"treeMeshes","树模型（两族各四变体）");Field(data,"treeMaterials","树材质（夏/春/秋/冬各八套）");
             Field(data,"treeImposterMaterials","远景树材质（四季各两族）");Field(data,"treeCulling","树群GPU剔除");Field(data,"treeFallbackShader","树群降级Shader");
