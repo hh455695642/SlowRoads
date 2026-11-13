@@ -1,0 +1,7 @@
+{
+  "name": "SlowRoads.Environment.Editor",
+  "rootNamespace": "SlowRoads.Environment.Editor",
+  "references": ["SlowRoads.Environment.Runtime", "Unity.RenderPipelines.Core.Runtime", "Unity.RenderPipelines.Universal.Runtime"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}

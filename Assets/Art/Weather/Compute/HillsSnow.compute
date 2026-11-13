@@ -1,0 +1,27 @@
+#pragma kernel PrepareSnow
+#pragma target 5.0
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+#include "../Shaders/HillsSnow.hlsl"
+StructuredBuffer<float3> _SnowPositions;
+RWStructuredBuffer<HillsSnowPrepared> _SnowPrepared;
+uint _SnowCount;
+[numthreads(128,1,1)]
+void PrepareSnow(uint3 id:SV_DispatchThreadID)
+{
+    if(id.x>=_SnowCount)return;
+    HillsSnowPoint p=HillsSnowSimulate(_SnowPositions[id.x]);float4 c=p.clip;
+    float size=clamp(p.size,_SnowScreen.z,_SnowScreen.w);
+    // Native GL points may contribute at a viewport edge while their centre is outside.
+    // Cull the expanded footprint; the rasterizer owns its final pixel coverage.
+    float2 extent=size/_SnowScreen.xy*c.w;
+    bool visible=p.skip<.5&&c.w>0&&all(abs(c.xy)<=c.w+extent);
+    #if defined(SHADER_API_GLCORE)||defined(SHADER_API_GLES3)
+    visible=visible&&c.z>=-c.w&&c.z<=c.w;
+    #else
+    visible=visible&&c.z>=0&&c.z<=c.w;
+    #endif
+    HillsSnowPrepared o;o.clip=c;o.info=float4(size,visible?1:0,p.depth,0);
+    // Stable source order. Invisible instances leave the rasterizer in the vertex shader;
+    // no atomics/append order can alter equal-depth point ownership or source alpha.
+    _SnowPrepared[id.x]=o;
+}

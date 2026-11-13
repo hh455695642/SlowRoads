@@ -32,9 +32,8 @@ namespace SlowRoads.Scene.Contents
         }
         static readonly VertexAttributeDescriptor[] Layout={new(VertexAttribute.Position,VertexAttributeFormat.Float32,3,0),new(VertexAttribute.Normal,VertexAttributeFormat.Float32,3,1),
             new(VertexAttribute.TexCoord0,VertexAttributeFormat.Float32,2,2),new(VertexAttribute.TexCoord1,VertexAttributeFormat.Float32,1,3)};
-        readonly Dictionary<object,Slot> active=new();readonly Stack<Slot> pool=new();MaterialPropertyBlock block;
+        readonly Dictionary<object,Slot> active=new();readonly Stack<Slot> pool=new();
         // Native Unity resources must be created on the main thread, not during deserialization.
-        void Awake()=>block=new MaterialPropertyBlock();
         RoadStreamingPresentation road;HillsSceneSettings settings;bool disposed;
         public BridgeStreamingSession Bridges {get;private set;}public WallStreamingSession Walls {get;private set;}
         public bool Building=>Walls?.Building??false;public int NativeMeshCount=>active.Count+pool.Count;
@@ -125,7 +124,8 @@ namespace SlowRoads.Scene.Contents
                 Material material=s.Kind switch {Kind.Field=>near?materials.drystone:materials.fieldFar,Kind.Bridge=>materials.bridge,Kind.Shadow=>settings.bridgeProjectedShadow,
                     _=>s.Wall.Segment.Type switch {HillsWallType.Bridge or HillsWallType.Lowland=>materials.solidWall,HillsWallType.Barrier=>materials.barrier,HillsWallType.Fence=>materials.fence,_=>materials.drystone}};
                 if(material==null||material.shader==null)throw new InvalidOperationException("Missing formal structure material");
-                if(s.Material!=material){s.Renderer.sharedMaterial=material;block.Clear();block.SetFloat("_ShadowFactor",settings.ResolveTerrainMaterial().GetFloat("shadowFactor"));s.Renderer.SetPropertyBlock(block);s.Material=material;}
+                material=road.ThemeMaterials.Resolve(material);
+                if(s.Material!=material){s.Renderer.sharedMaterial=material;s.Material=material;}
                 s.Renderer.enabled=s.Kind switch {Kind.Field=>settings.fieldWallsVisible&&s.Region.Visible&&!s.Region.Retired,
                     Kind.Bridge=>settings.bridgesVisible&&s.Bridge.Visible,Kind.Shadow=>settings.bridgesVisible&&s.Bridge.Visible&&s.Bridge.Near,_=>settings.wallsVisible&&s.Wall.Visible};
             }

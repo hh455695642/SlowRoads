@@ -1,7 +1,13 @@
 {
   "name": "SlowRoads.RoadPresentation",
   "rootNamespace": "SlowRoads.Scene.Road",
-  "references": ["SlowRoads.Generation", "SlowRoads.ContentsRendering"],
+  "references": [
+    "SlowRoads.Generation",
+    "SlowRoads.ContentsRendering",
+    "SlowRoads.Environment.Runtime",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.RenderPipelines.Universal.Runtime"
+  ],
   "autoReferenced": true,
   "noEngineReferences": false
 }

@@ -1,5 +1,13 @@
 # Hills agent 结构与阶段验收
 
+2026-11-13 LT5–LT8补证：显式重新应用地表主题已接现有Debug Inspector；去重51/51、三seed四预算完整回收历史2304事件、域重载开/关各10轮重建、2.8km全内容推进与独立Weather Player通过。24主题/动态阴影、独立天气、786保护文件、密度与6m/2m保持，旧Lighting/运行主题Volume和临时Before Shader清退。LT6当前桌面CPU/GPU基线已实测，但严格整图相等与同条件Before成本比较仍未关闭，整体LT/C7/S1不标全PASS。详细结果见环境Volume计划§13.8。
+
+2026-11-13 W迁移当前入口：天气通用代码/主题表/Shader/Compute/材质/纹理/Resources/Profile统一位于Assets/Art/Weather，旧embedded包已移除；主场景Hills Environment Volume挂WeatherController，只写天空/云/雾/雪。天气季节/时段/天气与HillsDebugSession地表主题输入独立，无自动同步。Hills光照、道路阴影及水面主题链保持；历史V0–V10路径不再是当前入口。详细验证及限定范围见环境Volume计划§12.9。
+
+2026-11-13 Scene View补充：现已补齐原先缺失的SceneCamera环境owner，Edit/Play均复用正式Volume/Pass，PC Renderer资源已接入。12项定向回归、Scene窗口即时试色/云雪及唯一主场景1182m冒烟通过；用户SO/Profile RAM和dirty、树草算法/密度、相机6m/2m保持。此为Editor预览修复，不关闭V9原生路线/最终整图或C7门禁，见环境Volume计划§11 V10。
+
+2026-11-12环境Volume迁移V0–V8限定门禁PASS：通用天空/云/雾照明/雪统一于embedded包com.slowroads.environment，五类原生Volume、独立资源SO与三Feature，HillsDebugSession保留运行控制和低优先级主题适配；主场景Global Volume持久化，原GUID保留。30/30环境回归、720参数/原GPUFixture、三组最终同机位0像素差、3seed四预算完整回收历史、十轮重建（域重载开/关）及独立无Hills工程通过。手工Override不再被基础预览逐帧重写。修正版实跑1800秒/14.23km/3原点迁移/0错误；同条件桌面3轮CPU/GPU/GC和资源已实测，旧通用副本/重复字段/临时生产探针已清退。102个Generation源码、9原Fixture、候选/实例窗口/RNG与密度、6m/2m保持。V9已补batch Editor D3D11三轮GPU实测（CPU中位增加约0.5ms）及自然桥2434六组原Ni受控道路回放整图；原应用原生路线有跨执行环境数值分歧，最终整图仍UNVERIFIED。用户RAM中的黑色天空Override已原样恢复，生产代码/密度/6m与2m不变；移动/XR未测，不宣称E7/C7/S1全通过。详见ContentsAudit/URP环境Volume模块化与跨项目复用实施计划.md §11。
+
 2026-11-12环境专项E5：原版gi冬阴full48841/half5476/0、54317次交错随机消费、108组原GPU顶点及33组原图通过；原贴图base/mip逐字节一致，环境回归20/20。私有LCG仅适配原非seed雪初始化，不接道路/草木随机流。HillsSnowRendererFeature在449事件Compute+单次Indirect，固定4 Buffer共2214736B，深度写入/遮挡通过，无新增RT/Blit；不支持Compute/Indirect时禁雪。唯一SO新增两资源引用，C5共用noise原资源/Importer不变。主场景雪开关树/草灌/实例窗口/RNG hash及相机6m/2m不变；原点、重建、退出释放有记录。E6/E7/C7未开始，范围与真实CPU/GPU采样见ContentsAudit环境计划§8。
 
 2026-11-12环境专项E0–E4：唯一SO/按相机天空云链已接入原地景雾和主题光照。原雾480样本max1.789e-7、288照明样本max4.769e-7、14/14环境测试及24组固定机位通过；树/草灌/随机/相机hash保持。C3旧PBR FAIL与E4前差异报告完全相同，沿用既有接受边界、不改Fixture。Feature复用原入口，BeforeRendering绑定/AfterRendering清空，雾在正式各族Forward，无新增RT/绘制；移除水双雾及旧固定太阳。相机6m/2m、102个Generation源码和密度保持。E5雪已通过上述限定门禁，E6/E7整图/性能和C7仍未完成，详见ContentsAudit/S1_四季天空时段与天气复刻实施计划.md §8。

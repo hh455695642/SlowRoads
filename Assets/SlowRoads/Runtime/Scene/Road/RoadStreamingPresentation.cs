@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace SlowRoads.Scene.Road
 {
-    /// <summary>Owns exactly three Mesh uploaders. No rendering pipeline pass/RT or runtime material instances.</summary>
+    /// <summary>Owns three road Mesh uploaders, content display owners and bounded shared theme materials. No extra pass/RT.</summary>
     public sealed class RoadStreamingPresentation : MonoBehaviour
     {
         public RoadStreamingSession Core {get;private set;}
@@ -25,6 +25,7 @@ namespace SlowRoads.Scene.Road
         public Double3 RenderOrigin {get;private set;}
         // C7 can replace the source intensity input without changing C6 generation.
         public Light Sun {get;set;}
+        public HillsThemeMaterials ThemeMaterials {get;private set;}
         public string Fault {get;private set;}
         public int OriginShiftCount {get;private set;}
         public int GraphicsRebuildCount {get;private set;}public bool GraphicsRebuildPending {get;private set;}
@@ -42,6 +43,7 @@ namespace SlowRoads.Scene.Road
         public void Initialize(HillsSceneSettings configuration)
         {
             settings=configuration??throw new ArgumentNullException(nameof(configuration));
+            ThemeMaterials=new HillsThemeMaterials(SlowRoads.Rendering.Environment.HillsEnvironmentProfile.Resolve((int)settings.season,settings.environmentTime,settings.environmentWeather),settings.environmentLightingEnabled);
             Core=new RoadStreamingSession(settings.seed,new RoadStreamingConfig(settings.detail,settings.retainedBehindNodes,settings.LaneStyle,settings.terrainDetail));
             for(int i=0;i<3;i++)
             {
@@ -95,7 +97,7 @@ namespace SlowRoads.Scene.Road
         void BindMaterial()
         {
             // Keep materials tied to the active generation until the selected type is rebuilt.
-            var material=settings.ResolveRoadMaterial(Core.Config.Mesh.LaneStyle);
+            var material=ThemeMaterials.Resolve(settings.ResolveRoadMaterial(Core.Config.Mesh.LaneStyle));
             if(material==lastMaterial)return;foreach(var r in renderers)r.sharedMaterial=material;lastMaterial=material;
         }
         void Publish(StreamingRoadSlot slot)
@@ -173,6 +175,7 @@ namespace SlowRoads.Scene.Road
         {
             if(disposed)return;disposed=true;ReleaseContents();Core?.Dispose();Core=null;
             foreach(var upload in uploads)upload?.Dispose();
+            ThemeMaterials?.Dispose();ThemeMaterials=null;
         }
         void OnDestroy()=>Release();
     }

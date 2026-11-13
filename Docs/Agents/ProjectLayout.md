@@ -1,5 +1,15 @@
 # 项目目录与开发约定
 
+2026-11-13 LT当前：HillsThemeLighting纯求值→HillsThemeMaterials有界共享材质→正式显示链；唯一Debug Inspector可显式“重新应用地表主题”。Lighting Volume/runtime theme/旧全局链及临时Before Shader已清退。LT5/LT7功能与LT8清退通过51项去重回归，独立Weather Player有效；LT6固定图与桌面基线已采，严格图像相等及Before成本比较尾项保留，整体LT未结项。目录/接口仍见下表与环境Volume计划§13.8。
+
+2026-11-13 W迁移当前入口：天气通用代码/主题表/Shader/Compute/材质/纹理/Resources/Profile统一位于Assets/Art/Weather，旧embedded包已移除；主场景Hills Environment Volume挂WeatherController，只写天空/云/雾/雪。天气季节/时段/天气与HillsDebugSession地表主题输入独立，无自动同步。Hills光照、道路阴影及水面主题链保持；历史V0–V10路径不再是当前入口。详细验证及限定范围见环境Volume计划§12.9。
+
+2026-11-12 Volume迁移：V0–V8限定门禁已通过：30/30环境回归、独立包实际运行、最终三图像素差0、30分钟14.23km实跑及同条件桌面三轮CPU/GPU/资源对照；旧重复实现和生产探针已清退。通用实现统一位于 `Packages/com.slowroads.environment/`，Hills仅保留原主题与项目适配。实际门禁见ContentsAudit/URP环境Volume模块化与跨项目复用实施计划.md §11；不能按下方历史E4/E5路径恢复旧副本。
+
+2026-11-12 V9补证：仅Docs增加有限Editor基准与原版整场参考执行工具，不进入Assets/正式包。Editor三轮实测和桥湖受控回放已归档；原生路线/最终整图仍UNVERIFIED，详见同一实施计划§11 V9。原场景、生产代码、用户SO与Profile RAM/dirty保持。
+
+2026-11-13 Scene View修复：包内新增`Editor/`预览程序集，通过现有Atmosphere Feature的pre-cull接入Scene相机；现有PC Renderer引用同一个Resources SO。12项定向测试及实际Scene试色/云雪、主场景1.18km冒烟通过，无新Scene/Pass/Shader/生成入口；详见环境Volume计划§11 V10。
+
 ## 当前目录
 
 ```text
@@ -36,8 +46,8 @@ Assets/
     Art/Reference/SlowRoads/           临时参考素材，按原分类保存
       Models/ Textures/ Materials/ Prefabs/
     Rendering/Features/                HillsTreeRendererFeature（共享树/草灌Compute/DepthNormals/Forward）
-    Rendering/Environment/             四季/时段/天气不可变原参数、按相机状态/天空云层Mesh、有界雪Buffer、地景雾光照参数；唯一SO控制
-    Rendering/Passes/                  HillsSkyPass（Opaque前既有颜色目标，一次绘制，无新增RT）
+    Rendering/Environment/             纯Hills主题光照求值、天气相机输入适配；无Lighting Volume或主题全局上传
+    Rendering/Passes/                  植被等项目专用Pass；天空/云/雾/雪使用Art/Weather中的Pass
     Rendering/Compute/                 共享GPU剔除、树近远LOD与草灌显示半径
     Rendering/Instances/               HillsGpuSource、树/草灌专用payload/Cluster、缓冲池及释放
     Rendering/Shaders/Vegetation/      树/imposter/草/灌木Shader；草灌无Compute时禁显示且保留CPU数据
@@ -142,3 +152,5 @@ P6（2026-10-29）验收结果统一记录于 `Docs/ReverseEngineering/RoadAudit
 删除旧树/道具生成菜单实现、两个场景创建菜单实现、旧 Demo/VehicleController/CameraRig、未使用草地实验脚本与 Shader、无引用且与 summer_grasses.png 哈希相同的 Resources 草贴图，以及 HillsAgentDebug 场景。
 
 目录整理时保留已有树 Shader、材质和 Prefab；后续资产审计已进一步裁剪为 Hills 八种 OBJ 树的引用链，详情见 Docs/Assets/HillsAssetAudit.md。在 2026-10-28 的清理批次中曾保留三个旧道路算法脚本供当时调试使用；自 P5 默认接管后，这些脚本及旧适配入口应列为下一次清退审计候选，不代表永久保留。原版摘录与历史审计报告保持证据原貌。
+
+- 当前环境正式归属：`Assets/Art/Weather/Scripts/Runtime/Volume`为天空/云/雾/雪四类参数，Core为不可变天气快照/解析，Rendering为相机owner、三Feature及Pass、天空云Mesh和有界雪Buffer；同目录下Shaders/Compute为通用渲染实现，Settings保存Profile/Resources。原24主题表在Weather/Scripts/Runtime/Themes供双方只读复用。HillsSceneSettings保留唯一生成配置及24主题输入/开关，项目侧HillsThemeMaterials写共享运行材质；不存在Lighting Volume、runtime theme或旧光照全局运输。Weather README记录独立接入边界。

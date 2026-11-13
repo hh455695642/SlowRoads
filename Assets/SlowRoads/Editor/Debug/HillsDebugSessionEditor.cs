@@ -10,7 +10,7 @@ public sealed class HillsDebugSessionEditor : Editor
         =>EditorGUILayout.PropertyField(data.FindProperty(name),new GUIContent(label,tip),true);
     public override void OnInspectorGUI()
     {
-        serializedObject.Update();Field(serializedObject,"settings","场景配置");serializedObject.ApplyModifiedProperties();
+        serializedObject.Update();Field(serializedObject,"settings","场景配置");Field(serializedObject,"environmentVolume","环境 Volume");Field(serializedObject,"environmentResources","环境渲染资源");serializedObject.ApplyModifiedProperties();
         var session=(HillsDebugSession)target;
         if(session.settings==null){EditorGUILayout.HelpBox("请指定丘陵场景配置。",MessageType.Warning);return;}
         var data=new SerializedObject(session.settings);data.Update();
@@ -35,8 +35,12 @@ public sealed class HillsDebugSessionEditor : Editor
         Field(data,"treesVisible","显示树群","只控制显示，不重抽候选或改变随机序列。");Field(data,"treeShadows","树群投影","需要当前光源启用阴影；原版地表树影数据独立保留。");
         Field(data,"grassVisible","显示草与灌木","只控制显示，不重抽候选或改变随机序列。");
         Field(data,"fieldWallsVisible","显示农田边界墙");Field(data,"bridgesVisible","显示桥梁");Field(data,"wallsVisible","显示沿路墙及防护设施");
-        Field(data,"season","季节");Field(data,"environmentTime","时段");Field(data,"environmentWeather","天气");
-        Field(data,"skyVisible","显示天空");Field(data,"cloudsVisible","显示云层");Field(data,"atmosphereVisible","显示环境雾");Field(data,"environmentLightingEnabled","主题光照");Field(data,"snowVisible","显示天气飘雪");
+        Field(data,"season","地表季节（含主题光照）");Field(data,"environmentTime","主题光照时段");Field(data,"environmentWeather","主题光照天气");
+        Field(data,"environmentLightingEnabled","应用主题光照");
+        bool reapplyTheme=false;
+        using(new EditorGUI.DisabledScope(!Application.isPlaying||session.Environment?.State==null))
+            reapplyTheme=GUILayout.Button("重新应用地表主题");
+        EditorGUILayout.HelpBox("地表24组主题直接应用到运行材质和太阳。天空、云、雾、雪由Hills Environment Volume上的WeatherController独立控制。",MessageType.Info);
         Field(data,"visible","显示道路");Field(data,"generationEnabled","持续生成","关闭时停止补路，观察者等待可用道路。");
         EditorGUILayout.Space();Field(data,"movementEnabled","自动前进");Field(data,"speed","前进速度（米/秒）");Field(data,"stepMetres","单步距离（米）");
         cameraSettings=EditorGUILayout.Foldout(cameraSettings,"相机",true);
@@ -58,8 +62,6 @@ public sealed class HillsDebugSessionEditor : Editor
         if(resources)
         {
             EditorGUILayout.PropertyField(data.FindProperty("cubeMaterial"));
-            Field(data,"skyMaterial","原版天空材质");
-            Field(data,"snowMaterial","飘雪材质");Field(data,"snowCulling","飘雪GPU计算");Field(data,"cloudMaterial","原版云层材质");
             Field(data,"terrainMaterials","地形季节材质（夏/春/秋/冬）");
             Field(data,"treeMeshes","树模型（两族各四变体）");Field(data,"treeMaterials","树材质（夏/春/秋/冬各八套）");
             Field(data,"treeImposterMaterials","远景树材质（四季各两族）");Field(data,"treeCulling","树群GPU剔除");Field(data,"treeFallbackShader","树群降级Shader");
@@ -74,6 +76,7 @@ public sealed class HillsDebugSessionEditor : Editor
                 selected==SlowRoads.Scene.Road.HillsRoadType.OffRoad||selected==SlowRoads.Scene.Road.HillsRoadType.Single?"singleMaterials":"wideMaterials"),true);
         }
         data.ApplyModifiedProperties();
+        if(reapplyTheme)session.Environment.ApplyThemeNow();
         if(!Application.isPlaying)EditorGUILayout.HelpBox("点击 Unity 顶部播放按钮后，可暂停、单步或重新生成。",MessageType.Info);
         using(new EditorGUI.DisabledScope(!Application.isPlaying||session.Observer==null))
         {

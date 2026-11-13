@@ -49,7 +49,7 @@ namespace SlowRoads.Scene.Terrain
         {
             var source=settings.ResolveTerrainMaterial();
             if(runtimeMaterial==null)runtimeMaterial=new Material(source){name="Hills terrain runtime surface",hideFlags=HideFlags.DontSave};
-            if(source!=sourceMaterial){runtimeMaterial.CopyPropertiesFromMaterial(source);sourceMaterial=source;}
+            if(source!=sourceMaterial){runtimeMaterial.CopyPropertiesFromMaterial(source);sourceMaterial=source;road.ThemeMaterials.RefreshBorrowed(runtimeMaterial);}
             return runtimeMaterial;
         }
         TerrainResidency Upload(TerrainRegionState region,TerrainMeshData data)
@@ -165,7 +165,7 @@ namespace SlowRoads.Scene.Terrain
         {
             if(disposed)return;disposed=true;if(road!=null)road.OriginShifted-=OriginChanged;if(Trees!=null)Trees.Attributes.Changed-=ContentChanged;Fields?.Dispose();Trees?.Dispose();Core?.Dispose();ReleaseAll();
             foreach(var slot in pool){slot.Upload.Dispose();if(slot.Object!=null){if(Application.isPlaying)Destroy(slot.Object);else DestroyImmediate(slot.Object);}}
-            pool.Clear();if(runtimeMaterial!=null){if(Application.isPlaying)Destroy(runtimeMaterial);else DestroyImmediate(runtimeMaterial);}runtimeMaterial=null;sourceMaterial=null;
+            pool.Clear();if(runtimeMaterial!=null){road.ThemeMaterials?.UnregisterBorrowed(runtimeMaterial);if(Application.isPlaying)Destroy(runtimeMaterial);else DestroyImmediate(runtimeMaterial);}runtimeMaterial=null;sourceMaterial=null;
         }
         void OnDestroy()=>Release();
     }

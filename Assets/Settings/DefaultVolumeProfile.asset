@@ -22,6 +22,55 @@ MonoBehaviour:
   gain:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0}
+--- !u!114 &-9087273114400356488
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908fde864d14d8f4f9b001922d8d5a0d, type: 3}
+  m_Name: EnvironmentFogVolume
+  m_EditorClassIdentifier: SlowRoads.Environment.Runtime::SlowRoads.Environment.EnvironmentFogVolume
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 0
+  colourA:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  colourB:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  colourC:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  near:
+    m_OverrideState: 1
+    m_Value: 0
+  far:
+    m_OverrideState: 1
+    m_Value: 1000
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  densityFromFar:
+    m_OverrideState: 1
+    m_Value: 1
+  density:
+    m_OverrideState: 1
+    m_Value: 0
+  hazeHeight:
+    m_OverrideState: 1
+    m_Value: 0
+  hazeIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  cameraHeightCorrection:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &-8270506406425502121
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -107,6 +156,58 @@ MonoBehaviour:
   clamp:
     m_OverrideState: 1
     m_Value: 0.05
+--- !u!114 &-7523645719903919300
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28adb872f15b1a40ae5c337c1136903, type: 3}
+  m_Name: EnvironmentSkyVolume
+  m_EditorClassIdentifier: SlowRoads.Environment.Runtime::SlowRoads.Environment.EnvironmentSkyVolume
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 0
+  colourA:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  colourB:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  colourC:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  near:
+    m_OverrideState: 1
+    m_Value: 0
+  far:
+    m_OverrideState: 1
+    m_Value: 1000
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  densityFromFar:
+    m_OverrideState: 1
+    m_Value: 1
+  density:
+    m_OverrideState: 1
+    m_Value: 0
+  hazeHeight:
+    m_OverrideState: 1
+    m_Value: 0
+  hazeIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  cameraHeightCorrection:
+    m_OverrideState: 1
+    m_Value: 1
+  backgroundDistance:
+    m_OverrideState: 1
+    m_Value: 1680
 --- !u!114 &-7274224791359825572
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -342,6 +443,9 @@ MonoBehaviour:
   skyOcclusionIntensityMultiplier:
     m_OverrideState: 1
     m_Value: 1
+  worldOffset:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0, z: 0}
 --- !u!114 &-1216621516061285780
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -374,6 +478,9 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   highQualityFiltering:
+    m_OverrideState: 1
+    m_Value: 0
+  filter:
     m_OverrideState: 1
     m_Value: 0
   downscale:
@@ -462,8 +569,10 @@ MonoBehaviour:
   - {fileID: -6288072647309666549}
   - {fileID: 7518938298396184218}
   - {fileID: -1410297666881709256}
-  - {fileID: -7750755424749557576}
-  - {fileID: -5139089513906902183}
+  - {fileID: -9087273114400356488}
+  - {fileID: 3838597685277693817}
+  - {fileID: 3031788685760836670}
+  - {fileID: -7523645719903919300}
 --- !u!114 &853819529557874667
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -774,6 +883,80 @@ MonoBehaviour:
   contribution:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &3031788685760836670
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7754614d69bae8b46bb8f5359e1ae307, type: 3}
+  m_Name: EnvironmentSnowVolume
+  m_EditorClassIdentifier: SlowRoads.Environment.Runtime::SlowRoads.Environment.EnvironmentSnowVolume
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 0
+  quality:
+    m_OverrideState: 1
+    m_Value: 0
+  colour:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  speed:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &3838597685277693817
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c8150629f80f9a4b9dec16a805d1f2f, type: 3}
+  m_Name: EnvironmentCloudVolume
+  m_EditorClassIdentifier: SlowRoads.Environment.Runtime::SlowRoads.Environment.EnvironmentCloudVolume
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 0
+  highlight:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  lowlight:
+    m_OverrideState: 1
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  shelf0:
+    m_OverrideState: 1
+    m_Value: 0
+  shelf1:
+    m_OverrideState: 1
+    m_Value: 0
+  scale0:
+    m_OverrideState: 1
+    m_Value: 1
+  scale1:
+    m_OverrideState: 1
+    m_Value: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  altitude:
+    m_OverrideState: 1
+    m_Value: 600
+  worldScale:
+    m_OverrideState: 1
+    m_Value: 7000
+  animationSpeed:
+    m_OverrideState: 1
+    m_Value: 2
+  segments:
+    m_OverrideState: 1
+    m_Value: 20
 --- !u!114 &3959858460715838825
 MonoBehaviour:
   m_ObjectHideFlags: 3

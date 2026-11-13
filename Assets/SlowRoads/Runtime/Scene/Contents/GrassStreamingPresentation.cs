@@ -18,7 +18,7 @@ namespace SlowRoads.Scene.Contents
             this.road=road;this.settings=settings;
             if(settings.grassMesh==null||settings.bushMesh==null||settings.grassMaterials?.Length!=4||settings.bushMaterials?.Length!=4)throw new InvalidOperationException("Ground cover reference assets are not configured");
             Core=new GrassStreamingSession(road.Core,road.Terrain.Core,road.Terrain.Fields,road.Structures.Walls,moduleDensity);
-            Gpu=new GrassGpuResources(settings.grassMesh,settings.bushMesh,settings.grassMaterials[(int)settings.season],settings.bushMaterials[(int)settings.season]);
+            Gpu=new GrassGpuResources(settings.grassMesh,settings.bushMesh,road.ThemeMaterials.Resolve(settings.grassMaterials[(int)settings.season]),road.ThemeMaterials.Resolve(settings.bushMaterials[(int)settings.season]));
             Window=new GrassInstanceWindow(GrassWindowConfig.From(road.Core.TerrainConfig),road.Core.Midline.State.ObserverIndex);
             Core.Committed+=Retain;Core.Cleared+=ClearWindow;Window.Changed+=Gpu.Enqueue;Window.Released+=Gpu.Remove;SelectMaterials();
         }
@@ -26,7 +26,7 @@ namespace SlowRoads.Scene.Contents
         void ClearWindow()=>Window.Clear(road.Core.Midline.State.ObserverIndex);
         void SelectMaterials()
         {
-            season=(int)settings.season;Gpu.SetMaterials(settings.grassMaterials[season],settings.bushMaterials[season]);
+            season=(int)settings.season;Gpu.SetMaterials(road.ThemeMaterials.Resolve(settings.grassMaterials[season]),road.ThemeMaterials.Resolve(settings.bushMaterials[season]));
             var origin=settings.ResolveTerrainMaterial().GetVector("_SourceOrigin");Gpu.TextureOrigin=new Vector2(origin.x,origin.y);
         }
         void LateUpdate()

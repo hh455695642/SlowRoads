@@ -1,4 +1,11 @@
-Shader "SlowRoads/Hills/Terrain" {Properties {grassMap("grassMap",2D)="white"{}
+Shader "SlowRoads/Hills/Terrain" {Properties {
+        [Header(Hills Theme Lighting)]
+        _ThemeLightingEnabled("Apply theme lighting",Float)=0
+        _ThemeSun("Theme sun irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeAmbient("Theme ambient irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeHemisphere("Theme hemisphere irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeReferenceSunIntensity("Theme reference sun intensity",Float)=1
+grassMap("grassMap",2D)="white"{}
 sandMap("sandMap",2D)="white"{}
 rockMap("rockMap",2D)="white"{}
 rockMapBump("rockMapBump",2D)="white"{}
@@ -28,7 +35,7 @@ SubShader {Tags {"RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Que
 HLSLINCLUDE
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-#include "../Environment/HillsSurfaceEnvironment.hlsl"
+#include "Assets/Art/Weather/Shaders/EnvironmentSurface.hlsl"
 TEXTURE2D(grassMap); SAMPLER(sampler_grassMap);
 TEXTURE2D(sandMap); SAMPLER(sampler_sandMap);
 TEXTURE2D(rockMap); SAMPLER(sampler_rockMap);
@@ -43,6 +50,7 @@ TEXTURE2D(offroadMap); SAMPLER(sampler_offroadMap);
 TEXTURE2D(fadeFine); SAMPLER(sampler_fadeFine);
 TEXTURE2D(displacementMap); SAMPLER(sampler_displacementMap);
 CBUFFER_START(UnityPerMaterial)
+#include "../Environment/HillsThemeMaterialFields.hlsl"
 float4 roadCol;
 float4 grassColA;
 float4 grassColB;
@@ -52,6 +60,7 @@ float4 fieldDiscolouration;
 float4 _SourceOrigin,_RenderOrigin;
 float seasonIndex,offroad,greenlane,sinkDist,shadowFactor,radiance,fresnelIntensity,vehicleIndex,_SurfaceOnly,_Cull;
 CBUFFER_END
+#include "../Environment/HillsThemeMaterialFunctions.hlsl"
 float4 SurfaceSample_grassMap(float2 uv){return SAMPLE_TEXTURE2D(grassMap,sampler_grassMap,uv);}
 float4 SurfaceSample_sandMap(float2 uv){return SAMPLE_TEXTURE2D(sandMap,sampler_sandMap,uv);}
 float4 SurfaceSample_rockMap(float2 uv){return SAMPLE_TEXTURE2D(rockMap,sampler_rockMap,uv);}
@@ -269,7 +278,7 @@ vCamDepth = -mvPosition.z;
 // vLightGrass = 0.0;
 // vDarkGrass = 0.0;
 
-vShadow *= HillsThemeShadow(shadowFactor);
+vShadow *= (shadowFactor);
 
 
 o.world=vFresnelPos;o.normalWS=vFresnelNorm;o.uv=float4(vUv,vUUv);o.wuv=float4(vWv,vWWv);
@@ -623,7 +632,7 @@ texelColor.b = saturate(texelColor.b);
 
 // NOTE this must match the grass sprites. Ideally share a chunk?
 
-totalEmissiveRadiance = texelColor.rgb * HillsThemeRadiance(radiance);
+totalEmissiveRadiance = texelColor.rgb * (radiance);
 
 //// FINAL COMPOSITION
 
@@ -659,19 +668,19 @@ No derivatives or modifications are permitted
     float lightFresnel = max(0.0, (fresnel - 0.75)) * 4.0 * (1.0 - blendVal * 0.5);
     lightFresnel *= lightFresnel;
     lightFresnel *= (1.0 - vShadow);
-    lightFresnel *= HillsThemeFresnel(fresnelIntensity);
+    lightFresnel *= (fresnelIntensity);
     
     float darkFresnel = 1.0 - min(1.0, fresnel * 1.3333);
-    darkFresnel *= HillsThemeFresnel(fresnelIntensity);
+    darkFresnel *= (fresnelIntensity);
     darkFresnel = 0.25 + min(0.25, max(0.0, darkFresnel - 0.25) * 0.5);
 
     diffuseColor.rgb *= 1.0 + lightFresnel - darkFresnel;
 
 
-Light sun=GetMainLight();float3 sourceLightDirection=HillsLightDirection(sun.direction),sourceLightColour=HillsLightColour(sun.color);float3 direct=sourceLightColour*saturate(dot(vFresnelNorm,sourceLightDirection))*(1.0-min(1.0,vShadow));
-float3 ambient=max(0,HillsAmbientColour(vFresnelNorm,SampleSH(vFresnelNorm)))*(1.75-min(1.0,max(.75,vShadow)));
+Light sun=GetMainLight();float3 sourceLightDirection=HillsMaterialLightDirection(sun.direction),sourceLightColour=HillsMaterialLightColour(sun.color);float3 direct=sourceLightColour*saturate(dot(vFresnelNorm,sourceLightDirection))*(1.0-min(1.0,vShadow));
+float3 ambient=max(0,HillsMaterialAmbientColour(vFresnelNorm,SampleSH(vFresnelNorm)))*(1.75-min(1.0,max(.75,vShadow)));
 // URP Lambert/ambient adapter, same scope as the existing road material adapter.
-float3 lit=diffuseColor.rgb*(ambient+direct+direct*HillsThemeRadiance(radiance));
+float3 lit=diffuseColor.rgb*(ambient+direct+direct*(radiance));
 return float4(lerp(HillsSurfaceFog(lit,i.fogWorld,i.fog),diffuseColor.rgb,saturate(_SurfaceOnly)),1);}
 
 ENDHLSL

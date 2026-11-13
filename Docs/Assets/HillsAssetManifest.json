@@ -269,7 +269,7 @@
     {
       "source": "_app/immutable/assets/clouds_01.700a3fdb.webp",
       "origin": "HillsHeightmap.2938f21e.js",
-      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01.png",
+      "path": "Assets/Art/Weather/Textures/Clouds/clouds_01.png",
       "sha256": "096f2ba6477148d8831caa36853f04fe32e6bbb273e560dedc33a85b95e364bf",
       "contentVerified": true
     },
@@ -675,7 +675,7 @@
     {
       "source": "HillsHeightmap.2938f21e.js#is",
       "origin": "HillsHeightmap.2938f21e.js embedded is",
-      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_particle.png",
+      "path": "Assets/Art/Weather/Textures/Snow/snow_particle.png",
       "sha256": "80227ca83ea400e33df0068ad6e6d4155947315f47d36c8bd92e371cac888b09",
       "contentVerified": true
     },
@@ -1448,7 +1448,7 @@
       "newSRGB": false
     },
     {
-      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01.png",
+      "path": "Assets/Art/Weather/Textures/Clouds/clouds_01.png",
       "oldType": "Default",
       "oldSRGB": true,
       "newType": "Default",
@@ -1560,7 +1560,7 @@
       "newSRGB": false
     },
     {
-      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_particle.png",
+      "path": "Assets/Art/Weather/Textures/Snow/snow_particle.png",
       "oldType": "Default",
       "oldSRGB": true,
       "newType": "Default",
@@ -2873,7 +2873,7 @@
     "scope": "E3 Editor/desktop source cloud reproduction; ground fog, lighting, snow and whole-scene final image remain later batches",
     "source": "_app/immutable/assets/clouds_01.700a3fdb.webp",
     "archiveSHA256": "87594163030c53b114e5ed816671639f6be6a1fea7fa756357221508f3eafc9e",
-    "retainedPng": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01.png",
+    "retainedPng": "Assets/Art/Weather/Textures/Clouds/clouds_01.png",
     "retainedPngSHA256": "096f2ba6477148d8831caa36853f04fe32e6bbb273e560dedc33a85b95e364bf",
     "sourceBytesChanged": false,
     "sourceSampler": {
@@ -2895,7 +2895,7 @@
       "alphaIsTransparency": false
     },
     "derivedProductionTexture": {
-      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Sky/clouds_01_mips.asset",
+      "path": "Assets/Art/Weather/Textures/Clouds/clouds_01_mips.asset",
       "guid": "1e4a988a152817140a60ce8b96354805",
       "format": "linear RGBA32",
       "size": [
@@ -2960,7 +2960,7 @@
       ]
     },
     "formalMaterial": {
-      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Sky/HillsClouds.mat",
+      "path": "Assets/Art/Weather/Materials/HillsClouds.mat",
       "guid": "63130a82064391949a911b019aba1f3b",
       "shader": "SlowRoads/HillsClouds",
       "textureProperty": "_CloudMap",
@@ -3003,8 +3003,8 @@
   "environmentGroundLighting": {
     "date": "2026-11-12",
     "scope": "E4 ground atmosphere/source lighting, Editor desktop; E5 snow and E6/E7 final integration remain pending",
-    "configuration": "HillsSceneSettings: existing season/time/weather/atmosphereVisible + environmentLightingEnabled; no second SO",
-    "formalGlobals": "HillsEnvironmentPass BeforeRendering binds one source snapshot; AfterRendering clears it, independent of sky display. Command-only passes, no draw/attachments/new RT or blit",
+    "configuration": "Current V5+: HillsSceneSettings retains season/time/weather; HillsDebugSession references HillsEnvironmentVolumeProfile + HillsEnvironmentResources; fog/lighting enabled overrides live only in Volume. Original E4 measurements retained below.",
+    "formalGlobals": "EnvironmentAtmospherePass in com.slowroads.environment: BeforeRendering bind / AfterRendering clear; command-only, no extra RT/blit/draw. Hills-specific theme/water values use four captured extra vectors.",
     "lighting": "Archived non-legacy Three Lambert irradiance / pi; fixed +Y sun; ambient + black-ground hemisphere, source Ni updateHDR driven by P5 observer road-shadow input. HDR enabled status is independent of this calculation",
     "water": "Existing four shared water materials remain intact; one production shader selects live original ls base/body/highlight, removes URP MixFog + multi_compile_fog. Archived fs never defines IS_WATER; do not activate its dormant zero-near branch",
     "surfaces": [
@@ -3053,9 +3053,9 @@
     "sharedBushNoiseImporterChanged": false,
     "derivedTextures": [
       {
-        "source": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_particle.png",
+        "source": "Assets/Art/Weather/Textures/Snow/snow_particle.png",
         "sourceSHA256": "80227ca83ea400e33df0068ad6e6d4155947315f47d36c8bd92e371cac888b09",
-        "target": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_particle_mips.asset",
+        "target": "Assets/Art/Weather/Textures/Snow/snow_particle_mips.asset",
         "guid": "619beece2fe6f3148aa7d021f65ff8d5",
         "mips": [
           {
@@ -3088,7 +3088,7 @@
       {
         "source": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/noise_finer.png",
         "sourceSHA256": "e96391cd88d53d0bddfec29ab56baa04f4f8d03c1e7c6a12e65ac49f0ccdd5e7",
-        "target": "Assets/SlowRoads/Art/Reference/SlowRoads/Textures/Utility/snow_noise.asset",
+        "target": "Assets/Art/Weather/Textures/Snow/snow_noise.asset",
         "guid": "582a2a8eb3df7454fb1465a0a1196685",
         "mips": [
           {
@@ -3100,7 +3100,7 @@
       }
     ],
     "material": {
-      "path": "Assets/SlowRoads/Art/Reference/SlowRoads/Materials/Sky/HillsSnow.mat",
+      "path": "Assets/Art/Weather/Materials/HillsSnow.mat",
       "guid": "2a56bab853e8bc04f828fccf2df8b632",
       "shader": "SlowRoads/HillsSnow",
       "bindings": [
@@ -3120,7 +3120,7 @@
       "sprite": "16x16 sRGB RGBA32, 5 native mips, Repeat/Trilinear/aniso1, original alphaTest .1; white RGB",
       "noise": "512x512 linear RGBA32, Repeat/Bilinear/aniso4, explicit vertex-equivalent LOD0; only consumed base serialized; shared C5 source asset untouched"
     },
-    "configuration": "Only HillsSceneSettings snowVisible/snowMaterial/snowCulling and existing season/time/weather; serialized feature appended to existing PC_Renderer without replacing earlier features",
+    "configuration": "Current V5+: EnvironmentSnowVolume + HillsEnvironmentResources (original material and compute GUIDs preserved); HillsDebugSession retains theme/time/weather. Removed duplicate HillsSceneSettings snow fields; original E5 measurements retained below.",
     "runtime": {
       "counts": [
         48841,
@@ -3161,5 +3161,144 @@
       "release": "Docs/Agents/Artifacts/HillsEnvironment/e5-edit-release.json"
     },
     "measurement": "Unity6000.3.22f1 D3D12 RTX3060, live target3840x2160, snapshots1280x720, source oracle128x72 ANGLE/D3D11. 120 fixed-view frames with CPU/GPU recording; outliers retained. See full marker mean/p95/max, not total-frame budget. Projected area is not measured hardware overdraw. E7 full-scene baseline remains pending; no mobile device tests."
+  },
+  "environmentVolume": {
+    "package": "Packages/com.slowroads.environment",
+    "resources": "Assets/Art/Weather/Settings/HillsEnvironmentResources.asset",
+    "profile": "Assets/Art/Weather/Settings/HillsEnvironmentVolumeProfile.asset",
+    "scene": "Assets/Scenes/SlowRoadsRoadDemo.unity",
+    "sceneGUID": "c323176c3ca002848be289a8e08ab141",
+    "sourceAdapter": "HillsDebugSession -> HillsEnvironmentPresentation -> HillsEnvironmentState low-priority native Volume",
+    "formalRendererFeatures": [
+      "EnvironmentAtmosphereRendererFeature",
+      "EnvironmentSkyRendererFeature",
+      "EnvironmentSnowRendererFeature"
+    ],
+    "evidence": "Docs/ReverseEngineering/ContentsAudit/URP环境Volume模块化与跨项目复用实施计划.md §11",
+    "referenceAssetsRedistributedInPackage": false,
+    "guidMoves": [
+      {
+        "from": "Assets/SlowRoads/Rendering/Environment/HillsSkyResources.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentSkyResources.cs",
+        "guid": "1598f312654e35e48816c6163abd8c67",
+        "after": "1598f312654e35e48816c6163abd8c67"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Environment/HillsCloudResources.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentCloudResources.cs",
+        "guid": "e7c245fd00f317144bde6ec77d3d2639",
+        "after": "e7c245fd00f317144bde6ec77d3d2639"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Passes/HillsSkyPass.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentSkyPass.cs",
+        "guid": "72c7a21c69d7a834aab6a4fff7ce487e",
+        "after": "72c7a21c69d7a834aab6a4fff7ce487e"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Shaders/Environment/HillsSky.shader",
+        "to": "Assets/Art/Weather/Shaders/HillsSky.shader",
+        "guid": "08169d2c311d4f442bdd63a4b4b113c8",
+        "after": "08169d2c311d4f442bdd63a4b4b113c8"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Shaders/Environment/HillsClouds.shader",
+        "to": "Assets/Art/Weather/Shaders/HillsClouds.shader",
+        "guid": "c16a441890b2db34e95c640438babf9b",
+        "after": "c16a441890b2db34e95c640438babf9b"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Shaders/Environment/HillsClouds.hlsl",
+        "to": "Assets/Art/Weather/Shaders/HillsClouds.hlsl",
+        "guid": "4e3ba38f4bcefbd4cbf6032e3863eab0",
+        "after": "4e3ba38f4bcefbd4cbf6032e3863eab0"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Shaders/Environment/HillsCloudsVertex.hlsl",
+        "to": "Assets/Art/Weather/Shaders/HillsCloudsVertex.hlsl",
+        "guid": "cb2856df106928f43a4f2ca212acbf4b",
+        "after": "cb2856df106928f43a4f2ca212acbf4b"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Shaders/Environment/HillsAtmosphere.hlsl",
+        "to": "Assets/Art/Weather/Shaders/HillsAtmosphere.hlsl",
+        "guid": "02002562d5c496c4dbe978b233cfd1c1",
+        "after": "02002562d5c496c4dbe978b233cfd1c1"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Features/HillsSkyRendererFeature.cs",
+        "to": "Assets/SlowRoads/Rendering/Features/HillsEnvironmentRendererFeature.cs",
+        "guid": "0f16ee93a3c0cd648a575b5847dacddf",
+        "after": "0f16ee93a3c0cd648a575b5847dacddf"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Features/HillsEnvironmentRendererFeature.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentAtmosphereRendererFeature.cs",
+        "guid": "0f16ee93a3c0cd648a575b5847dacddf",
+        "after": "0f16ee93a3c0cd648a575b5847dacddf"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Passes/HillsEnvironmentPass.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentAtmospherePass.cs",
+        "guid": "e3514bc95cf4f6e4290da2fe2205848c",
+        "after": "e3514bc95cf4f6e4290da2fe2205848c"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Environment/HillsSnowResources.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentSnowResources.cs",
+        "guid": "b532df9eb4fcd454a8adbb724b2abdb1",
+        "after": "b532df9eb4fcd454a8adbb724b2abdb1"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Features/HillsSnowRendererFeature.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentSnowRendererFeature.cs",
+        "guid": "19785b855541d894691f61dd3ac00f3f",
+        "after": "19785b855541d894691f61dd3ac00f3f"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Passes/HillsSnowPass.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentSnowPass.cs",
+        "guid": "cec279e3a7cf38145810b3558737600c",
+        "after": "cec279e3a7cf38145810b3558737600c"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Compute/HillsSnow.compute",
+        "to": "Assets/Art/Weather/Compute/HillsSnow.compute",
+        "guid": "19b9b8919ec139449aeb909c4ed9f429",
+        "after": "19b9b8919ec139449aeb909c4ed9f429"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Shaders/Environment/HillsSnow.shader",
+        "to": "Assets/Art/Weather/Shaders/HillsSnow.shader",
+        "guid": "a40caec3357048e47a15f8fa58f879f2",
+        "after": "a40caec3357048e47a15f8fa58f879f2"
+      },
+      {
+        "from": "Assets/SlowRoads/Rendering/Shaders/Environment/HillsSnow.hlsl",
+        "to": "Assets/Art/Weather/Shaders/HillsSnow.hlsl",
+        "guid": "41c2d4ee1ddced84686e6bd9d6a076d4",
+        "after": "41c2d4ee1ddced84686e6bd9d6a076d4"
+      },
+      {
+        "from": "Packages/com.slowroads.environment/Runtime/Rendering/EnvironmentBackgroundState.cs",
+        "to": "Assets/Art/Weather/Scripts/Runtime/Rendering/EnvironmentCameraState.cs",
+        "guid": "2e264bfe8210b424e9a2ac637c76b19e",
+        "after": "2e264bfe8210b424e9a2ac637c76b19e"
+      }
+    ],
+    "validation": {
+      "scope": "V0-V8 environment migration, Editor/desktop; not full E7/C7/S1 or mobile",
+      "testsPassed": 30,
+      "testsTotal": 30,
+      "finalPixelDifference": 0,
+      "longRunSeconds": 1800.0099215,
+      "longRunMetres": 14226.969740062952,
+      "naturalBridgesInLongRun": 0,
+      "performance": "Docs/Agents/Artifacts/HillsEnvironment/v7-performance-summary.json",
+      "audit": "Docs/Agents/Artifacts/HillsEnvironment/v8-final-audit.json",
+      "protectedGenerationAndFixtureFiles": 111,
+      "protectedFilesChanged": [],
+      "nativeInteropInReusablePackage": false
+    }
   }
 }

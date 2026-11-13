@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8952193329234617950
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7754614d69bae8b46bb8f5359e1ae307, type: 3}
+  m_Name: EnvironmentSnowVolume
+  m_EditorClassIdentifier: SlowRoads.Environment.Runtime::SlowRoads.Environment.EnvironmentSnowVolume
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 1
+  quality:
+    m_OverrideState: 1
+    m_Value: 0
+  colour:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  speed:
+    m_OverrideState: 1
+    m_Value: 1.25
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: HillsEnvironmentVolumeProfile
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.VolumeProfile
+  components:
+  - {fileID: 3933696777472788757}
+  - {fileID: 524617696227071814}
+  - {fileID: 2208688801921032823}
+  - {fileID: -8952193329234617950}
+--- !u!114 &524617696227071814
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908fde864d14d8f4f9b001922d8d5a0d, type: 3}
+  m_Name: EnvironmentFogVolume
+  m_EditorClassIdentifier: SlowRoads.Environment.Runtime::SlowRoads.Environment.EnvironmentFogVolume
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 1
+  colourA:
+    m_OverrideState: 1
+    m_Value: {r: 0.3419144, g: 0.6239604, b: 1, a: 1}
+  colourB:
+    m_OverrideState: 1
+    m_Value: {r: 0.05286064, g: 0.21586053, b: 0.68668526, a: 1}
+  colourC:
+    m_OverrideState: 1
+    m_Value: {r: 0.14702725, g: 0.4072402, b: 1, a: 1}
+  near:
+    m_OverrideState: 1
+    m_Value: 1512
+  far:
+    m_OverrideState: 1
+    m_Value: 1680
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  densityFromFar:
+    m_OverrideState: 1
+    m_Value: 1
+  density:
+    m_OverrideState: 1
+    m_Value: 0
+  hazeHeight:
+    m_OverrideState: 1
+    m_Value: 0
+  hazeIntensity:
+    m_OverrideState: 1
+    m_Value: -0.16000000000000003
+  cameraHeightCorrection:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &2208688801921032823
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c8150629f80f9a4b9dec16a805d1f2f, type: 3}
+  m_Name: EnvironmentCloudVolume
+  m_EditorClassIdentifier: SlowRoads.Environment.Runtime::SlowRoads.Environment.EnvironmentCloudVolume
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 1
+  highlight:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  lowlight:
+    m_OverrideState: 1
+    m_Value: {r: 0.7083757, g: 0.6038273, b: 0.6038273, a: 1}
+  shelf0:
+    m_OverrideState: 1
+    m_Value: 1600
+  shelf1:
+    m_OverrideState: 1
+    m_Value: 2000
+  scale0:
+    m_OverrideState: 1
+    m_Value: 5
+  scale1:
+    m_OverrideState: 1
+    m_Value: 24.5
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  altitude:
+    m_OverrideState: 1
+    m_Value: 600
+  worldScale:
+    m_OverrideState: 1
+    m_Value: 7000
+  animationSpeed:
+    m_OverrideState: 1
+    m_Value: 2
+  segments:
+    m_OverrideState: 1
+    m_Value: 20
+--- !u!114 &3933696777472788757
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28adb872f15b1a40ae5c337c1136903, type: 3}
+  m_Name: EnvironmentSkyVolume
+  m_EditorClassIdentifier: SlowRoads.Environment.Runtime::SlowRoads.Environment.EnvironmentSkyVolume
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 1
+  colourA:
+    m_OverrideState: 1
+    m_Value: {r: 0.3419144, g: 0.6239604, b: 1, a: 1}
+  colourB:
+    m_OverrideState: 1
+    m_Value: {r: 0.05286064, g: 0.21586053, b: 0.68668526, a: 1}
+  colourC:
+    m_OverrideState: 1
+    m_Value: {r: 0.14702725, g: 0.4072402, b: 1, a: 1}
+  near:
+    m_OverrideState: 1
+    m_Value: 1512
+  far:
+    m_OverrideState: 1
+    m_Value: 1680
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  densityFromFar:
+    m_OverrideState: 1
+    m_Value: 1
+  density:
+    m_OverrideState: 1
+    m_Value: 0
+  hazeHeight:
+    m_OverrideState: 1
+    m_Value: 0
+  hazeIntensity:
+    m_OverrideState: 1
+    m_Value: -0.16000000000000003
+  cameraHeightCorrection:
+    m_OverrideState: 1
+    m_Value: 1
+  backgroundDistance:
+    m_OverrideState: 1
+    m_Value: 1680

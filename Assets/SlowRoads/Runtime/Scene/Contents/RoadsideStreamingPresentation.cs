@@ -17,8 +17,6 @@ namespace SlowRoads.Scene.Contents
         static readonly Unity.Profiling.ProfilerMarker Generate=new("SlowRoads.C6.Roadside.Advance"),Upload=new("SlowRoads.C6.Mesh.Upload");
         readonly Dictionary<string,ObjectSlot> objects=new();readonly Stack<ObjectSlot> signs=new(),markers=new();readonly EyeSlot[] eyes=new EyeSlot[2];
         RoadStreamingPresentation road;HillsSceneSettings settings;bool disposed;
-        MaterialPropertyBlock signLighting;float sunIntensity=float.NaN;
-        void Awake()=>signLighting=new MaterialPropertyBlock();
         public RoadsideStreamingSession Core {get;private set;}
         public int ObjectCount=>objects.Count;public int EyeMeshCount {get;private set;}public long UploadedBytes {get;private set;}public int UploadCount {get;private set;}
         public int PooledObjects=>signs.Count+markers.Count;
@@ -36,12 +34,12 @@ namespace SlowRoads.Scene.Contents
         {
             var pool=kind==RoadsideKind.Sign?signs:markers;if(pool.Count>0)return pool.Pop();
             GameObject go;MeshFilter filter=null;
-            if(kind==RoadsideKind.Sign){go=new GameObject("Hills road sign",typeof(MeshFilter),typeof(MeshRenderer));filter=go.GetComponent<MeshFilter>();go.GetComponent<MeshRenderer>().sharedMaterial=settings.signMaterial;}
+            if(kind==RoadsideKind.Sign){go=new GameObject("Hills road sign",typeof(MeshFilter),typeof(MeshRenderer));filter=go.GetComponent<MeshFilter>();go.GetComponent<MeshRenderer>().sharedMaterial=road.ThemeMaterials.Resolve(settings.signMaterial);}
             else
             {
                 go=Instantiate(settings.vergeMarkerModel);
                 foreach(var r in go.GetComponentsInChildren<MeshRenderer>(true))
-                {int material=r.name.Contains("black")?0:r.name.Contains("reflect")?2:1;var mats=r.sharedMaterials;for(int i=0;i<mats.Length;i++)mats[i]=settings.vergeMarkerMaterials[material];r.sharedMaterials=mats;}
+                {int material=r.name.Contains("black")?0:r.name.Contains("reflect")?2:1;var mats=r.sharedMaterials;for(int i=0;i<mats.Length;i++)mats[i]=road.ThemeMaterials.Resolve(settings.vergeMarkerMaterials[material]);r.sharedMaterials=mats;}
             }
             go.transform.SetParent(transform,false);var renderers=go.GetComponentsInChildren<Renderer>(true);
             foreach(var r in renderers){r.shadowCastingMode=ShadowCastingMode.Off;r.receiveShadows=false;}
@@ -52,11 +50,9 @@ namespace SlowRoads.Scene.Contents
             if(!objects.TryGetValue(data.Id,out var slot)){slot=Acquire(data.Kind);objects.Add(data.Id,slot);}slot.Data=data;
             slot.Object.name=data.Kind==RoadsideKind.Sign?"Hills sign "+data.Sign+" "+data.Id:"Hills verge marker "+data.Id;
             if(slot.Filter!=null)slot.Filter.sharedMesh=settings.signMeshes[(int)data.Sign];
-            BindLighting(slot);
             Position(slot);slot.Object.transform.localRotation=Quaternion.AngleAxis((float)(data.Rotation*180/Math.PI),Vector3.up);slot.Object.SetActive(true);
         }
         void Position(ObjectSlot slot){var p=slot.Data.Position;var o=road.RenderOrigin;slot.Object.transform.localPosition=new((float)(p.X-o.X),(float)(p.Y-o.Y),(float)(p.Z-o.Z));}
-        void BindLighting(ObjectSlot slot){if(slot.Filter==null)return;signLighting.SetFloat("_SunIntensity",road.Sun!=null?road.Sun.intensity:0);foreach(var r in slot.Renderers)r.SetPropertyBlock(signLighting);}
         void Remove(string id)
         {
             if(!objects.Remove(id,out var slot))return;slot.Object.SetActive(false);var pool=slot.Data.Kind==RoadsideKind.Sign?signs:markers;slot.Data=null;
@@ -90,7 +86,6 @@ namespace SlowRoads.Scene.Contents
         void LateUpdate()
         {
             if(disposed)return;
-            float intensity=road.Sun!=null?road.Sun.intensity:0;if(intensity!=sunIntensity){sunIntensity=intensity;foreach(var s in objects.Values)BindLighting(s);}
             foreach(var s in objects.Values)foreach(var r in s.Renderers)r.enabled=settings.roadsideVisible;
             var p=road.ObserverWorldPosition;var o=road.RenderOrigin;var direction=-road.ObserverForward;
             foreach(var s in eyes)if(s!=null)

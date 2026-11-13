@@ -19,7 +19,7 @@ Shader "SlowRoads/Hills/CatsEye"
             #pragma multi_compile_instancing
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "HillsCatsEye.hlsl"
-            #include "../Environment/HillsSurfaceEnvironment.hlsl"
+            #include "Assets/Art/Weather/Shaders/EnvironmentSurface.hlsl"
             CBUFFER_START(UnityPerMaterial)
             float4 _BaseColor;float _PointSize;
             CBUFFER_END

@@ -15,7 +15,7 @@ Shader "SlowRoads/Hills/Water"
  Tags {"RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry"}
  HLSLINCLUDE
  #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
- #include "../Environment/HillsSurfaceEnvironment.hlsl"
+ #include "Assets/Art/Weather/Shaders/EnvironmentSurface.hlsl"
  TEXTURE2D(_Waves);SAMPLER(sampler_Waves);
  CBUFFER_START(UnityPerMaterial)
  float4 _BaseColor,_BodyColor,_HighlightColor,_PhaseA,_PhaseB,_PhaseC;
@@ -29,7 +29,7 @@ Shader "SlowRoads/Hills/Water"
  // Original Io/Ro/Eo/To. Unlit opaque; no screen depth, vertex waves, reflection RT or extra render feature.
  float4 Frag(V i):SV_Target {
  UNITY_SETUP_INSTANCE_ID(i);ClipWater(i);
- float3 baseColour=_HillsSurfaceControl.y>.5?_HillsWaterBase.rgb:_BaseColor.rgb,bodyColour=_HillsSurfaceControl.y>.5?_HillsWaterBody.rgb:_BodyColor.rgb,highlightColour=_HillsSurfaceControl.y>.5?_HillsWaterHighlight.rgb:_HighlightColor.rgb;
+ float3 baseColour=_BaseColor.rgb,bodyColour=_BodyColor.rgb,highlightColour=_HighlightColor.rgb;
  float sea=dot(normalize(_WorldSpaceCameraPos-i.world),float3(0,1,0));
  if(_WavesEnabled>.5||_DepthEnabled>.5){
  float2 a=i.a,b=i.b,c=i.c;

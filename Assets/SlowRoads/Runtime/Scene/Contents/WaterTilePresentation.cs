@@ -43,6 +43,7 @@ namespace SlowRoads.Scene.Contents
         {
             if(disposed||road==null)return;if(settings.generationEnabled)time+=Time.deltaTime;
             var material=settings.waterMaterials[(int)settings.season];if(material==null)throw new InvalidOperationException("Missing Hills water material");int detail=road.Core.TerrainConfig.Detail;
+            material=road.ThemeMaterials.Resolve(material);
             foreach(var pair in active){var r=pair.Key;var s=pair.Value;var d=s.Data;s.Renderer.sharedMaterial=material;
                 s.Renderer.enabled=settings.waterVisible&&r.Visible&&!r.Retired&&r.Residency!=null&&r.Residency.IsCurrent&&r.Residency.Key.Equals(d.Key)&&r.Residency.Revision==d.TerrainRevision&&r.Residency.LayerRevision==d.LayerRevision;
                 block.Clear();block.SetFloat("_DepthEnabled",detail>=2?1:0);block.SetFloat("_WavesEnabled",detail>=1?1:0);

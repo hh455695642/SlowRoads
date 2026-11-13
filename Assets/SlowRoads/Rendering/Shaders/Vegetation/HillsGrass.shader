@@ -1,6 +1,13 @@
 Shader "SlowRoads/Hills/Grass"
 {
     Properties {
+        [Header(Hills Theme Lighting)]
+        _ThemeLightingEnabled("Apply theme lighting",Float)=0
+        _ThemeSun("Theme sun irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeAmbient("Theme ambient irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeHemisphere("Theme hemisphere irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeReferenceSunIntensity("Theme reference sun intensity",Float)=1
+
         _BaseMap("Original grass atlas",2D)="white"{} _NoiseMap("Original noise",2D)="gray"{}
         grassVariationMap("Variation",2D)="gray"{} detailFarMap("Detail",2D)="white"{}
         grassColA("Grass A",Vector)=(1,1,1,1) grassColB("Grass B",Vector)=(1,1,1,1)

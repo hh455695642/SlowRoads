@@ -5,6 +5,13 @@ Shader "SlowRoads/Hills/Structure"
 {
     Properties
     {
+        [Header(Hills Theme Lighting)]
+        _ThemeLightingEnabled("Apply theme lighting",Float)=0
+        _ThemeSun("Theme sun irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeAmbient("Theme ambient irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeHemisphere("Theme hemisphere irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeReferenceSunIntensity("Theme reference sun intensity",Float)=1
+
         _BaseMap("Reference diffuse",2D)="white"{}
         _ObjectNormal("Reference object-space normal",2D)="bump"{}
         _BaseColor("Reference colour",Color)=(1,1,1,1)
@@ -23,14 +30,16 @@ Shader "SlowRoads/Hills/Structure"
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-#include "../Environment/HillsSurfaceEnvironment.hlsl"
+#include "Assets/Art/Weather/Shaders/EnvironmentSurface.hlsl"
         TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
         TEXTURE2D(_ObjectNormal);SAMPLER(sampler_ObjectNormal);
         CBUFFER_START(UnityPerMaterial)
+#include "../Environment/HillsThemeMaterialFields.hlsl"
         // Preserve source highp colour and BRDF intermediates; final depth uses half.
         float4 _BaseMap_ST,_BaseColor;
         float _Cutoff,_ObjectNormalEnabled,_Flat,_ShadowEnabled,_ShadowFactor,_Cull,_SurfaceOnly;
         CBUFFER_END
+#include "../Environment/HillsThemeMaterialFunctions.hlsl"
         struct Attributes {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;float shadow:TEXCOORD1;UNITY_VERTEX_INPUT_INSTANCE_ID};
         struct Varyings {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;float3 normalWS:TEXCOORD1;float2 uv:TEXCOORD2;float shadow:TEXCOORD3;float3 positionVS:TEXCOORD4;float4 fog:TEXCOORD5;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
         Varyings Vert(Attributes i)
@@ -42,7 +51,7 @@ Shader "SlowRoads/Hills/Structure"
             float4 viewPosition=mul(UNITY_MATRIX_MV,float4(i.positionOS,1));
             float4 projectedPosition=mul(UNITY_MATRIX_P,viewPosition);
             o.positionVS=viewPosition.xyz;o.positionCS=projectedPosition;
-            o.normalWS=TransformObjectToWorldNormal(i.normalOS);o.uv=TRANSFORM_TEX(i.uv,_BaseMap);o.shadow=i.shadow*HillsThemeShadow(_ShadowFactor)*_ShadowEnabled;return o;
+            o.normalWS=TransformObjectToWorldNormal(i.normalOS);o.uv=TRANSFORM_TEX(i.uv,_BaseMap);o.shadow=i.shadow*(_ShadowFactor)*_ShadowEnabled;return o;
         }
         float4 Surface(Varyings i){float4 sampled=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,i.uv);float alpha=sampled.a*_BaseColor.a;clip(alpha-_Cutoff);return float4(sampled.rgb*_BaseColor.rgb,alpha);}
         float4 Forward(Varyings i,FRONT_FACE_TYPE face:FRONT_FACE_SEMANTIC):SV_Target
@@ -55,7 +64,7 @@ Shader "SlowRoads/Hills/Structure"
             else normal*=IS_FRONT_VFACE(face,1,-1);
             if(_ObjectNormalEnabled>.5)normal=TransformObjectToWorldNormal(SAMPLE_TEXTURE2D(_ObjectNormal,sampler_ObjectNormal,i.uv).xyz*2-1)*IS_FRONT_VFACE(face,1,-1);
             float3 view=GetWorldSpaceNormalizeViewDir(i.positionWS);
-            Light light=GetMainLight();float3 sourceLightDirection=HillsLightDirection(light.direction),sourceLightColour=HillsLightColour(light.color);
+            Light light=GetMainLight();float3 sourceLightDirection=HillsMaterialLightDirection(light.direction),sourceLightColour=HillsMaterialLightColour(light.color);
             float3 lightDirection=sourceLightDirection,lightColour=sourceLightColour*light.distanceAttenuation;
             float nl=saturate(dot(normal,lightDirection)),nv=saturate(dot(normal,view));
             float vh=saturate(dot(view,normalize(lightDirection+view)));
@@ -64,7 +73,7 @@ Shader "SlowRoads/Hills/Structure"
             float specular=(.04*(1-fresnel)+fresnel)*(.5/max(nl+nv,1e-6));
             if(_SurfaceOnly>14.5)return float4(c.rgb,1);
             if(_SurfaceOnly>13.5)return float4(0,0,0,1);
-            if(_SurfaceOnly>12.5)return float4(c.rgb*HillsAmbientColour(normal,SampleSH(normal))*ambient,1);
+            if(_SurfaceOnly>12.5)return float4(c.rgb*HillsMaterialAmbientColour(normal,SampleSH(normal))*ambient,1);
             if(_SurfaceOnly>11.5)return float4(nl*lightColour*direct*specular,1);
             if(_SurfaceOnly>10.5)return float4(nl*lightColour*direct*c.rgb,1);
             if(_SurfaceOnly>.5){if(_SurfaceOnly>9.5)return float4(.04,1,1,1);if(_SurfaceOnly>8.5)return float4(nl,nv,vh,1);if(_SurfaceOnly>7.5)return float4(view,1);if(_SurfaceOnly>6.5)return float4(IS_FRONT_VFACE(face,1,0),0,0,1);if(_SurfaceOnly>5.5)return float4(normal,1);if(_SurfaceOnly>4.5)return float4(i.uv,0,1);if(_SurfaceOnly>3.5)return SAMPLE_TEXTURE2D(_ObjectNormal,sampler_ObjectNormal,i.uv);if(_SurfaceOnly<1.5)return half4(c.rgb,1);if(_SurfaceOnly<2.5)return half4(normal*.5+.5,1);return half4(direct,ambient,c.a,1);}
@@ -73,7 +82,7 @@ Shader "SlowRoads/Hills/Structure"
             // Three keeps the full dielectric diffuse; URP's .96 attenuation and
             // roughness approximation are not equivalent. URP light/SH inputs
             // carry the 1/pi normalization here. No source environment map exists.
-            float3 colour=c.rgb*HillsAmbientColour(normal,SampleSH(normal))*ambient+nl*lightColour*direct*(c.rgb+specular);
+            float3 colour=c.rgb*HillsMaterialAmbientColour(normal,SampleSH(normal))*ambient+nl*lightColour*direct*(c.rgb+specular);
             return float4(HillsSurfaceFog(colour,i.positionWS,i.fog),1);
         }
         half4 Depth(Varyings i):SV_Target {UNITY_SETUP_INSTANCE_ID(i);Surface(i);return 0;}

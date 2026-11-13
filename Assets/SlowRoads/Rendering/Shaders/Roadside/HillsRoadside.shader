@@ -4,6 +4,13 @@ Shader "SlowRoads/Hills/Roadside"
 {
     Properties
     {
+        [Header(Hills Theme Lighting)]
+        _ThemeLightingEnabled("Apply theme lighting",Float)=0
+        _ThemeSun("Theme sun irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeAmbient("Theme ambient irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeHemisphere("Theme hemisphere irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeReferenceSunIntensity("Theme reference sun intensity",Float)=1
+
         _BaseMap("Original atlas",2D)="white"{}
         _BaseColor("Original colour",Color)=(1,1,1,1)
         _Cutoff("Original alpha test",Float)=0
@@ -20,12 +27,14 @@ Shader "SlowRoads/Hills/Roadside"
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-#include "../Environment/HillsSurfaceEnvironment.hlsl"
+#include "Assets/Art/Weather/Shaders/EnvironmentSurface.hlsl"
         #include "HillsRoadside.hlsl"
         TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
         CBUFFER_START(UnityPerMaterial)
+#include "../Environment/HillsThemeMaterialFields.hlsl"
         float4 _BaseColor;float _Cutoff,_Emission,_Flat,_SurfaceOnly,_Sign,_SunIntensity;
         CBUFFER_END
+#include "../Environment/HillsThemeMaterialFunctions.hlsl"
         struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;UNITY_VERTEX_INPUT_INSTANCE_ID};
         struct V {float4 positionCS:SV_POSITION;float3 world:TEXCOORD0;float3 normal:TEXCOORD1;float2 uv:TEXCOORD2;float3 view:TEXCOORD3;float4 fog:TEXCOORD4;UNITY_VERTEX_INPUT_INSTANCE_ID};
         V Vert(A i)
@@ -39,12 +48,12 @@ Shader "SlowRoads/Hills/Roadside"
         {
             UNITY_SETUP_INSTANCE_ID(i);float4 c=Surface(i);if(_SurfaceOnly>.5)return c;
             float3 n=normalize(i.normal);if(_Flat>.5)n=mul(normalize(cross(ddy(i.view),ddx(i.view))),(float3x3)UNITY_MATRIX_V);
-            float3 v=GetWorldSpaceNormalizeViewDir(i.world);Light l=GetMainLight();float3 sourceLightDirection=HillsLightDirection(l.direction),sourceLightColour=HillsLightColour(l.color);float nl=saturate(dot(n,sourceLightDirection)),nv=saturate(dot(n,v));
+            float3 v=GetWorldSpaceNormalizeViewDir(i.world);Light l=GetMainLight();float3 sourceLightDirection=HillsMaterialLightDirection(l.direction),sourceLightColour=HillsMaterialLightColour(l.color);float nl=saturate(dot(n,sourceLightDirection)),nv=saturate(dot(n,v));
             float vh=saturate(dot(v,normalize(sourceLightDirection+v))),f=exp2((-5.55473*vh-6.98316)*vh);
             float specular=(.04*(1-f)+f)*(.5/max(nl+nv,1e-6));
             // Same restricted Three r155 standard BRDF adapter as C3; whole-scene
             // source lighting/fog remains a C7 input, not a new material keyword.
-            return float4(HillsSurfaceFog(c.rgb*(HillsAmbientColour(n,SampleSH(n))+_Emission+_Sign*HillsSignEmission(_HillsSurfaceControl.y>.5?_HillsSurfaceControl.z:_SunIntensity))+nl*sourceLightColour*l.distanceAttenuation*(c.rgb+specular),i.world,i.fog),1);
+            return float4(HillsSurfaceFog(c.rgb*(HillsMaterialAmbientColour(n,SampleSH(n))+_Emission+_Sign*HillsSignEmission(_ThemeLightingEnabled>.5?_ThemeReferenceSunIntensity:_SunIntensity))+nl*sourceLightColour*l.distanceAttenuation*(c.rgb+specular),i.world,i.fog),1);
         }
         half4 Depth(V i):SV_Target{UNITY_SETUP_INSTANCE_ID(i);Surface(i);return 0;}
         ENDHLSL

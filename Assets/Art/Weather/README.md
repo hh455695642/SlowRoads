@@ -1,0 +1,31 @@
+# Weather：URP Volume天气模块
+
+Unity 6000.3 / URP 17。唯一实现位于本目录；运行程序集仍为SlowRoads.Environment.Runtime，Editor程序集仅在编辑器编译。无Generation、RoadPresentation或Debug依赖。
+
+## 主场景使用
+
+选择SlowRoadsRoadDemo中的Hills Environment Volume，在WeatherController调整天气季节、时段、晴/阴、天空/云/雾/雪及天气范围/细节。两个天气质量档位与道路视距/地形细度独立。HillsDebugSession的地表季节及原主题光照时段/天气继续独立控制，需要协调时手动选择。
+
+修改控制器会完整覆盖同一VolumeProfile的Sky、Clouds、Ground Fog和Snow，所有受管字段显式Override；其他组件保持原样。Environment/Lighting已移除，天气模块不再解析或上传地表光照。手动细调这四组件会保留到下次修改控制器或点击“应用天气到Profile”。关闭Controller停止写入，已应用效果保留；使用四模块开关关闭效果。
+
+编辑模式直接写sharedProfile；运行模式同时定向更新sharedProfile和已经存在的会话克隆，不替换克隆、不创建第二个相机owner。普通保存或“保存天气Profile”保存作者配置，不自动SaveAssets。Play是试调，退出后重新应用编辑场景里的控制器参数。
+
+原Profile已经保GUID迁到Settings/HillsEnvironmentVolumeProfile.asset，Resources也在Settings。迁移不增加新Profile。资源、算法与参考资产仍属于S1参考实现，不代表可直接用于商业分发的自有美术。
+
+## 独立项目接入
+
+复制整个Weather目录并安装匹配URP；在实际使用的UniversalRendererData添加EnvironmentAtmosphereRendererFeature、EnvironmentSkyRendererFeature和EnvironmentSnowRendererFeature。三者各自唯一，保持现有事件：BeforeRendering绑定、249天空/云、449雪、AfterRendering清空。不新增RT、全屏Blit或keyword。
+
+给Global Volume一个包含四天气组件的Profile，挂WeatherController。运行Camera添加既有EnvironmentCameraBinding并引用EnvironmentResources，设置正确Volume Layer Mask。不要给已有HillsEnvironmentState拥有的Camera重复添加Binding。每相机一个EnvironmentCameraState，Mesh/Buffer由其管理和释放；其他项目浮动原点默认0，可通过Binding的originX/originZ输入。
+
+Scene View需要Atmosphere Feature开启previewInSceneView并指定sceneViewResources，Scene工具栏Effects为总开关，Skybox/Fog分别过滤天空云和雾。自定义Hills材质主题由HillsDebugSession的“应用主题光照”控制；Play中点击“重新应用地表主题”可恢复受管参数，纹理和其他手调字段保持；Scene Lighting按钮只保留URP自身灯光语义，不再过滤天气中的光照组件。保留每窗口资源释放和局部天空盒抑制，不修改全局RenderSettings.skybox。Edit云雪动画随Scene重绘，Always Refresh可持续预览。
+
+这仍是Volume驱动的多个渲染阶段，并非全屏后处理。普通URP/Lit不会自动拥有本模块的专用地景雾；接入Shaders/EnvironmentSurface.hlsl或参考EnvironmentSurfaceExample.shader，示例受光使用普通URP主光/SH。Hills的24组主题、水色、道路阴影修正由项目侧HillsThemeLighting/HillsThemeMaterials直接应用到共享运行材质与原Hills Sun；运行时不再创建第二个主题Volume。关闭天气Feature不关闭这些材质主题。
+
+## 渲染与资源边界
+
+天空/云使用共享Material和每相机Mesh/PropertyBlock；雪Compute+Indirect，固定容量，关闭后复用，不支持Compute/Indirect时禁雪。无Geometry Shader；保留multi_compile_instancing，不添加新keyword组合。全局参数在相机结束清空，资源销毁仅由owner执行。
+
+本次验证为Editor/Windows桌面范围。项目当前天气Feature配置在PC_Renderer；若某Quality选择其他Renderer，需要在该Renderer显式配置这些Feature，否则Profile虽刷新也不会绘制天气。未执行Android/iOS设备性能验收。
+
+本项目执行记录、原数据对照与固定图证据统一见Docs/ReverseEngineering/ContentsAudit/URP环境Volume模块化与跨项目复用实施计划.md §12.9、§13.8（LT5–LT8实际结果与保留的图像/成本尾项）。

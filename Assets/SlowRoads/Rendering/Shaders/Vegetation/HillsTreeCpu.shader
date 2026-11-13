@@ -1,5 +1,12 @@
 // Instancing x2; no optional material keywords. No URP lighting keyword multiplication.
-Shader "SlowRoads/Hills/TreeCpu" { Properties {_BaseMap("Albedo",2D)="white"{} _AlphaMap("Alpha",2D)="white"{} _BumpMap("Reference normal channels",2D)="white"{} _NoiseMap("Noise",2D)="white"{} _Cutoff("Alpha cutoff",Float)=.5 _UseAlphaMap("Separate alpha",Float)=0 _Discolouration("Discolouration",Float)=.3 _ShadowFactor("Shadow factor",Float)=.8 _Radiance("Radiance",Float)=0 _HasSnow("Snow",Float)=0} SubShader { Tags {"RenderPipeline"="UniversalPipeline" "Queue"="AlphaTest" "RenderType"="TransparentCutout"} Cull Off ZWrite On
+Shader "SlowRoads/Hills/TreeCpu" { Properties {
+        [Header(Hills Theme Lighting)]
+        _ThemeLightingEnabled("Apply theme lighting",Float)=0
+        _ThemeSun("Theme sun irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeAmbient("Theme ambient irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeHemisphere("Theme hemisphere irradiance (linear)",Vector)=(0,0,0,0)
+        _ThemeReferenceSunIntensity("Theme reference sun intensity",Float)=1
+_BaseMap("Albedo",2D)="white"{} _AlphaMap("Alpha",2D)="white"{} _BumpMap("Reference normal channels",2D)="white"{} _NoiseMap("Noise",2D)="white"{} _Cutoff("Alpha cutoff",Float)=.5 _UseAlphaMap("Separate alpha",Float)=0 _Discolouration("Discolouration",Float)=.3 _ShadowFactor("Shadow factor",Float)=.8 _Radiance("Radiance",Float)=0 _HasSnow("Snow",Float)=0} SubShader { Tags {"RenderPipeline"="UniversalPipeline" "Queue"="AlphaTest" "RenderType"="TransparentCutout"} Cull Off ZWrite On
 Pass { Name "Forward" Tags {"LightMode"="UniversalForward"} 
 HLSLPROGRAM
 #pragma target 3.5

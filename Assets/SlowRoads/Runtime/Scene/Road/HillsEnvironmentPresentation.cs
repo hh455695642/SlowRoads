@@ -10,30 +10,38 @@ namespace SlowRoads.Scene.Road
     {
         HillsSceneSettings settings;
         RoadStreamingPresentation streaming;
+        SlowRoads.Environment.EnvironmentResources resources;
         float initialFar,ownedFar;Light sun;Color initialColour,ownedColour;float initialIntensity,ownedIntensity;Quaternion initialRotation,ownedRotation;bool ownsLight;
         public HillsEnvironmentState State {get;private set;}
-        public void Initialize(HillsSceneSettings config,Camera camera,RoadStreamingPresentation source)
+        public void Initialize(HillsSceneSettings config,Camera camera,RoadStreamingPresentation source, SlowRoads.Environment.EnvironmentResources environmentResources=null)
         {
-            Release();settings=config??throw new ArgumentNullException(nameof(config));streaming=source;
+            Release();settings=config??throw new ArgumentNullException(nameof(config));streaming=source;resources=environmentResources;
             sun=source!=null?source.Sun:null;if(sun!=null){initialColour=sun.color;initialIntensity=sun.intensity;initialRotation=sun.transform.rotation;}
             initialFar=camera.farClipPlane;ownedFar=initialFar;State=new HillsEnvironmentState(camera);
             try{Apply();}catch{Release();throw;}
         }
         void Apply()
         {
-            State.Apply(HillsEnvironmentProfile.Resolve((int)settings.season,settings.environmentTime,settings.environmentWeather),
-                settings.detail,settings.terrainDetail,settings.skyVisible,settings.cloudsVisible,settings.atmosphereVisible,settings.snowVisible,settings.environmentLightingEnabled);
-            State.SetSkyMaterial(settings.skyMaterial);
-            State.SetCloudMaterial(settings.cloudMaterial);
-            State.SetSnowResources(settings.snowMaterial,settings.snowCulling);
+            State.ApplyTheme(HillsEnvironmentProfile.Resolve((int)settings.season,settings.environmentTime,settings.environmentWeather),settings.environmentLightingEnabled);
+            streaming?.ThemeMaterials?.Apply(State.Profile,State.ObserverShadow,State.LightingEnabled);
+            State.SetSkyMaterial(resources!=null?resources.skyMaterial:null);
+            State.SetCloudMaterial(resources!=null?resources.cloudMaterial:null);
+            State.SetSnowResources(resources!=null?resources.snowMaterial:null,resources!=null?resources.snowCulling:null);
             ApplySun();
-            if(settings.skyMaterial!=null||settings.cloudMaterial!=null){ownedFar=State.CloudScale;State.Camera.farClipPlane=ownedFar;}
+            // View quality owns clipping. Local/cloud Volume blends must not change vegetation culling.
+            if(resources!=null&&(resources.skyMaterial!=null||resources.cloudMaterial!=null)){ownedFar=settings.detail switch{0=>1200,1=>3600,2=>7000,3=>11000,4=>15000,_=>22000};State.Camera.farClipPlane=ownedFar;}
         }
         void LateUpdate()
         {
             if(State==null)return;
             Apply();var origin=streaming!=null?streaming.RenderOrigin:default;
             State.Tick(Time.deltaTime,origin.X,origin.Z);State.SetSnowTime(Time.timeAsDouble);State.SetSurfaceInput(ReadObserverShadow());
+            streaming?.ThemeMaterials?.Apply(State.Profile,State.ObserverShadow,State.LightingEnabled);
+        }
+        public void ApplyThemeNow()
+        {
+            if(State==null)return;
+            Apply();streaming?.ThemeMaterials?.Reapply();
         }
         void ApplySun()
         {

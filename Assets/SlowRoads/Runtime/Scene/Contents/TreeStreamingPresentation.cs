@@ -14,7 +14,6 @@ namespace SlowRoads.Scene.Contents
         public TreeStreamingSession Core=>road?.Terrain?.Trees;
         Mesh billboard;
         Material[] near=new Material[8],far=new Material[2];
-        readonly Material[] cpu=new Material[32];
         int season=-1;bool disposed;
         public void Initialize(RoadStreamingPresentation road,HillsSceneSettings settings)
         {
@@ -37,10 +36,9 @@ namespace SlowRoads.Scene.Contents
             for(int i=0;i<8;i++)
             {
                 var material=settings.treeMaterials[season*8+i];if(material==null)throw new InvalidOperationException("Tree season material not configured");
-                if(compute)near[i]=material;
-                else {int index=season*8+i;if(cpu[index]==null){cpu[index]=new Material(material){shader=settings.treeFallbackShader,enableInstancing=true,hideFlags=HideFlags.DontSave};}near[i]=cpu[index];}
+                near[i]=road.ThemeMaterials.Resolve(material,compute?null:settings.treeFallbackShader);
             }
-            for(int i=0;i<2;i++)far[i]=settings.treeImposterMaterials[season*2+i];
+            for(int i=0;i<2;i++)far[i]=road.ThemeMaterials.Resolve(settings.treeImposterMaterials[season*2+i]);
             Gpu?.SetMaterials(near,far);
         }
         void LateUpdate()
@@ -54,7 +52,6 @@ namespace SlowRoads.Scene.Contents
         {
             if(disposed)return;disposed=true;Gpu?.Dispose();Gpu=null;
             if(billboard!=null){if(Application.isPlaying)Destroy(billboard);else DestroyImmediate(billboard);}
-            foreach(var m in cpu)if(m!=null){if(Application.isPlaying)Destroy(m);else DestroyImmediate(m);}
         }
         void OnDestroy()=>Release();
     }

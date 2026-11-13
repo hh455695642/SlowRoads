@@ -35,15 +35,7 @@ namespace SlowRoads.Scene.Road
         [InspectorName("季节")] public HillsRoadSeason season;
         [InspectorName("时段")] public HillsEnvironmentTime environmentTime=HillsEnvironmentTime.Day;
         [InspectorName("天气")] public HillsEnvironmentWeather environmentWeather=HillsEnvironmentWeather.Clear;
-        [InspectorName("显示天空")] public bool skyVisible=true;
-        [InspectorName("显示云层")] public bool cloudsVisible=true;
-        [InspectorName("显示环境雾")] public bool atmosphereVisible=true;
-        [InspectorName("主题光照")] public bool environmentLightingEnabled=true;
-        [InspectorName("显示天气飘雪")] public bool snowVisible=true;
-        public Material skyMaterial;
-        public Material cloudMaterial;
-        public Material snowMaterial;
-        public ComputeShader snowCulling;
+        [InspectorName("应用主题光照")] public bool environmentLightingEnabled=true;
         [InspectorName("显示丘陵地形")] public bool terrainVisible=true;
         [InspectorName("地形边界调试")] public bool terrainDebug=false;
         [InspectorName("显示树群")] public bool treesVisible=true;
