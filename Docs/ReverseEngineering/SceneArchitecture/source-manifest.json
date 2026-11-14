@@ -207,6 +207,40 @@
           ]
         ],
         "lineConvention": "full module formatted lines; raw source and section offsets/hashes in Fixtures/Environment/config.json"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsWater.source.txt",
+        "symbol": "C7/C4 W-R3 water GLSL, material/detail, basic material/defaults/texture loader",
+        "formatter": "prettier@3.6.2 parser=babel default LF",
+        "formattedSHA256": "6a9d766e0461fcc5950ec83da513bf9e1700588d0b289f6a0e8596e13a361aa4",
+        "ranges": [
+          [
+            3438,
+            3466
+          ],
+          [
+            3467,
+            3491
+          ],
+          [
+            3492,
+            3516
+          ],
+          [
+            3517,
+            3664
+          ],
+          [
+            5975,
+            6035
+          ],
+          [
+            5730,
+            5732
+          ]
+        ],
+        "excerptSHA256": "7b0b2605fa3834671dbe1bdf5aaf0082682fc85f6cd9d3d770d8d90b9bf2b763",
+        "lineConvention": "Full module independent formatter version; raw UTF-16 offsets and original fixture SHA cross checked in C7-1-water-source-map.json"
       }
     ]
   },
@@ -510,6 +544,28 @@
         ],
         "excerptSHA256": "d051e446e3fec5b9193a39c7e44260d63adfb7d6bdc09c4c598ab9447658b84d",
         "lineConvention": "full-module formatted lines; original texture upload/material state/GL output independently executed by environment-snow-reference.cjs"
+      },
+      {
+        "path": "Docs/ReverseEngineering/SceneArchitecture/SourceAtlas/HillsWater.source.txt",
+        "symbol": "C7/C4 W-R3 water GLSL, material/detail, basic material/defaults/texture loader",
+        "formatter": "prettier@3.6.2 parser=babel default LF",
+        "formattedSHA256": "b3a0bda89c85ec170a7273219b773850307aaea346459aa0ec1a12c0d155928e",
+        "ranges": [
+          [
+            5942,
+            5989
+          ],
+          [
+            5096,
+            5453
+          ],
+          [
+            27747,
+            27765
+          ]
+        ],
+        "excerptSHA256": "7b0b2605fa3834671dbe1bdf5aaf0082682fc85f6cd9d3d770d8d90b9bf2b763",
+        "lineConvention": "Full module independent formatter version; raw UTF-16 offsets and original fixture SHA cross checked in C7-1-water-source-map.json"
       }
     ]
   },

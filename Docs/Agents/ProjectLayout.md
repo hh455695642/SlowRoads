@@ -1,5 +1,7 @@
 # 项目目录与开发约定
 
+2026-11-13 C7当前：第三目标在约定Editor/桌面范围结项，15类硬门禁PASS；完整内容30分钟/91.39km与桌面CPU/GPU/上传/资源实测已归档。测试入口在`Assets/SlowRoads/Tests/EditMode/Contents`，显式有限采集/复算工具在`Docs/ReverseEngineering/ContentsAudit/c7-*`，证据在`Docs/Agents/Artifacts/HillsContentsC7`，不安装到正式场景。DefaultVolumeProfile仅删除9个已确认失效测试子资产，23有效组件/GUID保留，无新增正式运行链；原算法/密度/6m与2m保持。当前结果统一见C7计划§15～16，下方阶段待办为对应日期历史；不自动关闭LT严格整图、完整S1或S2。
+
 2026-11-13 LT当前：HillsThemeLighting纯求值→HillsThemeMaterials有界共享材质→正式显示链；唯一Debug Inspector可显式“重新应用地表主题”。Lighting Volume/runtime theme/旧全局链及临时Before Shader已清退。LT5/LT7功能与LT8清退通过51项去重回归，独立Weather Player有效；LT6固定图与桌面基线已采，严格图像相等及Before成本比较尾项保留，整体LT未结项。目录/接口仍见下表与环境Volume计划§13.8。
 
 2026-11-13 W迁移当前入口：天气通用代码/主题表/Shader/Compute/材质/纹理/Resources/Profile统一位于Assets/Art/Weather，旧embedded包已移除；主场景Hills Environment Volume挂WeatherController，只写天空/云/雾/雪。天气季节/时段/天气与HillsDebugSession地表主题输入独立，无自动同步。Hills光照、道路阴影及水面主题链保持；历史V0–V10路径不再是当前入口。详细验证及限定范围见环境Volume计划§12.9。
@@ -40,8 +42,9 @@ Assets/
     Editor/Debug/                     调试 Inspector，无顶层菜单
     Settings/Hills/                    唯一HillsSceneSettings.asset（种子/道路/季节/观察/性能）
     Tests/EditMode/                    原版数值对照测试
-      Contents/HillsAllContentsHistory.cs     测试专用不可变全模块历史/随机轨迹，无运行时入口
-      Contents/HillsAllContentsJointTests.cs  C5/C6前置：三seed四预算/修订/warm/取消/受控路桩
+      Contents/HillsAllContentsHistory.cs     schema2不可变全模块历史/随机轨迹；纯会话或非拥有式正式会话适配
+      Contents/HillsAllContentsJointTests.cs  C70记录器、C71覆盖、C75五配置预算/重放及物理档案门禁
+      Contents/HillsContentsDependencyTests.cs C72真实贡献修订/撤回/共享G4与两预算历史
     Art/Debug/Materials/               观察方块材质
     Art/Reference/SlowRoads/           临时参考素材，按原分类保存
       Models/ Textures/ Materials/ Prefabs/
@@ -64,7 +67,8 @@ Docs/
                                       路面材质来源身份与独立表面算术样本
     RoadAudit/Fixtures/Streaming/      原 Se/B7→Ca→xi trace与Functional/Recovery全数组矩阵
     RoadAudit/Fixtures/RoadBlend/      i_投影、ze扰动、Ll逐点与分支边界样本
-    ContentsAudit/                    C0/C1唯一实施文档、复用既有VM的内容执行器
+    ContentsAudit/                    C0～C7实施/验收文档、复用既有VM的原版执行器
+    ContentsAudit/c7-*                显式有限主场景采集/Frame Debugger/RenderDoc及独立历史/引用/门禁复算；无自动生产入口
     ContentsAudit/Fixtures/Trees/     原Wa/Dt/i7/U/s0/qb样本、精确随机位串和材质证据
     ContentsAudit/Fixtures/Fields/    原Da/Ra/Ea/Ka/Ca裁接、共享边、属性与随机数据
     ContentsAudit/Fixtures/Structures/ 原ii/S2/k2/T0/K4和墙规则、季节绑定、表面数据

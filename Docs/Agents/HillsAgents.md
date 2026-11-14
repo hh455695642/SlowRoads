@@ -1,5 +1,7 @@
 # Hills agent 结构与阶段验收
 
+2026-11-13 C7当前结项：C7.0～C7.9约定Editor/桌面门禁通过，第三目标Hills周边内容生成与渲染复刻完成；15类硬门禁PASS、阻塞0。五配置×五预算完整回收历史、三轮原生主场景预算前缀、修订/取消/六轮重建、固定视觉及真实GPU、30分钟/91.39km/25次原点迁移、桌面CPU/GPU/GC/上传/内存基线和Legacy清退均有实际记录。仅清理DefaultVolumeProfile的9个失效测试子资产，23有效组件/GUID保持；102个受保护Generation源码、原Fixture、密度、6m/2m保持。C3 HDR用户接受差异、J3历史包装超时及三项辅助诊断UNVERIFIED保留，不宣称全部历史测试零失败。当前权威状态见`Docs/ReverseEngineering/ContentsAudit/C7_Hills全部内容联合验收实施计划.md`§15～16及`Docs/Agents/Artifacts/HillsContentsC7/C7-9-final-gate.json`。下述“C7未开始/未结项”为各日期历史；LT严格整图/完整S1及S2、移动专项不随C7自动完成。
+
 2026-11-13 LT5–LT8补证：显式重新应用地表主题已接现有Debug Inspector；去重51/51、三seed四预算完整回收历史2304事件、域重载开/关各10轮重建、2.8km全内容推进与独立Weather Player通过。24主题/动态阴影、独立天气、786保护文件、密度与6m/2m保持，旧Lighting/运行主题Volume和临时Before Shader清退。LT6当前桌面CPU/GPU基线已实测，但严格整图相等与同条件Before成本比较仍未关闭，整体LT/C7/S1不标全PASS。详细结果见环境Volume计划§13.8。
 
 2026-11-13 W迁移当前入口：天气通用代码/主题表/Shader/Compute/材质/纹理/Resources/Profile统一位于Assets/Art/Weather，旧embedded包已移除；主场景Hills Environment Volume挂WeatherController，只写天空/云/雾/雪。天气季节/时段/天气与HillsDebugSession地表主题输入独立，无自动同步。Hills光照、道路阴影及水面主题链保持；历史V0–V10路径不再是当前入口。详细验证及限定范围见环境Volume计划§12.9。
